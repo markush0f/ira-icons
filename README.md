@@ -2,9 +2,22 @@
 
 Colección inicial de 10 iconos SVG de trazo (outline). Los originales están en [`icons/`](icons/).
 
-## Vista previa
+## Landing en Astro
 
-Abre [`index.html`](index.html) directamente en el navegador para comparar los iconos a **16, 24 y 32 px**. No necesitas instalar dependencias ni levantar un servidor.
+Con Node.js **22.23.4 o posterior** y pnpm (si tienes Corepack pero no el comando `pnpm`, ejecuta `corepack enable pnpm`):
+
+```sh
+pnpm install
+pnpm dev
+```
+
+La landing está en [`packages/landing/`](packages/landing/). Usa Astro y CSS nativo, sin TypeScript ni JavaScript de cliente añadido. Para compilarla, ejecuta `pnpm build`.
+
+El workspace reserva `packages/astro/`, `packages/react/` y `packages/core/` para las futuras distribuciones. Todavía no contienen componentes ni artefactos generados.
+
+## Vista previa original
+
+Mientras se migra el catálogo a Astro, abre [`index.html`](index.html) directamente en el navegador para comparar los iconos a **16, 24 y 32 px**, sin levantar un servidor.
 
 ## Uso en HTML
 
