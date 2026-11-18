@@ -1,50 +1,50 @@
 # Ira Icons
 
-Colección inicial de 10 iconos SVG de trazo (outline). Los originales están en [`icons/`](icons/).
+An initial collection of 10 outline SVG icons. The source files live in [`icons/`](icons/).
 
-## Landing en Astro
+## Astro landing page
 
-Con Node.js **22.23.4 o posterior** y pnpm (si tienes Corepack pero no el comando `pnpm`, ejecuta `corepack enable pnpm`):
+Use **Bun** to install dependencies and run the workspace scripts. The Astro CLI runs on Node.js **22.23.4 or later**.
 
 ```sh
-pnpm install
-pnpm dev
+bun install
+bun run dev
 ```
 
-La landing está en [`packages/landing/`](packages/landing/). Usa Astro y CSS nativo, sin TypeScript ni JavaScript de cliente añadido. Para compilarla, ejecuta `pnpm build`.
+The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro and plain CSS. Icon previews render as inline SVG; a small client script handles search and theme switching. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
-El catálogo importa los iconos de `packages/astro/`. Los paquetes `packages/react/` y `packages/core/` todavía están reservados para futuras distribuciones.
+Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. There is no separate code generation step. React support is not implemented yet.
 
-## Uso en Astro
+## Astro usage
 
-`@ira-icons/astro` ya se puede usar dentro del workspace, pero aún no se publica en npm. Importa un solo componente y selecciona el icono con `name`:
+`@ira-icons/astro` is available within the workspace but is not published to npm. Import a single component and select an icon with `name`:
 
 ```astro
 ---
 import Icon from '@ira-icons/astro';
 ---
 
-<Icon name="search" size={24} label="Buscar" />
+<Icon name="search" size={24} label="Search" />
 ```
 
-El tamaño predeterminado es 24 px. Omite `label` para iconos decorativos o si el control que contiene el icono ya tiene una etiqueta accesible. Los SVG heredan el color del texto.
+The default size is 24 px. Omit `label` for decorative icons or when the surrounding control already has an accessible name. The SVG inherits the text color.
 
-## Vista previa original
+## Standalone preview
 
-También puedes abrir [`index.html`](index.html) directamente en el navegador para comparar los SVG originales sin levantar un servidor.
+Open [`index.html`](index.html) directly in a browser to compare the original SVGs without starting a server.
 
-## Uso en HTML
+## HTML usage
 
 ```html
-<img src="icons/search.svg" width="24" height="24" alt="Buscar">
+<img src="icons/search.svg" width="24" height="24" alt="Search">
 ```
 
-Usa `alt=""` si el icono es decorativo. Si es el único contenido de un botón, etiqueta el botón (por ejemplo, `aria-label="Buscar"`). Para que el icono herede el color del texto mediante `currentColor`, inserta el SVG directamente en el HTML: un SVG cargado con `<img>` no hereda el color de la página.
+Use `alt=""` for decorative icons. If the icon is the only content of a button, label the button itself (for example, with `aria-label="Search"`). To let the icon inherit text color via `currentColor`, inline the SVG: when loaded with `<img>`, it does not inherit the page's text color.
 
-## Añadir un icono
+## Adding an icon
 
-1. Guarda un SVG en `icons/` con un nombre en minúsculas y separado por guiones, como `arrow-up.svg`.
-2. Usa `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"`, `stroke-width="2"` y extremos y uniones redondeados.
-3. Arranca `pnpm dev` o ejecuta `pnpm build`: ambos regeneran el registro y el icono aparece en el catálogo sin tocar la landing. Si el servidor de desarrollo ya está en marcha, ejecuta `pnpm generate:astro` para actualizar el registro.
+1. Save an SVG in `icons/` using a lowercase, hyphen-separated name such as `arrow-up.svg`.
+2. Use `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"`, `stroke-width="2"`, and rounded line caps and joins.
+3. Run `bun run dev` or `bun run build` from the repository root. Astro discovers the new SVG without editing a list.
 
-Si quieres que el icono aparezca también en la vista previa original, añade su nombre a `index.html`.
+To include the icon in the standalone preview as well, add its name to `index.html`.

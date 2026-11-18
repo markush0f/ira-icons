@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="es">
+<!-- Standalone preview of the original SVG files, with no build step or server required. -->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ira Icons · Vista previa</title>
+  <title>Ira Icons · SVG preview</title>
   <style>
     :root {
       font-family: system-ui, sans-serif;
@@ -47,9 +48,9 @@
 <body>
   <main>
     <h1>Ira Icons</h1>
-    <p>Compara la legibilidad de los iconos outline a 16, 24 y 32 px. Pulsa un nombre para abrir su SVG original.</p>
-    <ul class="catalog" id="catalog" aria-label="Catálogo de iconos"></ul>
-    <noscript>Activa JavaScript para ver el catálogo de iconos.</noscript>
+    <p>Compare outline icons at 16, 24, and 32 px. Select a name to open the original SVG.</p>
+    <ul class="catalog" id="catalog" aria-label="Icon catalog"></ul>
+    <noscript>Enable JavaScript to view the icon catalog.</noscript>
   </main>
   <template id="icon-card">
     <li class="icon">
@@ -64,6 +65,7 @@
     </figure>
   </template>
   <script>
+    // Keep this list explicit so the standalone preview works without a server or build step.
     const icons = [
       'arrow-left', 'arrow-right', 'check', 'chevron-down', 'close',
       'home', 'menu', 'minus', 'plus', 'search',
