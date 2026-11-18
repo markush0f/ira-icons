@@ -4,6 +4,9 @@
   "private": true,
   "exports": {
     ".": "./Icon.astro",
-    "./names": "./icons.generated.mjs"
+    "./names": "./icons.mjs"
+  },
+  "dependencies": {
+    "@ira-icons/core": "workspace:*"
   }
 }
