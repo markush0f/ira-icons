@@ -1,45 +1,112 @@
 ---
-import Icon from '@ira-icons/astro';
-import { iconNames } from '@ira-icons/astro/names';
-import '../styles/global.css';
+/**
+ * Presents the Astro package as a full-width, searchable icon catalog.
+ * All previews render from the package's SVGs; client scripts only add controls.
+ */
+import Icon from "@ira-icons/astro";
+import { iconNames } from "@ira-icons/astro/names";
+import "../styles/global.css";
 
 const sizes = [16, 24, 32];
+const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
+  iconNames.includes(name),
+);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Ira Icons: una colección de iconos SVG de trazo redondeado." />
-    <title>Ira Icons</title>
+    <meta name="description" content="Browse Ira Icons, a collection of rounded outline SVG icons." />
+    <title>Ira Icons — SVG icon library</title>
+    <script is:inline>
+      // Apply a saved choice before the first paint; CSS handles the system default.
+      try {
+        const theme = localStorage.getItem("ira-icons-theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {
+        // Storage can be unavailable in private or embedded contexts.
+      }
+    </script>
   </head>
   <body>
+    <header class="site-header page-gutter">
+      <a class="brand" href="/" aria-label="Ira Icons home">
+        <span class="brand-mark"><Icon name="plus" size={18} /></span>
+        <span>Ira Icons</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#catalog">Catalog</a>
+        <button type="button" class="theme-button" id="theme-toggle" aria-pressed="false" hidden>
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M20.5 14.4A8.7 8.7 0 0 1 9.6 3.5 8.7 8.7 0 1 0 20.5 14.4Z" stroke-linejoin="round" />
+          </svg>
+          Dark mode
+        </button>
+      </nav>
+    </header>
+
     <main>
-      <header>
-        <p class="eyebrow">Colección SVG</p>
-        <h1>Ira Icons</h1>
-        <p>Iconos de trazo redondeado para Astro, React y HTML.</p>
-      </header>
-      <section aria-labelledby="catalog-title">
-        <h2 id="catalog-title">Catálogo</h2>
-        <p>Compara los iconos a 16, 24 y 32 px.</p>
-        <ul class="catalog">
+      <section class="hero page-gutter" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> SVG icon library</p>
+          <h1 id="hero-title">Simple shapes.<br /><span>Clear meaning.</span></h1>
+          <p class="hero-description">Rounded outline icons for interfaces. Built on a 24 px grid, ready to use in Astro or as plain SVG.</p>
+          <a class="browse-link" href="#catalog">Browse icons <Icon name="arrow-right" size={18} /></a>
+        </div>
+        {featuredIcons.length > 0 && (
+          <aside class="specimen" aria-hidden="true">
+            <div class="specimen-heading"><span>Icon specimen</span><span>24 × 24</span></div>
+            <div class="specimen-grid">
+              {featuredIcons.map((name) => (
+                <div class="specimen-tile"><Icon name={name} size={48} /></div>
+              ))}
+            </div>
+            <div class="specimen-footer"><span>Outline collection</span><span>2 px stroke</span></div>
+          </aside>
+        )}
+      </section>
+
+      <section class="catalog-section page-gutter" id="catalog" aria-labelledby="catalog-title">
+        <div class="catalog-header">
+          <div>
+            <p class="eyebrow">The collection</p>
+            <h2 id="catalog-title">Icon catalog</h2>
+            <p class="catalog-count" id="icon-count" role="status">{iconNames.length} {iconNames.length === 1 ? "icon" : "icons"}</p>
+          </div>
+          <div class="search-field" id="search-field" hidden>
+            <label class="visually-hidden" for="icon-search">Search icons</label>
+            <Icon name="search" size={20} />
+            <input type="search" id="icon-search" placeholder="Search icons…" autocomplete="off" aria-controls="icon-grid" />
+          </div>
+        </div>
+
+        <ul class="icon-grid" id="icon-grid" role="list">
           {iconNames.map((name) => (
-            <li class="icon-card">
-              <h3>{name}</h3>
-              <div class="samples">
-                {sizes.map((size) => (
-                  <figure>
-                    <div class="sample"><Icon name={name} size={size} /></div>
-                    <figcaption>{size} px</figcaption>
-                  </figure>
-                ))}
+            <li class="icon-card" data-icon-name={name}>
+              <div class="icon-preview"><Icon name={name} size={48} /></div>
+              <div class="icon-details">
+                <h3>{name}</h3>
+                <div class="icon-sizes">
+                  {sizes.map((size) => (
+                    <figure>
+                      <div class="size-preview"><Icon name={name} size={size} /></div>
+                      <figcaption>{size} px</figcaption>
+                    </figure>
+                  ))}
+                </div>
               </div>
             </li>
           ))}
         </ul>
+        <p class="empty-state" id="empty-state" hidden>No icons match your search. Try a different name.</p>
       </section>
     </main>
+
+    <footer class="site-footer page-gutter">
+      <span>Ira Icons</span><span>Rounded outline SVGs</span>
+    </footer>
+    <script src="../scripts/catalog.js"></script>
   </body>
 </html>
