@@ -6,8 +6,9 @@
     "node": ">=22.23.4"
   },
   "scripts": {
-    "dev": "pnpm --filter @ira-icons/landing dev",
-    "build": "pnpm --filter @ira-icons/landing build",
+    "generate:astro": "node scripts/generate-astro.mjs",
+    "dev": "node scripts/generate-astro.mjs && pnpm --filter @ira-icons/landing dev",
+    "build": "node scripts/generate-astro.mjs && pnpm --filter @ira-icons/landing build",
     "preview": "pnpm --filter @ira-icons/landing preview"
   }
 }

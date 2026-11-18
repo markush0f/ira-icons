@@ -13,11 +13,25 @@ pnpm dev
 
 La landing está en [`packages/landing/`](packages/landing/). Usa Astro y CSS nativo, sin TypeScript ni JavaScript de cliente añadido. Para compilarla, ejecuta `pnpm build`.
 
-El workspace reserva `packages/astro/`, `packages/react/` y `packages/core/` para las futuras distribuciones. Todavía no contienen componentes ni artefactos generados.
+El catálogo importa los iconos de `packages/astro/`. Los paquetes `packages/react/` y `packages/core/` todavía están reservados para futuras distribuciones.
+
+## Uso en Astro
+
+`@ira-icons/astro` ya se puede usar dentro del workspace, pero aún no se publica en npm. Importa un solo componente y selecciona el icono con `name`:
+
+```astro
+---
+import Icon from '@ira-icons/astro';
+---
+
+<Icon name="search" size={24} label="Buscar" />
+```
+
+El tamaño predeterminado es 24 px. Omite `label` para iconos decorativos o si el control que contiene el icono ya tiene una etiqueta accesible. Los SVG heredan el color del texto.
 
 ## Vista previa original
 
-Mientras se migra el catálogo a Astro, abre [`index.html`](index.html) directamente en el navegador para comparar los iconos a **16, 24 y 32 px**, sin levantar un servidor.
+También puedes abrir [`index.html`](index.html) directamente en el navegador para comparar los SVG originales sin levantar un servidor.
 
 ## Uso en HTML
 
@@ -31,6 +45,6 @@ Usa `alt=""` si el icono es decorativo. Si es el único contenido de un botón, 
 
 1. Guarda un SVG en `icons/` con un nombre en minúsculas y separado por guiones, como `arrow-up.svg`.
 2. Usa `viewBox="0 0 24 24"`, `fill="none"`, `stroke="currentColor"`, `stroke-width="2"` y extremos y uniones redondeados.
-3. Añade su nombre (sin `.svg`) a la lista `icons` de `index.html` y comprueba cómo se ve a los tres tamaños.
+3. Arranca `pnpm dev` o ejecuta `pnpm build`: ambos regeneran el registro y el icono aparece en el catálogo sin tocar la landing. Si el servidor de desarrollo ya está en marcha, ejecuta `pnpm generate:astro` para actualizar el registro.
 
-Los componentes para React y Astro y el sprite HTML se generarán a partir de estos originales en una fase posterior.
+Si quieres que el icono aparezca también en la vista previa original, añade su nombre a `index.html`.

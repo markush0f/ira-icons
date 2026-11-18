@@ -1,0 +1,21 @@
+---
+import { getIcon } from './icons.generated.mjs';
+
+const { name, size = 24, label } = Astro.props;
+// La geometría viene exclusivamente de los SVG del repositorio.
+const icon = getIcon(name);
+if (!icon) throw new Error(`Icono de Ira Icons desconocido: ${String(name)}`);
+
+const accessibleLabel = typeof label === 'string' ? label.trim() : '';
+---
+
+<svg
+  {...icon.attributes}
+  width={size}
+  height={size}
+  role={accessibleLabel ? 'img' : undefined}
+  aria-label={accessibleLabel || undefined}
+  aria-hidden={accessibleLabel ? undefined : 'true'}
+>
+  <Fragment set:html={icon.shapes} />
+</svg>

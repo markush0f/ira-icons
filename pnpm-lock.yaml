@@ -14,6 +14,9 @@ importers:
 
   packages/landing:
     dependencies:
+      '@ira-icons/astro':
+        specifier: workspace:*
+        version: link:../astro
       astro:
         specifier: ^7.4.12
         version: 7.4.12(yaml@2.9.1)

@@ -1,5 +1,9 @@
 {
   "name": "@ira-icons/astro",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "exports": {
+    ".": "./Icon.astro",
+    "./names": "./icons.generated.mjs"
+  }
 }

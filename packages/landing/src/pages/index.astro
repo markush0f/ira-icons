@@ -1,5 +1,9 @@
 ---
+import Icon from '@ira-icons/astro';
+import { iconNames } from '@ira-icons/astro/names';
 import '../styles/global.css';
+
+const sizes = [16, 24, 32];
 ---
 
 <!doctype html>
@@ -18,8 +22,23 @@ import '../styles/global.css';
         <p>Iconos de trazo redondeado para Astro, React y HTML.</p>
       </header>
       <section aria-labelledby="catalog-title">
-        <h2 id="catalog-title">Catálogo<  /h2>
-        <p>Aquí se mostrará la colección de iconos.</p>
+        <h2 id="catalog-title">Catálogo</h2>
+        <p>Compara los iconos a 16, 24 y 32 px.</p>
+        <ul class="catalog">
+          {iconNames.map((name) => (
+            <li class="icon-card">
+              <h3>{name}</h3>
+              <div class="samples">
+                {sizes.map((size) => (
+                  <figure>
+                    <div class="sample"><Icon name={name} size={size} /></div>
+                    <figcaption>{size} px</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   </body>
