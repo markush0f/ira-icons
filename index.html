@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ira Icons · Vista previa</title>
+  <style>
+    :root {
+      font-family: system-ui, sans-serif;
+      color: #182538;
+      background: #f4f6fa;
+    }
+    body {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: clamp(1rem, 5vw, 3rem);
+    }
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 3.5rem); }
+    p { color: #475569; }
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+      gap: 1rem;
+      padding: 0;
+      list-style: none;
+    }
+    .icon {
+      padding: 1rem;
+      border: 1px solid #d6dce6;
+      border-radius: .75rem;
+      background: #fff;
+    }
+    h2 { margin: 0 0 1rem; font-size: 1rem; }
+    a { color: #294785; }
+    .samples { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    figure { margin: 0; text-align: center; }
+    .sample {
+      display: grid;
+      place-items: center;
+      min-height: 3.25rem;
+      border-radius: .5rem;
+      background: #f4f6fa;
+    }
+    figcaption { margin-top: .375rem; color: #475569; font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Ira Icons</h1>
+    <p>Compara la legibilidad de los iconos outline a 16, 24 y 32 px. Pulsa un nombre para abrir su SVG original.</p>
+    <ul class="catalog" id="catalog" aria-label="Catálogo de iconos"></ul>
+    <noscript>Activa JavaScript para ver el catálogo de iconos.</noscript>
+  </main>
+  <template id="icon-card">
+    <li class="icon">
+      <h2><a></a></h2>
+      <div class="samples"></div>
+    </li>
+  </template>
+  <template id="icon-sample">
+    <figure>
+      <div class="sample"><img alt=""></div>
+      <figcaption></figcaption>
+    </figure>
+  </template>
+  <script>
+    const icons = [
+      'arrow-left', 'arrow-right', 'check', 'chevron-down', 'close',
+      'home', 'menu', 'minus', 'plus', 'search',
+    ];
+    const sizes = [16, 24, 32];
+    const catalog = document.querySelector('#catalog');
+    const cardTemplate = document.querySelector('#icon-card');
+    const sampleTemplate = document.querySelector('#icon-sample');
+
+    for (const name of icons) {
+      const path = `icons/${name}.svg`;
+      const card = cardTemplate.content.cloneNode(true);
+      const link = card.querySelector('a');
+      link.href = path;
+      link.textContent = name;
+      const samples = card.querySelector('.samples');
+
+      for (const size of sizes) {
+        const sample = sampleTemplate.content.cloneNode(true);
+        const image = sample.querySelector('img');
+        image.width = size;
+        image.height = size;
+        image.src = path;
+        sample.querySelector('figcaption').textContent = `${size} px`;
+        samples.append(sample);
+      }
+
+      catalog.append(card);
+    }
+  </script>
+</body>
+</html>
