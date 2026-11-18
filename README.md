@@ -24,10 +24,10 @@ Astro loads the original SVGs as components through Vite. `@ira-icons/core` vali
 import Icon from '@ira-icons/astro';
 ---
 
-<Icon name="search" size={24} label="Search" />
+<Icon name="search" size={32} color="#6339b8" label="Search" />
 ```
 
-The default size is 24 px. Omit `label` for decorative icons or when the surrounding control already has an accessible name. The SVG inherits the text color.
+The default size is 24 px. Set `size` and `color` to customize its dimensions and stroke color. Omit `label` for decorative icons or when the surrounding control already has an accessible name. By default, the SVG inherits the text color.
 
 ## Standalone preview
 

@@ -19,6 +19,7 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Browse Ira Icons, a collection of rounded outline SVG icons." />
+    <link rel="icon" type="image/png" href="/ira-logo.png" />
     <title>Ira Icons — SVG icon library</title>
     <script is:inline>
       // Apply a saved choice before the first paint; CSS handles the system default.
@@ -33,7 +34,7 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
   <body>
     <header class="site-header page-gutter">
       <a class="brand" href="/" aria-label="Ira Icons home">
-        <span class="brand-mark"><Icon name="plus" size={18} /></span>
+        <img class="brand-logo" src="/ira-logo.png" alt="" width="40" height="40" />
         <span>Ira Icons</span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
@@ -85,13 +86,19 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
         <ul class="icon-grid" id="icon-grid" role="list">
           {iconNames.map((name) => (
             <li class="icon-card" data-icon-name={name}>
-              <div class="icon-preview"><Icon name={name} size={48} /></div>
+              <div class="icon-preview"><Icon name={name} size={48} color="#ad8af3" /></div>
               <div class="icon-details">
                 <h3>{name}</h3>
+                <div class="icon-controls">
+                  <label for={`size-${name}`}>Size <output data-size-value>{48} px</output></label>
+                  <input id={`size-${name}`} type="range" min="16" max="96" value="48" data-size-control />
+                  <label for={`color-${name}`}>Color</label>
+                  <input id={`color-${name}`} type="color" value="#ad8af3" data-color-control aria-label={`Preview color for ${name}`} />
+                </div>
                 <div class="icon-sizes">
                   {sizes.map((size) => (
                     <figure>
-                      <div class="size-preview"><Icon name={name} size={size} /></div>
+                      <div class="size-preview"><Icon name={name} size={size} color="#ad8af3" /></div>
                       <figcaption>{size} px</figcaption>
                     </figure>
                   ))}

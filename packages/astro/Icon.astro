@@ -5,7 +5,7 @@
  */
 import { getIcon } from './icons.mjs';
 
-const { name, size = 24, label } = Astro.props;
+const { name, size = 24, color = "currentColor", label } = Astro.props;
 const Svg = getIcon(name);
 if (!Svg) throw new Error(`Unknown Ira Icons icon: ${String(name)}`);
 
@@ -16,6 +16,7 @@ const accessibleLabel = typeof label === 'string' ? label.trim() : '';
 <Svg
   width={size}
   height={size}
+  color={color}
   role={accessibleLabel ? 'img' : undefined}
   aria-label={accessibleLabel || undefined}
   aria-hidden={accessibleLabel ? undefined : 'true'}

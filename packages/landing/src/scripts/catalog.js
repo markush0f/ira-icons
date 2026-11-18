@@ -28,6 +28,31 @@ const searchInput = document.querySelector("#icon-search");
 const count = document.querySelector("#icon-count");
 const emptyState = document.querySelector("#empty-state");
 const cards = document.querySelectorAll("#icon-grid [data-icon-name]");
+// Each card owns its controls, so changing one icon never affects the others.
+for (const card of cards) {
+  const sizeInput = card.querySelector("[data-size-control]");
+  const sizeValue = card.querySelector("[data-size-value]");
+  const colorInput = card.querySelector("[data-color-control]");
+
+  if (sizeInput && sizeValue) {
+    sizeInput.addEventListener("input", () => {
+      const size = Number(sizeInput.value);
+      const preview = card.querySelector(".icon-preview svg");
+      sizeValue.value = `${size} px`;
+      sizeValue.textContent = `${size} px`;
+      preview?.setAttribute("width", String(size));
+      preview?.setAttribute("height", String(size));
+    });
+  }
+
+  if (colorInput) {
+    colorInput.addEventListener("input", () => {
+      card.querySelectorAll("svg").forEach((icon) => {
+        icon.setAttribute("color", colorInput.value);
+      });
+    });
+  }
+}
 
 if (searchField && searchInput && count && emptyState) {
   const filterIcons = () => {
