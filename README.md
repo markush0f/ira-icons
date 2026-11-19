@@ -1,6 +1,6 @@
 # Ira Icons
 
-A collection of 100 outline SVG icons. The source files live in [`icons/`](icons/).
+A collection of 100 icons in two styles: original and minimalist. Both live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
 
 ## Astro landing page
 
