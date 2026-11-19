@@ -1,0 +1,57 @@
+---
+/** A reusable color picker with a native spectrum control, HEX input, and palette presets. */
+const { initialColor = "#ad8af3" } = Astro.props;
+const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2"];
+---
+
+<div class="color-picker" data-color-picker data-color={initialColor} style={`--picker-color: ${initialColor}`}>
+  <label class="color-picker-label" for="detail-color">Icon color</label>
+  <div class="color-picker-fields">
+    <label class="color-swatch" for="detail-color-spectrum" aria-label="Choose a color">
+      <input id="detail-color-spectrum" type="color" value={initialColor} data-color-spectrum />
+    </label>
+    <label class="color-hex-field" for="detail-color">
+      <span aria-hidden="true">#</span>
+      <input id="detail-color" type="text" value={initialColor.slice(1)} maxlength="6" spellcheck="false" autocomplete="off" data-color-hex aria-label="Hex color value" />
+    </label>
+  </div>
+  <div class="color-presets" aria-label="Color presets">
+    {presets.map((color) => (
+      <button type="button" class="color-preset" data-color-preset={color} style={`--preset-color: ${color}`} aria-label={`Use color ${color}`} title={color}></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Keep the spectrum input, HEX field, and presets in sync, then notify the selected icon.
+  const picker = document.querySelector("[data-color-picker]");
+
+  if (picker) {
+    const spectrum = picker.querySelector("[data-color-spectrum]");
+    const hex = picker.querySelector("[data-color-hex]");
+
+    const applyColor = (value) => {
+      if (!/^#[\da-f]{6}$/i.test(value)) return;
+      const color = value.toLowerCase();
+      picker.dataset.color = color;
+      picker.style.setProperty("--picker-color", color);
+      spectrum.value = color;
+      hex.value = color.slice(1);
+      picker.dispatchEvent(new CustomEvent("icon-color-change", {
+        bubbles: true,
+        detail: { color },
+      }));
+    };
+
+    spectrum.addEventListener("input", () => applyColor(spectrum.value));
+    hex.addEventListener("input", () => {
+      if (/^[\da-f]{6}$/i.test(hex.value)) applyColor(`#${hex.value}`);
+    });
+    hex.addEventListener("blur", () => {
+      if (!/^[\da-f]{6}$/i.test(hex.value)) hex.value = picker.dataset.color.slice(1);
+    });
+    picker.querySelectorAll("[data-color-preset]").forEach((button) => {
+      button.addEventListener("click", () => applyColor(button.dataset.colorPreset));
+    });
+  }
+</script>

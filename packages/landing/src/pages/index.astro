@@ -1,9 +1,10 @@
 ---
-/** Minimal, full-width catalog for browsing and customizing the source SVG icons. */
+/** Minimal searchable catalog with an expandable, interactive icon detail panel. */
 import Icon from "@ira-icons/astro";
 import { iconNames } from "@ira-icons/astro/names";
 import ReactLogo from "../assets/frameworks/react.svg";
 import AstroLogo from "../assets/frameworks/astro.svg";
+import ColorPicker from "../components/ColorPicker.astro";
 import "../styles/global.css";
 ---
 
@@ -39,45 +40,56 @@ import "../styles/global.css";
     </header>
 
     <main>
-      <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
-        <div class="catalog-header">
-          <div class="catalog-heading">
-            <h1 id="catalog-title">Icons</h1>
-            <p id="icon-count" role="status">{iconNames.length} icons</p>
+      <div class="workspace" id="workspace">
+        <section class="catalog-panel" aria-labelledby="catalog-title">
+          <div class="catalog-header">
+            <div class="catalog-heading">
+              <h1 class="visually-hidden" id="catalog-title">Icon catalog</h1>
+              <p id="icon-count" role="status">{iconNames.length} icons</p>
+            </div>
+            <div class="search-field" id="search-field" hidden>
+              <Icon name="search" size={17} />
+              <label class="visually-hidden" for="icon-search">Search icons</label>
+              <input type="search" id="icon-search" placeholder="Search icons" autocomplete="off" aria-controls="icon-grid" />
+            </div>
           </div>
-          <div class="search-field" id="search-field" hidden>
-            <Icon name="search" size={17} />
-            <label class="visually-hidden" for="icon-search">Search icons</label>
-            <input type="search" id="icon-search" placeholder="Search icons" autocomplete="off" aria-controls="icon-grid" />
-          </div>
-        </div>
 
-        <ul class="icon-grid" id="icon-grid" role="list">
-          {iconNames.map((name) => (
-            <li class="icon-card" data-icon-name={name}>
-              <div class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></div>
-              <div class="icon-details">
-                <h2>{name}</h2>
-                <div class="card-actions">
-                  <input id={`color-${name}`} type="color" value="#ad8af3" data-color-control aria-label={`Preview color for ${name}`} title="Change icon color" />
-                  <div class="framework-links" aria-label={`Documentation for ${name}`}>
-                    <a class="framework-button" href="https://react.dev/" target="_blank" rel="noreferrer" aria-label="React documentation" title="React">
-                      <img src={ReactLogo.src} alt="" width="17" height="16" />
-                    </a>
-                    <a class="framework-button" href="https://docs.astro.build/" target="_blank" rel="noreferrer" aria-label="Astro documentation" title="Astro">
-                      <img class="astro-framework-logo" src={AstroLogo.src} alt="" width="13" height="17" />
-                    </a>
-                    <a class="framework-button" href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank" rel="noreferrer" aria-label="SVG documentation" title="SVG">
-                      <Icon name="svg" size={18} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <p class="empty-state" id="empty-state" hidden>No icons found.</p>
-      </section>
+          <ul class="icon-grid" id="icon-grid" role="list">
+            {iconNames.map((name) => (
+              <li class="icon-card" data-icon-name={name}>
+                <button class="icon-select" type="button" data-select-icon={name} aria-expanded="false">
+                  <span class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></span>
+                  <span class="icon-name">{name}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p class="empty-state" id="empty-state" hidden>No icons found.</p>
+        </section>
+
+        <aside class="detail-panel" id="detail-panel" aria-labelledby="detail-title" hidden>
+          <div class="detail-header">
+            <p class="detail-eyebrow">Icon details</p>
+            <button type="button" class="close-button" id="close-detail" aria-label="Close icon details">×</button>
+          </div>
+          <div class="detail-preview" id="detail-preview"></div>
+          <h2 class="detail-title" id="detail-title"></h2>
+          <ColorPicker />
+          <div class="detail-divider"></div>
+          <p class="detail-eyebrow">Use with</p>
+          <div class="framework-links">
+            <a class="framework-button" href="https://react.dev/" target="_blank" rel="noreferrer" aria-label="React documentation" title="React">
+              <img src={ReactLogo.src} alt="" width="20" height="18" />
+            </a>
+            <a class="framework-button" href="https://docs.astro.build/" target="_blank" rel="noreferrer" aria-label="Astro documentation" title="Astro">
+              <img class="astro-framework-logo" src={AstroLogo.src} alt="" width="16" height="20" />
+            </a>
+            <a class="framework-button" href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank" rel="noreferrer" aria-label="SVG documentation" title="SVG">
+              <Icon name="svg" size={22} />
+            </a>
+          </div>
+        </aside>
+      </div>
     </main>
     <script src="../scripts/catalog.js"></script>
   </body>
