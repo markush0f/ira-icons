@@ -1,97 +1,19 @@
 ---
-/** Minimal searchable catalog with an expandable, interactive icon detail panel. */
-import Icon from "@ira-icons/astro";
+/** Composes the searchable catalog and its interactive icon detail panel. */
 import { iconNames } from "@ira-icons/astro/names";
-import ReactLogo from "../assets/frameworks/react.svg";
-import AstroLogo from "../assets/frameworks/astro.svg";
-import ColorPicker from "../components/ColorPicker.astro";
-import "../styles/global.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import IconCatalog from "../components/IconCatalog.astro";
+import IconDetails from "../components/IconDetails.astro";
 
 const firstIcon = iconNames[0];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A minimal catalog of Ira outline SVG icons." />
-    <link rel="icon" type="image/png" href="/ira-logo.png" />
-    <title>Ira Icons</title>
-    <script is:inline>
-      // Restore the saved theme before rendering the page.
-      try {
-        const theme = localStorage.getItem("ira-icons-theme");
-        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
-      } catch {
-        // Keep the default theme when browser storage is unavailable.
-      }
-    </script>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="/" aria-label="Ira Icons home">
-        <img src="/ira-logo.png" alt="" width="28" height="28" />
-        <span>Ira Icons</span>
-      </a>
-      <button type="button" class="theme-button" id="theme-toggle" aria-label="Toggle color theme" aria-pressed="false" hidden>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-          <path d="M20.5 14.4A8.7 8.7 0 0 1 9.6 3.5 8.7 8.7 0 1 0 20.5 14.4Z" stroke-linejoin="round" />
-        </svg>
-      </button>
-    </header>
-
-    <main>
-      <div class="workspace" id="workspace">
-        <section class="catalog-panel" aria-labelledby="catalog-title">
-          <div class="catalog-header">
-            <div class="catalog-heading">
-              <h1 class="visually-hidden" id="catalog-title">Icon catalog</h1>
-              <p id="icon-count" role="status">{iconNames.length} icons</p>
-            </div>
-            <div class="search-field" id="search-field" hidden>
-              <Icon name="search" size={17} />
-              <label class="visually-hidden" for="icon-search">Search icons</label>
-              <input type="search" id="icon-search" placeholder="Search icons" autocomplete="off" aria-controls="icon-grid" />
-            </div>
-          </div>
-
-          <ul class="icon-grid" id="icon-grid" role="list">
-            {iconNames.map((name) => (
-              <li class:list={["icon-card", { "is-selected": name === firstIcon }]} data-icon-name={name}>
-                <button class="icon-select" type="button" data-select-icon={name} aria-expanded={name === firstIcon ? "true" : "false"}>
-                  <span class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></span>
-                  <span class="icon-name">{name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p class="empty-state" id="empty-state" hidden>No icons found.</p>
-        </section>
-
-        <aside class="detail-panel" id="detail-panel" aria-labelledby="detail-title">
-          <div class="detail-header">
-            <p class="detail-eyebrow">Icon details</p>
-          </div>
-          <div class="detail-preview" id="detail-preview"><Icon name={firstIcon} size={96} color="#ad8af3" /></div>
-          <h2 class="detail-title" id="detail-title">{firstIcon}</h2>
-          <ColorPicker />
-          <div class="detail-divider"></div>
-          <p class="detail-eyebrow">Use with</p>
-          <div class="framework-links">
-            <a class="framework-button" href="https://react.dev/" target="_blank" rel="noreferrer" aria-label="React documentation" title="React">
-              <img src={ReactLogo.src} alt="" width="20" height="18" />
-            </a>
-            <a class="framework-button" href="https://docs.astro.build/" target="_blank" rel="noreferrer" aria-label="Astro documentation" title="Astro">
-              <img class="astro-framework-logo" src={AstroLogo.src} alt="" width="16" height="20" />
-            </a>
-            <a class="framework-button" href="https://developer.mozilla.org/en-US/docs/Web/SVG" target="_blank" rel="noreferrer" aria-label="SVG documentation" title="SVG">
-              <Icon name="svg" size={22} />
-            </a>
-          </div>
-        </aside>
-      </div>
-    </main>
-    <script src="../scripts/catalog.js"></script>
-  </body>
-</html>
+<SiteLayout>
+  <main>
+    <div class="workspace" id="workspace">
+      <IconCatalog names={iconNames} selectedName={firstIcon} />
+      <IconDetails name={firstIcon} />
+    </div>
+  </main>
+  <script src="../scripts/catalog.js"></script>
+</SiteLayout>

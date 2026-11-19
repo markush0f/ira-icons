@@ -11,7 +11,7 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro, JetBrains Mono, and plain CSS. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. It includes a custom color picker with a HEX field and presets, plus framework documentation links. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.js` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Use the color picker to set the icon color, then choose React, Astro, or SVG under **Copy as** to copy the selected icon. The code is self-contained and keeps the preview color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
 Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. Both adapters load the original SVGs through `import.meta.glob`, without a separate code generation step. React uses Vite with SVGR to import SVGs as React components.
 

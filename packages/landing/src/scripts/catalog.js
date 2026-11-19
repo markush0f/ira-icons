@@ -1,4 +1,5 @@
-/** Adds theme switching, icon search, selection, and per-icon color editing. */
+/** Adds theme switching, icon search, selection, color editing, and clipboard export. */
+import { formatIcon } from "./icon-copy.js";
 const root = document.documentElement;
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 const themeToggle = document.querySelector("#theme-toggle");
@@ -33,6 +34,14 @@ const count = document.querySelector("#icon-count");
 const emptyState = document.querySelector("#empty-state");
 const cards = [...document.querySelectorAll("#icon-grid [data-icon-name]")];
 const iconColors = new Map();
+const copyActions = detailPanel.querySelector("[data-icon-copy]");
+const copyStatus = copyActions.querySelector("[data-copy-status]");
+let copyRequest = 0;
+
+const clearCopyStatus = () => {
+  copyRequest++;
+  copyStatus.textContent = "";
+};
 let selectedCard = cards.find((card) => card.classList.contains("is-selected")) ?? cards[0];
 
 const setPickerColor = (color) => {
@@ -51,6 +60,7 @@ for (const card of cards) {
     selectedCard?.classList.remove("is-selected");
     selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
     selectedCard = card;
+    clearCopyStatus();
     card.classList.add("is-selected");
     button.setAttribute("aria-expanded", "true");
     detailTitle.textContent = name;
@@ -71,12 +81,30 @@ if (selectedCard) {
   preview.setAttribute("height", "96");
   detailPreview.replaceChildren(preview);
   setPickerColor("#ad8af3");
+  copyActions.hidden = false;
+}
+
+for (const button of copyActions.querySelectorAll("[data-copy-format]")) {
+  button.addEventListener("click", async () => {
+    clearCopyStatus();
+    const request = copyRequest;
+    const format = button.dataset.copyFormat;
+    const name = selectedCard.dataset.iconName;
+    try {
+      const snippet = formatIcon(detailPreview.querySelector("svg"), name, format);
+      await navigator.clipboard.writeText(snippet);
+      if (request === copyRequest) copyStatus.textContent = `${format} copied.`;
+    } catch {
+      if (request === copyRequest) copyStatus.textContent = "Couldn’t copy. Check clipboard permissions and try again.";
+    }
+  });
 }
 
 detailPanel.addEventListener("icon-color-change", (event) => {
   if (!selectedCard) return;
   const { color } = event.detail;
   const name = selectedCard.dataset.iconName;
+  clearCopyStatus();
   iconColors.set(name, color);
   selectedCard.querySelector("svg").setAttribute("color", color);
   detailPreview.querySelector("svg").setAttribute("color", color);

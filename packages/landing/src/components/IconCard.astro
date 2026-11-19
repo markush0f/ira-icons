@@ -1,0 +1,17 @@
+---
+import Icon from "@ira-icons/astro";
+
+interface Props {
+  name: string;
+  selected?: boolean;
+}
+
+const { name, selected = false } = Astro.props;
+---
+
+<li class:list={["icon-card", { "is-selected": selected }]} data-icon-name={name}>
+  <button class="icon-select" type="button" data-select-icon={name} aria-expanded={selected ? "true" : "false"}>
+    <span class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></span>
+    <span class="icon-name">{name}</span>
+  </button>
+</li>
