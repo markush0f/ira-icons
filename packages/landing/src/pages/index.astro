@@ -5,9 +5,10 @@
  */
 import Icon from "@ira-icons/astro";
 import { iconNames } from "@ira-icons/astro/names";
+import ReactLogo from "../assets/frameworks/react.svg";
+import AstroLogo from "../assets/frameworks/astro.svg";
 import "../styles/global.css";
 
-const sizes = [16, 24, 32];
 const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
   iconNames.includes(name),
 );
@@ -18,14 +19,18 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Browse Ira Icons, a collection of rounded outline SVG icons." />
+    <meta
+      name="description"
+      content="Browse Ira Icons, a collection of rounded outline SVG icons."
+    />
     <link rel="icon" type="image/png" href="/ira-logo.png" />
     <title>Ira Icons — SVG icon library</title>
     <script is:inline>
       // Apply a saved choice before the first paint; CSS handles the system default.
       try {
         const theme = localStorage.getItem("ira-icons-theme");
-        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+        if (theme === "light" || theme === "dark")
+          document.documentElement.dataset.theme = theme;
       } catch {
         // Storage can be unavailable in private or embedded contexts.
       }
@@ -34,14 +39,37 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
   <body>
     <header class="site-header page-gutter">
       <a class="brand" href="/" aria-label="Ira Icons home">
-        <img class="brand-logo" src="/ira-logo.png" alt="" width="40" height="40" />
+        <img
+          class="brand-logo"
+          src="/ira-logo.png"
+          alt=""
+          width="40"
+          height="40"
+        />
         <span>Ira Icons</span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
         <a href="#catalog">Catalog</a>
-        <button type="button" class="theme-button" id="theme-toggle" aria-pressed="false" hidden>
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-            <path d="M20.5 14.4A8.7 8.7 0 0 1 9.6 3.5 8.7 8.7 0 1 0 20.5 14.4Z" stroke-linejoin="round" />
+        <button
+          type="button"
+          class="theme-button"
+          id="theme-toggle"
+          aria-pressed="false"
+          hidden
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="17"
+            height="17"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            aria-hidden="true"
+          >
+            <path
+              d="M20.5 14.4A8.7 8.7 0 0 1 9.6 3.5 8.7 8.7 0 1 0 20.5 14.4Z"
+              stroke-linejoin="round"
+            />
           </svg>
           Dark mode
         </button>
@@ -51,68 +79,143 @@ const featuredIcons = ["search", "home", "arrow-right", "plus"].filter((name) =>
     <main>
       <section class="hero page-gutter" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="status-dot"></span> SVG icon library</p>
-          <h1 id="hero-title">Simple shapes.<br /><span>Clear meaning.</span></h1>
-          <p class="hero-description">Rounded outline icons for interfaces. Built on a 24 px grid, ready to use in Astro or as plain SVG.</p>
-          <a class="browse-link" href="#catalog">Browse icons <Icon name="arrow-right" size={18} /></a>
+          <p class="eyebrow">
+            <span class="status-dot"></span> SVG icon library
+          </p>
+          <h1 id="hero-title">
+            Simple shapes.
+            <br />
+            <span>Clear meaning.</span>
+          </h1>
+          <p class="hero-description">
+            Rounded outline icons for interfaces. Built on a 24 px grid, ready
+            to use in Astro or as plain SVG.
+          </p>
+          <a class="browse-link" href="#catalog">
+            Browse icons <Icon name="arrow-right" size={18} />
+          </a>
         </div>
         {featuredIcons.length > 0 && (
           <aside class="specimen" aria-hidden="true">
-            <div class="specimen-heading"><span>Icon specimen</span><span>24 × 24</span></div>
+            <div class="specimen-heading">
+              <span>Icon specimen</span>
+              <span>24 × 24</span>
+            </div>
             <div class="specimen-grid">
               {featuredIcons.map((name) => (
-                <div class="specimen-tile"><Icon name={name} size={48} /></div>
+                <div class="specimen-tile">
+                  <Icon name={name} size={48} />
+                </div>
               ))}
             </div>
-            <div class="specimen-footer"><span>Outline collection</span><span>2 px stroke</span></div>
+            <div class="specimen-footer">
+              <span>Outline collection</span>
+              <span>2 px stroke</span>
+            </div>
           </aside>
         )}
       </section>
 
-      <section class="catalog-section page-gutter" id="catalog" aria-labelledby="catalog-title">
+      <section
+        class="catalog-section page-gutter"
+        id="catalog"
+        aria-labelledby="catalog-title"
+      >
         <div class="catalog-header">
           <div>
             <p class="eyebrow">The collection</p>
             <h2 id="catalog-title">Icon catalog</h2>
-            <p class="catalog-count" id="icon-count" role="status">{iconNames.length} {iconNames.length === 1 ? "icon" : "icons"}</p>
+            <p class="catalog-count" id="icon-count" role="status">
+              {iconNames.length} {iconNames.length === 1 ? "icon" : "icons"}
+            </p>
           </div>
           <div class="search-field" id="search-field" hidden>
-            <label class="visually-hidden" for="icon-search">Search icons</label>
+            <label class="visually-hidden" for="icon-search">
+              Search icons
+            </label>
             <Icon name="search" size={20} />
-            <input type="search" id="icon-search" placeholder="Search icons…" autocomplete="off" aria-controls="icon-grid" />
+            <input
+              type="search"
+              id="icon-search"
+              placeholder="Search icons…"
+              autocomplete="off"
+              aria-controls="icon-grid"
+            />
           </div>
         </div>
 
         <ul class="icon-grid" id="icon-grid" role="list">
           {iconNames.map((name) => (
             <li class="icon-card" data-icon-name={name}>
-              <div class="icon-preview"><Icon name={name} size={48} color="#ad8af3" /></div>
+              <div class="icon-preview">
+                <Icon name={name} size={48} color="#ad8af3" />
+              </div>
               <div class="icon-details">
                 <h3>{name}</h3>
                 <div class="icon-controls">
-                  <label for={`size-${name}`}>Size <output data-size-value>{48} px</output></label>
-                  <input id={`size-${name}`} type="range" min="16" max="96" value="48" data-size-control />
-                  <label for={`color-${name}`}>Color</label>
-                  <input id={`color-${name}`} type="color" value="#ad8af3" data-color-control aria-label={`Preview color for ${name}`} />
+                  <label for={`color-${name}`}>Preview color</label>
+                  <input
+                    id={`color-${name}`}
+                    type="color"
+                    value="#ad8af3"
+                    data-color-control
+                    aria-label={`Preview color for ${name}`}
+                  />
                 </div>
-                <div class="icon-sizes">
-                  {sizes.map((size) => (
-                    <figure>
-                      <div class="size-preview"><Icon name={name} size={size} color="#ad8af3" /></div>
-                      <figcaption>{size} px</figcaption>
-                    </figure>
-                  ))}
+                <div
+                  class="framework-links"
+                  aria-label={`Framework documentation for ${name}`}
+                >
+                  <a
+                    class="framework-button"
+                    href="https://react.dev/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="React documentation"
+                    title="React"
+                  >
+                    <img src={ReactLogo.src} alt="" width="18" height="16" />
+                  </a>
+                  <a
+                    class="framework-button"
+                    href="https://docs.astro.build/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Astro documentation"
+                    title="Astro"
+                  >
+                    <img
+                      class="astro-framework-logo"
+                      src={AstroLogo.src}
+                      alt=""
+                      width="14"
+                      height="18"
+                    />
+                  </a>
+                  <a
+                    class="framework-button"
+                    href="https://developer.mozilla.org/en-US/docs/Web/SVG"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="SVG documentation"
+                    title="SVG"
+                  >
+                    <Icon name="svg" size={20} />
+                  </a>
                 </div>
               </div>
             </li>
           ))}
         </ul>
-        <p class="empty-state" id="empty-state" hidden>No icons match your search. Try a different name.</p>
+        <p class="empty-state" id="empty-state" hidden>
+          No icons match your search. Try a different name.
+        </p>
       </section>
     </main>
 
     <footer class="site-footer page-gutter">
-      <span>Ira Icons</span><span>Rounded outline SVGs</span>
+      <span>Ira Icons</span>
+      <span>Rounded outline SVGs</span>
     </footer>
     <script src="../scripts/catalog.js"></script>
   </body>

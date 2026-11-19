@@ -48,3 +48,5 @@ Use `alt=""` for decorative icons. If the icon is the only content of a button, 
 3. Run `bun run dev` or `bun run build` from the repository root. Astro discovers the new SVG without editing a list.
 
 To include the icon in the standalone preview as well, add its name to `index.html`.
+
+The React and Astro framework logos in the landing page are sourced from [SVGL](https://svgl.app/); the marks are trademarks of their respective owners.
