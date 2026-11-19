@@ -1,6 +1,93 @@
 ---
-import "../styles/global.css";
-import DownloadIraLibrary from "../components/DownloadIraLibrary.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Icon from "@ira-icons/astro";
+import ReactLogo from "../assets/frameworks/react.svg";
+import AstroLogo from "../assets/frameworks/astro.svg";
+
+const setup = `git clone https://github.com/markush0f/ira-icons.git
+cd ira-icons
+bun install
+bun run dev`;
 ---
 
-<DownloadIraLibrary />
+<SiteLayout title="Installation · Ira Icons" description="Use Ira Icons in React, Astro, or plain HTML.">
+  <main class="guide" id="installation">
+    <header class="guide-header">
+      <a class="back-link" href="/"><Icon name="arrow-left-minimalist" size={16} /> Icon catalog</a>
+      <h1>Installation</h1>
+      <p>Use Ira Icons in React, Astro, or plain HTML. Copy an icon from the catalog and paste it into your project. No icon package is required.</p>
+    </header>
+
+    <nav class="guide-nav" aria-label="Installation options">
+      <a href="#react">React</a>
+      <a href="#astro">Astro</a>
+      <a href="#svg">SVG</a>
+      <a href="#local">Run locally</a>
+    </nav>
+
+    <section id="react" aria-labelledby="react-title">
+      <h2 id="react-title"><img src={ReactLogo.src} alt="" width="20" height="18" /> React</h2>
+      <ol>
+        <li>Select an icon in the catalog and click <strong>Copy React component</strong>.</li>
+        <li>Paste the code into a file such as <code>SearchIcon.jsx</code>.</li>
+        <li>Import and render it in your React app:</li>
+      </ol>
+      <pre><code>{`import SearchIcon from './SearchIcon.jsx';
+
+export default function App() {
+  return <SearchIcon />;
+}`}</code></pre>
+    </section>
+
+    <section id="astro" aria-labelledby="astro-title">
+      <h2 id="astro-title"><img class="astro-framework-logo" src={AstroLogo.src} alt="" width="16" height="20" /> Astro</h2>
+      <ol>
+        <li>Select an icon and click <strong>Copy Astro component</strong>.</li>
+        <li>Paste the code into <code>SearchIcon.astro</code>, including the frontmatter between the <code>---</code> lines.</li>
+        <li>Import it from a page or component in the same directory:</li>
+      </ol>
+      <pre><code>{`---
+import SearchIcon from './SearchIcon.astro';
+---
+
+<SearchIcon size={32} color="currentColor" />`}</code></pre>
+    </section>
+
+    <section id="svg" aria-labelledby="svg-title">
+      <h2 id="svg-title"><Icon name="svg" size={22} /> SVG</h2>
+      <ol>
+        <li>Select an icon and click <strong>Copy SVG</strong>.</li>
+        <li>Paste the markup directly into HTML, or save it as <code>search.svg</code>.</li>
+        <li>If you saved a file, reference it from your page:</li>
+      </ol>
+      <pre><code>{`<img src="./search.svg" width="24" height="24" alt="Search">`}</code></pre>
+      <p>Use an empty <code>alt</code> for decorative images. To inherit the surrounding text color, use inline SVG and remove the copied <code>color</code> attribute.</p>
+    </section>
+
+    <section id="local" aria-labelledby="local-title">
+      <h2 id="local-title">Run the catalog locally</h2>
+      <p>With Git, Bun, and Node.js 22.23.4 or later installed, run these commands in a terminal and open the URL Astro prints.</p>
+      <pre><code>{setup}</code></pre>
+      <p>The React and Astro adapters are available inside the repository as workspace packages. See the <a href="https://github.com/markush0f/ira-icons#readme">repository README</a> for their setup.</p>
+    </section>
+  </main>
+</SiteLayout>
+
+<style>
+  .guide { max-width: 54rem; }
+  .guide-header { max-width: 68ch; }
+  .back-link { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--text); }
+  .back-link:hover, .guide-nav a:hover { color: var(--accent); }
+  h1 { margin: .85rem 0 .65rem; font-size: clamp(1.75rem, 5vw, 2.65rem); line-height: 1.15; letter-spacing: -.035em; }
+  h2 { display: flex; align-items: center; gap: .65rem; margin: 0 0 .8rem; font-size: 1.15rem; }
+  p, li { font-size: .875rem; line-height: 1.75; }
+  p { max-width: 68ch; margin: .75rem 0; }
+  .guide-nav { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin-top: 1.75rem; padding-bottom: 1rem; font-size: .85rem; }
+  .guide-nav a, section p a { text-decoration: underline; text-underline-offset: .25em; }
+  section { border-top: 1px solid var(--line); padding: 1.5rem 0 1.75rem; scroll-margin-top: 1.5rem; }
+  ol { margin: 0 0 .85rem; padding-inline-start: 2ch; }
+  li + li { margin-top: .35rem; }
+  code { font-family: var(--font-mono); }
+  :not(pre) > code { padding: .08em .25em; background: var(--hover); overflow-wrap: anywhere; }
+  pre { margin: 0; padding: .9rem 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: .75rem; font-size: .8rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>

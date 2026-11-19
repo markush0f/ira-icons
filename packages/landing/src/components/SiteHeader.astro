@@ -1,3 +1,7 @@
+---
+const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
+---
+
 <header class="site-header">
   <a class="brand" href="/" aria-label="Ira Icons home">
     <img src="/ira-logo.png" alt="" width="65" height="65" />
@@ -5,7 +9,7 @@
   </a>
 
   <div class="header-actions">
-    <a class="installation-link" href="/installation" aria-label="Installation">
+    <a class="installation-link" href="/installation" aria-label="Installation" aria-current={onInstallation ? "page" : undefined}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

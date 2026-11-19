@@ -1,28 +1,5 @@
-/** Adds theme switching, icon search, selection, color editing, and clipboard export. */
+/** Adds icon search, selection, color editing, and clipboard export. */
 import { formatIcon } from "./icon-copy.js";
-const root = document.documentElement;
-const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
-const themeToggle = document.querySelector("#theme-toggle");
-
-if (themeToggle) {
-  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : systemTheme.matches;
-  const syncToggle = () => themeToggle.setAttribute("aria-pressed", String(isDark()));
-
-  themeToggle.addEventListener("click", () => {
-    const theme = isDark() ? "light" : "dark";
-    root.dataset.theme = theme;
-    try {
-      localStorage.setItem("ira-icons-theme", theme);
-    } catch {
-      // The theme remains active for this page if storage is unavailable.
-    }
-    syncToggle();
-  });
-
-  systemTheme.addEventListener("change", syncToggle);
-  syncToggle();
-  themeToggle.hidden = false;
-}
 
 const detailPanel = document.querySelector("#detail-panel");
 const detailPreview = document.querySelector("#detail-preview");
