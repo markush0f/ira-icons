@@ -1,6 +1,6 @@
 # Ira Icons
 
-An initial collection of 10 outline SVG icons. The source files live in [`icons/`](icons/).
+An initial collection of 11 outline SVG icons. The source files live in [`icons/`](icons/).
 
 ## Astro landing page
 
@@ -11,7 +11,7 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro and plain CSS. Icon previews render as inline SVG; a small client script handles search and theme switching. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro and plain CSS. Search the catalog and select an icon to open its detail panel. The panel includes a custom color picker with a HEX field and presets, plus framework documentation links. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
 Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. There is no separate code generation step. React support is not implemented yet.
 
