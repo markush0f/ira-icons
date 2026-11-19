@@ -6,6 +6,8 @@ import ReactLogo from "../assets/frameworks/react.svg";
 import AstroLogo from "../assets/frameworks/astro.svg";
 import ColorPicker from "../components/ColorPicker.astro";
 import "../styles/global.css";
+
+const firstIcon = iconNames[0];
 ---
 
 <!doctype html>
@@ -56,8 +58,8 @@ import "../styles/global.css";
 
           <ul class="icon-grid" id="icon-grid" role="list">
             {iconNames.map((name) => (
-              <li class="icon-card" data-icon-name={name}>
-                <button class="icon-select" type="button" data-select-icon={name} aria-expanded="false">
+              <li class:list={["icon-card", { "is-selected": name === firstIcon }]} data-icon-name={name}>
+                <button class="icon-select" type="button" data-select-icon={name} aria-expanded={name === firstIcon ? "true" : "false"}>
                   <span class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></span>
                   <span class="icon-name">{name}</span>
                 </button>
@@ -67,13 +69,12 @@ import "../styles/global.css";
           <p class="empty-state" id="empty-state" hidden>No icons found.</p>
         </section>
 
-        <aside class="detail-panel" id="detail-panel" aria-labelledby="detail-title" hidden>
+        <aside class="detail-panel" id="detail-panel" aria-labelledby="detail-title">
           <div class="detail-header">
             <p class="detail-eyebrow">Icon details</p>
-            <button type="button" class="close-button" id="close-detail" aria-label="Close icon details">×</button>
           </div>
-          <div class="detail-preview" id="detail-preview"></div>
-          <h2 class="detail-title" id="detail-title"></h2>
+          <div class="detail-preview" id="detail-preview"><Icon name={firstIcon} size={96} color="#ad8af3" /></div>
+          <h2 class="detail-title" id="detail-title">{firstIcon}</h2>
           <ColorPicker />
           <div class="detail-divider"></div>
           <p class="detail-eyebrow">Use with</p>

@@ -11,7 +11,7 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro and plain CSS. Search the catalog and select an icon to open its detail panel. The panel includes a custom color picker with a HEX field and presets, plus framework documentation links. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro, JetBrains Mono, and plain CSS. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. It includes a custom color picker with a HEX field and presets, plus framework documentation links. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
 Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. There is no separate code generation step. React support is not implemented yet.
 

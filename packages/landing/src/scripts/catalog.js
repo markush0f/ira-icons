@@ -23,27 +23,23 @@ if (themeToggle) {
   themeToggle.hidden = false;
 }
 
-const workspace = document.querySelector("#workspace");
 const detailPanel = document.querySelector("#detail-panel");
 const detailPreview = document.querySelector("#detail-preview");
 const detailTitle = document.querySelector("#detail-title");
-const closeButton = document.querySelector("#close-detail");
+const colorPicker = document.querySelector("[data-color-picker]");
 const searchField = document.querySelector("#search-field");
 const searchInput = document.querySelector("#icon-search");
 const count = document.querySelector("#icon-count");
 const emptyState = document.querySelector("#empty-state");
 const cards = [...document.querySelectorAll("#icon-grid [data-icon-name]")];
 const iconColors = new Map();
-let selectedCard;
+let selectedCard = cards.find((card) => card.classList.contains("is-selected")) ?? cards[0];
 
-const closeDetails = ({ restoreFocus = false } = {}) => {
-  if (!selectedCard) return;
-  selectedCard.classList.remove("is-selected");
-  selectedCard.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
-  if (restoreFocus) selectedCard.querySelector("[data-select-icon]").focus();
-  selectedCard = undefined;
-  workspace.classList.remove("has-selection");
-  detailPanel.hidden = true;
+const setPickerColor = (color) => {
+  colorPicker.dataset.color = color;
+  colorPicker.style.setProperty("--picker-color", color);
+  colorPicker.querySelector("[data-color-spectrum]").value = color;
+  colorPicker.querySelector("[data-color-hex]").value = color.slice(1);
 };
 
 for (const card of cards) {
@@ -52,7 +48,8 @@ for (const card of cards) {
 
   button.addEventListener("click", () => {
     if (selectedCard === card) return;
-    closeDetails();
+    selectedCard?.classList.remove("is-selected");
+    selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
     selectedCard = card;
     card.classList.add("is-selected");
     button.setAttribute("aria-expanded", "true");
@@ -61,16 +58,20 @@ for (const card of cards) {
     const preview = detailPreview.querySelector("svg");
     preview.setAttribute("width", "96");
     preview.setAttribute("height", "96");
-    preview.setAttribute("color", iconColors.get(name) ?? "#ad8af3");
-    workspace.classList.add("has-selection");
-    detailPanel.hidden = false;
+    const color = iconColors.get(name) ?? "#ad8af3";
+    preview.setAttribute("color", color);
+    setPickerColor(color);
   });
 }
 
-closeButton.addEventListener("click", () => closeDetails({ restoreFocus: true }));
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeDetails({ restoreFocus: true });
-});
+if (selectedCard) {
+  const name = selectedCard.dataset.iconName;
+  const preview = selectedCard.querySelector("[data-select-icon] svg").cloneNode(true);
+  preview.setAttribute("width", "96");
+  preview.setAttribute("height", "96");
+  detailPreview.replaceChildren(preview);
+  setPickerColor("#ad8af3");
+}
 
 detailPanel.addEventListener("icon-color-change", (event) => {
   if (!selectedCard) return;
@@ -90,10 +91,13 @@ if (searchField && searchInput && count && emptyState) {
       const name = card.dataset.iconName.replaceAll("-", " ");
       card.hidden = !name.includes(query);
       if (!card.hidden) matches++;
-      if (selectedCard === card && card.hidden) closeDetails();
     }
     count.textContent = `${matches} ${matches === 1 ? "icon" : "icons"}`;
     emptyState.hidden = matches !== 0;
+    if (selectedCard?.hidden) {
+      const firstVisible = cards.find((card) => !card.hidden);
+      firstVisible?.querySelector("[data-select-icon]").click();
+    }
   };
 
   searchInput.addEventListener("input", filterIcons);
