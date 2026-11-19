@@ -1,6 +1,6 @@
 # Ira Icons
 
-An initial collection of 11 outline SVG icons. The source files live in [`icons/`](icons/).
+A collection of 100 outline SVG icons. The source files live in [`icons/`](icons/).
 
 ## Astro landing page
 
