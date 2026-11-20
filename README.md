@@ -10,7 +10,7 @@ The catalog and [standalone preview](index.html) show one card per icon. Select 
 <Icon name="heart-animated" size={32} color="#c4416c" />
 ```
 
-The SVGs animate without JavaScript and stay still when the viewer requests reduced motion.
+Simple line icons such as `check` and `activity` draw their strokes progressively. Other icons keep their own motion: the bell swings, the heart beats, and the clock ticks. All animations run without JavaScript and respect reduced-motion preferences.
 
 ## Astro landing page
 

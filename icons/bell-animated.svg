@@ -7,12 +7,26 @@
             25% { transform: rotate(-6deg); }
             33% { transform: rotate(3deg); }
         }
+        @keyframes ira-bell-clapper {
+            0%, 47%, 100% { transform: rotate(0deg); }
+            8% { transform: rotate(9deg); }
+            19% { transform: rotate(-8deg); }
+            29% { transform: rotate(5deg); }
+            38% { transform: rotate(-2deg); }
+        }
         @media (prefers-reduced-motion: no-preference) {
             [data-ira-motion="bell"] {
                 transform-origin: 12px 3px;
                 animation: ira-bell 2.8s ease-in-out infinite;
             }
+            [data-ira-motion="bell-clapper"] {
+                transform-origin: 12px 15px;
+                animation: ira-bell-clapper 2.8s ease-in-out infinite;
+            }
         }
     </style>
-    <path data-ira-motion="bell" d="M5 10a7 7 0 0 1 14 0v2q0 3 2 5H3q2-2 2-5Zm4.5 10q2.5 3 5 0"/>
+    <g data-ira-motion="bell">
+        <path d="M5 10a7 7 0 0 1 14 0v2q0 3 2 5H3q2-2 2-5Z"/>
+        <path data-ira-motion="bell-clapper" d="M9.5 20q2.5 3 5 0"/>
+    </g>
 </svg>

@@ -44,6 +44,25 @@ test('renders every original SVG with its geometry and text', async () => {
   assert.match(render({ name: 'svg' }), />SVG<\/text>/);
 });
 
+test('draws simple lines while preserving the bell and heart motions', () => {
+  for (const name of ['activity', 'check', 'arrow-right', 'chart-line']) {
+    const html = render({ name: `${name}-animated` });
+    assert.match(html, /@media \(prefers-reduced-motion: no-preference\)/, name);
+    assert.match(html, /stroke-dashoffset: 0/, name);
+    assert.match(html, /<path\b[^>]*\bpathLength="1"/, name);
+  }
+  const chart = render({ name: 'chart-line-animated' });
+  assert.match(chart, /<path d="M3 4v16h18"><\/path><g data-ira-drawing="chart-line">/);
+
+  const bell = render({ name: 'bell-animated' });
+  assert.match(bell, /rotate\(-13deg\)/);
+  assert.match(bell, /<path data-ira-motion="bell-clapper"/);
+  assert.doesNotMatch(bell, /stroke-dashoffset/);
+  const heart = render({ name: 'heart-animated' });
+  assert.match(heart, /scale\(1\.08\)/);
+  assert.doesNotMatch(heart, /stroke-dashoffset/);
+});
+
 test('supports defaults and standard SVG props', () => {
   const html = render({ name: 'search', size: 32, color: '#6339b8', className: 'icon', strokeWidth: 1, 'data-testid': 'search', style: { opacity: 0.5 } });
   for (const part of ['width="32"', 'height="32"', 'color="#6339b8"', 'class="icon"', 'stroke-width="1"', 'data-testid="search"', 'opacity:0.5', 'aria-hidden="true"']) {

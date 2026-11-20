@@ -1,17 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
     <style>
-        @keyframes ira-close {
-            0%, 65%, 100% { transform: none; }
-            30% { transform: scale(.89); }
-        }
         @media (prefers-reduced-motion: no-preference) {
-            [data-ira-motion="close"] {
-                transform-origin: 12px 12px;
-                animation: ira-close 2.8s ease-in-out infinite;
+            @keyframes ira-draw-stroke {
+                0%, 8% { stroke-dashoffset: 1; opacity: 0; }
+                13%, 100% { opacity: 1; }
+                43%, 100% { stroke-dashoffset: 0; }
+            }
+            @keyframes ira-draw-loop {
+                0%, 9%, 91%, 100% { opacity: 0; }
+                14%, 78% { opacity: 1; }
+            }
+            [data-ira-drawing="close"] { animation: ira-draw-loop 2.8s ease-in-out infinite; }
+            [data-ira-drawing="close"] > * {
+                stroke-dasharray: 1 2;
+                animation: ira-draw-stroke 2.8s ease-in-out infinite backwards;
             }
         }
     </style>
-    <g data-ira-motion="close">
-        <path d="m5.5 5.5 13 13m0-13-13 13"/>
+    <g data-ira-drawing="close">
+        <path pathLength="1" d="m5.5 5.5 13 13m0-13-13 13"/>
     </g>
 </svg>
