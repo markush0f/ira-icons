@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes ira-flame-flicker {
+                0%, 100% { transform: skewX(0) scaleY(1); }
+                24% { transform: skewX(5deg) scaleY(.92); }
+                53% { transform: skewX(-3deg) scaleY(.98); }
+                78% { transform: skewX(2deg) scaleY(.89); }
+            }
+            [data-ira-motion^="flame-"] {
+                transform-origin: 12px 21px;
+                animation: ira-flame-flicker 1.25s ease-in-out infinite;
+            }
+            [data-ira-motion="flame-inner"] { animation-duration: .95s; }
+        }
+    </style>
+    <path data-ira-motion="flame-outer" d="M12 2c2 4-1 6 3 9l2-4c2.5 2.3 3.5 4.6 3.5 7A8.5 8.5 0 0 1 3.5 14C3.5 9 9 8 12 2Z"/>
+    <path data-ira-motion="flame-inner" d="M9 21c-1.5-3 1-4.2 3-7 .2 2.4 4.5 4.3 3 7"/>
+</svg>

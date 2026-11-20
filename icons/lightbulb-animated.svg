@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes ira-lightbulb-glow {
+                0%, 100% { fill-opacity: 0; }
+                20%, 60% { fill-opacity: .27; }
+            }
+            @keyframes ira-lightbulb-rays {
+                0%, 100% { opacity: .2; transform: scale(.94); }
+                18%, 58% { opacity: 1; transform: scale(1.07); }
+            }
+            [data-ira-motion="lightbulb-glow"] { animation: ira-lightbulb-glow 2.5s ease-in-out infinite; }
+            [data-ira-motion="lightbulb-rays"] {
+                transform-origin: 12px 11px;
+                animation: ira-lightbulb-rays 2.5s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="lightbulb-glow" d="M9.5 17v-1.5a5 5 0 1 1 5 0V17Z" fill="currentColor" fill-opacity="0"/>
+    <path d="M10 20h4m-3 2h2"/>
+    <path data-ira-motion="lightbulb-rays" d="M12 2v1M4.5 5l1 1m13-1-1 1M2.5 11H4m16 0h1.5"/>
+</svg>

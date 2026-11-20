@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes ira-magnet-attract {
+                0%, 8% { transform: none; opacity: 0; }
+                23% { opacity: 1; }
+                59%, 100% { transform: translate(var(--ira-magnet-x, 0px), -4px); opacity: 0; }
+            }
+            [data-ira-motion^="magnet-"] { animation: ira-magnet-attract 1.7s ease-in infinite; }
+            [data-ira-motion="magnet-left"] { --ira-magnet-x: 1px; }
+            [data-ira-motion="magnet-center"] { --ira-magnet-x: 3.5px; animation-delay: -.2s; }
+            [data-ira-motion="magnet-right"] { --ira-magnet-x: -1px; animation-delay: -.4s; }
+        }
+    </style>
+    <path d="M6 16V9a6 6 0 0 1 12 0v7h-4V9a2 2 0 0 0-4 0v7zm0-4h4m4 0h4"/>
+    <path data-ira-motion="magnet-left" d="M7 21h.01"/>
+    <path data-ira-motion="magnet-center" d="M12 21.5h.01"/>
+    <path data-ira-motion="magnet-right" d="M17 21h.01"/>
+</svg>

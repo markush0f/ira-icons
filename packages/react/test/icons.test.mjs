@@ -29,6 +29,15 @@ test('discovers the complete, sorted source catalog through Vite', async () => {
   assert.equal(getIcon('missing'), undefined);
 });
 
+test('keeps standalone preview names and all three variants in sync', async () => {
+  const bases = iconNames.filter((name) => !/-(animated|minimalist)$/.test(name));
+  const preview = await readFile(new URL('../../../index.html', import.meta.url), 'utf8');
+  const list = preview.match(/const icons = (\[[\s\S]*?\]);/);
+  assert.ok(list, 'Missing standalone icon list');
+  assert.deepEqual(JSON.parse(list[1]).sort(), bases);
+  assert.deepEqual(bases.flatMap((name) => [name, `${name}-animated`, `${name}-minimalist`]).sort(), iconNames);
+});
+
 test('renders every original SVG with its geometry and text', async () => {
   for (const name of iconNames) {
     const source = await readFile(new URL(`../../../icons/${name}.svg`, import.meta.url), 'utf8');

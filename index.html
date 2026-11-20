@@ -103,7 +103,21 @@
   </template>
   <script>
     // Keep this list explicit so the standalone preview works without a server or build step.
-    const icons = ["activity","alarm-clock","alert-circle","alert-triangle","archive","arrow-left","arrow-right","at-sign","bell","bookmark","briefcase","calendar","camera","chart-bar","chart-line","chat","check","chevron-down","chevron-left","chevron-right","chevron-up","clock","close","cloud","code","compass","copy","credit-card","database","download","edit","external-link","eye-off","eye","file","file-text","filter","flag","folder","gift","globe","grid","hash","heart","help-circle","home","image","info","layers","link","list","lock","mail","map-pin","maximize","menu","minus","monitor","moon","more-horizontal","more-vertical","package","paperclip","pause","pencil","play","plus","refresh","rocket","save","search","send","server","settings","share","shield","shopping-cart","slash","sliders","smile","square","star","sun","svg","table","tag","terminal","thumbs-up","trash","unlock","upload","users","user","video","volume","wifi","wrench","zap","zoom-in","zoom-out"];
+    const icons = [
+      "activity", "alarm-clock", "alert-circle", "alert-triangle", "archive", "arrow-left", "arrow-right", "at-sign", "battery-charging",
+      "bell", "bicycle", "bookmark", "briefcase", "calendar", "camera", "chart-bar", "chart-line", "chat",
+      "check", "chevron-down", "chevron-left", "chevron-right", "chevron-up", "clock", "close", "cloud", "code",
+      "coffee", "compass", "copy", "credit-card", "database", "download", "edit", "external-link", "eye",
+      "eye-off", "file", "file-text", "filter", "flag", "flame", "folder", "gift", "globe",
+      "grid", "hash", "heart", "help-circle", "home", "hourglass", "image", "info", "layers",
+      "lightbulb", "link", "list", "lock", "magnet", "mail", "map-pin", "maximize", "menu",
+      "microphone", "minus", "monitor", "moon", "more-horizontal", "more-vertical", "package", "paperclip", "pause",
+      "pencil", "play", "plus", "refresh", "rocket", "save", "scan", "search", "send",
+      "server", "settings", "share", "shield", "shopping-cart", "slash", "sliders", "smile", "square",
+      "star", "sun", "svg", "table", "tag", "terminal", "thumbs-up", "toggle-right", "trash",
+      "umbrella", "unlock", "upload", "user", "users", "video", "volume", "waveform", "wifi",
+      "wrench", "zap", "zoom-in", "zoom-out"
+    ];
     const variants = [['Animado', '-animated', 'play'], ['Minimalista', '-minimalist', 'minus'], ['Normal', '', 'square']];
     const sizes = [16, 24, 32];
     const catalog = document.querySelector('#catalog');

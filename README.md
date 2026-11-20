@@ -1,6 +1,6 @@
 # Ira Icons
 
-A collection of 100 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
+A collection of 112 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
 
 ## Animated variants
 
@@ -11,6 +11,8 @@ The catalog and [standalone preview](index.html) show one card per icon. Select 
 ```
 
 Simple line icons such as `check` and `activity` draw their strokes progressively. Other icons keep their own motion: the bell swings, the heart beats, and the clock ticks. All animations run without JavaScript and respect reduced-motion preferences.
+
+Try `coffee-animated` for rising steam, `hourglass-animated` for falling sand, `scan-animated` for a moving scanner beam, or `waveform-animated` for a trace that draws itself.
 
 ## Astro landing page
 
