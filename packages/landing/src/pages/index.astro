@@ -5,14 +5,15 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import IconCatalog from "../components/IconCatalog.astro";
 import IconDetails from "../components/IconDetails.astro";
 
-const firstIcon = iconNames[0];
+const catalogNames = iconNames.filter(name => !/-(animated|minimalist)$/.test(name));
+const firstIcon = catalogNames[0];
 ---
 
 <SiteLayout>
   <main>
     <div class="workspace" id="workspace">
-      <IconCatalog names={iconNames} selectedName={firstIcon} />
-      <IconDetails name={firstIcon} />
+      <IconCatalog names={catalogNames} selectedName={firstIcon} />
+      <IconDetails name={`${firstIcon}-animated`} />
     </div>
   </main>
   <script src="../scripts/catalog.js"></script>

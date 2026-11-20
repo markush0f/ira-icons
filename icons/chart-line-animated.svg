@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-chart-line {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: translateY(-1.5px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="chart-line"] {
+                transform-origin: 12px 12px;
+                animation: ira-chart-line 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="chart-line">
+        <path d="M3 4v16h18M7 15l4-5 4 2 6-7"/>
+    </g>
+</svg>

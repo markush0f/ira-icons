@@ -1,6 +1,16 @@
 # Ira Icons
 
-A collection of 100 icons in two styles: original and minimalist. Both live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
+A collection of 100 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
+
+## Animated variants
+
+The catalog and [standalone preview](index.html) show one card per icon. Select an icon in the catalog to reveal **Animado**, **Minimalista**, and **Normal** next to the copy formats (below them on mobile). Animated is selected first. Use names such as `check-animated`, `map-pin-animated`, or `heart-animated` like any other icon:
+
+```jsx
+<Icon name="heart-animated" size={32} color="#c4416c" />
+```
+
+The SVGs animate without JavaScript and stay still when the viewer requests reduced motion.
 
 ## Astro landing page
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-trash {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: rotate(-6deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="trash"] {
+                transform-origin: 12px 12px;
+                animation: ira-trash 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="trash">
+        <path d="M3 6h18M5 6l1 13q.2 2 2 2h8q1.8 0 2-2l1-13M9 6V3h6v3m-5 4v7m4-7v7"/>
+    </g>
+</svg>

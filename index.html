@@ -71,6 +71,9 @@
       background: #f4f6fa;
     }
 
+    [role="group"] { margin-top: 1rem; display: flex; gap: .25rem; }
+    button[aria-pressed="true"] { color: white; background: #483582; }
+    button[aria-pressed="true"] img { filter: invert(1); }
     figcaption {
       margin-top: .375rem;
       color: #475569;
@@ -100,17 +103,15 @@
   </template>
   <script>
     // Keep this list explicit so the standalone preview works without a server or build step.
-    const icons = [
-      'arrow-left', 'arrow-right', 'check', 'chevron-down', 'close',
-      'home', 'menu', 'minus', 'plus', 'search',
-    ];
+    const icons = ["activity","alarm-clock","alert-circle","alert-triangle","archive","arrow-left","arrow-right","at-sign","bell","bookmark","briefcase","calendar","camera","chart-bar","chart-line","chat","check","chevron-down","chevron-left","chevron-right","chevron-up","clock","close","cloud","code","compass","copy","credit-card","database","download","edit","external-link","eye-off","eye","file","file-text","filter","flag","folder","gift","globe","grid","hash","heart","help-circle","home","image","info","layers","link","list","lock","mail","map-pin","maximize","menu","minus","monitor","moon","more-horizontal","more-vertical","package","paperclip","pause","pencil","play","plus","refresh","rocket","save","search","send","server","settings","share","shield","shopping-cart","slash","sliders","smile","square","star","sun","svg","table","tag","terminal","thumbs-up","trash","unlock","upload","users","user","video","volume","wifi","wrench","zap","zoom-in","zoom-out"];
+    const variants = [['Animado', '-animated', 'play'], ['Minimalista', '-minimalist', 'minus'], ['Normal', '', 'square']];
     const sizes = [16, 24, 32];
     const catalog = document.querySelector('#catalog');
     const cardTemplate = document.querySelector('#icon-card');
     const sampleTemplate = document.querySelector('#icon-sample');
 
     for (const name of icons) {
-      const path = `icons/${name}.svg`;
+      const path = `icons/${name}-animated.svg`;
       const card = cardTemplate.content.cloneNode(true);
       const link = card.querySelector('a');
       link.href = path;
@@ -127,6 +128,29 @@
         samples.append(sample);
       }
 
+      const options = document.createElement('div');
+      options.setAttribute('role', 'group');
+      options.setAttribute('aria-label', name);
+      for (const [label, suffix, glyph] of variants) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.title = label;
+        button.setAttribute('aria-label', label);
+        const icon = document.createElement('img');
+        icon.src = `icons/${glyph}.svg`;
+        icon.width = icon.height = 20;
+        icon.alt = '';
+        button.append(icon);
+        button.setAttribute('aria-pressed', String(suffix === '-animated'));
+        button.onclick = () => {
+          const src = `icons/${name}${suffix}.svg`;
+          link.href = src;
+          samples.querySelectorAll('img').forEach(image => image.src = src);
+          for (const option of options.children) option.setAttribute('aria-pressed', String(option === button));
+        };
+        options.append(button);
+      }
+      samples.after(options);
       catalog.append(card);
     }
   </script>

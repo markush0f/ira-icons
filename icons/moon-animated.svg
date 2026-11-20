@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-moon {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: rotate(-6deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="moon"] {
+                transform-origin: 12px 12px;
+                animation: ira-moon 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="moon">
+        <path d="M20.5 14.4A8.2 8.2 0 0 1 9.6 3.5a9 9 0 1 0 10.9 10.9"/>
+    </g>
+</svg>

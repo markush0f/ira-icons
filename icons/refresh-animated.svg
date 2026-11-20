@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-refresh {
+            0%, 12% { transform: rotate(0deg); }
+            76%, 100% { transform: rotate(180deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="refresh"] {
+                transform-origin: 12px 12px;
+                animation: ira-refresh 2.6s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="refresh" d="M4 9a8 8 0 0 1 13-3l3 3m0-5v5h-5m5 6a8 8 0 0 1-13 3l-3-3m0 5v-5h5"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-rocket {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: translateY(-1.5px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="rocket"] {
+                transform-origin: 12px 12px;
+                animation: ira-rocket 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="rocket">
+        <path d="M8 13q2-8 13-10-1 10-10 14Zm0 0H3l4-5h4m0 9v4l5-4v-4m-9 4q-3 0-4 4 4-1 4-4"/>
+        <circle cx="16" cy="8" r="1.2"/>
+    </g>
+</svg>

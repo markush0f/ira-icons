@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-chat {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="chat"] {
+                transform-origin: 12px 12px;
+                animation: ira-chat 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="chat">
+        <path d="M21 11.5a8.5 8.5 0 0 1-12 7.8L3 21l1.8-5.1A8.5 8.5 0 1 1 21 11.5M8 11h8"/>
+    </g>
+</svg>

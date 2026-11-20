@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-compass {
+            0%, 68%, 100% { transform: rotate(0deg); }
+            24% { transform: rotate(-38deg); }
+            43% { transform: rotate(13deg); }
+            57% { transform: rotate(-5deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="compass"] {
+                transform-origin: 12px 12px;
+                animation: ira-compass 3.6s ease-in-out infinite;
+            }
+        }
+    </style>
+    <circle cx="12" cy="12" r="9"/>
+    <path data-ira-motion="compass" d="m16.5 7.5-2.8 6.2-6.2 2.8 2.8-6.2Z"/>
+</svg>

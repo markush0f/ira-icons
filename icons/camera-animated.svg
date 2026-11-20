@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-camera {
+            0%, 30%, 62%, 100% { transform: scale(1); }
+            46% { transform: scale(.45); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="camera"] {
+                transform-origin: 12px 13px;
+                animation: ira-camera 3s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path d="M3 9q0-2 2-2h3l2-3h4l2 3h3q2 0 2 2v9q0 2-2 2H5q-2 0-2-2Z"/>
+    <circle data-ira-motion="camera" cx="12" cy="13" r="3.5"/>
+    <path d="M17.5 9.5h.01"/>
+</svg>

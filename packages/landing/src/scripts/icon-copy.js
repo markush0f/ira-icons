@@ -24,10 +24,15 @@ export function formatIcon(preview, name, format) {
     }
   }
 
-  const markup = new XMLSerializer().serializeToString(svg);
+  let markup = new XMLSerializer().serializeToString(svg);
+  if (format === "React") {
+    // CSS braces inside a JSX child must be part of a string expression.
+    markup = markup.replace(/<style>([\s\S]*?)<\/style>/g, (_, css) =>
+      `<style>{${JSON.stringify(css)}}</style>`);
+  }
   if (format === "Astro") {
     const color = svg.getAttribute("color") ?? "currentColor";
-    const componentMarkup = markup.replace(/^<svg\b[^>]*>/, (tag) => tag
+    const componentMarkup = markup.replaceAll("<style>", "<style is:inline>").replace(/^<svg\b[^>]*>/, (tag) => tag
       .replace('width="24"', "width={size}")
       .replace('height="24"', "height={size}")
       .replace(/ color="[^"]*"/, " color={color}"));

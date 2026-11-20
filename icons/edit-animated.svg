@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-edit {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: rotate(-6deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="edit"] {
+                transform-origin: 12px 12px;
+                animation: ira-edit 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="edit">
+        <path d="m4 16 1-4L15 2l4 4L9 16l-5 1Zm9-12 4 4M3 21h18"/>
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-send {
+            0%, 65%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-1px, 1px); }
+            43% { transform: translate(1.7px, -1.7px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="send"] {
+                animation: ira-send 3s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="send" d="m21 3-6 18-4-8-8-4Zm0 0L11 13"/>
+</svg>

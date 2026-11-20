@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-alert-triangle {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="alert-triangle"] {
+                transform-origin: 12px 12px;
+                animation: ira-alert-triangle 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="alert-triangle">
+        <path d="M10.4 4.8a1.85 1.85 0 0 1 3.2 0l7.1 12.5a1.8 1.8 0 0 1-1.6 2.7H4.9a1.8 1.8 0 0 1-1.6-2.7ZM12 9v3m0 4h.01"/>
+    </g>
+</svg>

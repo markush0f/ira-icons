@@ -12,6 +12,8 @@ const emptyState = document.querySelector("#empty-state");
 const cards = [...document.querySelectorAll("#icon-grid [data-icon-name]")];
 const iconColors = new Map();
 const copyActions = detailPanel.querySelector("[data-icon-copy]");
+const variantPicker = detailPanel.querySelector("[data-variant-picker]");
+const variantButtons = [...variantPicker.querySelectorAll("[data-suffix]")];
 const copyStatus = copyActions.querySelector("[data-copy-status]");
 let copyRequest = 0;
 
@@ -28,36 +30,48 @@ const setPickerColor = (color) => {
   colorPicker.querySelector("[data-color-hex]").value = color.slice(1);
 };
 
-for (const card of cards) {
-  const button = card.querySelector("[data-select-icon]");
-  const name = card.dataset.iconName;
+function selectVariant(card, name) {
+  selectedCard?.classList.remove("is-selected");
+  selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
+  selectedCard = card;
+  clearCopyStatus();
+  card.classList.add("is-selected");
+  card.dataset.iconName = name;
+  card.querySelector("[data-select-icon]").setAttribute("aria-expanded", "true");
+  for (const option of variantButtons) {
+    option.setAttribute("aria-pressed", String(card.dataset.family + option.dataset.suffix === name));
+  }
+  for (const sample of card.querySelectorAll("[data-preview]")) {
+    sample.hidden = sample.dataset.preview !== name;
+  }
+  const svg = card.querySelector("[data-preview]:not([hidden]) svg");
+  const color = iconColors.get(name) ?? "#ad8af3";
+  svg.setAttribute("color", color);
+  const preview = svg.cloneNode(true);
+  preview.setAttribute("width", "96");
+  preview.setAttribute("height", "96");
+  detailPreview.replaceChildren(preview);
+  detailTitle.textContent = name;
+  setPickerColor(color);
+}
 
-  button.addEventListener("click", () => {
-    if (selectedCard === card) return;
-    selectedCard?.classList.remove("is-selected");
-    selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
-    selectedCard = card;
-    clearCopyStatus();
-    card.classList.add("is-selected");
-    button.setAttribute("aria-expanded", "true");
-    detailTitle.textContent = name;
-    detailPreview.replaceChildren(button.querySelector("svg").cloneNode(true));
-    const preview = detailPreview.querySelector("svg");
-    preview.setAttribute("width", "96");
-    preview.setAttribute("height", "96");
-    const color = iconColors.get(name) ?? "#ad8af3";
-    preview.setAttribute("color", color);
-    setPickerColor(color);
+for (const card of cards) {
+  card.querySelector("[data-select-icon]").addEventListener("click", () => {
+    selectVariant(card, card.dataset.iconName);
+    if (window.matchMedia("(max-width: 36rem)").matches) {
+      detailPanel.focus({ preventScroll: true });
+      detailPanel.scrollIntoView({ block: "start" });
+    }
+  });
+}
+for (const option of variantButtons) {
+  option.addEventListener("click", () => {
+    selectVariant(selectedCard, selectedCard.dataset.family + option.dataset.suffix);
   });
 }
 
 if (selectedCard) {
-  const name = selectedCard.dataset.iconName;
-  const preview = selectedCard.querySelector("[data-select-icon] svg").cloneNode(true);
-  preview.setAttribute("width", "96");
-  preview.setAttribute("height", "96");
-  detailPreview.replaceChildren(preview);
-  setPickerColor("#ad8af3");
+  selectVariant(selectedCard, selectedCard.dataset.iconName);
   copyActions.hidden = false;
 }
 
@@ -83,7 +97,7 @@ detailPanel.addEventListener("icon-color-change", (event) => {
   const name = selectedCard.dataset.iconName;
   clearCopyStatus();
   iconColors.set(name, color);
-  selectedCard.querySelector("svg").setAttribute("color", color);
+  selectedCard.querySelector("[data-preview]:not([hidden]) svg").setAttribute("color", color);
   detailPreview.querySelector("svg").setAttribute("color", color);
 });
 
@@ -93,18 +107,20 @@ if (searchField && searchInput && count && emptyState) {
     const query = searchInput.value.trim().toLowerCase().replace(/[\s-]+/g, " ");
     let matches = 0;
     for (const card of cards) {
-      const name = card.dataset.iconName.replaceAll("-", " ");
-      card.hidden = !name.includes(query);
+      card.hidden = !variantButtons.some(option =>
+        ((card.dataset.family + option.dataset.suffix).replaceAll("-", " ") + " " + option.getAttribute("aria-label").toLowerCase()).includes(query)
+      );
       if (!card.hidden) matches++;
     }
     count.textContent = `${matches} ${matches === 1 ? "icon" : "icons"}`;
     emptyState.hidden = matches !== 0;
     if (selectedCard?.hidden) {
       const firstVisible = cards.find((card) => !card.hidden);
-      firstVisible?.querySelector("[data-select-icon]").click();
+      if (firstVisible) selectVariant(firstVisible, firstVisible.dataset.iconName);
     }
   };
 
+  searchInput.value = new URLSearchParams(window.location.search).get("q") ?? searchInput.value;
   searchInput.addEventListener("input", filterIcons);
   filterIcons();
   searchField.hidden = false;

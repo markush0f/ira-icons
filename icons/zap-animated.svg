@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-zap {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="zap"] {
+                transform-origin: 12px 12px;
+                animation: ira-zap 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="zap">
+        <path d="M14 2 4 13h7l-1 9L20 9h-7Z"/>
+    </g>
+</svg>

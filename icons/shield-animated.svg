@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-shield {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="shield"] {
+                transform-origin: 12px 12px;
+                animation: ira-shield 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="shield">
+        <path d="M12 2.5 20 6v5c0 5-4 8.5-8 10.5-4-2-8-5.5-8-10.5V6Zm-3.5 9.8 2.3 2.3 4.7-5"/>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-bell {
+            0%, 40%, 100% { transform: rotate(0deg); }
+            8% { transform: rotate(-13deg); }
+            17% { transform: rotate(10deg); }
+            25% { transform: rotate(-6deg); }
+            33% { transform: rotate(3deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="bell"] {
+                transform-origin: 12px 3px;
+                animation: ira-bell 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="bell" d="M5 10a7 7 0 0 1 14 0v2q0 3 2 5H3q2-2 2-5Zm4.5 10q2.5 3 5 0"/>
+</svg>

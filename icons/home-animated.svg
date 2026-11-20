@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-home {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: translateY(-1.5px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="home"] {
+                transform-origin: 12px 12px;
+                animation: ira-home 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="home">
+        <path d="M2.5 10.5 12 3l9.5 7.5M5 9v11h5v-6h4v6h5V9"/>
+    </g>
+</svg>

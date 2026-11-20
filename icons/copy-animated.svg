@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-copy {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="copy"] {
+                transform-origin: 12px 12px;
+                animation: ira-copy 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="copy">
+        <rect width="13" height="13" x="8" y="8" rx="2"/>
+        <path d="M16 5q0-2-2-2H5Q3 3 3 5v9q0 2 2 2"/>
+    </g>
+</svg>

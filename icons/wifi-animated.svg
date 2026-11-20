@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-wifi {
+            0%, 60%, 100% { opacity: 1; }
+            22% { opacity: .28; }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion^="wifi-"] {
+                animation: ira-wifi 2.4s ease-in-out infinite;
+            }
+            [data-ira-motion="wifi-1"] { animation-delay: .16s; }
+            [data-ira-motion="wifi-2"] { animation-delay: .32s; }
+        }
+    </style>
+    <path data-ira-motion="wifi-2" d="M2 8.5q10-8 20 0"/>
+    <path data-ira-motion="wifi-1" d="M5 12.5q7-6 14 0"/>
+    <path data-ira-motion="wifi-0" d="M8 16.5q4-4 8 0"/>
+    <path d="M12 20h.01"/>
+</svg>

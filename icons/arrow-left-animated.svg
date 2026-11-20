@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-arrow-left {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: translateX(-1.5px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="arrow-left"] {
+                transform-origin: 12px 12px;
+                animation: ira-arrow-left 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="arrow-left">
+        <path d="M21 12H3m7-7-7 7 7 7"/>
+    </g>
+</svg>

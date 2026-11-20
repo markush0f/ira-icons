@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-download {
+            0%, 64%, 100% { transform: translateY(0); }
+            32% { transform: translateY(3px); }
+            48% { transform: translateY(-.6px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="download"] {
+                animation: ira-download 2.4s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="download" d="M12 3v12m-5-5 5 5 5-5"/>
+    <path d="M3 16v3q0 2 2 2h14q2 0 2-2v-3"/>
+</svg>

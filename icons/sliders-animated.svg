@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-sliders {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="sliders"] {
+                transform-origin: 12px 12px;
+                animation: ira-sliders 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="sliders">
+        <path d="M5 3v9m0 4v5m7-18v4m0 4v10m7-18v11m0 4v3M2.5 14h5m2-5h5m2 7h5"/>
+    </g>
+</svg>

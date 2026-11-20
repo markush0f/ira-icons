@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-upload {
+            0%, 72%, 100% { transform: translateY(0); }
+            24% { transform: translateY(3px); }
+            45% { transform: translateY(-1px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="upload"] {
+                animation: ira-upload 2.4s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="upload" d="M12 16V3M7 8l5-5 5 5"/>
+    <path d="M3 16v3q0 2 2 2h14q2 0 2-2v-3"/>
+</svg>

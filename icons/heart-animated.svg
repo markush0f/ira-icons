@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-heart {
+            0%, 32%, 56%, 100% { transform: scale(1); }
+            17% { transform: scale(1.08); }
+            43% { transform: scale(1.045); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="heart"] {
+                transform-origin: 12px 12px;
+                animation: ira-heart 1.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <path data-ira-motion="heart" d="M12 20.5 4.5 13C-1 7.5 6 0 11 5.8L12 7l1-1.2C18 0 25 7.5 19.5 13Z"/>
+</svg>

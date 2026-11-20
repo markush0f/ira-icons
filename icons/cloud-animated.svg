@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-cloud {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: translateY(-1.5px); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="cloud"] {
+                transform-origin: 12px 12px;
+                animation: ira-cloud 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="cloud">
+        <path d="M7 18.5a4.5 4.5 0 1 1 .4-9A6 6 0 0 1 19 9a4.8 4.8 0 0 1-1 9.5Z"/>
+    </g>
+</svg>

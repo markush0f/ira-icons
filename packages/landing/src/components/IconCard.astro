@@ -7,11 +7,18 @@ interface Props {
 }
 
 const { name, selected = false } = Astro.props;
+const variants = [
+  { label: "Animado", icon: name + "-animated" },
+  { label: "Minimalista", icon: name + "-minimalist" },
+  { label: "Normal", icon: name },
+];
 ---
 
-<li class:list={["icon-card", { "is-selected": selected }]} data-icon-name={name}>
-  <button class="icon-select" type="button" data-select-icon={name} aria-expanded={selected ? "true" : "false"}>
-    <span class="icon-preview"><Icon name={name} size={40} color="#ad8af3" /></span>
+<li class:list={["icon-card", { "is-selected": selected }]} data-icon-name={variants[0].icon} data-family={name}>
+  <button class="icon-select" type="button" data-select-icon aria-controls="detail-panel" aria-expanded={selected}>
+    <span class="icon-preview">{variants.map(({ icon }, i) =>
+      <span data-preview={icon} hidden={i !== 0}><Icon name={icon} size={40} color="#ad8af3" /></span>
+    )}</span>
     <span class="icon-name">{name}</span>
   </button>
 </li>

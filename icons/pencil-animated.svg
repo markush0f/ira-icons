@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-pencil {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: rotate(-6deg); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="pencil"] {
+                transform-origin: 12px 12px;
+                animation: ira-pencil 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="pencil">
+        <path d="m4 20 1-5L16 4q1.5-1.5 3 0l1 1q1.5 1.5 0 3L9 19ZM14 6l4 4"/>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+    <style>
+        @keyframes ira-list {
+            0%, 65%, 100% { transform: none; }
+            30% { transform: scale(.89); }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ira-motion="list"] {
+                transform-origin: 12px 12px;
+                animation: ira-list 2.8s ease-in-out infinite;
+            }
+        }
+    </style>
+    <g data-ira-motion="list">
+        <path d="M8 6h13M8 12h11M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+    </g>
+</svg>
