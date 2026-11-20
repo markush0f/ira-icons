@@ -1,0 +1,33 @@
+{
+  "name": "@markusss0s/ira-library",
+  "version": "0.2.0",
+  "description": "Original and minimalist outline SVG icons for React, Astro, and the web.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markush0f/ira-icons.git"
+  },
+  "files": ["astro", "react", "icons"],
+  "exports": {
+    "./react": {
+      "types": "./react/Icon.d.ts",
+      "default": "./react/index.js"
+    },
+    "./react/*": {
+      "types": "./react/icons/*.d.ts",
+      "default": "./react/icons/*.js"
+    },
+    "./astro": "./astro/Icon.astro",
+    "./astro/*": "./astro/icons/*.astro",
+    "./icons/*.svg": "./icons/*.svg"
+  },
+  "peerDependencies": {
+    "astro": "^7.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "astro": { "optional": true },
+    "react": { "optional": true }
+  }
+}

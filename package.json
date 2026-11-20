@@ -10,6 +10,8 @@
     "dev": "bun run --cwd packages/landing dev",
     "build": "bun run --cwd packages/landing build",
     "test": "bun run --cwd packages/react test",
+    "package:build": "node packages/react/build-package.mjs",
+    "package:pack": "bun run package:build && npm pack ./dist/npm --pack-destination ./dist",
     "preview": "bun run --cwd packages/landing preview"
   }
 }

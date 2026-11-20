@@ -45,6 +45,12 @@ Standard SVG props and refs are supported. Icons inherit text color and are deco
 
 Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibility, production bundling, and TypeScript props.
 
+## Build the installable package
+
+From the repository root, run `bun install` and `bun run package:pack`. This creates `dist/markusss0s-ira-library-0.2.0.tgz` without publishing anything. From a separate project, install it with `npm install /absolute/path/to/markusss0s-ira-library-0.2.0.tgz`.
+
+The tarball exposes `@markusss0s/ira-library/react`, `@markusss0s/ira-library/astro`, and `@markusss0s/ira-library/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for usage. Use named React imports or import individual components via `/react/search-minimalist` and `/astro/search-minimalist`. The React distribution is precompiled and doesn't require SVGR in the consuming app.
+
 ## Standalone preview
 
 Open [`index.html`](index.html) directly in a browser to compare the original SVGs without starting a server.
