@@ -2,6 +2,7 @@
 import Icon from "@ira-icons/astro";
 import ColorPicker from "./ColorPicker.astro";
 import IconCopy from "./IconCopy.astro";
+import IconReport from "./IconReport.astro";
 
 interface Props {
   name: string;
@@ -18,4 +19,5 @@ const { name } = Astro.props;
   <h2 class="detail-title" id="detail-title">{name}</h2>
   <IconCopy />
   <ColorPicker />
+  <IconReport />
 </aside>

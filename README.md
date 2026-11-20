@@ -27,6 +27,19 @@ The landing page lives in [`packages/landing/`](packages/landing/) and uses Astr
 
 Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. Both adapters load the original SVGs through `import.meta.glob`, without a separate code generation step. React uses Vite with SVGR to import SVGs as React components.
 
+### Icon reports
+
+Open a card and press **Report icon**. Astro handles the POST with its Node adapter; SQLite records the exact variant and a timestamp. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`packages/landing` when using `bun run dev`). The database is created on the first report and is not served publicly.
+
+For production, run the Astro Node server after building and point it to a writable, persistent path:
+
+```sh
+bun run build
+IRA_REPORTS_DB=/path/to/persistent/icon-reports.sqlite node packages/landing/dist/server/entry.mjs
+```
+
+The standalone `index.html` and static-only hosting do not support reports. Inspect the stored reports locally with `sqlite3 /path/to/persistent/icon-reports.sqlite 'SELECT icon_name, created_at FROM icon_reports ORDER BY id DESC;'`.
+
 ## Astro usage
 
 `@ira-icons/astro` is available within the workspace but is not published to npm. Import a single component and select an icon with `name`:

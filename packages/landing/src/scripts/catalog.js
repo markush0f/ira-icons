@@ -1,7 +1,9 @@
 /** Adds icon search, selection, color editing, and clipboard export. */
 import { formatIcon } from "./icon-copy.js";
+import { mountIconReport } from "./icon-report.js";
 
 const detailPanel = document.querySelector("#detail-panel");
+const selectReportIcon = mountIconReport(detailPanel);
 const detailPreview = document.querySelector("#detail-preview");
 const detailTitle = document.querySelector("#detail-title");
 const colorPicker = document.querySelector("[data-color-picker]");
@@ -53,6 +55,7 @@ function selectVariant(card, name) {
   detailPreview.replaceChildren(preview);
   detailTitle.textContent = name;
   setPickerColor(color);
+  selectReportIcon(name);
 }
 
 for (const card of cards) {

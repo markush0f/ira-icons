@@ -1,0 +1,57 @@
+---
+import Icon from "@ira-icons/astro";
+---
+
+<div class="report" data-icon-report hidden>
+  <p class="report-hint" id="icon-report-hint">
+    Noticed a style or animation issue? Report this variant in one click.
+  </p>
+  <button type="button" data-report-button aria-describedby="icon-report-hint">
+    <Icon name="flag-minimalist" size={16} />
+    Report icon
+  </button>
+  <span role="status" data-report-status></span>
+</div>
+
+<style>
+  .report {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.76rem;
+  }
+
+  .report-hint {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.25rem;
+    padding-inline: 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 0.45rem;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  button:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+</style>
