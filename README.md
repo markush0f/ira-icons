@@ -2,6 +2,8 @@
 
 A collection of 412 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
 
+Ira Icons is in active development. New icons and animations are added over time.
+
 Many Ira Icons were designed with AI assistance. We test the SVGs for rendering, animation, and reduced-motion support.
 
 ## Animated variants
