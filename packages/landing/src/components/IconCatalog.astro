@@ -13,18 +13,34 @@ const { names, selectedName } = Astro.props;
 <section class="catalog-panel" aria-labelledby="catalog-title">
   <div class="catalog-header">
     <div class="catalog-heading">
-      <h1 class="visually-hidden" id="catalog-title">Icon catalog</h1>
-      <p id="icon-count" role="status">{names.length} icons</p>
+      <h1 class="visually-hidden" id="catalog-title">
+        Icon catalog
+      </h1>
+      <p id="icon-count" role="status">
+        {names.length} icons
+      </p>
     </div>
     <div class="search-field" id="search-field" hidden>
       <Icon name="search" size={17} />
-      <label class="visually-hidden" for="icon-search">Search icons</label>
-      <input type="search" id="icon-search" placeholder="Search icons" autocomplete="off" aria-controls="icon-grid" />
+      <label class="visually-hidden" for="icon-search">
+        Search icons
+      </label>
+      <input
+        type="search"
+        id="icon-search"
+        placeholder="Search icons"
+        autocomplete="off"
+        aria-controls="icon-grid"
+      />
     </div>
   </div>
 
   <ul class="icon-grid" id="icon-grid" role="list">
-    {names.map((name) => <IconCard name={name} selected={name === selectedName} />)}
+    {names.map((name) => (
+      <IconCard name={name} selected={name === selectedName} />
+    ))}
   </ul>
-  <p class="empty-state" id="empty-state" hidden>No icons found.</p>
+  <p class="empty-state" id="empty-state" hidden>
+    No icons found.
+  </p>
 </section>
