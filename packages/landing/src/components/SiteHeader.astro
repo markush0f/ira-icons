@@ -1,5 +1,6 @@
 ---
 import Icon from "@ira-icons/astro";
+import GitHubLogo from "../assets/frameworks/github.svg";
 
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
 ---
@@ -18,6 +19,14 @@ const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
     >
       <Icon name="download" size={17} />
       Install
+    </a>
+    <a
+      class="github-link"
+      href="https://github.com/markush0f/ira-icons"
+      aria-label="Ira Icons on GitHub"
+      target="_blank"
+    >
+      <img src={GitHubLogo.src} alt="" width="19" height="19" />
     </a>
     <button
       type="button"

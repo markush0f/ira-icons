@@ -100,4 +100,4 @@ Use `alt=""` for decorative icons. If the icon is the only content of a button, 
 
 To include the icon in the standalone preview as well, add its name to `index.html`.
 
-The React, Astro, Next.js, Vue, and Svelte logos in the landing page are sourced from [SVGL](https://svgl.app/); the marks are trademarks of their respective owners.
+The React, Astro, Next.js, Vue, Svelte, and GitHub logos in the landing page are sourced from [SVGL](https://svgl.app/); the marks are trademarks of their respective owners.

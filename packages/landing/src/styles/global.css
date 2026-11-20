@@ -60,7 +60,7 @@ button, input { font: inherit; }
   border-color: var(--accent);
   color: var(--accent);
 }
-.theme-button {
+.theme-button, .github-link {
   display: grid;
   place-items: center;
   width: 2.25rem;
@@ -72,6 +72,14 @@ button, input { font: inherit; }
   cursor: pointer;
 }
 .theme-button:hover { color: var(--text); }
+.github-link img { filter: brightness(0) invert(1); }
+:root[data-theme="light"] .github-link img { filter: none; }
+.github-link:not(:hover, :focus-visible) img { opacity: .72; }
+@media (max-width: 24rem) {
+  .brand img { width: 44px; height: 44px; }
+  .header-actions { gap: .25rem; }
+  .theme-button, .github-link { width: 2rem; }
+}
 main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clamp(1rem, 3vw, 3rem); }
 
 /* Opening the detail panel narrows the catalog and reserves a column on the right. */
