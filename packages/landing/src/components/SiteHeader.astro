@@ -2,6 +2,7 @@
 import Icon from "@ira-icons/astro";
 import GitHubLogo from "../assets/frameworks/github.svg";
 
+const onCatalog = Astro.url.pathname === "/";
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
 const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
 ---
@@ -13,6 +14,15 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
   </a>
 
   <div class="header-actions">
+    <a
+      class="catalog-nav-link"
+      href="/"
+      aria-label="Icon catalog"
+      aria-current={onCatalog ? "page" : undefined}
+    >
+      <Icon name="grid-minimalist" size={17} />
+      <span class="nav-label">Catalog</span>
+    </a>
     <a
       class="create-link"
       href="/create"
