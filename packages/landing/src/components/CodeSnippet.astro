@@ -1,13 +1,16 @@
 ---
 import Icon from "@ira-icons/astro";
+import { Code } from "astro:components";
 
 interface Props {
   title: string;
   code: string;
   live?: boolean;
+  lang?: "jsx" | "astro" | "html";
 }
 
-const { title, code, live = false } = Astro.props;
+const { title, code, live = false, lang } = Astro.props;
+const themes = { dark: "dark-plus", light: "light-plus" } as const;
 ---
 
 <div class="snippet" data-snippet>
@@ -19,7 +22,19 @@ const { title, code, live = false } = Astro.props;
     </button>
     <span class="visually-hidden" role="status" data-copy-feedback></span>
   </div>
-  <pre tabindex="0" aria-label={title}><code data-snippet-code aria-live={live ? "polite" : undefined}>{code}</code></pre>
+  {lang ? (
+    <Code
+      code={code}
+      lang={lang}
+      themes={themes}
+      defaultColor={false}
+      tabindex={0}
+      aria-label={title}
+      data-snippet-code
+    />
+  ) : (
+    <pre tabindex="0" aria-label={title} data-snippet-code><code aria-live={live ? "polite" : undefined}>{code}</code></pre>
+  )}
 </div>
 
 <style>
@@ -61,7 +76,7 @@ const { title, code, live = false } = Astro.props;
     color: var(--accent);
   }
 
-  pre {
+  .snippet :global(pre) {
     margin: 0;
     padding: 0.9rem;
     overflow: auto;
@@ -69,7 +84,17 @@ const { title, code, live = false } = Astro.props;
     tab-size: 2;
   }
 
-  code {
+  .snippet :global(code) {
     font: inherit;
+  }
+
+  .snippet :global(.astro-code),
+  .snippet :global(.astro-code span) {
+    color: var(--shiki-dark);
+  }
+
+  :global(:root[data-theme="light"]) .snippet :global(.astro-code),
+  :global(:root[data-theme="light"]) .snippet :global(.astro-code span) {
+    color: var(--shiki-light);
   }
 </style>

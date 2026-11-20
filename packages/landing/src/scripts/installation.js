@@ -7,7 +7,7 @@ function resetCopyFeedback(snippet) {
 }
 
 if (packageOptions && installSnippet) {
-  const command = installSnippet.querySelector("[data-snippet-code]");
+  const command = installSnippet.querySelector("[data-snippet-code] code");
   const syncCommand = () => {
     const selected = packageOptions.querySelector("input:checked");
     if (selected && command.textContent !== selected.value) {
@@ -27,7 +27,7 @@ if (navigator.clipboard?.writeText) {
     const button = snippet.querySelector("[data-copy-snippet]");
     const label = snippet.querySelector("[data-copy-label]");
     const feedback = snippet.querySelector("[data-copy-feedback]");
-    const code = snippet.querySelector("[data-snippet-code]");
+    const code = snippet.querySelector("[data-snippet-code] code");
     let copyRequest = 0;
     let resetTimer;
 

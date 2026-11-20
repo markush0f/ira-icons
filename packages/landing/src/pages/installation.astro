@@ -113,7 +113,7 @@ const variants = [
             <h3 id="react-title"><img src={ReactLogo.src} width="22" height="20" alt="" /> React</h3>
             <p>Use a named import from <code>{packageName}/react</code>. The components work with React 18 and 19 without an SVG loader or SVGR configuration.</p>
           </div>
-          <CodeSnippet title="SearchButton.jsx" code={reactExample} />
+          <CodeSnippet title="SearchButton.jsx" code={reactExample} lang="jsx" />
         </article>
 
         <article id="astro" class="example" aria-labelledby="astro-title">
@@ -121,7 +121,7 @@ const variants = [
             <h3 id="astro-title"><img class="astro-framework-logo" src={AstroLogo.src} width="17" height="21" alt="" /> Astro</h3>
             <p>Import the icon in the frontmatter of an <code>.astro</code> file. It renders as inline SVG without a <code>client:*</code> directive.</p>
           </div>
-          <CodeSnippet title="SearchButton.astro" code={astroExample} />
+          <CodeSnippet title="SearchButton.astro" code={astroExample} lang="astro" />
         </article>
 
         <article id="svg" class="example" aria-labelledby="svg-title">
@@ -129,7 +129,7 @@ const variants = [
             <h3 id="svg-title"><Icon name="svg" size={23} /> HTML / SVG</h3>
             <p>Copy <code>node_modules/{packageName}/icons/search-minimalist.svg</code> into your public <code>icons/</code> folder. Without npm, choose <strong>Copy as → SVG</strong> in the catalog and save it as the same file.</p>
           </div>
-          <CodeSnippet title="index.html" code={htmlExample} />
+          <CodeSnippet title="index.html" code={htmlExample} lang="html" />
         </article>
       </div>
     </section>
