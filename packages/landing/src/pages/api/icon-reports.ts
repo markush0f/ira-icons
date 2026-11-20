@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { iconNames } from "@ira-icons/astro/names";
+import { MAX_REPORT_COMMENT_LENGTH } from "../../lib/icon-report.mjs";
 import { saveIconReport } from "../../server/icon-reports.mjs";
 
 export const prerender = false;
@@ -9,7 +10,7 @@ const validNames = new Set(iconNames);
 async function readReport(request: Request) {
   const reader = request.body?.getReader();
   if (!reader) return null;
-  const bytes = new Uint8Array(512);
+  const bytes = new Uint8Array(4096);
   let size = 0;
   try {
     while (true) {
@@ -42,9 +43,13 @@ export const POST: APIRoute = async ({ request }) => {
   const report = await readReport(request);
   if (typeof report?.name !== "string") return new Response(null, { status: 400 });
   if (!validNames.has(report.name)) return new Response(null, { status: 404 });
+  const comment = report.comment;
+  if (comment != null && (typeof comment !== "string" || comment.length > MAX_REPORT_COMMENT_LENGTH)) {
+    return new Response(null, { status: 400 });
+  }
 
   try {
-    saveIconReport(report.name);
+    saveIconReport(report.name, comment?.trim() || null);
     return new Response(null, { status: 201 });
   } catch (error) {
     console.error("Could not save icon report", error);

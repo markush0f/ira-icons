@@ -1,0 +1,1 @@
+export const MAX_REPORT_COMMENT_LENGTH = 500;

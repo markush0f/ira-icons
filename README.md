@@ -37,7 +37,7 @@ Open **Create** (`/create`) to draft a 24 × 24 SVG prompt and choose an origina
 
 ### Icon reports
 
-Open a card and press **Report icon**. Astro handles the POST with its Node adapter; SQLite records the exact variant and a timestamp. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`packages/landing` when using `bun run dev`). The database is created on the first report and is not served publicly.
+Open a card and press **Report icon**. You can expand **Add a comment (optional)** first to include up to 500 characters. Astro handles the POST with its Node adapter; SQLite records the exact variant, a timestamp, and the optional comment. Existing databases gain the comment column automatically when the next report is saved. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`packages/landing` when using `bun run dev`). The database is created on the first report and is not served publicly.
 
 For production, run the Astro Node server after building and point it to a writable, persistent path:
 
@@ -46,7 +46,7 @@ bun run build
 IRA_REPORTS_DB=/path/to/persistent/icon-reports.sqlite node packages/landing/dist/server/entry.mjs
 ```
 
-The standalone `index.html` and static-only hosting do not support reports. Inspect the stored reports locally with `sqlite3 /path/to/persistent/icon-reports.sqlite 'SELECT icon_name, created_at FROM icon_reports ORDER BY id DESC;'`.
+The standalone `index.html` and static-only hosting do not support reports. Inspect the stored reports locally with `sqlite3 /path/to/persistent/icon-reports.sqlite 'SELECT icon_name, created_at, comment FROM icon_reports ORDER BY id DESC;'`.
 
 ## Astro usage
 

@@ -1,17 +1,31 @@
 ---
 import Icon from "@ira-icons/astro";
+import { MAX_REPORT_COMMENT_LENGTH } from "../lib/icon-report.mjs";
 ---
 
-<div class="report" data-icon-report hidden>
+<form class="report" data-icon-report hidden>
   <p class="report-hint" id="icon-report-hint">
-    Noticed a style or animation issue? Report this variant in one click.
+    Noticed a style or animation issue? Report this variant.
   </p>
-  <button type="button" data-report-button aria-describedby="icon-report-hint">
+  <details class="report-comment" data-report-comment-panel>
+    <summary>Add a comment (optional)</summary>
+    <label class="visually-hidden" for="icon-report-comment">Comment (optional)</label>
+    <textarea
+      id="icon-report-comment"
+      data-report-comment
+      maxlength={MAX_REPORT_COMMENT_LENGTH}
+      rows="3"
+      placeholder="What should look or move differently?"
+      aria-describedby="icon-report-comment-hint"
+    ></textarea>
+    <p id="icon-report-comment-hint" class="report-hint">Up to {MAX_REPORT_COMMENT_LENGTH} characters. Please leave out personal information.</p>
+  </details>
+  <button type="submit" data-report-button aria-describedby="icon-report-hint">
     <Icon name="flag-minimalist" size={16} />
     Report icon
   </button>
   <span role="status" data-report-status></span>
-</div>
+</form>
 
 <style>
   .report {
@@ -29,6 +43,35 @@ import Icon from "@ira-icons/astro";
     flex-basis: 100%;
     margin: 0;
     color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .report-comment {
+    flex-basis: 100%;
+  }
+
+  summary {
+    width: fit-content;
+    padding-block: 0.3rem;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  summary:hover {
+    color: var(--accent);
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    margin-block: 0.35rem;
+    padding: 0.5rem 0.6rem;
+    resize: vertical;
+    border: 1px solid var(--line);
+    border-radius: 0.45rem;
+    background: var(--page);
+    color: var(--text);
+    font: inherit;
     line-height: 1.5;
   }
 
