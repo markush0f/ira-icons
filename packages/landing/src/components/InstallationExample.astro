@@ -11,11 +11,18 @@ const { id, title } = Astro.props;
 
 <details id={id} class="example" data-install-example>
   <summary>
-    <span class="example-title"><slot name="icon" />{title}</span>
-    <span class="chevron"><Icon name="chevron-down-minimalist" size={17} /></span>
+    <span class="example-title">
+      <slot name="icon" />
+      {title}
+    </span>
+    <span class="chevron">
+      <Icon name="chevron-down-minimalist" size={17} />
+    </span>
   </summary>
   <div class="example-body">
-    <div><slot name="description" /></div>
+    <div>
+      <slot name="description" />
+    </div>
     <slot />
   </div>
 </details>

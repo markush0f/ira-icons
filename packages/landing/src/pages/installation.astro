@@ -19,7 +19,12 @@ const packageName = "@markusss0s/ira-library";
 const managers = [
   { name: "npm", logo: NpmLogo, command: `npm install ${packageName}` },
   { name: "Bun", logo: BunLogo, command: `bun add ${packageName}` },
-  { name: "pnpm", logo: PnpmLogo, darkLogo: PnpmDarkLogo, command: `pnpm add ${packageName}` },
+  {
+    name: "pnpm",
+    logo: PnpmLogo,
+    darkLogo: PnpmDarkLogo,
+    command: `pnpm add ${packageName}`,
+  },
   { name: "Yarn", logo: YarnLogo, command: `yarn add ${packageName}` },
 ];
 
@@ -82,7 +87,9 @@ const variants = [
 
     <section class="step" aria-labelledby="install-title">
       <header class="step-header">
-        <span aria-hidden="true" class="step-number">01</span>
+        <span aria-hidden="true" class="step-number">
+          01
+        </span>
         <div>
           <h2 id="install-title">Install the package</h2>
           <p>Run this command from the root of your project.</p>
@@ -94,10 +101,30 @@ const variants = [
         <div class="options">
           {managers.map(({ name, logo, darkLogo, command }, index) => (
             <label>
-              <input class="visually-hidden" type="radio" name="package-manager" value={command} checked={index === 0} />
+              <input
+                class="visually-hidden"
+                type="radio"
+                name="package-manager"
+                value={command}
+                checked={index === 0}
+              />
               <span class="option">
-                <img class:list={[{ "light-logo": darkLogo }]} src={logo.src} alt="" width="18" height="18" />
-                {darkLogo && <img class="dark-logo" src={darkLogo.src} alt="" width="18" height="18" />}
+                <img
+                  class:list={[{ "light-logo": darkLogo }]}
+                  src={logo.src}
+                  alt=""
+                  width="18"
+                  height="18"
+                />
+                {darkLogo && (
+                  <img
+                    class="dark-logo"
+                    src={darkLogo.src}
+                    alt=""
+                    width="18"
+                    height="18"
+                  />
+                )}
                 {name}
               </span>
             </label>
@@ -107,12 +134,18 @@ const variants = [
       <div data-install-command>
         <CodeSnippet title="Terminal" code={managers[0].command} live />
       </div>
-      <p class="note">Vue and Svelte require <code>0.3.0</code>. Until that version is published, run <code>bun run package:pack</code> from the Ira Icons repository and install the resulting <code>.tgz</code> in your app.</p>
+      <p class="note">
+        Vue and Svelte require <code>0.3.0</code>. Until that version is
+        published, run <code>bun run package:pack</code> from the Ira Icons
+        repository and install the resulting <code>.tgz</code> in your app.
+      </p>
     </section>
 
     <section class="step" aria-labelledby="usage-title">
       <header class="step-header">
-        <span aria-hidden="true" class="step-number">02</span>
+        <span aria-hidden="true" class="step-number">
+          02
+        </span>
         <div>
           <h2 id="usage-title">Add your first icon</h2>
           <p>Expand the example that matches your project.</p>
@@ -122,37 +155,86 @@ const variants = [
       <div class="examples">
         <InstallationExample id="react" title="React">
           <img slot="icon" src={ReactLogo.src} width="22" height="20" alt="" />
-          <p slot="description">Use a named import from <code>{packageName}/react</code>. The components work with React 18 and 19 without an SVG loader or SVGR configuration.</p>
-          <CodeSnippet title="SearchButton.jsx" code={reactExample} lang="jsx" />
+          <p slot="description">
+            Use a named import from <code>{packageName}/react</code>. The
+            components work with React 18 and 19 without an SVG loader or SVGR
+            configuration.
+          </p>
+          <CodeSnippet
+            title="SearchButton.jsx"
+            code={reactExample}
+            lang="jsx"
+          />
         </InstallationExample>
 
         <InstallationExample id="astro" title="Astro">
-          <img slot="icon" class="astro-framework-logo" src={AstroLogo.src} width="17" height="21" alt="" />
-          <p slot="description">Import the icon in the frontmatter of an <code>.astro</code> file. It renders as inline SVG without a <code>client:*</code> directive.</p>
-          <CodeSnippet title="SearchButton.astro" code={astroExample} lang="astro" />
+          <img
+            slot="icon"
+            class="astro-framework-logo"
+            src={AstroLogo.src}
+            width="17"
+            height="21"
+            alt=""
+          />
+          <p slot="description">
+            Import the icon in the frontmatter of an <code>.astro</code> file.
+            It renders as inline SVG without a <code>client:*</code> directive.
+          </p>
+          <CodeSnippet
+            title="SearchButton.astro"
+            code={astroExample}
+            lang="astro"
+          />
         </InstallationExample>
 
         <InstallationExample id="next" title="Next.js">
-          <img slot="icon" class="next-framework-logo" src={NextLogo.src} width="20" height="20" alt="" />
-          <p slot="description">Use the React entry point in an App Router page. The icon renders on the server without <code>'use client'</code> or an SVG loader.</p>
+          <img
+            slot="icon"
+            class="next-framework-logo"
+            src={NextLogo.src}
+            width="20"
+            height="20"
+            alt=""
+          />
+          <p slot="description">
+            Use the React entry point in an App Router page. The icon renders on
+            the server without <code>'use client'</code> or an SVG loader.
+          </p>
           <CodeSnippet title="app/page.jsx" code={nextExample} lang="jsx" />
         </InstallationExample>
 
         <InstallationExample id="vue" title="Vue 3">
           <img slot="icon" src={VueLogo.src} width="22" height="19" alt="" />
-          <p slot="description">Import the component in <code>&lt;script setup&gt;</code>. The Vue entry point has precompiled components and supports server rendering.</p>
+          <p slot="description">
+            Import the component in <code>&lt;script setup&gt;</code>. The Vue
+            entry point has precompiled components and supports server
+            rendering.
+          </p>
           <CodeSnippet title="SearchIcon.vue" code={vueExample} lang="vue" />
         </InstallationExample>
 
         <InstallationExample id="svelte" title="Svelte 5">
           <img slot="icon" src={SvelteLogo.src} width="17" height="21" alt="" />
-          <p slot="description">Import the component in a <code>.svelte</code> file. The package ships native Svelte components for the standard Svelte compiler.</p>
-          <CodeSnippet title="SearchIcon.svelte" code={svelteExample} lang="svelte" />
+          <p slot="description">
+            Import the component in a <code>.svelte</code> file. The package
+            ships native Svelte components for the standard Svelte compiler.
+          </p>
+          <CodeSnippet
+            title="SearchIcon.svelte"
+            code={svelteExample}
+            lang="svelte"
+          />
         </InstallationExample>
 
         <InstallationExample id="svg" title="HTML / SVG">
           <Icon slot="icon" name="svg" size={23} />
-          <p slot="description">Copy <code>node_modules/{packageName}/icons/search-minimalist.svg</code> into your public <code>icons/</code> folder. Without npm, choose <strong>Copy as → SVG</strong> in the catalog and save it as the same file.</p>
+          <p slot="description">
+            Copy{" "}
+            <code>node_modules/{packageName}/icons/search-minimalist.svg</code>{" "}
+            into your public <code>icons/</code> folder. Without npm, choose{" "}
+            <strong>Copy as → SVG</strong> in the catalog and save it as the
+            same file.
+          </p>
           <CodeSnippet title="index.html" code={htmlExample} lang="html" />
         </InstallationExample>
       </div>
@@ -160,7 +242,9 @@ const variants = [
 
     <section class="step" aria-labelledby="customize-title">
       <header class="step-header">
-        <span aria-hidden="true" class="step-number">03</span>
+        <span aria-hidden="true" class="step-number">
+          03
+        </span>
         <div>
           <h2 id="customize-title">Choose a style</h2>
           <p>The filename tells you which variant you’re using.</p>
@@ -171,21 +255,37 @@ const variants = [
         {variants.map(({ name, label }) => (
           <li>
             <Icon name={name} size={28} />
-            <div><strong>{label}</strong><code>{name}</code></div>
+            <div>
+              <strong>{label}</strong>
+              <code>{name}</code>
+            </div>
           </li>
         ))}
       </ul>
 
-      <p class="note">The npm release <code>0.2.0</code> includes original and minimalist icons. Animated variants are available in the <code>0.3.0</code> package or can be copied from the catalog.</p>
+      <p class="note">
+        The npm release <code>0.2.0</code> includes original and minimalist
+        icons. Animated variants are available in the <code>0.3.0</code> package
+        or can be copied from the catalog.
+      </p>
 
       <dl class="tips">
         <div>
           <dt>Size and color</dt>
-          <dd>Icon components are 24 px by default and inherit the text color. Override them with <code>size</code> and <code>color</code>. In HTML, inline the SVG if you want it to inherit text color.</dd>
+          <dd>
+            Icon components are 24 px by default and inherit the text color.
+            Override them with <code>size</code> and <code>color</code>. In
+            HTML, inline the SVG if you want it to inherit text color.
+          </dd>
         </div>
         <div>
           <dt>Accessible labels</dt>
-          <dd>If the icon is inside a labeled button, keep it decorative as shown above. If it stands alone and conveys meaning, use <code>label</code> on an icon component, or <code>alt</code> on an image.</dd>
+          <dd>
+            If the icon is inside a labeled button, keep it decorative as shown
+            above. If it stands alone and conveys meaning, use{" "}
+            <code>label</code> on an icon component, or <code>alt</code> on an
+            image.
+          </dd>
         </div>
       </dl>
 
@@ -270,7 +370,8 @@ const variants = [
     letter-spacing: -0.035em;
   }
 
-  .step p, dd {
+  .step p,
+  dd {
     margin: 0.35rem 0 0;
     color: var(--muted);
     font-size: 0.83rem;
@@ -306,7 +407,8 @@ const variants = [
     object-fit: contain;
   }
 
-  .light-logo, :global(:root[data-theme="light"]) .dark-logo {
+  .light-logo,
+  :global(:root[data-theme="light"]) .dark-logo {
     display: none;
   }
 
@@ -319,7 +421,9 @@ const variants = [
     gap: 0.75rem;
   }
 
-  .step p code, dd code, .variants code {
+  .step p code,
+  dd code,
+  .variants code {
     color: var(--text);
     font-family: var(--font-mono);
     overflow-wrap: anywhere;
@@ -345,7 +449,8 @@ const variants = [
     color: var(--accent);
   }
 
-  .variants strong, .variants code {
+  .variants strong,
+  .variants code {
     display: block;
     color: var(--text);
     font-size: 0.8rem;
