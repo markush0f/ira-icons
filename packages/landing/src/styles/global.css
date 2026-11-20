@@ -10,6 +10,8 @@
   --line: #303036;
   --accent: #ad8af3;
   --hover: #202025;
+  --site-header-height: 4rem;
+  scroll-padding-top: var(--site-header-height);
   --font-mono: "JetBrains Mono Variable", monospace;
   font-family: var(--font-mono);
   background: var(--page);
@@ -35,12 +37,16 @@ button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
+  height: var(--site-header-height);
   padding-inline: clamp(1rem, 3vw, 3rem);
   border-bottom: 1px solid var(--line);
+  background: var(--page);
 }
 .brand { display: inline-flex; align-items: center; gap: .6rem; font-size: .9rem; font-weight: 650; }
 .brand img { border-radius: 50%; object-fit: cover; }
@@ -128,7 +134,7 @@ main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clam
 .icon-card:hover .icon-name, .icon-card.is-selected .icon-name { color: var(--text); }
 .empty-state { padding-block: 2rem; color: var(--muted); text-align: center; font-size: .9rem; }
 
-.detail-panel { position: sticky; top: 1rem; min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--panel); animation: panel-in .18s ease-out; }
+.detail-panel { position: sticky; top: calc(var(--site-header-height) + 1rem); min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--panel); animation: panel-in .18s ease-out; }
 @keyframes panel-in { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
 .detail-header { display: flex; align-items: center; justify-content: space-between; }
 .detail-eyebrow { margin: 0; color: var(--muted); font: 600 .68rem/1.4 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
