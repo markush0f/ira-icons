@@ -54,31 +54,38 @@ const styles = [
         </fieldset>
 
         <div class="studio-actions">
-          <button type="button" class="action" disabled aria-describedby="provider-note">
+          <button type="button" class="action" data-generate-demo disabled aria-describedby="provider-note">
             <Icon name="star-minimalist" size={17} />
-            Generate with AI
+            Generate demo
           </button>
           <button type="button" class="action" data-copy-brief hidden disabled>
             <Icon name="copy-minimalist" size={16} />
             Copy brief
           </button>
         </div>
-        <p class="hint" id="provider-note">No AI provider connected.</p>
+        <p class="hint" id="provider-note">Demo only. The description is not sent to an AI provider.</p>
         <p class="hint" data-brief-status role="status"></p>
       </section>
 
       <section class="preview" aria-labelledby="preview-title">
         <h2 id="preview-title">Reference preview</h2>
-        <p class="hint">An existing icon in the selected style, not a generated result.</p>
-        <div class="preview-grid">
+        <p class="hint">The demo simulates the wait, then shows an existing icon in the selected style.</p>
+        <div class="preview-grid" data-preview-grid>
           {styles.map(({ id, sample }, index) => (
             <figure data-style-preview={id} hidden={index !== 0}>
               <Icon name={sample} size={96} />
               <figcaption>{sample}.svg</figcaption>
             </figure>
           ))}
+          <div class="preview-loader" data-preview-loader hidden aria-hidden="true">
+            <div class="loader-mark">
+              <Icon name="star-minimalist" size={21} />
+            </div>
+            <span>Generating icon…</span>
+          </div>
           <span aria-hidden="true" class="preview-scale">24 × 24</span>
         </div>
+        <p class="hint demo-status" data-demo-status role="status"></p>
       </section>
     </div>
   </main>
@@ -244,6 +251,46 @@ const styles = [
     border: 1px solid var(--line);
     border-radius: 0.5rem;
     background: radial-gradient(circle, var(--line) 1px, transparent 1px) center / 16px 16px var(--page);
+  }
+
+  .demo-status:empty {
+    margin: 0;
+  }
+
+  .preview-loader {
+    display: grid;
+    justify-items: center;
+    gap: 0.85rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .loader-mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    aspect-ratio: 1;
+    color: var(--accent);
+  }
+
+  .loader-mark::before {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    content: "";
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .loader-mark::before {
+      animation: studio-wait 0.85s linear infinite;
+    }
+
+    @keyframes studio-wait {
+      to { transform: rotate(1turn); }
+    }
   }
 
   figure {

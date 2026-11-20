@@ -33,7 +33,7 @@ Astro loads the original SVGs as components through Vite. `@ira-icons/core` vali
 
 ### Icon studio
 
-Open **Create** (`/create`) to draft a 24 × 24 SVG prompt and choose an original, minimalist, or animated style. The draft is stored in the browser, and **Copy brief** exports it as text. The preview shows an existing Ira icon. There is no AI provider connected, so generation is disabled and the prompt is not sent to a server.
+Open **Create** (`/create`) to draft a 24 × 24 SVG prompt and choose an original, minimalist, or animated style. The draft is stored in the browser, and **Copy brief** exports it as text. The preview shows an existing Ira icon. **Generate demo** shows a three-second loading state, then reveals the reference icon. The loading indicator stays still when reduced motion is enabled. There is no AI provider connected, and the prompt is not sent to a server.
 
 ### Icon reports
 
