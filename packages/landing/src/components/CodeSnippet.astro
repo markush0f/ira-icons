@@ -1,0 +1,75 @@
+---
+import Icon from "@ira-icons/astro";
+
+interface Props {
+  title: string;
+  code: string;
+  live?: boolean;
+}
+
+const { title, code, live = false } = Astro.props;
+---
+
+<div class="snippet" data-snippet>
+  <div class="snippet-header">
+    <span>{title}</span>
+    <button type="button" data-copy-snippet aria-label={`Copy ${title}`} hidden>
+      <Icon name="copy-minimalist" size={14} />
+      <span data-copy-label>Copy</span>
+    </button>
+    <span class="visually-hidden" role="status" data-copy-feedback></span>
+  </div>
+  <pre tabindex="0" aria-label={title}><code data-snippet-code aria-live={live ? "polite" : undefined}>{code}</code></pre>
+</div>
+
+<style>
+  .snippet {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 0.65rem;
+    background: var(--page);
+  }
+
+  .snippet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.65rem 0.35rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.73rem;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 0.4rem;
+    background: var(--panel);
+    color: var(--text);
+    font-size: inherit;
+    cursor: pointer;
+  }
+
+  button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  pre {
+    margin: 0;
+    padding: 0.9rem;
+    overflow: auto;
+    font: 0.82rem/1.7 var(--font-mono);
+    tab-size: 2;
+  }
+
+  code {
+    font: inherit;
+  }
+</style>

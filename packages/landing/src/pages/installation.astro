@@ -1,6 +1,9 @@
 ---
 import Icon from "@ira-icons/astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
+import CodeSnippet from "../components/CodeSnippet.astro";
+import ReactLogo from "../assets/frameworks/react.svg";
+import AstroLogo from "../assets/frameworks/astro.svg";
 import BunLogo from "../assets/package-managers/bun.svg";
 import NpmLogo from "../assets/package-managers/npm.svg";
 import PnpmLogo from "../assets/package-managers/pnpm.svg";
@@ -9,73 +12,410 @@ import YarnLogo from "../assets/package-managers/yarn.svg";
 
 const packageName = "@markusss0s/ira-library";
 const managers = [
-  { name: "Bun", logo: BunLogo, darkLogo: null, command: `bun add ${packageName}` },
-  { name: "npm", logo: NpmLogo, darkLogo: null, command: `npm install ${packageName}` },
+  { name: "npm", logo: NpmLogo, command: `npm install ${packageName}` },
+  { name: "Bun", logo: BunLogo, command: `bun add ${packageName}` },
   { name: "pnpm", logo: PnpmLogo, darkLogo: PnpmDarkLogo, command: `pnpm add ${packageName}` },
-  { name: "Yarn", logo: YarnLogo, darkLogo: null, command: `yarn add ${packageName}` },
+  { name: "Yarn", logo: YarnLogo, command: `yarn add ${packageName}` },
+];
+
+const reactExample = `import { SearchMinimalist } from '${packageName}/react';
+
+export default function SearchButton() {
+  return (
+    <button type="button" aria-label="Search">
+      <SearchMinimalist size={24} />
+    </button>
+  );
+}`;
+
+const astroExample = `---
+import SearchMinimalist from '${packageName}/astro/search-minimalist';
+---
+
+<button type="button" aria-label="Search">
+  <SearchMinimalist size={24} />
+</button>`;
+
+const htmlExample = `<button type="button" aria-label="Search">
+  <img src="/icons/search-minimalist.svg"
+       width="24" height="24" alt="">
+</button>`;
+
+const variants = [
+  { name: "search", label: "Original" },
+  { name: "search-minimalist", label: "Minimalist" },
+  { name: "search-animated", label: "Animated" },
 ];
 ---
 
-<SiteLayout title="Installation · Ira Icons" description="Choose a package manager for Ira Icons.">
+<SiteLayout
+  title="Installation guide · Ira Icons"
+  description="Install Ira Icons and add your first icon in React, Astro, or plain HTML."
+>
   <main class="installation">
     <a class="back-link" href="/">
       <Icon name="arrow-left-minimalist" size={16} />
-      Back to icons
+      Back to catalog
     </a>
-    <div class="package-picker" data-package-picker>
-      <fieldset>
+
+    <header class="intro">
+      <p class="eyebrow">Quick start</p>
+      <h1>Install Ira Icons</h1>
+      <p>Run one command and add your first icon to a React, Astro, or plain HTML project.</p>
+      <nav class="jump-links" aria-label="Jump to an example">
+        <a href="#react"><img src={ReactLogo.src} width="17" height="16" alt="" /> React</a>
+        <a href="#astro"><img class="astro-framework-logo" src={AstroLogo.src} width="14" height="17" alt="" /> Astro</a>
+        <a href="#svg"><Icon name="svg" size={19} /> HTML / SVG</a>
+      </nav>
+    </header>
+
+    <section class="step" aria-labelledby="install-title">
+      <header class="step-header">
+        <span aria-hidden="true" class="step-number">01</span>
+        <div>
+          <h2 id="install-title">Install the package</h2>
+          <p>Run this command from the root of your project.</p>
+        </div>
+      </header>
+
+      <fieldset data-package-options hidden>
         <legend class="visually-hidden">Package manager</legend>
         <div class="options">
           {managers.map(({ name, logo, darkLogo, command }, index) => (
             <label>
               <input class="visually-hidden" type="radio" name="package-manager" value={command} checked={index === 0} />
               <span class="option">
-                <img class:list={[{ "light-logo": darkLogo }]} src={logo.src} alt="" width="20" height="20" />
-                {darkLogo && <img class="dark-logo" src={darkLogo.src} alt="" width="20" height="20" />}
+                <img class:list={[{ "light-logo": darkLogo }]} src={logo.src} alt="" width="18" height="18" />
+                {darkLogo && <img class="dark-logo" src={darkLogo.src} alt="" width="18" height="18" />}
                 {name}
               </span>
             </label>
           ))}
         </div>
       </fieldset>
-      <pre><output aria-label="Install command"><code><span class="command-tool" data-command-tool>bun</span>{" "}<span data-command-action>add</span>{" "}<span class="command-package">{packageName}</span></code></output></pre>
-    </div>
+      <div data-install-command>
+        <CodeSnippet title="Terminal" code={managers[0].command} live />
+      </div>
+    </section>
+
+    <section class="step" aria-labelledby="usage-title">
+      <header class="step-header">
+        <span aria-hidden="true" class="step-number">02</span>
+        <div>
+          <h2 id="usage-title">Add your first icon</h2>
+          <p>Pick the example that matches your project.</p>
+        </div>
+      </header>
+
+      <div class="examples">
+        <article id="react" class="example" aria-labelledby="react-title">
+          <div>
+            <h3 id="react-title"><img src={ReactLogo.src} width="22" height="20" alt="" /> React</h3>
+            <p>Use a named import from <code>{packageName}/react</code>. The components work with React 18 and 19 without an SVG loader or SVGR configuration.</p>
+          </div>
+          <CodeSnippet title="SearchButton.jsx" code={reactExample} />
+        </article>
+
+        <article id="astro" class="example" aria-labelledby="astro-title">
+          <div>
+            <h3 id="astro-title"><img class="astro-framework-logo" src={AstroLogo.src} width="17" height="21" alt="" /> Astro</h3>
+            <p>Import the icon in the frontmatter of an <code>.astro</code> file. It renders as inline SVG without a <code>client:*</code> directive.</p>
+          </div>
+          <CodeSnippet title="SearchButton.astro" code={astroExample} />
+        </article>
+
+        <article id="svg" class="example" aria-labelledby="svg-title">
+          <div>
+            <h3 id="svg-title"><Icon name="svg" size={23} /> HTML / SVG</h3>
+            <p>Copy <code>node_modules/{packageName}/icons/search-minimalist.svg</code> into your public <code>icons/</code> folder. Without npm, choose <strong>Copy as → SVG</strong> in the catalog and save it as the same file.</p>
+          </div>
+          <CodeSnippet title="index.html" code={htmlExample} />
+        </article>
+      </div>
+    </section>
+
+    <section class="step" aria-labelledby="customize-title">
+      <header class="step-header">
+        <span aria-hidden="true" class="step-number">03</span>
+        <div>
+          <h2 id="customize-title">Choose a style</h2>
+          <p>The filename tells you which variant you’re using.</p>
+        </div>
+      </header>
+
+      <ul class="variants">
+        {variants.map(({ name, label }) => (
+          <li>
+            <Icon name={name} size={28} />
+            <div><strong>{label}</strong><code>{name}</code></div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="note">The npm release <code>0.2.0</code> includes original and minimalist icons. To use an animated icon, copy it as React, Astro, or SVG directly from the catalog.</p>
+
+      <dl class="tips">
+        <div>
+          <dt>Size and color</dt>
+          <dd>React and Astro icons are 24 px by default and inherit the text color. Override them with <code>size</code> and <code>color</code>. In HTML, inline the SVG if you want it to inherit text color.</dd>
+        </div>
+        <div>
+          <dt>Accessible labels</dt>
+          <dd>If the icon is inside a labeled button, keep it decorative as shown above. If it stands alone and conveys meaning, use <code>label</code> in React or Astro, or <code>alt</code> on an image.</dd>
+        </div>
+      </dl>
+
+      <a class="catalog-link" href="/">
+        Browse the catalog
+        <Icon name="arrow-right-minimalist" size={16} />
+      </a>
+    </section>
   </main>
 </SiteLayout>
 
-<script>
-  const picker = document.querySelector("[data-package-picker]");
-  const tool = picker?.querySelector("[data-command-tool]");
-  const action = picker?.querySelector("[data-command-action]");
-  const syncCommand = () => {
-    const selected = picker?.querySelector<HTMLInputElement>("input:checked");
-    if (!selected || !tool || !action) return;
-    const [toolName, actionName] = selected.value.split(" ");
-    tool.textContent = toolName;
-    action.textContent = actionName;
-  };
-  picker?.addEventListener("change", syncCommand);
-  window.addEventListener("pageshow", syncCommand);
-  syncCommand();
-</script>
+<script src="../scripts/installation.js"></script>
 
 <style>
-  .installation { max-width: 40rem; }
-  .back-link { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem; font-size: .85rem; }
-  .back-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .25em; }
-  .package-picker { background: var(--panel); border: 1px solid var(--line); border-radius: .75rem; }
-  fieldset { margin: 0; padding: .5rem; border: 0; min-inline-size: 0; }
-  .options { display: flex; flex-wrap: wrap; gap: .25rem; }
-  .option { display: flex; align-items: center; gap: .45rem; padding: .5rem .6rem; min-height: 2.5rem; border: 1px solid transparent; border-radius: .45rem; cursor: pointer; font-size: .8rem; }
-  .option:hover { background: var(--hover); }
-  input:checked + .option { border-color: var(--accent); }
-  input:focus-visible + .option { outline: 2px solid var(--text); outline-offset: 1px; }
-  img { object-fit: contain; }
-  .light-logo, :global(:root[data-theme="light"]) .dark-logo { display: none; }
-  :global(:root[data-theme="light"]) .light-logo { display: block; }
-  pre { margin: 0; padding: .85rem 1rem; border-top: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; }
-  code { font: .85rem/1.6 var(--font-mono); }
-  .command-tool { color: var(--accent); }
-  .command-package { color: #8bdac3; }
-  :global(:root[data-theme="light"]) .command-package { color: #12664f; }
+  .installation {
+    max-width: 68rem;
+    padding-bottom: 4rem;
+  }
+
+  .back-link, .catalog-link, .jump-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--accent);
+  }
+
+  .back-link, .catalog-link {
+    font-size: 0.82rem;
+  }
+
+  .back-link:hover, .catalog-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .intro {
+    margin-block: 1.4rem 2.6rem;
+    padding: clamp(1.2rem, 4vw, 2.5rem);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 14%, transparent), transparent 65%), var(--panel);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.55rem;
+    color: var(--accent);
+    font-size: 0.73rem;
+    font-weight: 650;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.85rem, 5vw, 3rem);
+    font-weight: 650;
+    letter-spacing: -0.06em;
+    line-height: 1.1;
+  }
+
+  .intro > p:not(.eyebrow) {
+    max-width: 62ch;
+    margin: 0.85rem 0 1.25rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .jump-links, .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .jump-links a, .option {
+    min-height: 2.5rem;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 0.45rem;
+    background: var(--page);
+    color: var(--text);
+    font-size: 0.78rem;
+  }
+
+  .jump-links a:hover, .option:hover {
+    border-color: var(--accent);
+  }
+
+  .step + .step {
+    margin-top: 2.4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-number {
+    display: grid;
+    flex: 0 0 2.15rem;
+    place-items: center;
+    height: 2.15rem;
+    border: 1px solid var(--line);
+    border-radius: 0.55rem;
+    background: var(--panel);
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  h2, h3 {
+    margin: 0;
+    font-weight: 650;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    letter-spacing: -0.035em;
+  }
+
+  .step p, dd {
+    margin: 0.35rem 0 0;
+    color: var(--muted);
+    font-size: 0.83rem;
+    line-height: 1.65;
+  }
+
+  fieldset {
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0 0 0.65rem;
+    border: 0;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+  }
+
+  input:checked + .option {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--hover);
+  }
+
+  input:focus-visible + .option {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  img {
+    object-fit: contain;
+  }
+
+  .light-logo, :global(:root[data-theme="light"]) .dark-logo {
+    display: none;
+  }
+
+  :global(:root[data-theme="light"]) .light-logo {
+    display: block;
+  }
+
+  .examples {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .example {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+    align-items: start;
+    gap: 1rem;
+    padding: clamp(0.8rem, 2.5vw, 1.25rem);
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: var(--panel);
+    scroll-margin-top: 1rem;
+  }
+
+  .example:target {
+    border-color: var(--accent);
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+  }
+
+  .step p code, dd code, .variants code {
+    color: var(--text);
+    font-family: var(--font-mono);
+    overflow-wrap: anywhere;
+  }
+
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .variants li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 0.55rem;
+    background: var(--panel);
+    color: var(--accent);
+  }
+
+  .variants strong, .variants code {
+    display: block;
+    color: var(--text);
+    font-size: 0.8rem;
+  }
+
+  .variants code {
+    margin-top: 0.2rem;
+    color: var(--muted);
+  }
+
+  .step .note {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-inline-start: 2px solid var(--accent);
+    background: var(--panel);
+  }
+
+  .tips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 1.25rem;
+    margin-block: 1.2rem;
+  }
+
+  dt {
+    font-size: 0.82rem;
+    font-weight: 650;
+  }
+
+  @media (max-width: 44rem) {
+    .example, .tips {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
 </style>
