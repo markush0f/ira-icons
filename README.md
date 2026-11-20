@@ -31,6 +31,10 @@ The landing page lives in [`packages/landing/`](packages/landing/) and uses Astr
 
 Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. Both adapters load the original SVGs through `import.meta.glob`, without a separate code generation step. React uses Vite with SVGR to import SVGs as React components.
 
+### Icon studio
+
+Open **Create** (`/create`) to draft a 24 × 24 SVG prompt and choose an original, minimalist, or animated style. The draft is stored in the browser, and **Copy brief** exports it as text. The preview shows an existing Ira icon. There is no AI provider connected, so generation is disabled and the prompt is not sent to a server.
+
 ### Icon reports
 
 Open a card and press **Report icon**. Astro handles the POST with its Node adapter; SQLite records the exact variant and a timestamp. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`packages/landing` when using `bun run dev`). The database is created on the first report and is not served publicly.

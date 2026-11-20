@@ -3,6 +3,7 @@ import Icon from "@ira-icons/astro";
 import GitHubLogo from "../assets/frameworks/github.svg";
 
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
+const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
 ---
 
 <header class="site-header">
@@ -13,12 +14,22 @@ const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
 
   <div class="header-actions">
     <a
+      class="create-link"
+      href="/create"
+      aria-label="Create an icon"
+      aria-current={onCreate ? "page" : undefined}
+    >
+      <Icon name="star-minimalist" size={17} />
+      <span class="nav-label">Create</span>
+    </a>
+    <a
       class="installation-link"
       href="/installation"
+      aria-label="Installation guide"
       aria-current={onInstallation ? "page" : undefined}
     >
       <Icon name="download" size={17} />
-      Install
+      <span class="nav-label">Install</span>
     </a>
     <a
       class="github-link"
