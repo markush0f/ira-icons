@@ -22,6 +22,22 @@ if (packageOptions && installSnippet) {
   window.addEventListener("pageshow", syncCommand);
 }
 
+function openExample(hash) {
+  const example = document.getElementById(hash.slice(1));
+  if (example instanceof HTMLDetailsElement && example.hasAttribute("data-install-example")) {
+    example.open = true;
+  }
+}
+
+openExample(window.location.hash);
+window.addEventListener("hashchange", () => openExample(window.location.hash));
+
+document.querySelector("[data-install-example-links]")?.addEventListener("click", (event) => {
+  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const link = event.target.closest("a[href^='#']");
+  if (link) openExample(link.hash);
+});
+
 if (navigator.clipboard?.writeText) {
   for (const snippet of document.querySelectorAll("[data-snippet]")) {
     const button = snippet.querySelector("[data-copy-snippet]");

@@ -2,6 +2,7 @@
 import Icon from "@ira-icons/astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import CodeSnippet from "../components/CodeSnippet.astro";
+import InstallationExample from "../components/InstallationExample.astro";
 import InstallationIntro from "../components/InstallationIntro.astro";
 import ReactLogo from "../assets/frameworks/react.svg";
 import AstroLogo from "../assets/frameworks/astro.svg";
@@ -90,34 +91,28 @@ const variants = [
         <span aria-hidden="true" class="step-number">02</span>
         <div>
           <h2 id="usage-title">Add your first icon</h2>
-          <p>Pick the example that matches your project.</p>
+          <p>Expand the example that matches your project.</p>
         </div>
       </header>
 
       <div class="examples">
-        <article id="react" class="example" aria-labelledby="react-title">
-          <div>
-            <h3 id="react-title"><img src={ReactLogo.src} width="22" height="20" alt="" /> React</h3>
-            <p>Use a named import from <code>{packageName}/react</code>. The components work with React 18 and 19 without an SVG loader or SVGR configuration.</p>
-          </div>
+        <InstallationExample id="react" title="React">
+          <img slot="icon" src={ReactLogo.src} width="22" height="20" alt="" />
+          <p slot="description">Use a named import from <code>{packageName}/react</code>. The components work with React 18 and 19 without an SVG loader or SVGR configuration.</p>
           <CodeSnippet title="SearchButton.jsx" code={reactExample} lang="jsx" />
-        </article>
+        </InstallationExample>
 
-        <article id="astro" class="example" aria-labelledby="astro-title">
-          <div>
-            <h3 id="astro-title"><img class="astro-framework-logo" src={AstroLogo.src} width="17" height="21" alt="" /> Astro</h3>
-            <p>Import the icon in the frontmatter of an <code>.astro</code> file. It renders as inline SVG without a <code>client:*</code> directive.</p>
-          </div>
+        <InstallationExample id="astro" title="Astro">
+          <img slot="icon" class="astro-framework-logo" src={AstroLogo.src} width="17" height="21" alt="" />
+          <p slot="description">Import the icon in the frontmatter of an <code>.astro</code> file. It renders as inline SVG without a <code>client:*</code> directive.</p>
           <CodeSnippet title="SearchButton.astro" code={astroExample} lang="astro" />
-        </article>
+        </InstallationExample>
 
-        <article id="svg" class="example" aria-labelledby="svg-title">
-          <div>
-            <h3 id="svg-title"><Icon name="svg" size={23} /> HTML / SVG</h3>
-            <p>Copy <code>node_modules/{packageName}/icons/search-minimalist.svg</code> into your public <code>icons/</code> folder. Without npm, choose <strong>Copy as → SVG</strong> in the catalog and save it as the same file.</p>
-          </div>
+        <InstallationExample id="svg" title="HTML / SVG">
+          <Icon slot="icon" name="svg" size={23} />
+          <p slot="description">Copy <code>node_modules/{packageName}/icons/search-minimalist.svg</code> into your public <code>icons/</code> folder. Without npm, choose <strong>Copy as → SVG</strong> in the catalog and save it as the same file.</p>
           <CodeSnippet title="index.html" code={htmlExample} lang="html" />
-        </article>
+        </InstallationExample>
       </div>
     </section>
 
@@ -226,13 +221,10 @@ const variants = [
     font-size: 0.75rem;
   }
 
-  h2, h3 {
-    margin: 0;
-    font-weight: 650;
-  }
-
   h2 {
+    margin: 0;
     font-size: 1.25rem;
+    font-weight: 650;
     letter-spacing: -0.035em;
   }
 
@@ -283,29 +275,6 @@ const variants = [
   .examples {
     display: grid;
     gap: 0.75rem;
-  }
-
-  .example {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
-    align-items: start;
-    gap: 1rem;
-    padding: clamp(0.8rem, 2.5vw, 1.25rem);
-    border: 1px solid var(--line);
-    border-radius: 0.75rem;
-    background: var(--panel);
-    scroll-margin-top: 1rem;
-  }
-
-  .example:target {
-    border-color: var(--accent);
-  }
-
-  h3 {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-size: 0.95rem;
   }
 
   .step p code, dd code, .variants code {
@@ -365,7 +334,7 @@ const variants = [
   }
 
   @media (max-width: 44rem) {
-    .example, .tips {
+    .tips {
       grid-template-columns: minmax(0, 1fr);
     }
   }
