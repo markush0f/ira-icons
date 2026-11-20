@@ -2,15 +2,20 @@
     <style>
         @media (prefers-reduced-motion: no-preference) {
             @keyframes ira-coffee-steam {
-                0% { transform: translateY(1.5px); opacity: 0; }
-                38% { opacity: 1; }
-                100% { transform: translateY(-2px); opacity: 0; }
+                0% { transform: translateY(.8px); opacity: 0; }
+                22%, 50% { opacity: 1; }
+                100% { transform: translate(var(--ira-steam-drift, 0px), -2.4px); opacity: 0; }
             }
-            [data-ira-motion^="coffee-"] { animation: ira-coffee-steam 1.8s ease-out infinite; }
-            [data-ira-motion="coffee-right"] { animation-delay: -.8s; }
+            [data-ira-motion^="coffee-"] { animation: ira-coffee-steam 2.4s linear infinite; }
+            [data-ira-motion="coffee-left"] { --ira-steam-drift: -.6px; }
+            [data-ira-motion="coffee-center"] { animation-delay: -.8s; }
+            [data-ira-motion="coffee-right"] { --ira-steam-drift: .6px; animation-delay: -1.6s; }
         }
     </style>
     <path d="M4 10h12v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zm12 1h2a2.5 2.5 0 0 1 0 5h-2M3 22h17"/>
-    <path data-ira-motion="coffee-left" d="M8 7c-1.2-1 .9-1.6 0-3"/>
-    <path data-ira-motion="coffee-right" d="M12 7c-1.2-1 .9-1.6 0-3"/>
+    <g stroke-width="1.5">
+        <path data-ira-motion="coffee-left" d="M6.5 7.4c-1.4-1.15 1.25-1.8 .25-3"/>
+        <path data-ira-motion="coffee-center" d="M10 7.6c-2-1.6 1.8-2.6 0-4"/>
+        <path data-ira-motion="coffee-right" d="M13.5 7.4c-1.4-1.25 1.5-1.8 .25-3.2"/>
+    </g>
 </svg>
