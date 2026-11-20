@@ -1,6 +1,6 @@
 # Ira Icons
 
-Outline SVG icons in original and minimalist styles, with components for React and Astro.
+Outline SVG icons in original, minimalist, and animated styles, with components for React, Astro, Vue, and Svelte. Use the React adapter in Next.js.
 
 ## React 18 or 19
 
@@ -14,6 +14,18 @@ To load just one icon directly, use `import SearchMinimalist from '@markusss0s/i
 
 No Vite or SVGR configuration is required. The package includes React TypeScript declarations.
 
+## Next.js (App Router)
+
+Use the React export directly in a server component such as `app/page.jsx`. No `'use client'` directive or SVG loader is needed.
+
+```jsx
+import SearchMinimalist from '@markusss0s/ira-library/react/search-minimalist';
+
+export default function Page() {
+  return <SearchMinimalist size={24} label="Search" />;
+}
+```
+
 ## Astro 7
 
 ```astro
@@ -26,7 +38,31 @@ import SearchMinimalist from '@markusss0s/ira-library/astro/search-minimalist';
 
 The default export from `@markusss0s/ira-library/astro` still supports dynamic names with `<Icon name="search-minimalist" />`.
 
-For React and Astro, omit `label` when the icon is decorative. `color` defaults to `currentColor`.
+## Vue 3
+
+```vue
+<script setup>
+import { SearchMinimalist } from '@markusss0s/ira-library/vue';
+</script>
+
+<template>
+  <SearchMinimalist :size="24" label="Search" />
+</template>
+```
+
+## Svelte 5
+
+```svelte
+<script>
+  import { SearchMinimalist } from '@markusss0s/ira-library/svelte';
+</script>
+
+<SearchMinimalist size={24} label="Search" />
+```
+
+Both adapters have an individual import such as `/vue/search-minimalist` or `/svelte/search-minimalist`. Use the default `Icon` export from `/vue` or `/svelte` with `name="search-minimalist"` for dynamic names. Svelte uses your app's Svelte compiler; Vue components are precompiled.
+
+Omit `label` when the icon is decorative. `size` defaults to 24 and `color` defaults to `currentColor`.
 
 ## SVG files
 

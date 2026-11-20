@@ -3,11 +3,13 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import { buildVueAndSvelte } from '../../scripts/npm-package/build-adapters.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const output = join(root, 'dist/npm');
-const directories = ['astro', 'react', 'icons'];
-const icons = (await readdir(join(root, 'icons'))).filter((file) => file.endsWith('.svg')).sort();
+const directories = ['astro', 'react', 'vue', 'svelte', 'icons', 'shared'];
+const iconDirectory = join(root, 'icons');
+const icons = (await readdir(iconDirectory)).filter((file) => file.endsWith('.svg')).sort();
 const components = icons.map((file) => {
   const name = file.slice(0, -4);
   if (!/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(name)) throw new Error(`Invalid icon filename: ${file}`);
@@ -117,7 +119,8 @@ const labelled = Boolean(ariaLabel || props['aria-labelledby']);
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),
   copyFile(join(root, 'scripts/npm-package/package.json'), join(output, 'package.json')),
   copyFile(join(root, 'scripts/npm-package/README.md'), join(output, 'README.md')),
-  ...icons.map((file) => copyFile(join(root, 'icons', file), join(output, 'icons', file))),
+  ...icons.map((file) => copyFile(join(iconDirectory, file), join(output, 'icons', file))),
+  buildVueAndSvelte({ output, components, iconDirectory }),
 ]);
 
-console.log(`Built ${icons.length} SVGs and both adapters in dist/npm/`);
+console.log(`Built ${icons.length} SVGs and four adapters in dist/npm/`);

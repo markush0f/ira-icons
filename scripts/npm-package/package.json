@@ -1,14 +1,14 @@
 {
   "name": "@markusss0s/ira-library",
-  "version": "0.2.0",
-  "description": "Original and minimalist outline SVG icons for React, Astro, and the web.",
+  "version": "0.3.0",
+  "description": "Outline and animated SVG icons for React, Next.js, Astro, Vue, and Svelte.",
   "type": "module",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/markush0f/ira-icons.git"
   },
-  "files": ["astro", "react", "icons"],
+  "files": ["astro", "react", "vue", "svelte", "icons", "shared"],
   "exports": {
     "./react": {
       "types": "./react/Icon.d.ts",
@@ -20,14 +20,36 @@
     },
     "./astro": "./astro/Icon.astro",
     "./astro/*": "./astro/icons/*.astro",
+    "./vue": {
+      "types": "./vue/index.d.ts",
+      "default": "./vue/index.js"
+    },
+    "./vue/*": {
+      "types": "./vue/icons/*.d.ts",
+      "default": "./vue/icons/*.js"
+    },
+    "./svelte": {
+      "types": "./svelte/index.d.ts",
+      "svelte": "./svelte/index.js",
+      "default": "./svelte/index.js"
+    },
+    "./svelte/*": {
+      "types": "./svelte/icons/*.svelte.d.ts",
+      "svelte": "./svelte/icons/*.svelte",
+      "default": "./svelte/icons/*.svelte"
+    },
     "./icons/*.svg": "./icons/*.svg"
   },
   "peerDependencies": {
     "astro": "^7.0.0",
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "svelte": "^5.0.0",
+    "vue": "^3.3.0"
   },
   "peerDependenciesMeta": {
     "astro": { "optional": true },
-    "react": { "optional": true }
+    "react": { "optional": true },
+    "svelte": { "optional": true },
+    "vue": { "optional": true }
   }
 }

@@ -10,8 +10,13 @@
     "dev": "bun run --cwd packages/landing dev",
     "build": "bun run --cwd packages/landing build",
     "test": "bun run --cwd packages/react test",
+    "test:adapters": "bun run package:build && node --test scripts/npm-package/test-adapters.mjs",
     "package:build": "node packages/react/build-package.mjs",
     "package:pack": "bun run package:build && npm pack ./dist/npm --pack-destination ./dist",
     "preview": "bun run --cwd packages/landing preview"
+  },
+  "devDependencies": {
+    "svelte": "^5.58.1",
+    "vue": "^3.5.46"
   }
 }

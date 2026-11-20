@@ -59,9 +59,9 @@ Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibil
 
 ## Build the installable package
 
-From the repository root, run `bun install` and `bun run package:pack`. This creates `dist/markusss0s-ira-library-0.2.0.tgz` without publishing anything. From a separate project, install it with `npm install /absolute/path/to/markusss0s-ira-library-0.2.0.tgz`.
+From the repository root, run `bun install` and `bun run package:pack`. This creates `dist/markusss0s-ira-library-0.3.0.tgz` without publishing anything. From a separate project, install it with `npm install /absolute/path/to/markusss0s-ira-library-0.3.0.tgz`.
 
-The tarball exposes `@markusss0s/ira-library/react`, `@markusss0s/ira-library/astro`, and `@markusss0s/ira-library/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for usage. Use named React imports or import individual components via `/react/search-minimalist` and `/astro/search-minimalist`. The React distribution is precompiled and doesn't require SVGR in the consuming app.
+The tarball exposes `@markusss0s/ira-library/react` (also used by Next.js), `/astro`, `/vue`, `/svelte`, and `/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for examples and single-icon imports. The React distribution is precompiled and doesn't require SVGR in the consuming app. Run `bun run test:adapters` to build and test the Vue and Svelte exports.
 
 ## Standalone preview
 
