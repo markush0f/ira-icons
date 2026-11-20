@@ -6,7 +6,7 @@ interface Props {
   title: string;
   code: string;
   live?: boolean;
-  lang?: "jsx" | "astro" | "html";
+  lang?: "jsx" | "astro" | "html" | "vue" | "svelte";
 }
 
 const { title, code, live = false, lang } = Astro.props;
