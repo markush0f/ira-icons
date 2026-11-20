@@ -1,4 +1,6 @@
 ---
+import Icon from "@ira-icons/astro";
+
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
 ---
 
@@ -9,30 +11,14 @@ const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
   </a>
 
   <div class="header-actions">
-    <button>
-      <a
-        class="installation-link"
-        href="/installation"
-        aria-label="Installation"
-        aria-current={onInstallation ? "page" : undefined}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          color="#ad8af3"
-          aria-hidden="true"
-        >
-          <path d="M12 4v11m-5-5 5 5 5-5M5 20h14" />
-        </svg>
-      </a>
-    </button>
+    <a
+      class="installation-link"
+      href="/installation"
+      aria-current={onInstallation ? "page" : undefined}
+    >
+      <Icon name="download" size={17} />
+      Install
+    </a>
     <button
       type="button"
       class="theme-button"
