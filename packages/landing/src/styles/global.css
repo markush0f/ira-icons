@@ -138,6 +138,7 @@ main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clam
 .copy-status { min-height: 1lh; margin: .5rem 0 0; font-size: .75rem; color: var(--text); }
 .astro-framework-logo { filter: brightness(0) invert(1); }
 :root[data-theme="light"] .astro-framework-logo { filter: none; }
+.next-framework-logo { border-radius: 50%; outline: 1px solid var(--line); }
 
 @media (max-width: 48rem) {
   main { padding-block: 1.5rem; }

@@ -6,6 +6,9 @@ import InstallationExample from "../components/InstallationExample.astro";
 import InstallationIntro from "../components/InstallationIntro.astro";
 import ReactLogo from "../assets/frameworks/react.svg";
 import AstroLogo from "../assets/frameworks/astro.svg";
+import NextLogo from "../assets/frameworks/nextjs.svg";
+import VueLogo from "../assets/frameworks/vue.svg";
+import SvelteLogo from "../assets/frameworks/svelte.svg";
 import BunLogo from "../assets/package-managers/bun.svg";
 import NpmLogo from "../assets/package-managers/npm.svg";
 import PnpmLogo from "../assets/package-managers/pnpm.svg";
@@ -130,16 +133,19 @@ const variants = [
         </InstallationExample>
 
         <InstallationExample id="next" title="Next.js">
+          <img slot="icon" class="next-framework-logo" src={NextLogo.src} width="20" height="20" alt="" />
           <p slot="description">Use the React entry point in an App Router page. The icon renders on the server without <code>'use client'</code> or an SVG loader.</p>
           <CodeSnippet title="app/page.jsx" code={nextExample} lang="jsx" />
         </InstallationExample>
 
         <InstallationExample id="vue" title="Vue 3">
+          <img slot="icon" src={VueLogo.src} width="22" height="19" alt="" />
           <p slot="description">Import the component in <code>&lt;script setup&gt;</code>. The Vue entry point has precompiled components and supports server rendering.</p>
           <CodeSnippet title="SearchIcon.vue" code={vueExample} lang="vue" />
         </InstallationExample>
 
         <InstallationExample id="svelte" title="Svelte 5">
+          <img slot="icon" src={SvelteLogo.src} width="17" height="21" alt="" />
           <p slot="description">Import the component in a <code>.svelte</code> file. The package ships native Svelte components for the standard Svelte compiler.</p>
           <CodeSnippet title="SearchIcon.svelte" code={svelteExample} lang="svelte" />
         </InstallationExample>
