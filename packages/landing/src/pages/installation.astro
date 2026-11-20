@@ -2,6 +2,7 @@
 import Icon from "@ira-icons/astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import CodeSnippet from "../components/CodeSnippet.astro";
+import InstallationIntro from "../components/InstallationIntro.astro";
 import ReactLogo from "../assets/frameworks/react.svg";
 import AstroLogo from "../assets/frameworks/astro.svg";
 import BunLogo from "../assets/package-managers/bun.svg";
@@ -53,21 +54,7 @@ const variants = [
   description="Install Ira Icons and add your first icon in React, Astro, or plain HTML."
 >
   <main class="installation">
-    <a class="back-link" href="/">
-      <Icon name="arrow-left-minimalist" size={16} />
-      Back to catalog
-    </a>
-
-    <header class="intro">
-      <p class="eyebrow">Quick start</p>
-      <h1>Install Ira Icons</h1>
-      <p>Run one command and add your first icon to a React, Astro, or plain HTML project.</p>
-      <nav class="jump-links" aria-label="Jump to an example">
-        <a href="#react"><img src={ReactLogo.src} width="17" height="16" alt="" /> React</a>
-        <a href="#astro"><img class="astro-framework-logo" src={AstroLogo.src} width="14" height="17" alt="" /> Astro</a>
-        <a href="#svg"><Icon name="svg" size={19} /> HTML / SVG</a>
-      </nav>
-    </header>
+    <InstallationIntro packageName={packageName} />
 
     <section class="step" aria-labelledby="install-title">
       <header class="step-header">
@@ -181,62 +168,26 @@ const variants = [
     padding-bottom: 4rem;
   }
 
-  .back-link, .catalog-link, .jump-links a {
+  .catalog-link {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
     color: var(--accent);
-  }
-
-  .back-link, .catalog-link {
     font-size: 0.82rem;
   }
 
-  .back-link:hover, .catalog-link:hover {
+  .catalog-link:hover {
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }
 
-  .intro {
-    margin-block: 1.4rem 2.6rem;
-    padding: clamp(1.2rem, 4vw, 2.5rem);
-    border: 1px solid var(--line);
-    border-radius: 1rem;
-    background: radial-gradient(ellipse at top right, color-mix(in srgb, var(--accent) 14%, transparent), transparent 65%), var(--panel);
-  }
-
-  .eyebrow {
-    margin: 0 0 0.55rem;
-    color: var(--accent);
-    font-size: 0.73rem;
-    font-weight: 650;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(1.85rem, 5vw, 3rem);
-    font-weight: 650;
-    letter-spacing: -0.06em;
-    line-height: 1.1;
-  }
-
-  .intro > p:not(.eyebrow) {
-    max-width: 62ch;
-    margin: 0.85rem 0 1.25rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-    line-height: 1.65;
-  }
-
-  .jump-links, .options {
+  .options {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .jump-links a, .option {
+  .option {
     min-height: 2.5rem;
     padding: 0.4rem 0.65rem;
     border: 1px solid var(--line);
@@ -246,7 +197,7 @@ const variants = [
     font-size: 0.78rem;
   }
 
-  .jump-links a:hover, .option:hover {
+  .option:hover {
     border-color: var(--accent);
   }
 
