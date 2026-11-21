@@ -1,0 +1,15 @@
+{
+  "name": "trend-study",
+  "original": [
+    { "id": "axes", "type": "path", "d": "M4 5v15h16" },
+    { "id": "ticks", "type": "path", "d": "M4 9h2m-2 5h2m4 6v-2" },
+    { "id": "series", "type": "path", "d": "m8 15 4-5 4 2 4-7" }
+  ],
+  "minimalist": [
+    { "id": "axes", "type": "path", "d": "M4 5v15h16" },
+    { "id": "series", "type": "path", "d": "m8 15 5-5 3 2 4-7" }
+  ],
+  "motion": [
+    { "target": "series", "effect": "draw" }
+  ]
+}

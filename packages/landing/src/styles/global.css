@@ -80,6 +80,17 @@ button, input { font: inherit; }
   border-color: var(--accent);
   color: var(--accent);
 }
+.nav-soon {
+  padding: .05rem .3rem;
+  border-radius: .25rem;
+  background: var(--hover);
+  color: var(--muted);
+  font-size: .66rem;
+  white-space: nowrap;
+}
+@media (max-width: 44rem) {
+  .nav-soon { display: none; }
+}
 .theme-button, .github-link {
   display: grid;
   place-items: center;

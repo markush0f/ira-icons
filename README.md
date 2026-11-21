@@ -33,7 +33,11 @@ Astro loads the original SVGs as components through Vite. `@ira-icons/core` vali
 
 ### Icon studio
 
-Open **Create** (`/create`) to draft a 24 × 24 SVG prompt and choose an original, minimalist, or animated style. The draft is stored in the browser, and **Copy brief** exports it as text. The preview shows an existing Ira icon. **Generate demo** shows a three-second loading state, then reveals the reference icon. The loading indicator stays still when reduced motion is enabled. There is no AI provider connected, and the prompt is not sent to a server.
+**Create** is a read-only preview by default. Set `CREATE_COMING_SOON=false` when starting Astro or building the site to enable generation. Supply `GEMINI_API_KEY` to the Node server as a private environment variable (never as `PUBLIC_*`). The default model is `gemini-3.8-flash`; the server can override it with `GEMINI_MODEL`.
+
+The draft stays in the browser until **Generate with AI** is pressed. Astro sends the description to Gemini, validates the returned proposal, and returns original, minimalist, and animated SVGs. Users can preview and download them; nothing is automatically added to the catalog. The loading indicator lasts for the request, stays still when reduced motion is enabled, and stops on success or error.
+
+The generation route and the icon-designer skill share the JavaScript compiler and Gemini client. Astro’s Node server handles generation without a separate worker. The route is disabled in *Coming soon* mode and limited to one concurrent and ten attempted generations per hour per Node process. Keep it private or configure access controls and provider quotas before enabling it on a public deployment.
 
 ### Icon reports
 

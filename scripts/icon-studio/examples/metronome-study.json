@@ -1,0 +1,17 @@
+{
+  "name": "metronome-study",
+  "original": [
+    { "id": "case", "type": "path", "d": "M8 3h8l4 18H4z" },
+    { "id": "feet", "type": "path", "d": "M7 18h10" },
+    { "id": "pendulum", "type": "path", "d": "M12 16V7" },
+    { "id": "weight", "type": "circle", "cx": 12, "cy": 9, "r": 0.5 }
+  ],
+  "minimalist": [
+    { "id": "case", "type": "path", "d": "M8 3h8l4 18H4z" },
+    { "id": "pendulum", "type": "path", "d": "M12 16V7" }
+  ],
+  "motion": [
+    { "target": "pendulum", "effect": "swing", "origin": [12, 16], "durationMs": 2200 },
+    { "target": "weight", "effect": "swing", "origin": [12, 16], "durationMs": 2200 }
+  ]
+}

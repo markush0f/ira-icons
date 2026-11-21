@@ -1,0 +1,19 @@
+{
+  "name": "shower-study",
+  "original": [
+    { "id": "head", "type": "rect", "x": 4, "y": 7, "width": 16, "height": 4, "rx": 2 },
+    { "id": "pipe", "type": "path", "d": "M12 7V3h6" },
+    { "id": "left-drop", "type": "path", "d": "M8 14v3" },
+    { "id": "center-drop", "type": "path", "d": "M12 14v4" },
+    { "id": "right-drop", "type": "path", "d": "M16 14v3" }
+  ],
+  "minimalist": [
+    { "id": "head", "type": "path", "d": "M4 10h16m-8 0V4h5" },
+    { "id": "spray", "type": "path", "d": "M8 14v3m4-3v4m4-4v3" }
+  ],
+  "motion": [
+    { "target": "left-drop", "effect": "drop", "durationMs": 1800 },
+    { "target": "center-drop", "effect": "drop", "durationMs": 1800, "delayMs": -300 },
+    { "target": "right-drop", "effect": "drop", "durationMs": 1800, "delayMs": -600 }
+  ]
+}

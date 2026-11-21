@@ -11,6 +11,7 @@
     "@astrojs/node": "^11.1.14",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@ira-icons/astro": "workspace:*",
-    "astro": "^7.4.12"
+    "astro": "^7.4.12",
+    "svg-pathdata": "^8.0.0"
   }
 }

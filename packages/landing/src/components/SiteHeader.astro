@@ -1,6 +1,7 @@
 ---
 import Icon from "@ira-icons/astro";
 import GitHubLogo from "../assets/frameworks/github.svg";
+import { CREATE_COMING_SOON } from "../lib/feature-flags.mjs";
 
 const onCatalog = Astro.url.pathname === "/";
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
@@ -27,12 +28,13 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
     <a
       class="create-link"
       href="/create"
-      aria-label="Create an icon"
+      aria-label={CREATE_COMING_SOON ? "Create an icon (coming soon)" : "Create an icon"}
       data-astro-prefetch={onCreate ? undefined : "hover"}
       aria-current={onCreate ? "page" : undefined}
     >
       <Icon name="star-minimalist" size={17} />
       <span class="nav-label">Create</span>
+      {CREATE_COMING_SOON && <span class="nav-soon" aria-hidden="true">Soon</span>}
     </a>
     <a
       class="installation-link"
