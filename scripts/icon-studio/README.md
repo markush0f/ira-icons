@@ -1,6 +1,6 @@
-# Internal icon tools
+# Icon Studio
 
-Use these tools to draft **one new icon**, with three variants. They run on Node and never add files to `icons/`. Chrome/Chromium is optional for the browser audit. The `search` and `build` commands stay local; only `generate` calls Gemini. The CLI and Astro Create page share the JavaScript compiler and Gemini integration.
+Use these tools to draft **one new icon**, with three variants. They run on Node and never add files to `icons/`. Chrome/Chromium is optional for the browser audit. The `search` and `build` commands stay local; only `generate` calls Gemini. The CLI and Astro Create page share the JavaScript compiler and Gemini integration. To regenerate the existing expansion in bulk rather than draft a single icon, use [Icon Expansion](../icon-expansion/README.md).
 
 ```sh
 # 1. Find nearby icons before drawing. Read the best matches for visual reference.
