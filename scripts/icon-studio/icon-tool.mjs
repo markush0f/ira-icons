@@ -4,8 +4,8 @@ import { tmpdir } from "node:os";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseArgs, promisify } from "node:util";
-import { findRelatedIconNames, requestIconProposal } from "../../packages/landing/src/server/generate-icon.mjs";
-import { compileIcon } from "../../packages/landing/src/server/icon-svg.mjs";
+import { findRelatedIconNames, requestIconProposal } from "../../web/src/server/generate-icon.mjs";
+import { compileIcon } from "../../web/src/server/icon-svg.mjs";
 import { checkFamily, reviewSheet, validName, variants } from "./review.mjs";
 
 const run = promisify(execFile);

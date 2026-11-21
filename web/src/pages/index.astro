@@ -1,0 +1,44 @@
+---
+/** Composes the searchable catalog and its interactive icon detail panel. */
+import { iconNames } from "../icons/icons.mjs";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import IconCatalog from "../components/IconCatalog.astro";
+import IconDetails from "../components/IconDetails.astro";
+
+const catalogNames = iconNames.filter(name => !/-(animated|minimalist)$/.test(name));
+const firstIcon = catalogNames[0];
+---
+
+<SiteLayout>
+  <main>
+    <div class="workspace" id="workspace">
+      <IconCatalog names={catalogNames} selectedName={firstIcon} />
+      <IconDetails name={`${firstIcon}-animated`} />
+    </div>
+  </main>
+  <footer class="catalog-footer">
+    <p>Ira Icons is in active development. New icons and animations are added over time.</p>
+    <p>Many Ira Icons were designed with AI assistance. We test the SVGs for rendering, animation, and reduced-motion support.</p>
+  </footer>
+  <script src="../scripts/catalog.js"></script>
+</SiteLayout>
+
+<style>
+  .catalog-footer {
+    max-width: 1800px;
+    margin-inline: auto;
+    padding: 1rem clamp(1rem, 3vw, 3rem) 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  .catalog-footer p {
+    margin: 0;
+  }
+
+  .catalog-footer p + p {
+    margin-top: 0.35rem;
+  }
+</style>

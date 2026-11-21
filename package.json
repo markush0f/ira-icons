@@ -2,23 +2,36 @@
   "name": "ira-icons",
   "private": true,
   "packageManager": "bun@1.4.4",
-  "workspaces": ["packages/*"],
+  "type": "module",
   "engines": {
     "node": ">=22.23.4"
   },
   "scripts": {
-    "dev": "bun run --cwd packages/landing dev",
-    "build": "bun run --cwd packages/landing build",
-    "test": "bun run --cwd packages/react test",
-    "test:icon-tools": "node --test scripts/icon-studio/*.test.mjs packages/landing/test/generate-icon.test.mjs",
+    "dev": "cd web && astro dev",
+    "build": "cd web && astro build",
+    "test": "node --test scripts/npm-package/test-react/*.test.mjs && tsc -p scripts/npm-package/test-react/tsconfig.json",
+    "test:icon-tools": "node --test scripts/icon-studio/*.test.mjs web/test/generate-icon.test.mjs",
     "test:adapters": "bun run package:build && node --test scripts/npm-package/test-adapters.mjs",
-    "package:build": "node packages/react/build-package.mjs",
+    "package:build": "node scripts/npm-package/build.mjs",
     "package:pack": "bun run package:build && npm pack ./dist/npm --pack-destination ./dist",
-    "preview": "bun run --cwd packages/landing preview"
+    "preview": "cd web && astro preview"
+  },
+  "dependencies": {
+    "@astrojs/node": "^11.1.14",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "astro": "^7.4.12",
+    "svg-pathdata": "^8.0.0"
   },
   "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "saxes": "^6.0.0",
     "svelte": "^5.58.1",
+    "typescript": "^5.9.0",
+    "vite": "^7.0.0",
+    "vite-plugin-svgr": "^4.0.0",
     "vue": "^3.5.46"
   }
 }

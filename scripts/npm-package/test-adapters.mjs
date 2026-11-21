@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import { createRequire, registerHooks } from 'node:module';
 import { test } from 'node:test';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { createSSRApp, h } from 'vue';
 import { renderToString } from 'vue/server-renderer';
 import { compile } from 'svelte/compiler';
@@ -14,7 +16,7 @@ const importExport = (subpath) =>
   import(pathToFileURL(resolve(`@markusss0s/ira-library/${subpath}`)).href);
 
 // The package ships Svelte source; emulate the consumer's SSR compilation.
-registerHooks({
+const registerSvelteCompiler = () => registerHooks({
   load(url, context, next) {
     if (!url.startsWith(distribution.href) || !url.endsWith('.svelte')) return next(url, context);
     const filename = fileURLToPath(url);
@@ -25,12 +27,17 @@ registerHooks({
 });
 
 const adapters = {
+  react: (component, { class: className, ...props }) => renderToStaticMarkup(createElement(component, { ...props, className })),
   vue: (component, props) => renderToString(createSSRApp({ render: () => h(component, props) })),
   svelte: (component, props) => render(component, { props }).body,
 };
 
 for (const [adapter, renderIcon] of Object.entries(adapters)) {
-  test(`${adapter} exports named, individual, and dynamic icons with accessible SVG`, async () => {
+  test(`${adapter} exports named, individual, and dynamic icons with accessible SVG`, async (t) => {
+    if (adapter === 'svelte') {
+      const hooks = registerSvelteCompiler();
+      t.after(() => hooks.deregister());
+    }
     const icons = await importExport(adapter);
     const individual = (await importExport(`${adapter}/search-minimalist`)).default;
     assert.equal(individual, icons.SearchMinimalist);

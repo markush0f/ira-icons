@@ -1,0 +1,23 @@
+---
+import Icon from "../icons/Icon.astro";
+import ColorPicker from "./ColorPicker.astro";
+import IconCopy from "./IconCopy.astro";
+import IconReport from "./IconReport.astro";
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<aside class="detail-panel" id="detail-panel" tabindex="-1" aria-labelledby="detail-title">
+  <div class="detail-header">
+    <p class="detail-eyebrow">Icon details</p>
+  </div>
+  <div class="detail-preview" id="detail-preview"><Icon name={name} size={96} color="#ad8af3" /></div>
+  <h2 class="detail-title" id="detail-title">{name}</h2>
+  <IconCopy />
+  <ColorPicker />
+  <IconReport />
+</aside>

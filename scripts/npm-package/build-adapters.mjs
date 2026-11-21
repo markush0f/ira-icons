@@ -1,8 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const templates = fileURLToPath(new URL('./adapters/', import.meta.url));
 
 function parseSvg(source, file) {
   const match = source.match(/^\s*<svg\b([^>]*)>([\s\S]*)<\/svg>\s*$/);
@@ -22,7 +19,7 @@ export async function buildVueAndSvelte({ output, components, iconDirectory }) {
   ));
 
   const write = (path, contents) => writeFile(join(output, path), contents);
-  const copy = (path) => copyFile(join(templates, path), join(output, path));
+  const copy = (path) => copyFile(new URL(path, import.meta.url), join(output, path));
   const imports = components.map(({ name, identifier }) =>
     `import ${identifier} from './icons/${name}.js';`).join('\n');
   const entries = components.map(({ name, identifier }) =>

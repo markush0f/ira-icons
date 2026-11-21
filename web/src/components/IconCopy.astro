@@ -1,0 +1,62 @@
+---
+import Icon from "../icons/Icon.astro";
+import ReactLogo from "../assets/frameworks/react.svg";
+import AstroLogo from "../assets/frameworks/astro.svg";
+---
+
+<div data-icon-copy hidden>
+  <div class="detail-divider"></div>
+  <div class="detail-actions">
+  <div>
+  <p class="detail-eyebrow" id="copy-label">
+    Copy as
+  </p>
+  <div class="framework-links" role="group" aria-labelledby="copy-label">
+    <button
+      class="framework-button"
+      type="button"
+      data-copy-format="React"
+      aria-label="Copy React component"
+      title="Copy React component"
+    >
+      <img src={ReactLogo.src} alt="" width="20" height="18" />
+    </button>
+    <button
+      class="framework-button"
+      type="button"
+      data-copy-format="Astro"
+      aria-label="Copy Astro component"
+      title="Copy Astro component"
+    >
+      <img
+        class="astro-framework-logo"
+        src={AstroLogo.src}
+        alt=""
+        width="16"
+        height="20"
+      />
+    </button>
+    <button
+      class="framework-button"
+      type="button"
+      data-copy-format="SVG"
+      aria-label="Copy SVG"
+      title="Copy SVG"
+    >
+      <Icon name="svg" size={22} />
+    </button>
+  </div>
+  </div>
+  <div data-variant-picker>
+    <p class="detail-eyebrow" id="variant-label">Variante</p>
+    <div class="variant-options" role="group" aria-labelledby="variant-label">
+      {[["Animado", "-animated", "play"], ["Minimalista", "-minimalist", "minus"], ["Normal", "", "square"]].map(([label, suffix, glyph]) =>
+        <button class="framework-button" type="button" data-suffix={suffix} aria-label={label} title={label} aria-pressed="false">
+          <Icon name={glyph} size={19} />
+        </button>
+      )}
+    </div>
+  </div>
+  </div>
+  <p class="copy-status" role="status" data-copy-status></p>
+</div>

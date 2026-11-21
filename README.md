@@ -27,9 +27,9 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`packages/landing/`](packages/landing/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.js` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Use the color picker to set the icon color, then choose React, Astro, or SVG under **Copy as** to copy the selected icon. The code is self-contained and keeps the preview color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.js` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Use the color picker to set the icon color, then choose React, Astro, or SVG under **Copy as** to copy the selected icon. The code is self-contained and keeps the preview color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
-Astro loads the original SVGs as components through Vite. `@ira-icons/core` validates their names and provides the shared catalog and lookup. Both adapters load the original SVGs through `import.meta.glob`, without a separate code generation step. React uses Vite with SVGR to import SVGs as React components.
+The landing loads the original SVGs through its local Astro component and Vite catalog in [`web/src/icons/`](web/src/icons/). The shared helper in [`scripts/icon-catalog.mjs`](scripts/icon-catalog.mjs) validates icon names and provides catalog lookup. The landing does not depend on building the npm distribution.
 
 ### Icon studio
 
@@ -41,24 +41,24 @@ The generation route and the icon-designer skill share the JavaScript compiler a
 
 ### Icon reports
 
-Open a card and press **Report icon**. You can expand **Add a comment (optional)** first to include up to 500 characters. Astro handles the POST with its Node adapter; SQLite records the exact variant, a timestamp, and the optional comment. Existing databases gain the comment column automatically when the next report is saved. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`packages/landing` when using `bun run dev`). The database is created on the first report and is not served publicly.
+Open a card and press **Report icon**. You can expand **Add a comment (optional)** first to include up to 500 characters. Astro handles the POST with its Node adapter; SQLite records the exact variant, a timestamp, and the optional comment. Existing databases gain the comment column automatically when the next report is saved. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`web/` when using `bun run dev`). The database is created on the first report and is not served publicly.
 
 For production, run the Astro Node server after building and point it to a writable, persistent path:
 
 ```sh
 bun run build
-IRA_REPORTS_DB=/path/to/persistent/icon-reports.sqlite node packages/landing/dist/server/entry.mjs
+IRA_REPORTS_DB=/path/to/persistent/icon-reports.sqlite node web/dist/server/entry.mjs
 ```
 
 The standalone `index.html` and static-only hosting do not support reports. Inspect the stored reports locally with `sqlite3 /path/to/persistent/icon-reports.sqlite 'SELECT icon_name, created_at, comment FROM icon_reports ORDER BY id DESC;'`.
 
 ## Astro usage
 
-`@ira-icons/astro` is available within the workspace but is not published to npm. Import a single component and select an icon with `name`:
+Import the component from the npm package and select an icon with `name`:
 
 ```astro
 ---
-import Icon from '@ira-icons/astro';
+import Icon from '@markusss0s/ira-library/astro';
 ---
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />
@@ -68,17 +68,15 @@ The default size is 24 px. Set `size` and `color` to customize its dimensions an
 
 ## React usage
 
-`@ira-icons/react` supports React 18 and 19 in Vite projects with `vite-plugin-svgr`. Like Astro, it is currently workspace-only and uses the original SVG files directly:
+The npm package supports React 18 and 19, with no SVGR configuration needed in the consuming app:
 
 ```tsx
-import Icon from '@ira-icons/react';
+import Icon from '@markusss0s/ira-library/react';
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />;
 ```
 
-Configure `svgr({ svgrOptions: { ref: true } })` in Vite's plugins and `resolve: { dedupe: ['react', 'react-dom'] }`. See the [React package README](packages/react/README.md) for full setup, including SSR. No JavaScript source generation is needed.
-
-Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. The catalog eagerly imports all icons, matching Astro's approach.
+Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. Use an individual import, such as `@markusss0s/ira-library/react/search`, if you don't need the full catalog.
 
 Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibility, production bundling, and TypeScript props.
 
@@ -86,7 +84,7 @@ Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibil
 
 From the repository root, run `bun install` and `bun run package:pack`. This creates `dist/markusss0s-ira-library-0.3.0.tgz` without publishing anything. From a separate project, install it with `npm install /absolute/path/to/markusss0s-ira-library-0.3.0.tgz`.
 
-The tarball exposes `@markusss0s/ira-library/react` (also used by Next.js), `/astro`, `/vue`, `/svelte`, and `/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for examples and single-icon imports. The React distribution is precompiled and doesn't require SVGR in the consuming app. Run `bun run test:adapters` to build and test the Vue and Svelte exports.
+[`scripts/npm-package/build.mjs`](scripts/npm-package/build.mjs) builds all integrations into one tarball. It exposes `@markusss0s/ira-library/react` (also used by Next.js), `/astro`, `/vue`, `/svelte`, and `/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for examples and single-icon imports. Run `bun run test:adapters` to build and test the React, Vue, and Svelte exports.
 
 ## Standalone preview
 

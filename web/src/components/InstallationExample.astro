@@ -1,0 +1,96 @@
+---
+import Icon from "../icons/Icon.astro";
+
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+---
+
+<details id={id} class="example" data-install-example>
+  <summary>
+    <span class="example-title">
+      <slot name="icon" />
+      {title}
+    </span>
+    <span class="chevron">
+      <Icon name="chevron-down-minimalist" size={17} />
+    </span>
+  </summary>
+  <div class="example-body">
+    <div>
+      <slot name="description" />
+    </div>
+    <slot />
+  </div>
+</details>
+
+<style>
+  .example {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: var(--panel);
+    scroll-margin-top: 1rem;
+  }
+
+  .example:target {
+    border-color: var(--accent);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 0.65rem clamp(0.8rem, 2.5vw, 1.25rem);
+    border-radius: inherit;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover {
+    color: var(--accent);
+    background: var(--hover);
+  }
+
+  .example-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    font-weight: 650;
+  }
+
+  .chevron {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+  }
+
+  .example[open] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .example-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+    align-items: start;
+    gap: 1rem;
+    padding: clamp(0.8rem, 2.5vw, 1.25rem);
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 44rem) {
+    .example-body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
