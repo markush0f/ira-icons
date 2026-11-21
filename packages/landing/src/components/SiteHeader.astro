@@ -18,6 +18,7 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
       class="catalog-nav-link"
       href="/"
       aria-label="Icon catalog"
+      data-astro-prefetch={onCatalog ? undefined : "hover"}
       aria-current={onCatalog ? "page" : undefined}
     >
       <Icon name="grid-minimalist" size={17} />
@@ -27,6 +28,7 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
       class="create-link"
       href="/create"
       aria-label="Create an icon"
+      data-astro-prefetch={onCreate ? undefined : "hover"}
       aria-current={onCreate ? "page" : undefined}
     >
       <Icon name="star-minimalist" size={17} />
@@ -36,6 +38,7 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
       class="installation-link"
       href="/installation"
       aria-label="Installation guide"
+      data-astro-prefetch={onInstallation ? undefined : "hover"}
       aria-current={onInstallation ? "page" : undefined}
     >
       <Icon name="download" size={17} />
@@ -55,7 +58,6 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
       id="theme-toggle"
       aria-label="Toggle color theme"
       aria-pressed="false"
-      hidden
     >
       <svg
         viewBox="0 0 24 24"

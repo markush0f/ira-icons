@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
+import themeScript from "../scripts/theme.js?raw";
 
 interface Props {
   title?: string;
@@ -21,20 +22,10 @@ const {
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/ira-logo.png" />
     <title>{title}</title>
-    <script is:inline>
-      // Restore the saved theme before rendering the page.
-      try {
-        const theme = localStorage.getItem("ira-icons-theme");
-        if (theme === "light" || theme === "dark")
-          document.documentElement.dataset.theme = theme;
-      } catch {
-        // Keep the default theme when browser storage is unavailable.
-      }
-    </script>
+    <script is:inline set:html={themeScript}></script>
   </head>
   <body>
     <SiteHeader />
     <slot />
-    <script src="../scripts/theme.js"></script>
   </body>
 </html>

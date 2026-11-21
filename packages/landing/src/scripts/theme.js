@@ -1,26 +1,43 @@
-const root = document.documentElement;
-const toggle = document.querySelector("#theme-toggle");
-const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+(() => {
+  const root = document.documentElement;
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const storageKey = "ira-icons-theme";
 
-if (toggle) {
-  let preference = root.dataset.theme;
-  const sync = () => {
+  function readPreference() {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === "light" || saved === "dark") return saved;
+    } catch {
+      // Fall back to the system preference if storage is unavailable.
+    }
+    return null;
+  }
+
+  let preference = readPreference();
+
+  function syncTheme() {
     const theme = preference ?? (systemTheme.matches ? "dark" : "light");
     root.dataset.theme = theme;
-    toggle.setAttribute("aria-pressed", String(theme === "dark"));
-  };
+    document.querySelector("#theme-toggle")?.setAttribute("aria-pressed", String(theme === "dark"));
+  }
 
-  toggle.addEventListener("click", () => {
+  syncTheme();
+  document.addEventListener("DOMContentLoaded", syncTheme, { once: true });
+  systemTheme.addEventListener("change", syncTheme);
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+    preference = readPreference();
+    syncTheme();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest("#theme-toggle")) return;
     preference = root.dataset.theme === "dark" ? "light" : "dark";
-    sync();
+    syncTheme();
     try {
-      localStorage.setItem("ira-icons-theme", preference);
+      localStorage.setItem(storageKey, preference);
     } catch {
       // The theme remains active for this page if storage is unavailable.
     }
   });
-
-  systemTheme.addEventListener("change", sync);
-  sync();
-  toggle.hidden = false;
-}
+})();
