@@ -24,7 +24,7 @@ const styles = [
       <h1>Create an icon</h1>
       <p>{CREATE_COMING_SOON
         ? "A first look at the AI icon studio."
-        : "Describe an SVG icon, choose a style, and generate it with Gemini."}</p>
+        : "Describe an icon and generate three styles: original, minimalist, and animated."}</p>
     </header>
 
     {CREATE_COMING_SOON && (
@@ -72,6 +72,9 @@ const styles = [
             <Icon name="star-minimalist" size={17} />
             Generate with AI
           </button>
+          <button type="button" class="action" data-generate-variants hidden>
+            Retry variants
+          </button>
           <button type="button" class="action" data-copy-brief hidden={!CREATE_COMING_SOON} disabled>
             <Icon name="copy-minimalist" size={16} />
             Copy brief
@@ -93,6 +96,10 @@ const styles = [
           ))}
           <figure data-generated-preview hidden>
             <img width="96" height="96" alt="Generated icon" />
+            <div data-review-sizes hidden>
+              <img width="16" height="16" alt="Original at 16 pixels" />
+              <img width="24" height="24" alt="Original at 24 pixels" />
+            </div>
             <figcaption data-generated-caption></figcaption>
           </figure>
           <div class="preview-loader" data-preview-loader hidden aria-hidden="true">
@@ -304,12 +311,27 @@ const styles = [
     margin: 0;
   }
 
-  [data-generated-preview] img {
+  [data-generated-preview] > img {
     box-sizing: content-box;
     padding: 0.75rem;
     border: 1px solid var(--line);
     border-radius: 0.65rem;
-    background: #f6f4f9;
+  }
+
+  [data-review-sizes]:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-block: 0.5rem;
+  }
+
+  [data-generated-preview] img {
+    filter: invert(1);
+  }
+
+  :global(:root[data-theme="light"]) [data-generated-preview] img {
+    filter: none;
   }
 
   .download-result {

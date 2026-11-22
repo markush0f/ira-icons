@@ -97,7 +97,14 @@ async function main() {
   if (command === "generate") {
     const key = process.env.GEMINI_API_KEY?.trim();
     if (!key) throw new Error("Set GEMINI_API_KEY in the environment before generating an icon");
-    proposal = await requestIconProposal({ description: input.trim(), style: "original" }, key, { iconNames });
+    const designGuide = await readFile(new URL("../../.agents/skills/icon-designer/references/design-guide.md", import.meta.url), "utf8");
+    proposal = await requestIconProposal({ description: input.trim(), style: "original" }, key, {
+      iconNames,
+      designGuide,
+      readReference: (reference) => iconNames.includes(reference)
+        ? readFile(join(catalog, `${reference}.svg`), "utf8")
+        : undefined,
+    });
   }
   await writeDraft(name, proposal, output, values.browser, command === "generate");
 }

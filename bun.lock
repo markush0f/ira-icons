@@ -8,6 +8,7 @@
         "@astrojs/node": "^11.1.14",
         "@fontsource-variable/jetbrains-mono": "^5.3.0",
         "astro": "^7.4.12",
+        "sharp": "^0.35.5",
         "svg-pathdata": "^8.0.0",
       },
       "devDependencies": {

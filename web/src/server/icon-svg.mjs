@@ -32,11 +32,12 @@ const motion = object({
   origin: { type: "array", items: number, minItems: 2, maxItems: 2 },
 }, ["target", "effect"]);
 
-export const proposalSchema = object({
-  original: shapeList,
+export const originalSchema = object({ original: shapeList });
+export const variantsSchema = object({
   minimalist: shapeList,
   motion: { type: "array", minItems: 1, maxItems: 6, items: motion },
 });
+export const proposalSchema = object({ ...originalSchema.properties, ...variantsSchema.properties });
 
 function validateFields(value, schema) {
   if (!value || typeof value !== "object" || Array.isArray(value)
@@ -59,6 +60,7 @@ function viewport({ minX, minY, maxX, maxY }) {
   }
 }
 
+// Validate and normalize each shape, preserving draw order and indexing by ID for motion.
 function parseShapes(input) {
   if (!Array.isArray(input) || !input.length || input.length > 16) throw new Error("Invalid icon shape list");
   const parsed = new Map();
@@ -94,6 +96,7 @@ function parseShapes(input) {
   return parsed;
 }
 
+// Check for clipping during animation, not just in the static drawing.
 function checkMotionBounds(shape, effect, origin) {
   const { minX, minY, maxX, maxY } = shape.bounds;
   if (effect === "rise" || effect === "drop") {
@@ -108,6 +111,7 @@ function checkMotionBounds(shape, effect, origin) {
       : Math.hypot(Math.max(Math.abs(minX - cx), Math.abs(maxX - cx)), Math.max(Math.abs(minY - cy), Math.abs(maxY - cy)));
     viewport({ minX: cx - radius, minY: cy - radius, maxX: cx + radius, maxY: cy + radius });
   } else {
+    // Sample the swing range at one-degree intervals, including its extremes.
     for (let degrees = -12; degrees <= 8; degrees++) {
       const angle = degrees * Math.PI / 180;
       const cos = Math.cos(angle), sin = Math.sin(angle);
@@ -136,14 +140,24 @@ function shapeMarkup({ type, geometry }, extra = {}) {
 }
 const svg = (lines) => [ROOT, ...lines, "</svg>", ""].join("\n");
 
+// Render the original alone so it can be reviewed before generating variants.
+export function compileOriginal(original) {
+  return svg([...parseShapes(original).values()].map((shape) => shapeMarkup(shape)));
+}
+
+/** Compile all three SVGs; the animated variant reuses the original geometry. */
 export function compileIcon(proposal, name) {
   if (typeof name !== "string" || name.length > 64 || !ID.test(name)) throw new Error("Invalid icon name");
   validateFields(proposal, proposalSchema);
   const original = parseShapes(proposal.original);
   const minimalist = parseShapes(proposal.minimalist);
-  const base = svg([...original.values()].map((shape) => shapeMarkup(shape)));
-  const simple = svg([...minimalist.values()].map((shape) => shapeMarkup(shape)));
-  if (base === simple) throw new Error("Minimalist and original SVGs are identical");
+  const originalLines = [...original.values()].map((shape) => shapeMarkup(shape));
+  const minimalistLines = [...minimalist.values()].map((shape) => shapeMarkup(shape));
+  if ([...new Set(originalLines)].sort().join("\n") === [...new Set(minimalistLines)].sort().join("\n")) {
+    throw new Error("Minimalist and original SVGs have the same geometry");
+  }
+  const base = svg(originalLines);
+  const simple = svg(minimalistLines);
   if (!Array.isArray(proposal.motion) || !proposal.motion.length || proposal.motion.length > 6) throw new Error("Invalid animation list");
 
   const rules = ["    <style>", "        @media (prefers-reduced-motion: no-preference) {"];
@@ -161,12 +175,16 @@ export function compileIcon(proposal, name) {
     if (effect === "spin" || effect === "swing") {
       if (!Array.isArray(entry.origin) || entry.origin.length !== 2) throw new Error("Missing rotation origin");
       origin = [coordinate(entry.origin[0]), coordinate(entry.origin[1])];
+      if (shape.type === "circle" && origin[0] === shape.geometry.cx && origin[1] === shape.geometry.cy) {
+        throw new Error("Rotation of a plain circle around its center is invisible; animate a visible mark instead");
+      }
       declarations.push(`transform-origin: ${origin[0]}px ${origin[1]}px;`);
     } else if (Object.hasOwn(entry, "origin")) {
       throw new Error("Unexpected rotation origin");
     }
     checkMotionBounds(shape, effect, origin);
 
+    // Scope selectors and keyframes to this icon and shape to avoid page-wide collisions.
     const marker = `${name}--${target}`;
     const frames = `ira-${marker}`;
     const attrs = { "data-ira-motion": marker };

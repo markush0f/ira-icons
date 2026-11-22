@@ -30,7 +30,7 @@ node scripts/icon-studio/icon-tool.mjs generate 'A desk fan whose blades rotate'
 unset GEMINI_API_KEY
 ```
 
-The default model is `gemini-3.8-flash`. Use the optional environment variable `GEMINI_MODEL` only to choose another Gemini model ID that supports structured output. The command sends the description and nearby catalog names to Gemini; omit confidential or personal information. The key is sent only in the API request header and is never saved with the draft. If the request fails or validation rejects the result, nothing is added to the output directory.
+The default model is `gemini-3.1-flash-lite`. Use the optional environment variable `GEMINI_MODEL` only to choose another Gemini model ID that supports structured output. The command sends the description, the [shared design guide](../../.agents/skills/icon-designer/references/design-guide.md), and up to three catalog SVG references to Gemini; omit confidential or personal information. The key is sent only in the API request header and is never saved with the draft. If the request fails or validation rejects the result, nothing is added to the output directory.
 
 Open the resulting `review.html`. To refine the result, edit `proposal.json` in the draft and run `build` into a new directory. Keep it out of the catalog until it has been reviewed.
 

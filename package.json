@@ -7,19 +7,20 @@
     "node": ">=22.23.4"
   },
   "scripts": {
-    "dev": "cd web && astro dev",
+    "dev": "cd web && node --env-file-if-exists=../.env ../node_modules/astro/bin/astro.mjs dev",
     "build": "cd web && astro build",
     "test": "node --test scripts/npm-package/test-react/*.test.mjs && tsc -p scripts/npm-package/test-react/tsconfig.json",
     "test:icon-tools": "node --test scripts/icon-studio/*.test.mjs web/test/generate-icon.test.mjs",
     "test:adapters": "bun run package:build && node --test scripts/npm-package/test-adapters.mjs",
     "package:build": "node scripts/npm-package/build.mjs",
     "package:pack": "bun run package:build && npm pack ./dist/npm --pack-destination ./dist",
-    "preview": "cd web && astro preview"
+    "preview": "cd web && node --env-file-if-exists=../.env ../node_modules/astro/bin/astro.mjs preview"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.14",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "astro": "^7.4.12",
+    "sharp": "^0.35.5",
     "svg-pathdata": "^8.0.0"
   },
   "devDependencies": {

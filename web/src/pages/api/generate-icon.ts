@@ -1,7 +1,10 @@
 import type { APIRoute } from "astro";
+import { GEMINI_API_KEY, GEMINI_MODEL } from "astro:env/server";
 import { iconNames } from "../../icons/icons.mjs";
 import { CREATE_COMING_SOON } from "../../lib/feature-flags.mjs";
-import { GeminiHttpError, generateIcon } from "../../server/generate-icon.mjs";
+import { GeminiHttpError, generateOriginal, generateVariants } from "../../server/generate-icon.mjs";
+import { compileOriginal } from "../../server/icon-svg.mjs";
+import { iconDesignContext } from "../../server/icon-design-context.mjs";
 
 export const prerender = false;
 
@@ -16,7 +19,7 @@ function json(status: number, value: unknown, headers: Record<string, string> = 
 async function readBrief(request: Request) {
   const reader = request.body?.getReader();
   if (!reader) return null;
-  const bytes = new Uint8Array(4096);
+  const bytes = new Uint8Array(24 * 1024);
   let length = 0;
   try {
     while (true) {
@@ -39,7 +42,7 @@ async function readBrief(request: Request) {
 
 export const POST: APIRoute = async ({ request }) => {
   if (CREATE_COMING_SOON) return json(404, { error: "Icon generation is not open yet." });
-  const key = process.env.GEMINI_API_KEY?.trim();
+  const key = GEMINI_API_KEY?.trim();
   if (!key) return json(503, { error: "Gemini isn’t configured on the server." });
   if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
     return json(415, { error: "Expected JSON." });
@@ -54,6 +57,16 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { error: "Enter a description of up to 400 characters and choose a style." });
   }
 
+  const deriving = brief.stage === "variants";
+  if (brief.stage !== "original" && !deriving) return json(400, { error: "Choose a generation step." });
+  if (deriving) {
+    try {
+      compileOriginal(brief.original);
+    } catch {
+      return json(400, { error: "The original icon is invalid. Generate it again." });
+    }
+  }
+
   const now = Date.now();
   const windowMs = 60 * 60_000;
   while (recentRequests.length && now - recentRequests[0] >= windowMs) recentRequests.shift();
@@ -65,8 +78,10 @@ export const POST: APIRoute = async ({ request }) => {
   busy = true;
   recentRequests.push(now);
   try {
-    const variants = await generateIcon({ description, style: brief.style }, key, { iconNames });
-    return json(200, { variants });
+    const input = { description, style: brief.style };
+    const options = { ...iconDesignContext, iconNames, model: GEMINI_MODEL?.trim() || undefined };
+    if (!deriving) return json(200, await generateOriginal(input, key, options));
+    return json(200, { variants: await generateVariants(input, brief.original, key, options) });
   } catch (error) {
     if (error instanceof GeminiHttpError && (error.status === 429 || error.status >= 500)) {
       return json(503, { error: "Gemini is temporarily unavailable. Try again later." });

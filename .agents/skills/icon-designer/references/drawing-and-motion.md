@@ -1,30 +1,8 @@
 # Drawing and motion
 
-Use this reference to draw, simplify, and animate the three versions of the new icon.
+Start with the [shared design guide](design-guide.md) for silhouette, simplification, and motion. Icon Studio sends this same guide to Gemini.
 
-## Make the silhouette work first
-
-| Check | What to look for |
-| --- | --- |
-| Recognition | At 16 px, the outline and one or two details still distinguish the icon from its neighbors. Search, zoom, and a generic circle should not look alike. |
-| Stroke clearance | Check the actual rendered edge, including the 1 px each side of a 2 px stroke, rounded ends, corners, and all animated positions. Give parallel strokes enough room to stay separate at 16 px. |
-| Optical scale | Compare adjacent icons at the same rendered size. Diagonals and round shapes often need different insets than squares to look equal. Avoid forcing every path into the same mathematical bounding box. |
-| Coordinates | Start with whole or half units. Use fractional nudges only when they improve the render. Avoid stray control points, coincident strokes, and unnecessary groups. |
-| Color | Inherit `currentColor`, including intentional filled accents. Check contrast in both themes. Do not bake preview colors, titles, backgrounds or accessibility labels into the source asset; consumers supply those. |
-
-For the minimalist variant, remove redundant interior marks, simplify contours, and preserve meaning. Keep the arrowhead direction, disabled slash, or action badge even when other details go away. If the original has only one line, simplify its bends or proportions intentionally; do not merely reformat its path string.
-
-## Choose motion by meaning
-
-| Subject | Animate | Keep stable |
-| --- | --- | --- |
-| Bell, pendulum, dial | Rotation around the hinge or axle; add a small offset for an independently moving clapper if needed. | The mount, dial face, or housing. |
-| Coffee, rain, sand | Short, staggered movement of wisps, droplets, or grains. Fade them before the loop restarts. | The cup, cloud, or hourglass outline. |
-| Heart, flame, light | A heartbeat, flicker, or glow with a short rest. | The silhouette or baseline needed for recognition. |
-| Arrow, check, waveform | Reveal a simple stroke in the intended direction. | Unrelated marks and decorative accents. |
-| Chart or route | Reveal the series or route; split disconnected edges if they need different timing. | The axes, markers, and labels. |
-
-Use the concrete examples already in the repo: `bell-animated.svg`, `coffee-animated.svg`, `heart-animated.svg`, `check-animated.svg`, and `chart-line-animated.svg`. Prefer a purposeful 1.5–3 second sequence when that timing suits the subject, with a clear rest or a smooth continuous loop. Don't make the whole catalog pulse or disappear at once.
+For animation implementation examples, see `bell-animated.svg`, `coffee-animated.svg`, `heart-animated.svg`, `check-animated.svg`, and `chart-line-animated.svg` in `icons/`. Consider staggering separate droplets or splitting disconnected paths when they need different timing.
 
 ### Scoped CSS and a useful static pose
 

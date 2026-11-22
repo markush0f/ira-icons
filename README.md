@@ -33,11 +33,13 @@ The landing loads the original SVGs through its local Astro component and Vite c
 
 ### Icon studio
 
-**Create** is a read-only preview by default. Set `CREATE_COMING_SOON=false` when starting Astro or building the site to enable generation. Supply `GEMINI_API_KEY` to the Node server as a private environment variable (never as `PUBLIC_*`). The default model is `gemini-3.8-flash`; the server can override it with `GEMINI_MODEL`.
+**Create** is currently a read-only preview. To test generation locally in the future, copy [`.env.example`](.env.example) to `.env` at the repository root, set `CREATE_COMING_SOON=false`, fill in `GEMINI_API_KEY`, and run `bun run dev`. Restart the dev server after changing `.env`.
 
-The draft stays in the browser until **Generate with AI** is pressed. Astro sends the description to Gemini, validates the returned proposal, and returns original, minimalist, and animated SVGs. Users can preview and download them; nothing is automatically added to the catalog. The loading indicator lasts for the request, stays still when reduced motion is enabled, and stops on success or error.
+Keep the key private; never prefix it with `PUBLIC_`. For production, set `CREATE_COMING_SOON=false` at build time and provide `GEMINI_API_KEY` to the Node server at runtime. If running the built server locally, use `node --env-file=.env web/dist/server/entry.mjs` from the repository root. The default model is `gemini-3.1-flash-lite`; set `GEMINI_MODEL` to override it.
 
-The generation route and the icon-designer skill share the JavaScript compiler and Gemini client. Astro’s Node server handles generation without a separate worker. The route is disabled in *Coming soon* mode and limited to one concurrent and ten attempted generations per hour per Node process. Keep it private or configure access controls and provider quotas before enabling it on a public deployment.
+The draft stays in the browser until **Generate with AI** is pressed. Astro sends the description and rendered catalog references to Gemini. It validates the original, asks Gemini to review a rendered preview, and then derives the minimalist and animated SVGs from the reviewed original. The visual review adds one provider request; if it fails, the last valid original is kept. The style selector only switches between available previews and never starts a generation. Users can preview and download them; nothing is automatically added to the catalog. The loading indicator respects reduced motion.
+
+The generation route and the icon-designer skill share the JavaScript compiler and Gemini client. Astro’s Node server handles generation without a separate worker. The route is disabled in *Coming soon* mode and limited to one concurrent request and ten generation requests per hour per Node process. Each step counts as one request. Keep it private or configure access controls and provider quotas before enabling it on a public deployment.
 
 ### Icon reports
 
