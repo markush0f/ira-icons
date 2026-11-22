@@ -3,6 +3,11 @@ import { formatIcon } from "./icon-copy.js";
 import { mountIconReport } from "./icon-report.js";
 
 const detailPanel = document.querySelector("#detail-panel");
+const detailColumn = detailPanel.closest(".detail-column");
+const workspace = detailColumn.parentElement;
+const detailDialog = document.querySelector("#detail-dialog");
+const compactCatalog = window.matchMedia("(max-width: 48rem)");
+const supportsDialog = typeof detailDialog?.showModal === "function";
 const selectReportIcon = mountIconReport(detailPanel);
 const detailPreview = document.querySelector("#detail-preview");
 const detailTitle = document.querySelector("#detail-title");
@@ -32,6 +37,12 @@ const setPickerColor = (color) => {
   colorPicker.querySelector("[data-color-hex]").value = color.slice(1);
 };
 
+function syncDetailState() {
+  const compact = compactCatalog.matches && supportsDialog;
+  const button = selectedCard?.querySelector("[data-select-icon]");
+  button?.setAttribute("aria-expanded", String(!compact || detailDialog.open));
+}
+
 function selectVariant(card, name) {
   selectedCard?.classList.remove("is-selected");
   selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
@@ -39,7 +50,7 @@ function selectVariant(card, name) {
   clearCopyStatus();
   card.classList.add("is-selected");
   card.dataset.iconName = name;
-  card.querySelector("[data-select-icon]").setAttribute("aria-expanded", "true");
+  syncDetailState();
   for (const option of variantButtons) {
     option.setAttribute("aria-pressed", String(card.dataset.family + option.dataset.suffix === name));
   }
@@ -58,10 +69,28 @@ function selectVariant(card, name) {
   selectReportIcon(name);
 }
 
+if (supportsDialog) {
+  workspace.classList.add("has-detail-dialog");
+  detailDialog.addEventListener("close", () => {
+    if (!detailDialog.open) workspace.append(detailColumn);
+    syncDetailState();
+  });
+  compactCatalog.addEventListener("change", ({ matches }) => {
+    if (!matches && detailDialog.open) detailDialog.close();
+    syncDetailState();
+  });
+}
+
 for (const card of cards) {
   card.querySelector("[data-select-icon]").addEventListener("click", () => {
     selectVariant(card, card.dataset.iconName);
-    if (window.matchMedia("(max-width: 36rem)").matches) {
+    if (!compactCatalog.matches) return;
+    if (supportsDialog) {
+      detailDialog.append(detailColumn);
+      detailDialog.showModal();
+      syncDetailState();
+      detailDialog.scrollTop = 0;
+    } else {
       detailPanel.focus({ preventScroll: true });
       detailPanel.scrollIntoView({ block: "start" });
     }
