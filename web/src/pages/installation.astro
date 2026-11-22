@@ -480,6 +480,13 @@ const variants = [
     font-weight: 650;
   }
 
+  @media (max-width: 36rem) {
+    .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .option { min-height: 2.75rem; }
+    .step + .step { margin-top: 1.75rem; padding-top: 1.5rem; }
+    .step-header { gap: 0.6rem; }
+  }
+
   @media (max-width: 44rem) {
     .tips {
       grid-template-columns: minmax(0, 1fr);

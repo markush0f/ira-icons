@@ -396,4 +396,11 @@ const styles = [
   @media (max-width: 44rem) {
     .studio-grid { grid-template-columns: minmax(0, 1fr); }
   }
+
+  @media (max-width: 36rem) {
+    textarea { min-height: 7rem; font-size: 1rem; }
+    .style-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 5.75rem), 1fr)); }
+    .style-options span, .studio-actions .action { justify-content: center; width: 100%; min-height: 2.75rem; }
+    .preview-grid { min-height: 12rem; }
+  }
 </style>

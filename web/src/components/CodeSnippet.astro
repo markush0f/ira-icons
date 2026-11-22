@@ -61,6 +61,7 @@ const themes = { dark: "dark-plus", light: "light-plus" } as const;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    flex-shrink: 0;
     min-height: 2rem;
     padding: 0.3rem 0.5rem;
     border: 1px solid var(--line);
@@ -76,10 +77,18 @@ const themes = { dark: "dark-plus", light: "light-plus" } as const;
     color: var(--accent);
   }
 
+  .snippet-header > span { overflow-wrap: anywhere; }
+
+  @media (max-width: 36rem) {
+    .snippet-header { padding-inline: 0.65rem; }
+    button { min-height: 2.75rem; }
+  }
+
   .snippet :global(pre) {
     margin: 0;
     padding: 0.9rem;
     overflow: auto;
+    overscroll-behavior-inline: contain;
     font: 0.82rem/1.7 var(--font-mono);
     tab-size: 2;
   }
