@@ -1,6 +1,8 @@
 /** Sends a report and optional comment for the exact variant shown in the panel. */
 export function mountIconReport(panel) {
   const report = panel.querySelector("[data-icon-report]");
+  if (!report) return () => {};
+
   const button = report.querySelector("[data-report-button]");
   const commentPanel = report.querySelector("[data-report-comment-panel]");
   const commentInput = report.querySelector("[data-report-comment]");

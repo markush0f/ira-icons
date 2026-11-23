@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import ts from "typescript";
+import { mountIconReport } from "../src/scripts/icon-report.js";
+
+test("catalog can select icons when the report form is disabled", () => {
+  const selectReport = mountIconReport({ querySelector: () => null });
+  assert.doesNotThrow(() => selectReport("bell"));
+});
 
 async function loadRoute(comingSoon) {
   const source = await readFile(new URL("../src/pages/api/icon-reports.ts", import.meta.url), "utf8");

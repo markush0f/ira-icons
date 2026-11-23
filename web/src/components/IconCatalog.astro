@@ -15,6 +15,7 @@ const memberships = names.map(name => categoriesFor(name).join(','));
 ---
 
 <section class="catalog-panel" aria-labelledby="catalog-title">
+  <slot name="categories" />
   <div class="catalog-header">
     <div class="catalog-heading">
       <h1 class="visually-hidden" id="catalog-title">

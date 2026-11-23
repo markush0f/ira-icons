@@ -2,6 +2,15 @@ import assert from 'node:assert/strict';
 import { readdir } from 'node:fs/promises';
 import { test } from 'node:test';
 import { categoriesFor, categoryLabels, categoryGroups } from '../../scripts/icon-expansion/categories.mjs';
+import { categoryIcons } from '../src/lib/category-icons.mjs';
+
+test('every category has an existing minimalist example icon', async () => {
+  const files = new Set(await readdir(new URL('../../icons/', import.meta.url)));
+  assert.deepEqual(Object.keys(categoryIcons).sort(), Object.keys(categoryLabels).sort());
+  for (const [id, name] of Object.entries(categoryIcons)) {
+    assert.ok(files.has(`${name}-minimalist.svg`), `${id} needs an existing icon`);
+  }
+});
 
 test('each catalog family has valid tags shared by its variants', async () => {
   const names = (await readdir(new URL('../../icons/', import.meta.url)))

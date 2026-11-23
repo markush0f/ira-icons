@@ -1,4 +1,7 @@
 ---
+import Icon from "../icons/Icon.astro";
+import { categoryIcons } from "../lib/category-icons.mjs";
+
 interface Props {
   categories: { id: string; label: string }[];
 }
@@ -7,27 +10,35 @@ const { categories } = Astro.props;
 <section class="category-filters" id="catalog-categories" aria-labelledby="category-title" hidden>
   <header class="category-header">
     <h2 id="category-title" tabindex="-1">Categories <span data-category-count hidden></span></h2>
-    <button type="button" data-clear-categories hidden>Clear</button>
+    <div class="category-actions">
+      <button type="button" data-clear-categories hidden>Clear</button>
+    </div>
   </header>
-  <div class="category-list" role="group" aria-labelledby="category-title">
+  <div class="category-list" id="category-list" role="group" aria-labelledby="category-title">
     {categories.map(({ id, label }) => (
-      <label class="category-check">
+      <label class="category-check" title={label}>
+        <span class="category-icon" aria-hidden="true"><Icon name={`${categoryIcons[id] ?? 'dots'}-minimalist`} size={20} /></span>
+        <span class="visually-hidden">{label}</span>
         <input type="checkbox" value={id} data-category={label} aria-controls="icon-grid" />
-        <span>{label}</span>
       </label>
     ))}
   </div>
 </section>
 
 <style>
-  .category-filters { grid-area: categories; min-width: 0; padding: .7rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--panel); }
-  .category-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 1.75rem; margin: 0 .25rem .4rem; }
+  .category-filters { min-width: 0; margin-bottom: 1rem; }
+  .category-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 2rem; margin-bottom: .375rem; }
+  .category-actions { display: flex; align-items: center; gap: .75rem; }
   .category-header h2 { display: flex; align-items: center; gap: .4rem; margin: 0; font-size: .85rem; }
   [data-category-count] { color: var(--accent); font: .7rem var(--font-mono); }
-  .category-header button { padding: .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .75rem; cursor: pointer; }
+  .category-header button { min-height: 2.75rem; padding: .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .75rem; cursor: pointer; }
   .category-header button:hover { text-decoration: underline; }
-  .category-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .15rem .35rem; max-height: 9rem; overflow-y: auto; scrollbar-width: thin; padding: .15rem; }
-  .category-check { display: flex; align-items: center; gap: .45rem; min-height: 2rem; padding: .2rem .35rem; border-radius: .35rem; font-size: .76rem; cursor: pointer; }
-  .category-check:hover, .category-check:has(:checked) { background: var(--hover); }
-  .category-check input { flex: none; width: .95rem; height: .95rem; margin: 0; accent-color: var(--accent); }
+  .category-list { display: grid; grid-template-columns: repeat(auto-fill, 2.75rem); gap: .25rem; max-height: 9rem; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; padding: .125rem .125rem .5rem; border-bottom: 1px solid var(--line); }
+  .category-check { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: .375rem; color: var(--muted); cursor: pointer; }
+  .category-icon { display: flex; pointer-events: none; }
+  .category-icon :global(svg) { width: 20px; height: 20px; }
+  .category-check input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .category-check:hover { background: var(--hover); color: var(--text); }
+  .category-check:has(:checked) { background: color-mix(in srgb, var(--accent) 14%, var(--panel)); color: var(--accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 60%, transparent); }
+  .category-check:has(:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
 </style>

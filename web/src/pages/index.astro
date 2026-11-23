@@ -2,6 +2,7 @@
 /** Composes the searchable catalog and its interactive icon detail panel. */
 import { iconNames } from "../icons/icons.mjs";
 import SiteLayout from "../layouts/SiteLayout.astro";
+import Icon from "../icons/Icon.astro";
 import IconCatalog from "../components/IconCatalog.astro";
 import IconDetails from "../components/IconDetails.astro";
 import CategoryFilters from "../components/CategoryFilters.astro";
@@ -21,13 +22,16 @@ const categories = Object.entries(categoryLabels)
 <SiteLayout>
   <main>
     <div class="workspace" id="workspace">
-      <IconCatalog names={catalogNames} selectedName={firstIcon} />
-      <CategoryFilters categories={categories} />
+      <IconCatalog names={catalogNames} selectedName={firstIcon}>
+        <CategoryFilters slot="categories" categories={categories} />
+      </IconCatalog>
       <div class="detail-column">
         <IconDetails name={`${firstIcon}-animated`} />
         <p class="detail-note">
-          Many Ira Icons were designed with AI assistance. We test the SVGs for
-          rendering, animation, and reduced-motion support.
+          <span class="detail-note-icon" aria-hidden="true"><Icon name="alert-triangle-minimalist" size={16} /></span>
+          <span>Ira Icons is still in development, and we’re continuing to improve icon animations.
+          Many icons were designed with AI assistance. We test the SVGs for
+          rendering, animation, and reduced-motion support.</span>
         </p>
       </div>
     </div>
@@ -58,10 +62,19 @@ const categories = Object.entries(categoryLabels)
   }
 
   .detail-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
     margin: 0.65rem 0 0;
     color: var(--muted);
     font-size: 0.78rem;
     line-height: 1.6;
-    text-align: end;
+    text-align: start;
+  }
+
+  .detail-note-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
   }
 </style>

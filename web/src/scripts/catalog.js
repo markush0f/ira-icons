@@ -58,7 +58,7 @@ async function select(card, name = variants.get(card.dataset.family) ?? card.dat
       svg = document.importNode(svg,true);
     }
     if (controller.signal.aborted) return;
-    svg.setAttribute('width','96'); svg.setAttribute('height','96');
+    svg.setAttribute('width','144'); svg.setAttribute('height','144');
     svg.setAttribute('aria-hidden','true'); svg.setAttribute('color',colors.get(name) ?? '#ad8af3');
     preview.replaceChildren(svg);
   } catch {
