@@ -1,6 +1,7 @@
 import {readFileSync} from 'node:fs';
 import rows from './tabler.json' with {type:'json'};
 import {p,c,r,g,icon} from '../geometry.mjs';
+import {handDirected} from './hand-directed.mjs';
 
 export const tablerNotice='Adapted from Tabler Icons 3.34.1.\n'+readFileSync(new URL('./TABLER-LICENSE.txt',import.meta.url),'utf8').trim();
 // Fit the same optical margin around each pictogram, preserving its proportions.
@@ -9,7 +10,9 @@ const fit=body=>g('translate(1.5 1.5) scale(.875)',body);
 const pen=(width,body)=>`<g stroke-width="${width}">${body}</g>`;
 const adapted=rows.map(([category,name,paths])=>{
   const lines=paths.map(p), last=lines.at(-1), fixed=lines.slice(0,-1).join('');
-  return {...icon(name,fit(fixed||last),fixed?fit(last):null,'pulse',fit(pen(1.45,lines.join('')))),category,notice:tablerNotice};
+  const custom = Object.hasOwn(handDirected,name) ? handDirected[name](paths) : null;
+  const sequence = custom && {...custom, fixed: custom.fixed && fit(custom.fixed), steps: custom.steps.map(step=>({...step,body:fit(step.body.startsWith('<') ? step.body : p(step.body))}))};
+  return {...icon(name,fit(fixed||last),fixed?fit(last):null,'pulse',fit(pen(1.45,lines.join('')))),category,notice:tablerNotice,sequence};
 });
 
 // Northern hemisphere wind barbs. The staff points toward the source of the wind;

@@ -10,6 +10,7 @@ import { scienceIcons } from './science.mjs';
 import { natureIcons } from './nature.mjs';
 import { homeFoodIcons } from './home-food.mjs';
 import { svg } from './geometry.mjs';
+import { renderPlan } from './motion-plan.mjs';
 
 import { placeIcons } from './atlas/places.mjs';
 import { panelIcons } from './atlas/panels.mjs';
@@ -101,7 +102,7 @@ for (const icon of collection) {
   outlines.add(geometry);
   files.set(`${name}.svg`, wrap(original, icon.notice));
   files.set(`${name}-minimalist.svg`, wrap([svg(minimal)], icon.notice));
-  files.set(`${name}-animated.svg`, wrap(animated(icon), icon.notice));
+  files.set(`${name}-animated.svg`, wrap(icon.sequence ? renderPlan(name, icon.sequence) : animated(icon), icon.notice));
 }
 
 const changed = [];

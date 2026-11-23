@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: The complete arrow travels left without changing shape. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrow-big-left"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-seq-arrow-big-left-0 { 0%, 5% { transform: translateX(1.45px); } 42%, 83% { transform: none; } 100% { transform: translateX(1.45px); } }
+            [data-ira-sequence="arrow-big-left"] > [data-step="0"] { transform-box: view-box; transform-origin: center; animation: ira-seq-arrow-big-left-0 2.6s ease-out infinite; }
         }
     </style>
-    <g data-ira-motion="arrow-big-left"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20 15h-8v3.586a1 1 0 0 1 -1.707 .707l-6.586 -6.586a1 1 0 0 1 0 -1.414l6.586 -6.586a1 1 0 0 1 1.707 .707v3.586h8a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1z"/></g></g>
+    <g data-ira-sequence="arrow-big-left"><g data-step="0"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20 15h-8v3.586a1 1 0 0 1 -1.707 .707l-6.586 -6.586a1 1 0 0 1 0 -1.414l6.586 -6.586a1 1 0 0 1 1.707 .707v3.586h8a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1z"/></g></g></g>
 </svg>

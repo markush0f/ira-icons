@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: The play button pushes forward slightly, keeping a closed triangle. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="player-play"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-seq-player-play-0 { 0%, 5% { transform: translateX(-1.25px); } 35%, 83% { transform: none; } 100% { transform: translateX(-1.25px); } }
+            [data-ira-sequence="player-play"] > [data-step="0"] { transform-box: view-box; transform-origin: center; animation: ira-seq-player-play-0 2.6s ease-out infinite; }
         }
     </style>
-    <g data-ira-motion="player-play"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 4v16l13 -8z"/></g></g>
+    <g data-ira-sequence="player-play"><g data-step="0"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 4v16l13 -8z"/></g></g></g>
 </svg>
