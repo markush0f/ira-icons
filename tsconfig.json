@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client"],
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "moduleDetection": "force",
+    "erasableSyntaxOnly": true
+  },
+  "include": ["scripts/**/*.ts", "scripts/**/*.tsx", "web/**/*.ts", ".agents/**/*.ts"],
+  "exclude": ["node_modules", "dist", "web/dist", "web/.astro", "scripts/npm-package/test-react/types.tsx"]
+}
