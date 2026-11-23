@@ -5,7 +5,7 @@ const PATH = /^[Mm][AaCcHhLlMmQqSsTtVvZz0-9eE.,+\-\s]+$/;
 const ROOT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">';
 const text = { type: "string" };
 const number = { type: "number" };
-const object = (properties, required = Object.keys(properties)) => ({
+const object = <T extends Record<string, unknown>>(properties: T, required = Object.keys(properties)) => ({
   type: "object", properties, required, additionalProperties: false,
 });
 
@@ -39,7 +39,15 @@ export const variantsSchema = object({
 });
 export const proposalSchema = object({ ...originalSchema.properties, ...variantsSchema.properties });
 
-function validateFields(value, schema) {
+interface Bounds { minX: number; minY: number; maxX: number; maxY: number }
+type ParsedShape = { bounds: Bounds } & (
+  | { type: 'path'; geometry: { d: string } }
+  | { type: 'circle'; geometry: { cx: number; cy: number; r: number } }
+  | { type: 'rect'; geometry: { x: number; y: number; width: number; height: number; rx?: number } }
+);
+type Effect = keyof typeof effects;
+
+function validateFields(value: unknown, schema: { required: string[]; properties: object }): asserts value is Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)
     || !schema.required.every((key) => Object.hasOwn(value, key))
     || Object.keys(value).some((key) => !Object.hasOwn(schema.properties, key))) {
@@ -47,12 +55,12 @@ function validateFields(value, schema) {
   }
 }
 
-function coordinate(value, min = 0, max = 24) {
-  if (!Number.isFinite(value) || value < min || value > max) throw new Error("Unexpected coordinate or timing");
+function coordinate(value: unknown, min = 0, max = 24): number {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < min || value > max) throw new Error("Unexpected coordinate or timing");
   return value;
 }
 
-function viewport({ minX, minY, maxX, maxY }) {
+function viewport({ minX, minY, maxX, maxY }: Bounds) {
   // The fixed round stroke adds one unit at each edge.
   for (const value of [minX, minY, maxX, maxY]) coordinate(value, 0.999, 23.001);
   if (maxX < minX || maxY < minY || (maxX === minX && maxY === minY)) {
@@ -61,19 +69,19 @@ function viewport({ minX, minY, maxX, maxY }) {
 }
 
 // Validate and normalize each shape, preserving draw order and indexing by ID for motion.
-function parseShapes(input) {
+function parseShapes(input: unknown) {
   if (!Array.isArray(input) || !input.length || input.length > 16) throw new Error("Invalid icon shape list");
-  const parsed = new Map();
+  const parsed = new Map<string, ParsedShape>();
   for (const item of input) {
-    const type = item?.type;
+    const type: unknown = item?.type;
     if (typeof type !== "string" || !Object.hasOwn(shapes, type)) throw new Error("Unsupported SVG shape");
-    validateFields(item, shapes[type]);
+    validateFields(item, shapes[type as keyof typeof shapes]);
     if (typeof item.id !== "string" || item.id.length > 64 || !ID.test(item.id) || parsed.has(item.id)) {
       throw new Error("Invalid or duplicate shape ID");
     }
 
-    let geometry;
-    let bounds;
+    let geometry: ParsedShape['geometry'];
+    let bounds: Bounds;
     if (type === "path") {
       if (typeof item.d !== "string" || item.d.length > 800 || !PATH.test(item.d)) throw new Error("Invalid SVG path data");
       const path = new SVGPathData(item.d);
@@ -87,17 +95,17 @@ function parseShapes(input) {
       const x = coordinate(item.x), y = coordinate(item.y);
       const width = coordinate(item.width, 0.05), height = coordinate(item.height, 0.05);
       geometry = { x, y, width, height };
-      if (Object.hasOwn(item, "rx")) geometry.rx = coordinate(item.rx, 0, Math.min(width, height) / 2);
+      if (Object.hasOwn(item, "rx")) Object.assign(geometry, { rx: coordinate(item.rx, 0, Math.min(width, height) / 2) });
       bounds = { minX: x, minY: y, maxX: x + width, maxY: y + height };
     }
     viewport(bounds);
-    parsed.set(item.id, { type, geometry, bounds });
+    parsed.set(item.id, { type, geometry, bounds } as ParsedShape);
   }
   return parsed;
 }
 
 // Check for clipping during animation, not just in the static drawing.
-function checkMotionBounds(shape, effect, origin) {
+function checkMotionBounds(shape: ParsedShape, effect: Effect, origin?: [number, number]) {
   const { minX, minY, maxX, maxY } = shape.bounds;
   if (effect === "rise" || effect === "drop") {
     viewport({ minX, minY: minY - (effect === "rise" ? 2 : 1), maxX, maxY: maxY + (effect === "drop" ? 2 : 1) });
@@ -134,19 +142,19 @@ function checkMotionBounds(shape, effect, origin) {
   }
 }
 
-function shapeMarkup({ type, geometry }, extra = {}) {
+function shapeMarkup({ type, geometry }: ParsedShape, extra: Record<string, string | number> = {}) {
   const attrs = Object.entries({ ...geometry, ...extra }).map(([key, value]) => `${key}="${value}"`).join(" ");
   return `    <${type} ${attrs}/>`;
 }
-const svg = (lines) => [ROOT, ...lines, "</svg>", ""].join("\n");
+const svg = (lines: string[]) => [ROOT, ...lines, "</svg>", ""].join("\n");
 
 // Render the original alone so it can be reviewed before generating variants.
-export function compileOriginal(original) {
+export function compileOriginal(original: unknown) {
   return svg([...parseShapes(original).values()].map((shape) => shapeMarkup(shape)));
 }
 
 /** Compile all three SVGs; the animated variant reuses the original geometry. */
-export function compileIcon(proposal, name) {
+export function compileIcon(proposal: unknown, name: string) {
   if (typeof name !== "string" || name.length > 64 || !ID.test(name)) throw new Error("Invalid icon name");
   validateFields(proposal, proposalSchema);
   const original = parseShapes(proposal.original);
@@ -161,17 +169,17 @@ export function compileIcon(proposal, name) {
   if (!Array.isArray(proposal.motion) || !proposal.motion.length || proposal.motion.length > 6) throw new Error("Invalid animation list");
 
   const rules = ["    <style>", "        @media (prefers-reduced-motion: no-preference) {"];
-  const targets = new Map();
+  const targets = new Map<string, Record<string, string | number>>();
   for (const entry of proposal.motion) {
     validateFields(entry, motion);
     const { target, effect } = entry;
-    const shape = original.get(target);
-    if (!shape || targets.has(target) || typeof effect !== "string" || !Object.hasOwn(effects, effect)) throw new Error("Invalid motion target or effect");
+    const shape = typeof target === 'string' ? original.get(target) : undefined;
+    if (!shape || typeof target !== 'string' || targets.has(target) || typeof effect !== "string" || !Object.hasOwn(effects, effect)) throw new Error("Invalid motion target or effect");
     if (effect === "draw" && shape.type !== "path") throw new Error("Draw needs a path");
     const duration = coordinate(Object.hasOwn(entry, "durationMs") ? entry.durationMs : 2600, 700, 8000);
     const delay = coordinate(Object.hasOwn(entry, "delayMs") ? entry.delayMs : 0, -duration, duration);
     const declarations = [];
-    let origin;
+    let origin: [number, number] | undefined;
     if (effect === "spin" || effect === "swing") {
       if (!Array.isArray(entry.origin) || entry.origin.length !== 2) throw new Error("Missing rotation origin");
       origin = [coordinate(entry.origin[0]), coordinate(entry.origin[1])];
@@ -182,19 +190,19 @@ export function compileIcon(proposal, name) {
     } else if (Object.hasOwn(entry, "origin")) {
       throw new Error("Unexpected rotation origin");
     }
-    checkMotionBounds(shape, effect, origin);
+    checkMotionBounds(shape, effect as Effect, origin);
 
     // Scope selectors and keyframes to this icon and shape to avoid page-wide collisions.
     const marker = `${name}--${target}`;
     const frames = `ira-${marker}`;
-    const attrs = { "data-ira-motion": marker };
+    const attrs: Record<string, string | number> = { "data-ira-motion": marker };
     if (effect === "draw") {
       attrs.pathLength = 1;
       declarations.push("stroke-dasharray: 1 2;");
     }
-    const ease = ["spin", "drop", "rise"].includes(effect) ? "linear" : "ease-in-out";
+    const ease = ["spin", "drop", "rise"].includes(effect as string) ? "linear" : "ease-in-out";
     declarations.push(`animation: ${frames} ${duration}ms ${ease} ${delay}ms infinite;`);
-    rules.push(`            @keyframes ${frames} { ${effects[effect]} }`);
+    rules.push(`            @keyframes ${frames} { ${effects[effect as Effect]} }`);
     rules.push(`            [data-ira-motion="${marker}"] { ${declarations.join(" ")} }`);
     targets.set(target, attrs);
   }

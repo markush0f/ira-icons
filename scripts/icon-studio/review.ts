@@ -1,9 +1,11 @@
 import { SaxesParser } from "saxes";
 
+import type { IconVariants } from '../../web/src/lib/icon-generation.ts';
+
 export const variants = [
   ["original", "Original", ""], ["minimalist", "Minimalist", "-minimalist"], ["animated", "Animated", "-animated"],
-];
-export const validName = (name) => typeof name === "string" && /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(name) && !/-(animated|minimalist)$/.test(name);
+] as const;
+export const validName = (name: unknown): name is string => typeof name === "string" && /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(name) && !/-(animated|minimalist)$/.test(name);
 const NS = "http://www.w3.org/2000/svg";
 const geometry = new Set(["path", "circle", "ellipse", "line", "polyline", "polygon", "rect", "text"]);
 const allowed = new Set(["svg", "g", "style", "defs", "clipPath", "mask", ...geometry]);
@@ -12,14 +14,14 @@ const rootAttributes = {
   "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round",
 };
 
-function externalUrl(text) {
+function externalUrl(text: string) {
   return [...text.matchAll(/\burl\(([^)]*)\)/gi)].some(([, value]) => !value.trim().replace(/^["']|["']$/g, "").startsWith("#"));
 }
 
-function checkStyle(source) {
+function checkStyle(source: string) {
   const css = source.replace(/\/\*[\s\S]*?\*\//g, "");
   if (/@import\b/i.test(css) || externalUrl(css)) throw new Error("External reference in embedded CSS");
-  const spans = [];
+  const spans: [number, number][] = [];
   for (const media of css.matchAll(/@media\s*\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)\s*\{/gi)) {
     const start = media.index + media[0].length;
     let depth = 1;
@@ -35,11 +37,12 @@ function checkStyle(source) {
   return declarations.length;
 }
 
-function inspect(source, animated) {
+function inspect(source: string, animated: boolean) {
   const parser = new SaxesParser({ xmlns: true });
-  let root = false, drawables = 0, motions = 0, style = null;
-  const signature = [];
-  const fail = (error) => { throw error; };
+  let root = false, drawables = 0, motions = 0;
+  let style: string | null = null;
+  const signature: unknown[] = [];
+  const fail = (error: Error): never => { throw error; };
   parser.on("error", fail);
   parser.on("doctype", () => fail(new Error("DTD is not allowed")));
   parser.on("processinginstruction", ({ target }) => {
@@ -64,14 +67,14 @@ function inspect(source, animated) {
     if (local === "style") style = "";
     else signature.push([local, Object.entries(attributes).filter(([key]) => !key.startsWith("data-")).sort().map(([key, info]) => [key, info.value])]);
   });
-  const text = (content) => {
+  const text = (content: string) => {
     if (style !== null) style += content;
     else if (content.trim()) signature.push(content.trim());
   };
   parser.on("text", text);
   parser.on("cdata", text);
   parser.on("closetag", ({ local }) => {
-    if (local === "style") { motions += checkStyle(style); style = null; }
+    if (local === "style") { motions += checkStyle(style ?? ''); style = null; }
     else signature.push("/" + local);
   });
   parser.write(source).close();
@@ -80,22 +83,22 @@ function inspect(source, animated) {
   return JSON.stringify(signature);
 }
 
-export function checkFamily(name, files) {
+export function checkFamily(name: string, files: IconVariants) {
   if (!validName(name)) throw new Error("Use one lowercase kebab-case base name without a style suffix");
   const signatures = Object.fromEntries(variants.map(([key, , suffix]) => {
     try {
       return [key, inspect(files[key], key === "animated")];
     } catch (error) {
-      throw new Error(`${name}${suffix}.svg: ${error.message}`, { cause: error });
+      throw new Error(`${name}${suffix}.svg: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }));
   if (signatures.original === signatures.minimalist) throw new Error("Original and minimalist geometry are identical");
 }
 
-export function reviewSheet(name, files) {
+export function reviewSheet(name: string, files: IconVariants) {
   const cards = ["light", "dark"].flatMap((theme) => variants.map(([key, label]) => {
     const color = theme === "light" ? "#19151f" : "#faf8ff";
-    const colored = files[key].replace(/<svg\b([^>]*?)>/, (_, attributes) =>
+    const colored = files[key].replace(/<svg\b([^>]*?)>/, (_: string, attributes: string) =>
       `<svg${attributes.replace(/\s+color\s*=\s*(?:"[^"]*"|'[^']*')/, "")} color="${color}">`
     );
     const uri = Buffer.from(colored).toString("base64");

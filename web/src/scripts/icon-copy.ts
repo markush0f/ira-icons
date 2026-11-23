@@ -8,8 +8,8 @@ const jsxAttributes = {
   "text-anchor": "textAnchor",
 };
 
-export function formatIcon(preview, name, format) {
-  const svg = preview.cloneNode(true);
+export function formatIcon(preview: SVGSVGElement, name: string, format: string) {
+  const svg = preview.cloneNode(true) as SVGSVGElement;
   svg.setAttribute("width", "24");
   svg.setAttribute("height", "24");
 
@@ -18,7 +18,7 @@ export function formatIcon(preview, name, format) {
     for (const element of [svg, ...svg.querySelectorAll("*")]) {
       for (const [svgName, jsxName] of Object.entries(jsxAttributes)) {
         if (!element.hasAttribute(svgName)) continue;
-        element.setAttribute(jsxName, element.getAttribute(svgName));
+        element.setAttribute(jsxName, element.getAttribute(svgName)!);
         element.removeAttribute(svgName);
       }
     }

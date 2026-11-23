@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
-import { iconNames } from "../../icons/icons.mjs";
-import { MAX_REPORT_COMMENT_LENGTH } from "../../lib/icon-report.mjs";
-import { CREATE_COMING_SOON } from "../../lib/feature-flags.mjs";
+import { iconNames } from "../../icons/icons.ts";
+import { MAX_REPORT_COMMENT_LENGTH } from "../../lib/icon-report.ts";
+import { CREATE_COMING_SOON } from "../../lib/feature-flags.ts";
 
 export const prerender = false;
 
 const validNames = new Set(iconNames);
 
-async function readReport(request: Request) {
+async function readReport(request: Request): Promise<Record<string, unknown> | null> {
   const reader = request.body?.getReader();
   if (!reader) return null;
   const bytes = new Uint8Array(4096);
@@ -23,7 +23,9 @@ async function readReport(request: Request) {
       bytes.set(value, size);
       size += value.length;
     }
-    return JSON.parse(new TextDecoder().decode(bytes.subarray(0, size)));
+    const value: unknown = JSON.parse(new TextDecoder().decode(bytes.subarray(0, size)));
+    return value !== null && typeof value === 'object' && !Array.isArray(value)
+      ? value as Record<string, unknown> : null;
   } catch {
     return null;
   } finally {
@@ -51,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const { saveIconReport } = await import("../../server/icon-reports.mjs");
+    const { saveIconReport } = await import("../../server/icon-reports.ts");
     saveIconReport(report.name, comment?.trim() || null);
     return new Response(null, { status: 201 });
   } catch (error) {

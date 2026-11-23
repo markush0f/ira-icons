@@ -1,9 +1,11 @@
+type Theme = 'light' | 'dark';
+
 (() => {
   const root = document.documentElement;
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
   const storageKey = "ira-icons-theme";
 
-  function readPreference() {
+  function readPreference(): Theme | null {
     try {
       const saved = localStorage.getItem(storageKey);
       if (saved === "light" || saved === "dark") return saved;

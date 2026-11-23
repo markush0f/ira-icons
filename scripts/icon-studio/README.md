@@ -4,11 +4,11 @@ Use these tools to draft **one new icon**, with three variants. They run on Node
 
 ```sh
 # 1. Find nearby icons before drawing. Read the best matches for visual reference.
-node scripts/icon-studio/icon-tool.mjs search 'desk lamp'
+node scripts/icon-studio/icon-tool.ts search 'desk lamp'
 
 # 2. Build a proposal in a new draft directory.
 draft=$(mktemp -d)
-node scripts/icon-studio/icon-tool.mjs build scripts/icon-studio/examples/metronome-study.json \
+node scripts/icon-studio/icon-tool.ts build scripts/icon-studio/examples/metronome-study.json \
   --out "$draft/metronome" --browser google-chrome
 ```
 
@@ -24,7 +24,7 @@ printf '\n'
 export GEMINI_API_KEY
 
 draft=$(mktemp -d)
-node scripts/icon-studio/icon-tool.mjs generate 'A desk fan whose blades rotate' \
+node scripts/icon-studio/icon-tool.ts generate 'A desk fan whose blades rotate' \
   --name desk-fan-study --out "$draft/desk-fan" --browser google-chrome
 
 unset GEMINI_API_KEY

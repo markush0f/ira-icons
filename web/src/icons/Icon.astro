@@ -1,10 +1,13 @@
 ---
-import { getSource } from './icons.mjs';
+import { getSource } from './icons.ts';
+interface Props { name: string; size?: number | string; color?: string; label?: string }
 const { name, size = 24, color = 'currentColor', label } = Astro.props;
 const source = getSource(name);
 if (!source) throw new Error(`Unknown Ira Icons icon: ${name}`);
 // Only trusted, checked-in SVGs enter the server catalog. Preserve their native viewBox and styling.
-const [, root, drawing] = source.trim().match(/^<svg\b([^>]+)>([\s\S]*)<\/svg>$/);
+const match = source.trim().match(/^<svg\b([^>]+)>([\s\S]*)<\/svg>$/);
+if (!match) throw new Error(`Invalid Ira Icons SVG: ${name}`);
+const [, root, drawing] = match;
 const attrs = Object.fromEntries([...root.matchAll(/([^\s=]+)="([^"]*)"/g)].map(([,k,v])=>[k,v]));
 const accessibleLabel = typeof label === 'string' ? label.trim() : '';
 ---

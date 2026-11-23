@@ -1,7 +1,7 @@
 ---
 import Icon from "../icons/Icon.astro";
 import GitHubLogo from "../assets/frameworks/github.svg";
-import { CREATE_COMING_SOON } from "../lib/feature-flags.mjs";
+import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
 
 const onCatalog = Astro.url.pathname === "/";
 const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);

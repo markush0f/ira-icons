@@ -2,6 +2,9 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { copyFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
+import type { Plugin } from 'vite';
+import type { AstroIntegration } from 'astro';
+
 const root = new URL('../', import.meta.url);
 const dir = new URL('icons/', root);
 const license = 'scripts/icon-expansion/folio/TABLER-LICENSE.txt';
@@ -10,7 +13,7 @@ const files = () => readdirSync(dir).filter(name => valid.test(name)).sort();
 const moduleId = 'virtual:ira-svg-sources';
 
 // A single server-only catalog instead of compiling 10,000 Astro components.
-export const svgCatalog = {
+export const svgCatalog: Plugin = {
   name: 'ira-svg-catalog',
   resolveId(id) { if (id === moduleId) return '\0' + id; },
   load(id) {
@@ -34,12 +37,12 @@ export const svgCatalog = {
         const data = readFileSync(new URL(path,root));
         res.setHeader('Content-Type', path.endsWith('.svg')?'image/svg+xml':'text/plain; charset=utf-8');
         res.end(data);
-      } catch (err) { if(err.code==='ENOENT')return next(); next(err); }
+      } catch (err) { if(err instanceof Error && 'code' in err && err.code==='ENOENT')return next(); next(err); }
     });
   },
 };
 
-export const publishCatalogAssets = {
+export const publishCatalogAssets: AstroIntegration = {
   name: 'ira-catalog-assets', hooks: {
     'astro:build:done': async ({ dir: out }) => {
       await Promise.all([

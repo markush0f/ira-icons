@@ -1,11 +1,26 @@
 import { randomUUID } from "node:crypto";
-import { renderIconPreview } from "./icon-preview.mjs";
-import { compileIcon, compileOriginal, originalSchema, variantsSchema } from "./icon-svg.mjs";
+import { renderIconPreview } from "./icon-preview.ts";
+import { compileIcon, compileOriginal, originalSchema, variantsSchema } from "./icon-svg.ts";
+
+import type { IconBrief } from '../lib/icon-generation.ts';
+
+export interface GenerationOptions {
+  fetcher?: (url: string, options: RequestInit & { body: string; headers: Record<string, string> }) => Promise<Response>;
+  model?: string;
+  iconNames?: readonly string[];
+  designGuide?: string;
+  readReference?: (name: string) => string | undefined | Promise<string | undefined>;
+}
+interface StageBrief extends IconBrief { original?: unknown; reviewSvg?: string }
+interface StageProposal { original: unknown; minimalist: unknown; motion: unknown }
+interface GeminiPayload {
+  candidates?: { finishReason?: string; content?: { parts?: { thought?: boolean; text?: string }[] } }[];
+}
 
 export const DEFAULT_MODEL = "gemini-3.1-flash-lite";
 
 // Gemini's decoder can reject nested bounded arrays. The local compiler still enforces all limits.
-const geminiSchema = (schema) => JSON.parse(JSON.stringify(schema, (key, value) =>
+const geminiSchema = (schema: object): object => JSON.parse(JSON.stringify(schema, (key, value) =>
   key === "minItems" || key === "maxItems" ? undefined : value,
 ));
 const MAX_RESPONSE_BYTES = 256 * 1024;
@@ -17,7 +32,8 @@ const REVIEW_TASK = "Inspect the rendered draft against the description and refe
 const VARIANTS_TASK = `Derive both variants from the supplied original. Do not redraw or return the original. For minimalist, make a visible simplification at 16 px: remove a secondary detail or simplify a contour while keeping the same subject. Merely changing IDs, reordering shapes, or reformatting path data does not count. For motion, target existing shape IDs and make the change noticeable at 24 px without obscuring the silhouette. An explicit movement in the description takes priority over the catalog reference. Match the requested part and action using the nearest supported effect; for rotation, use the actual pivot and target a visible mark or asymmetric part, not a plain circle centered on that pivot. If multiple parts should rotate relative to one another, target each separately and use a phase offset when the brief does not specify a different relationship. Do not substitute a generic pulse for a requested rotation, rise, drop, or trace. If no movement is requested, choose one subtle action on a detail that expresses the subject's function. Keep unrelated parts still and preserve a readable silhouette. Study the animated reference for timing and restraint, not for which effect to choose; do not copy its subject or CSS. Use draw only for a simple trace that does not carry the silhouette. Swing moves between -12 and 8 degrees; spin rotates a full turn; rise and drop move up to 2 units; pulse changes opacity. Supply origin [x,y] only for swing and spin. Keep durationMs between 700 and 8000 and delayMs within one cycle.`;
 
 export class GeminiHttpError extends Error {
-  constructor(status) {
+  readonly status: number;
+  constructor(status: number) {
     super(`Gemini returned HTTP ${status}`);
     this.status = status;
   }
@@ -32,14 +48,14 @@ const aliases = new Map([
   ["coche", ["car"]], ["carro", ["car"]], ["automovil", ["car"]],
 ]);
 
-export function findRelatedIconNames(description, iconNames, limit = 6) {
+export function findRelatedIconNames(description: string, iconNames: readonly string[], limit = 6) {
   const phrase = description.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "").match(/[a-z0-9]+/g) ?? [];
   const words = new Set(phrase);
   const related = new Set(phrase.flatMap((word) => aliases.get(word) ?? []));
   const exactName = phrase.join("-");
   return iconNames
     .filter((name) => !/-(?:minimalist|animated)$/.test(name))
-    .map((name) => [name, name.split("-").reduce((score, word) => score + (
+    .map((name): [string, number] => [name, name.split("-").reduce((score, word) => score + (
       words.has(word) ? 5 : related.has(word) ? 2 : phrase.some((prefix) => prefix.length >= 3 && word.startsWith(prefix)) ? 1 : 0
     ), name === exactName ? 10 : 0)])
     .filter(([, score]) => score > 0)
@@ -48,12 +64,12 @@ export function findRelatedIconNames(description, iconNames, limit = 6) {
     .map(([name]) => name);
 }
 
-async function selectReferences(relatedNames, readReference, includeMotion) {
+async function selectReferences(relatedNames: string[], readReference: NonNullable<GenerationOptions['readReference']>, includeMotion: boolean) {
   const references = [];
   // Reserve a slot for an animated example when deriving motion.
   const candidates = [...new Set([...relatedNames, "coffee", "lightbulb", "bell"])];
   const related = new Set(relatedNames);
-  const purpose = (name) => related.has(name) ? "related-design" : "style-only";
+  const purpose = (name: string) => related.has(name) ? "related-design" : "style-only";
   const staticLimit = includeMotion ? 2 : 3;
   for (const name of candidates) {
     const original = await readReference(name);
@@ -78,7 +94,7 @@ async function selectReferences(relatedNames, readReference, includeMotion) {
   return references;
 }
 
-async function readResponse(response) {
+async function readResponse(response: Response): Promise<GeminiPayload> {
   const reader = response.body?.getReader();
   if (!reader) throw new Error("Empty Gemini response");
   const decoder = new TextDecoder("utf-8", { fatal: true });
@@ -99,13 +115,13 @@ async function readResponse(response) {
   }
 }
 
-async function requestStage({ description, style, original, reviewSvg }, key, {
+async function requestStage({ description, style, original, reviewSvg }: StageBrief, key: string, {
   fetcher = globalThis.fetch,
   model = process.env.GEMINI_MODEL ?? DEFAULT_MODEL,
   iconNames = [],
   designGuide,
   readReference,
-} = {}) {
+}: GenerationOptions = {}): Promise<StageProposal> {
   if (!key) throw new Error("Gemini is not configured");
   if (!/^gemini-[a-z0-9][a-z0-9.-]{0,62}$/.test(model)) throw new Error("Invalid Gemini model ID");
   const isOriginal = original === undefined || Boolean(reviewSvg);
@@ -164,7 +180,7 @@ async function requestStage({ description, style, original, reviewSvg }, key, {
   return JSON.parse(text);
 }
 
-export async function generateOriginal(brief, key, options) {
+export async function generateOriginal(brief: IconBrief, key: string, options?: GenerationOptions) {
   const { original } = await requestStage({ ...brief, original: undefined }, key, options);
   const svg = compileOriginal(original);
   try {
@@ -176,22 +192,22 @@ export async function generateOriginal(brief, key, options) {
   }
 }
 
-export async function requestIconVariants(brief, original, key, options) {
+export async function requestIconVariants(brief: IconBrief, original: unknown, key: string, options?: GenerationOptions) {
   // Revalidate the geometry before forwarding an original supplied by the client.
   compileOriginal(original);
   const { minimalist, motion } = await requestStage({ ...brief, original }, key, options);
   return { original, minimalist, motion };
 }
 
-export async function requestIconProposal(brief, key, options) {
+export async function requestIconProposal(brief: IconBrief, key: string, options?: GenerationOptions) {
   const { original } = await generateOriginal(brief, key, options);
   return requestIconVariants(brief, original, key, options);
 }
 
-export async function generateVariants(brief, original, key, options) {
+export async function generateVariants(brief: IconBrief, original: unknown, key: string, options?: GenerationOptions) {
   return compileIcon(await requestIconVariants(brief, original, key, options), `studio-${randomUUID()}`);
 }
 
-export async function generateIcon(brief, key, options) {
+export async function generateIcon(brief: IconBrief, key: string, options?: GenerationOptions) {
   return compileIcon(await requestIconProposal(brief, key, options), `studio-${randomUUID()}`);
 }

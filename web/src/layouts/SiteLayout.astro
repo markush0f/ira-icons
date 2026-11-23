@@ -1,7 +1,13 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
-import themeScript from "../scripts/theme.js?raw";
+import themeSource from "../scripts/theme.ts?raw";
+import { transformWithEsbuild } from "vite";
+
+// Keep the theme script synchronous in <head>, but strip TypeScript before inlining it.
+const { code: themeScript } = await transformWithEsbuild(themeSource, "theme.ts", {
+  loader: "ts", target: "es2022",
+});
 
 interface Props {
   title?: string;

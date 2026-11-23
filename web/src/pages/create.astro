@@ -1,7 +1,7 @@
 ---
 import Icon from "../icons/Icon.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { CREATE_COMING_SOON } from "../lib/feature-flags.mjs";
+import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
 
 const styles = [
   { id: "original", label: "Original", sample: "lightbulb" },
@@ -115,7 +115,7 @@ const styles = [
       </section>
     </div>
   </main>
-  <script src="../scripts/icon-studio.js"></script>
+  <script src="../scripts/icon-studio.ts"></script>
 </SiteLayout>
 
 <style>

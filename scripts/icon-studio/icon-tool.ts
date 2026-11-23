@@ -3,18 +3,22 @@ import { mkdir, mkdtemp, readFile, readdir, realpath, rm, stat, writeFile } from
 import { tmpdir } from "node:os";
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { parseArgs, promisify } from "node:util";
-import { findRelatedIconNames, requestIconProposal } from "../../web/src/server/generate-icon.mjs";
-import { compileIcon } from "../../web/src/server/icon-svg.mjs";
-import { checkFamily, reviewSheet, validName, variants } from "./review.mjs";
+import { parseArgs, promisify, type ParseArgsOptionsConfig } from "node:util";
+import { findRelatedIconNames, requestIconProposal } from "../../web/src/server/generate-icon.ts";
+import { compileIcon } from "../../web/src/server/icon-svg.ts";
+import { checkFamily, reviewSheet, validName, variants } from "./review.ts";
+
+import ts from 'typescript';
 
 const run = promisify(execFile);
 const catalog = fileURLToPath(new URL("../../icons/", import.meta.url));
 
-async function audit(browser, files) {
+async function audit(browser: string, files: import('../../web/src/lib/icon-generation.ts').IconVariants) {
   const directory = await mkdtemp(join(tmpdir(), "ira-icon-audit-"));
   try {
-    const probe = await readFile(new URL("./geometry-probe.html", import.meta.url), "utf8");
+    const source = await readFile(new URL("./geometry-probe.ts", import.meta.url), "utf8");
+    const { outputText } = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022 } });
+    const probe = `<output id="geometry-result"></output><script>${outputText}</script>`;
     const page = join(directory, "geometry.html");
     await writeFile(page, "<!doctype html>" + variants.map(([key, , suffix]) =>
       `<section data-file="draft${suffix}.svg">${files[key]}</section>`
@@ -32,7 +36,7 @@ async function audit(browser, files) {
   }
 }
 
-async function destination(path) {
+async function destination(path: string) {
   const absolute = resolve(path);
   const output = join(await realpath(dirname(absolute)), basename(absolute));
   const delta = relative(await realpath(catalog), output);
@@ -46,7 +50,7 @@ async function destination(path) {
   return output;
 }
 
-async function writeDraft(name, proposal, output, browser, saveProposal) {
+async function writeDraft(name: string, proposal: Record<string, unknown>, output: string, browser: string | undefined, saveProposal: boolean) {
   const files = compileIcon(proposal, name);
   checkFamily(name, files);
   if (browser) await audit(browser, files);
@@ -63,10 +67,10 @@ async function writeDraft(name, proposal, output, browser, saveProposal) {
 async function main() {
   const [command, ...args] = process.argv.slice(2);
   if (command === "--help" || !command) {
-    console.log("Usage: icon-tool.mjs search QUERY [--limit 6] | build SPEC --out DIR [--browser CHROME] | generate DESCRIPTION --name NAME --out DIR [--browser CHROME]");
+    console.log("Usage: icon-tool.ts search QUERY [--limit 6] | build SPEC --out DIR [--browser CHROME] | generate DESCRIPTION --name NAME --out DIR [--browser CHROME]");
     return;
   }
-  const options = command === "search" ? { limit: { type: "string", default: "6" } } : {
+  const options: ParseArgsOptionsConfig = command === "search" ? { limit: { type: "string", default: "6" } } : {
     out: { type: "string" }, browser: { type: "string" }, ...(command === "generate" && { name: { type: "string" } }),
   };
   const { positionals, values } = parseArgs({ args, allowPositionals: true, options });
@@ -81,9 +85,10 @@ async function main() {
     if (!names.length) console.log("No matches. Try a synonym or a related shape.");
     return;
   }
-  if (!["build", "generate"].includes(command) || !values.out) throw new Error("Use build or generate with --out");
+  if (!["build", "generate"].includes(command) || typeof values.out !== 'string') throw new Error("Use build or generate with --out");
   const output = await destination(values.out);
-  let name, proposal;
+  let name: unknown;
+  let proposal: Record<string, unknown> = {};
   if (command === "build") {
     if ((await stat(input)).size > 32_768) throw new Error("Specification is larger than 32 KiB");
     ({ name, ...proposal } = JSON.parse(await readFile(input, "utf8")));
@@ -106,12 +111,12 @@ async function main() {
         : undefined,
     });
   }
-  await writeDraft(name, proposal, output, values.browser, command === "generate");
+  await writeDraft(name, proposal, output, typeof values.browser === 'string' ? values.browser : undefined, command === "generate");
 }
 
 try {
   await main();
 } catch (error) {
-  console.error(error.message);
+  console.error(error instanceof Error ? error.message : String(error));
   process.exitCode = 1;
 }

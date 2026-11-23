@@ -1,32 +1,36 @@
-const studio = document.querySelector("[data-icon-studio]");
+import { requireElement } from './dom.ts';
+import type { GenerationResponse, GenerationStage, IconBrief, IconStyle, IconVariants } from '../lib/icon-generation.ts';
+
+const studio = document.querySelector<HTMLElement>("[data-icon-studio]");
 if (studio) mountStudio(studio);
 
-function mountStudio(studio) {
-  const prompt = studio.querySelector("#icon-prompt");
-  const count = studio.querySelector("[data-prompt-count]");
-  const styles = [...studio.querySelectorAll('input[name="icon-style"]')];
-  const previews = studio.querySelectorAll("[data-style-preview]");
-  const previewGrid = studio.querySelector("[data-preview-grid]");
-  const loader = studio.querySelector("[data-preview-loader]");
-  const generate = studio.querySelector("[data-generate-icon]");
-  const derive = studio.querySelector("[data-generate-variants]");
-  const generationStatus = studio.querySelector("[data-generation-status]");
-  const resultPreview = studio.querySelector("[data-generated-preview]");
-  const resultImage = resultPreview.querySelector("img");
-  const reviewSizes = resultPreview.querySelector("[data-review-sizes]");
-  const resultCaption = resultPreview.querySelector("[data-generated-caption]");
-  const download = studio.querySelector("[data-download-icon]");
-  const previewTitle = studio.querySelector("[data-preview-title]");
-  const previewHint = studio.querySelector("[data-preview-hint]");
-  const copy = studio.querySelector("[data-copy-brief]");
-  const status = studio.querySelector("[data-brief-status]");
+function mountStudio(studio: HTMLElement) {
+  const $ = <T extends Element = HTMLElement>(selector: string) => requireElement<T>(selector, studio);
+  const prompt = $<HTMLTextAreaElement>("#icon-prompt");
+  const count = $("[data-prompt-count]");
+  const styles = [...studio.querySelectorAll<HTMLInputElement>('input[name="icon-style"]')];
+  const previews = studio.querySelectorAll<HTMLElement>("[data-style-preview]");
+  const previewGrid = $("[data-preview-grid]");
+  const loader = $("[data-preview-loader]");
+  const generate = $<HTMLButtonElement>("[data-generate-icon]");
+  const derive = $<HTMLButtonElement>("[data-generate-variants]");
+  const generationStatus = $("[data-generation-status]");
+  const resultPreview = $("[data-generated-preview]");
+  const resultImage = requireElement<HTMLImageElement>("img", resultPreview);
+  const reviewSizes = requireElement("[data-review-sizes]", resultPreview);
+  const resultCaption = requireElement("[data-generated-caption]", resultPreview);
+  const download = $<HTMLAnchorElement>("[data-download-icon]");
+  const previewTitle = $("[data-preview-title]");
+  const previewHint = $("[data-preview-hint]");
+  const copy = $<HTMLButtonElement>("[data-copy-brief]");
+  const status = $("[data-brief-status]");
   const storageKey = "ira-icons-studio-draft";
   let generating = false;
-  let resultUrls;
-  let originalDraft;
+  let resultUrls: ({ original: string } & Partial<IconVariants>) | null = null;
+  let originalDraft: { brief: IconBrief; original: unknown[] } | null = null;
 
   try {
-    const draft = JSON.parse(localStorage.getItem(storageKey));
+    const draft = JSON.parse(localStorage.getItem(storageKey) ?? 'null');
     if (typeof draft?.prompt === "string") {
       prompt.value = draft.prompt.slice(0, prompt.maxLength);
     }
@@ -36,8 +40,8 @@ function mountStudio(studio) {
     // The editor still works when the browser blocks storage.
   }
 
-  function selectedStyle() {
-    return styles.find((input) => input.checked).value;
+  function selectedStyle(): IconStyle {
+    return (styles.find((input) => input.checked)?.value ?? 'original') as IconStyle;
   }
 
   function render() {
@@ -67,10 +71,11 @@ function mountStudio(studio) {
         : "This is a catalog example until you generate your own icon.";
     }
     if (resultUrls) {
-      if (resultImage.getAttribute("src") !== resultUrls[style]) resultImage.src = resultUrls[style];
+      const url = resultUrls[style] ?? resultUrls.original;
+      if (resultImage.getAttribute("src") !== url) resultImage.src = url;
       if (reviewing) for (const image of reviewSizes.querySelectorAll("img")) image.src = resultUrls.original;
       resultCaption.textContent = style;
-      download.href = resultUrls[style];
+      download.href = url;
       download.download = `generated-${style}.svg`;
     }
   }
@@ -92,15 +97,15 @@ function mountStudio(studio) {
   generate.addEventListener("click", () => requestGeneration("original"));
   derive.addEventListener("click", () => requestGeneration("variants"));
 
-  async function requestGeneration(stage) {
+  async function requestGeneration(stage: GenerationStage) {
     const deriving = stage === "variants";
-    const brief = deriving ? originalDraft?.brief : { description: prompt.value.trim(), style: selectedStyle() };
+    const brief: IconBrief | undefined = deriving ? originalDraft?.brief : { description: prompt.value.trim(), style: selectedStyle() };
     if (generating || !brief?.description || (deriving && resultUrls?.minimalist)) return;
     generating = true;
     if (!deriving && resultUrls) {
       originalDraft = null;
       for (const image of reviewSizes.querySelectorAll("img")) image.removeAttribute("src");
-      for (const url of Object.values(resultUrls)) URL.revokeObjectURL(url);
+      for (const url of Object.values(resultUrls)) if (url) URL.revokeObjectURL(url);
       resultImage.removeAttribute("src");
       download.removeAttribute("href");
       resultUrls = null;
@@ -109,14 +114,14 @@ function mountStudio(studio) {
     generationStatus.classList.add("visually-hidden");
     generationStatus.textContent = deriving ? "Creating variants with Gemini…" : "Generating the original with Gemini…";
 
-    async function request(step, original) {
+    async function request(step: GenerationStage, original?: unknown[]) {
       const response = await fetch("/api/generate-icon", {
         method: "POST",
         mode: "same-origin",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...brief, stage: step, original }),
       });
-      const result = await response.json();
+      const result: GenerationResponse = await response.json();
       if (!response.ok) {
         generationStatus.textContent = result.error || "Icon generation failed.";
         return null;
@@ -126,18 +131,19 @@ function mountStudio(studio) {
 
     try {
       // Load generated SVG as an image, never as markup in the page.
-      const svgUrl = (svg) => URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+      const svgUrl = (svg: string) => URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
       if (!deriving) {
         const result = await request("original");
         if (!result) return;
         if (typeof result.svg !== "string" || !Array.isArray(result.original)) throw new Error("Incomplete original");
         // Start the review on the original, even if another style was selected earlier.
-        styles.find(({ value }) => value === "original").checked = true;
+        styles.find(({ value }) => value === "original")!.checked = true;
         originalDraft = { brief, original: result.original };
         resultUrls = { original: svgUrl(result.svg) };
         generationStatus.textContent = "Original ready. Creating its variants…";
         render();
       }
+      if (!originalDraft || !resultUrls) return;
       const result = await request("variants", originalDraft.original);
       if (!result) return;
       const { minimalist, animated } = result.variants ?? {};

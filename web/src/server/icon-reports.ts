@@ -1,10 +1,10 @@
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { DatabaseSync } from "node:sqlite";
+import { DatabaseSync, type StatementSync } from "node:sqlite";
 
-let insert;
+let insert: StatementSync | undefined;
 
-export function saveIconReport(name, comment = null) {
+export function saveIconReport(name: string, comment: string | null = null) {
   if (!insert) {
     const filename = resolve(process.env.IRA_REPORTS_DB || "data/icon-reports.sqlite");
     mkdirSync(dirname(filename), { recursive: true });

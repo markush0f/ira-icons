@@ -2,19 +2,19 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import ts from "typescript";
-import { mountIconReport } from "../src/scripts/icon-report.js";
+import { mountIconReport } from "../src/scripts/icon-report.ts";
 
 test("catalog can select icons when the report form is disabled", () => {
   const selectReport = mountIconReport({ querySelector: () => null });
   assert.doesNotThrow(() => selectReport("bell"));
 });
 
-async function loadRoute(comingSoon) {
+async function loadRoute(comingSoon: boolean) {
   const source = await readFile(new URL("../src/pages/api/icon-reports.ts", import.meta.url), "utf8");
   // Isolate the handler from Astro's build-time environment and SQLite.
   const isolated = source
     .replace(/^import .* from .*;$/gm, "")
-    .replace('await import("../../server/icon-reports.mjs")', "await loadStore()");
+    .replace('await import("../../server/icon-reports.ts")', "await loadStore()");
   const { outputText } = ts.transpileModule(isolated, {
     compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
   });
@@ -33,7 +33,7 @@ async function loadRoute(comingSoon) {
   return import(`data:text/javascript;base64,${Buffer.from(moduleSource).toString("base64")}`);
 }
 
-function request(body) {
+function request(body: unknown) {
   return new Request("https://example.com/api/icon-reports", {
     method: "POST",
     headers: { "content-type": "application/json" },

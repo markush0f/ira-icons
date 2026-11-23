@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readdir } from 'node:fs/promises';
 import { test } from 'node:test';
 import { categoriesFor, categoryLabels, categoryGroups } from '../../scripts/icon-expansion/categories.ts';
-import { categoryIcons } from '../src/lib/category-icons.mjs';
+import { categoryIcons } from '../src/lib/category-icons.ts';
 
 test('every category has an existing minimalist example icon', async () => {
   const files = new Set(await readdir(new URL('../../icons/', import.meta.url)));

@@ -1,5 +1,6 @@
 ---
 /** A reusable color picker with a native spectrum control, HEX input, and palette presets. */
+interface Props { initialColor?: string }
 const { initialColor = "#ad8af3" } = Astro.props;
 const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2"];
 ---
@@ -24,13 +25,14 @@ const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2
 
 <script>
   // Keep the spectrum input, HEX field, and presets in sync, then notify the selected icon.
-  const picker = document.querySelector("[data-color-picker]");
+  import { requireElement } from '../scripts/dom.ts';
+  const picker = document.querySelector<HTMLElement>("[data-color-picker]");
 
   if (picker) {
-    const spectrum = picker.querySelector("[data-color-spectrum]");
-    const hex = picker.querySelector("[data-color-hex]");
+    const spectrum = requireElement<HTMLInputElement>("[data-color-spectrum]", picker);
+    const hex = requireElement<HTMLInputElement>("[data-color-hex]", picker);
 
-    const applyColor = (value) => {
+    const applyColor = (value: string) => {
       if (!/^#[\da-f]{6}$/i.test(value)) return;
       const color = value.toLowerCase();
       picker.dataset.color = color;
@@ -48,10 +50,10 @@ const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2
       if (/^[\da-f]{6}$/i.test(hex.value)) applyColor(`#${hex.value}`);
     });
     hex.addEventListener("blur", () => {
-      if (!/^[\da-f]{6}$/i.test(hex.value)) hex.value = picker.dataset.color.slice(1);
+      if (!/^[\da-f]{6}$/i.test(hex.value)) hex.value = picker.dataset.color!.slice(1);
     });
-    picker.querySelectorAll("[data-color-preset]").forEach((button) => {
-      button.addEventListener("click", () => applyColor(button.dataset.colorPreset));
+    picker.querySelectorAll<HTMLButtonElement>("[data-color-preset]").forEach((button) => {
+      button.addEventListener("click", () => applyColor(button.dataset.colorPreset!));
     });
   }
 </script>

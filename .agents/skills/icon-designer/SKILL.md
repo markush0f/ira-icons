@@ -29,7 +29,7 @@ From the repo root, pass just its base name. This checks the three SVG files and
 
 ```sh
 icon=your-icon-name
-node .agents/skills/icon-designer/scripts/check-icons.mjs "$icon" --sheet /tmp/ira-icon-review.html
+node .agents/skills/icon-designer/scripts/check-icons.ts "$icon" --sheet /tmp/ira-icon-review.html
 ```
 
 Open the sheet in a browser. Compare the three versions at **16, 20, and 24 px** in light and dark. Watch two loops, including the most extreme position and the reset, then check the static pose in **reduced motion**. Also show the animated SVG inline alongside another icon to catch CSS leaking. Fix clipping or poor legibility before handing off. If a visual check isn't possible, say so.

@@ -1,5 +1,5 @@
 /** Static, representative catalog icons for category filters. */
-export const categoryIcons = {
+export const categoryIcons: Record<string, string> = {
   animals: 'paw',
   buildings: 'home',
   communication: 'message',

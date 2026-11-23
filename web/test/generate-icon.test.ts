@@ -1,17 +1,25 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { compileIcon } from "../src/server/icon-svg.mjs";
-import { DEFAULT_MODEL, findRelatedIconNames, generateIcon, GeminiHttpError } from "../src/server/generate-icon.mjs";
+import { compileIcon } from "../src/server/icon-svg.ts";
+import { DEFAULT_MODEL, findRelatedIconNames, generateIcon, GeminiHttpError } from "../src/server/generate-icon.ts";
 
-async function example(name) {
+interface TestProposal {
+  original: Record<string, string | number>[];
+  minimalist: Record<string, string | number>[];
+  motion: unknown[];
+}
+interface TestSchema { properties: Record<string, TestSchema> }
+interface ImagePart { inlineData?: { mimeType: string; data: string } }
+
+async function example(name: string) {
   const { name: _name, ...proposal } = JSON.parse(await readFile(new URL(
     `../../scripts/icon-studio/examples/${name}.json`, import.meta.url,
-  ), "utf8"));
+  ), "utf8")) as TestProposal & { name: string };
   return proposal;
 }
 
-function geminiResponse(proposal, schema) {
+function geminiResponse(proposal: TestProposal, schema: TestSchema) {
   const { original, minimalist, motion } = proposal;
   const stage = schema.properties.original ? { original } : { minimalist, motion };
   return Response.json({ candidates: [{ finishReason: "STOP", content: { parts: [
@@ -40,7 +48,7 @@ test("calls Gemini in Node and compiles the three variants without exposing the 
       assert.match(body.systemInstruction.parts[2].text, /recognizable silhouette/);
       const brief = JSON.parse(body.contents[0].parts[0].text);
       const parts = body.contents[0].parts;
-      const images = parts.filter((part) => part.inlineData);
+      const images = parts.filter((part: ImagePart) => part.inlineData);
       assert.ok(images.length >= 2);
       for (const { inlineData } of images) {
         assert.equal(inlineData.mimeType, "image/png");
@@ -62,8 +70,8 @@ test("calls Gemini in Node and compiles the three variants without exposing the 
       }
       assert.equal(brief.description, "A chart with a rising line");
       assert.deepEqual(brief.relatedCatalogNames, ["chart-line"]);
-      assert.deepEqual(brief.catalogReferences.map(({ name }) => name), ["chart-line", "chart-line-minimalist", schema.properties.motion ? "chart-line-animated" : "coffee"]);
-      assert.deepEqual(brief.catalogReferences.map(({ purpose }) => purpose), ["related-design", "related-design", schema.properties.motion ? "related-design" : "style-only"]);
+      assert.deepEqual(brief.catalogReferences.map(({ name }: { name: string }) => name), ["chart-line", "chart-line-minimalist", schema.properties.motion ? "chart-line-animated" : "coffee"]);
+      assert.deepEqual(brief.catalogReferences.map(({ purpose }: { purpose: string }) => purpose), ["related-design", "related-design", schema.properties.motion ? "related-design" : "style-only"]);
       for (const { svg } of brief.catalogReferences) assert.match(svg, /^<svg\b/);
       return geminiResponse(proposal, schema);
     },
@@ -133,8 +141,8 @@ test("uses catalog fallback examples when no related icon matches", async () => 
       const schema = request.generationConfig.responseJsonSchema;
       const brief = JSON.parse(request.contents[0].parts[0].text);
       assert.deepEqual(brief.relatedCatalogNames, []);
-      assert.ok(brief.catalogReferences.every(({ purpose }) => purpose === "style-only"));
-      assert.deepEqual(brief.catalogReferences.map(({ name }) => name), ["coffee", "coffee-minimalist", schema.properties.motion ? "coffee-animated" : "lightbulb"]);
+      assert.ok(brief.catalogReferences.every(({ purpose }: { purpose: string }) => purpose === "style-only"));
+      assert.deepEqual(brief.catalogReferences.map(({ name }: { name: string }) => name), ["coffee", "coffee-minimalist", schema.properties.motion ? "coffee-animated" : "lightbulb"]);
       return geminiResponse(proposal, schema);
     },
   });

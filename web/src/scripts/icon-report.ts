@@ -1,27 +1,31 @@
+import { requireElement } from './dom.ts';
+
+type ReportState = 'pending' | 'saved' | 'failed';
+
 /** Sends a report and optional comment for the exact variant shown in the panel. */
-export function mountIconReport(panel) {
-  const report = panel.querySelector("[data-icon-report]");
+export function mountIconReport(panel: Pick<ParentNode, 'querySelector'>): (name: string) => void {
+  const report = panel.querySelector<HTMLFormElement>("[data-icon-report]");
   if (!report) return () => {};
 
-  const button = report.querySelector("[data-report-button]");
-  const commentPanel = report.querySelector("[data-report-comment-panel]");
-  const commentInput = report.querySelector("[data-report-comment]");
-  const status = report.querySelector("[data-report-status]");
-  const states = new Map();
-  const drafts = new Map();
+  const button = requireElement<HTMLButtonElement>("[data-report-button]", report);
+  const commentPanel = requireElement<HTMLDetailsElement>("[data-report-comment-panel]", report);
+  const commentInput = requireElement<HTMLTextAreaElement>("[data-report-comment]", report);
+  const status = requireElement("[data-report-status]", report);
+  const states = new Map<string, ReportState>();
+  const drafts = new Map<string, string>();
   const messages = {
     pending: "Sending report…",
     saved: "Report saved.",
     failed: "Couldn’t save the report. Try again.",
   };
-  let selectedName;
+  let selectedName = '';
 
   function render() {
     const state = states.get(selectedName);
     button.disabled = state === "pending" || state === "saved";
     commentInput.disabled = button.disabled;
     commentPanel.hidden = state === "saved";
-    status.textContent = messages[state] ?? "";
+    status.textContent = state ? messages[state] : "";
   }
 
   commentInput.addEventListener("input", () => {

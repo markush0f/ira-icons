@@ -6,10 +6,10 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { test } from "node:test";
 
-const store = new URL("../src/server/icon-reports.mjs", import.meta.url);
+const store = new URL("../src/server/icon-reports.ts", import.meta.url);
 const comment = "The cup's steam looks clipped.\nTry a smaller offset.";
 
-function saveReports(database) {
+function saveReports(database: string) {
   execFileSync(process.execPath, ["--input-type=module", "-e", `
     import { saveIconReport } from ${JSON.stringify(store.href)};
     saveIconReport("coffee");
@@ -17,12 +17,12 @@ function saveReports(database) {
   `], { env: { ...process.env, IRA_REPORTS_DB: database }, stdio: "pipe" });
 }
 
-function assertReports(database, expected) {
+function assertReports(database: string, expected: (string | null)[][]) {
   const db = new DatabaseSync(database, { readOnly: true });
   try {
     const rows = db.prepare("SELECT icon_name, comment, created_at FROM icon_reports ORDER BY id").all();
     assert.deepEqual(rows.map(({ icon_name, comment }) => [icon_name, comment]), expected);
-    assert.ok(rows.every(({ created_at }) => Number.isFinite(Date.parse(created_at))));
+    assert.ok(rows.every(({ created_at }) => Number.isFinite(Date.parse(String(created_at)))));
   } finally {
     db.close();
   }
