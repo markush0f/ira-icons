@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="triangle-square-circle"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-triangle-square-circle-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="triangle-square-circle"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-triangle-square-circle-line 2.4s linear infinite; }
+            @keyframes ira-design-triangle-square-circle-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="triangle-square-circle"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-triangle-square-circle-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 3l-4 7h8z"/><path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g>
-    <g data-ira-motion="triangle-square-circle"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/></g></g>
+    <g data-ira-design-reveal="triangle-square-circle" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M12 3L8 10L16 10z"/><path data-design-ink="ring" pathLength="1" d="M17 14a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 15A1 1 0 0 1 5 14L9 14A1 1 0 0 1 10 15L10 19A1 1 0 0 1 9 20L5 20A1 1 0 0 1 4 19z"/></g></g>
 </svg>

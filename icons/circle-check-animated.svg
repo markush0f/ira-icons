@@ -22,12 +22,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
-    <!-- Motion: Draw the check inside the still circle, from short arm to long arm. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-seq-circle-check-0 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { stroke-dashoffset: 1; opacity: 1; } 58%, 92% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-            [data-ira-sequence="circle-check"] > [data-step="0"] path { stroke-dasharray: 1 1; animation: ira-seq-circle-check-0 3.25s ease-in-out infinite; }
+            @keyframes ira-design-circle-check-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="circle-check"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-circle-check-line 2.4s linear infinite; }
+            @keyframes ira-design-circle-check-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="circle-check"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-circle-check-ring 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-sequence="circle-check"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/></g><g data-step="0"><g transform="translate(1.5 1.5) scale(.875)"><path pathLength="1" d="M9 12l2 2l4 -4"/></g></g></g>
+    <g data-ira-design-reveal="circle-check" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0 -18z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M9 12L11 14L15 10"/></g></g>
 </svg>

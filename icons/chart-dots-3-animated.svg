@@ -24,10 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-dots-3"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-design-chart-dots-3-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-dots-3"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-3-line 2.8s linear infinite; }
+            @keyframes ira-design-chart-dots-3-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-dots-3"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-3-ring 2.8s linear infinite; }
+            @keyframes ira-design-chart-dots-3-sample-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 24%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-dots-3"] [data-design-ink="sample-0"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-3-sample-0 2.8s linear infinite; }
+            @keyframes ira-design-chart-dots-3-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-dots-3"] [data-design-ink="sample-1"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-3-sample-1 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M5 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M16 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M6 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M9 17l5 -1.5"/><path d="M6.5 8.5l7.81 5.37"/></g>
-    <g data-ira-motion="chart-dots-3"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 7l8 -1"/></g></g>
+    <g data-ira-design-reveal="chart-dots-3" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M5 5a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M16 13a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M18 3a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/><path data-design-ink="ring" pathLength="1" d="M6 15a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/><path data-design-ink="sample-1" pathLength="1" d="M9 17L14 15.5"/><path data-design-ink="sample-0" pathLength="1" d="M6.5 8.5L14.309999999999999 13.870000000000001"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M7 7L15 6"/></g></g>
 </svg>

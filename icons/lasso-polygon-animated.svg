@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="lasso-polygon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-design-lasso-polygon-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="lasso-polygon"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-lasso-polygon-line 2.4s linear infinite; }
+            @keyframes ira-design-lasso-polygon-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="lasso-polygon"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-lasso-polygon-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4.028 13.252l-1.028 -3.252l2 -7l7 5l8 -3l1 9l-9 3l-5.144 -1.255"/><path d="M5 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g>
-    <g data-ira-motion="lasso-polygon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M5 17c0 1.42 .316 2.805 1 4"/></g></g>
+    <g data-ira-design-reveal="lasso-polygon" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4.028 13.252L2.9999999999999996 10L5 3L12 8L20 5L21 14L12 17L6.856 15.745000000000001"/><path data-design-ink="ring" pathLength="1" d="M5 13a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M5 17C5 18.42 5.316 19.805 6 21"/></g></g>
 </svg>

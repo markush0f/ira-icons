@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-cohort"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-design-chart-cohort-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-cohort"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-cohort-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 9h18v-6h-18v18h6v-18"/></g>
-    <g data-ira-motion="chart-cohort"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 15h12v-12"/></g></g>
+    <g data-ira-design-reveal="chart-cohort" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 9L21 9L21 3L3 3L3 21L9 21L9 3"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 15L15 15L15 3"/></g></g>
 </svg>

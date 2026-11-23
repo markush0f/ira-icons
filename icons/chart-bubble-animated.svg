@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-bubble"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-chart-bubble-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-bubble"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-chart-bubble-ring 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M6 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M16 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g>
-    <g data-ira-motion="chart-bubble"><g transform="translate(1.5 1.5) scale(.875)"><path d="M14.5 7.5m-4.5 0a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0 -9 0"/></g></g>
+    <g data-ira-design-reveal="chart-bubble" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M6 13a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/><path data-design-ink="ring" pathLength="1" d="M16 17a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M14.5 3a4.5 4.5 0 1 1 0 9a4.5 4.5 0 1 1 0 -9z"/></g></g>
 </svg>

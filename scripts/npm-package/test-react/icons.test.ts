@@ -60,7 +60,7 @@ test('draws simple lines while preserving the bell and heart motions', () => {
     assert.match(html, /<path\b[^>]*\bpathLength="1"/, name);
   }
   const chart = render({ name: 'chart-line-animated' });
-  assert.match(chart, /<path d="M3 4v16h18"><\/path><g data-ira-drawing="chart-line">/);
+  assert.match(chart, /<path d="M3 4v16h18"><\/path><path data-design-ink="line" pathLength="1" d="M7 15/);
 
   const bell = render({ name: 'bell-animated' });
   assert.match(bell, /rotate\(-13deg\)/);

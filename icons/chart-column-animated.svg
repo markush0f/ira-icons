@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-column"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-design-chart-column-sample-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 24%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-column"] [data-design-ink="sample-0"] { stroke-dasharray: 1 1; animation: ira-design-chart-column-sample-0 2.8s linear infinite; }
+            @keyframes ira-design-chart-column-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-column"] [data-design-ink="sample-1"] { stroke-dasharray: 1 1; animation: ira-design-chart-column-sample-1 2.8s linear infinite; }
+            @keyframes ira-design-chart-column-sample-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 48%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-column"] [data-design-ink="sample-2"] { stroke-dasharray: 1 1; animation: ira-design-chart-column-sample-2 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 20h3"/><path d="M17 20h3"/><path d="M10.5 20h3"/><path d="M4 16h3"/><path d="M17 16h3"/><path d="M10.5 16h3"/><path d="M4 12h3"/><path d="M17 12h3"/><path d="M10.5 12h3"/><path d="M4 8h3"/><path d="M17 8h3"/></g>
-    <g data-ira-motion="chart-column"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 4h3"/></g></g>
+    <g data-ira-design-reveal="chart-column" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-0" pathLength="1" d="M4 20L7 20"/><path data-design-ink="sample-2" pathLength="1" d="M17 20L20 20"/><path data-design-ink="sample-1" pathLength="1" d="M10.5 20L13.5 20"/><path data-design-ink="sample-0" pathLength="1" d="M4 16L7 16"/><path data-design-ink="sample-2" pathLength="1" d="M17 16L20 16"/><path data-design-ink="sample-1" pathLength="1" d="M10.5 16L13.5 16"/><path data-design-ink="sample-0" pathLength="1" d="M4 12L7 12"/><path data-design-ink="sample-2" pathLength="1" d="M17 12L20 12"/><path data-design-ink="sample-1" pathLength="1" d="M10.5 12L13.5 12"/><path data-design-ink="sample-0" pathLength="1" d="M4 8L7 8"/><path data-design-ink="sample-2" pathLength="1" d="M17 8L20 8"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-0" pathLength="1" d="M4 4L7 4"/></g></g>
 </svg>

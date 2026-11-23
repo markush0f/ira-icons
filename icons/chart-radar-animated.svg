@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-radar"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-design-chart-radar-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-radar"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-radar-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 3l9.5 7l-3.5 11h-12l-3.5 -11z"/><path d="M12 7.5l5.5 4l-2.5 5.5h-6.5l-2 -5.5z"/><path d="M2.5 10l9.5 3l9.5 -3"/><path d="M12 3v10l6 8"/></g>
-    <g data-ira-motion="chart-radar"><g transform="translate(1.5 1.5) scale(.875)"><path d="M6 21l6 -8"/></g></g>
+    <g data-ira-design-reveal="chart-radar" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M12 3L21.5 10L18 21L6 21L2.5 10z"/><path data-design-ink="line" pathLength="1" d="M12 7.5L17.5 11.5L15 17L8.5 17L6.5 11.5z"/><path data-design-ink="line" pathLength="1" d="M2.5 10L12 13L21.5 10"/><path data-design-ink="line" pathLength="1" d="M12 3L12 13L18 21"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M6 21L12 13"/></g></g>
 </svg>

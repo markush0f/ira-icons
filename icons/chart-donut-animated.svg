@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-donut"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-chart-donut-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-donut"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-donut-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-3.8a4.1 4.1 0 1 1 -5 -5v-4a.9 .9 0 0 0 -1 -.8"/></g>
-    <g data-ira-motion="chart-donut"><g transform="translate(1.5 1.5) scale(.875)"><path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a9 9 0 0 0 -1 -1v-4.5"/></g></g>
+    <g data-ira-design-reveal="chart-donut" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M10 3.2A9 9 0 1 0 20.8 14A1 1 0 0 0 19.8 13L16 13A4.1 4.1 0 1 1 11 8L11 4A0.9 0.9 0 0 0 10 3.2"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M15 3.5A9 9 0 0 1 20.5 9L16 9A9 9 0 0 0 15 8L15 3.5"/></g></g>
 </svg>

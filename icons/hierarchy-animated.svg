@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="hierarchy"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-design-hierarchy-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="hierarchy"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-hierarchy-line 2.4s linear infinite; }
+            @keyframes ira-design-hierarchy-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="hierarchy"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-hierarchy-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M19 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M6.5 17.5l5.5 -4.5l5.5 4.5"/></g>
-    <g data-ira-motion="hierarchy"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 7l0 6"/></g></g>
+    <g data-ira-design-reveal="hierarchy" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 3a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M5 17a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M19 17a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="line" pathLength="1" d="M6.5 17.5L12 13L17.5 17.5"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M12 7L12 13"/></g></g>
 </svg>

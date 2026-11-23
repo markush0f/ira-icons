@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-area"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-chart-area-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-area"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-area-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 19l16 0"/></g>
-    <g data-ira-motion="chart-area"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 15l4 -6l4 2l4 -5l4 4l0 5l-16 0"/></g></g>
+    <g data-ira-design-reveal="chart-area" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 19l16 0"/></g><g transform="translate(1.5 1.5) scale(.875)"></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 15L8 9L12 11L16 6L20 10L20 15L4 15"/></g></g>
 </svg>

@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="gradienter"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-gradienter-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="gradienter"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-gradienter-line 2.4s linear infinite; }
+            @keyframes ira-design-gradienter-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="gradienter"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-gradienter-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3.227 14c.917 4 4.497 7 8.773 7c4.277 0 7.858 -3 8.773 -7"/><path d="M20.78 10a9 9 0 0 0 -8.78 -7a8.985 8.985 0 0 0 -8.782 7"/></g>
-    <g data-ira-motion="gradienter"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g></g>
+    <g data-ira-design-reveal="gradienter" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3.227 14C4.144 18 7.724 21 12 21C16.277 21 19.858 18 20.773 14"/><path data-design-ink="line" pathLength="1" d="M20.78 10A9 9 0 0 0 12.000000000000002 3A8.985 8.985 0 0 0 3.2180000000000017 10"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 10a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/></g></g>
 </svg>

@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="droplet-search"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-droplet-search-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="droplet-search"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-droplet-search-line 2.4s linear infinite; }
+            @keyframes ira-design-droplet-search-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="droplet-search"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-droplet-search-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18.064 10.877l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546a7.13 7.13 0 0 0 4.168 1.572"/><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g>
-    <g data-ira-motion="droplet-search"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20.2 20.2l1.8 1.8"/></g></g>
+    <g data-ira-design-reveal="droplet-search" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M18.064 10.877L13.174 3.617000000000001C12.754 2.992000000000001 11.887 2.814000000000001 11.238 3.2200000000000006A1.376 1.376 0 0 0 10.828 3.617000000000001L5.935 10.877C4.239999999999999 13.715 4.8999999999999995 17.318 7.502 19.423000000000002A7.13 7.13 0 0 0 11.67 20.995"/><path data-design-ink="ring" pathLength="1" d="M18 15a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M20.2 20.2L22 22"/></g></g>
 </svg>

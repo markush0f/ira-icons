@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-sankey"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-chart-sankey-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-sankey"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-sankey-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3v18h18"/><path d="M3 6h18"/></g>
-    <g data-ira-motion="chart-sankey"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 8c10 0 8 9 18 9"/></g></g>
+    <g data-ira-design-reveal="chart-sankey" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3v18h18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 6L21 6"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 8C13 8 11 17 21 17"/></g></g>
 </svg>

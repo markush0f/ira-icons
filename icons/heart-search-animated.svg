@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="heart-search"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-design-heart-search-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="heart-search"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-heart-search-line 2.4s linear infinite; }
+            @keyframes ira-design-heart-search-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="heart-search"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-heart-search-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 20l-.975 -.966l-6.525 -6.462a5 5 0 1 1 7.5 -6.566a5 5 0 0 1 8.37 5.428"/><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g>
-    <g data-ira-motion="heart-search"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20.2 20.2l1.8 1.8"/></g></g>
+    <g data-ira-design-reveal="heart-search" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M12 20L11.025 19.034L4.5 12.572A5 5 0 1 1 12 6.005999999999999A5 5 0 0 1 20.369999999999997 11.434"/><path data-design-ink="ring" pathLength="1" d="M18 15a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M20.2 20.2L22 22"/></g></g>
 </svg>

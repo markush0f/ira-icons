@@ -24,10 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-bar-popular"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-design-chart-bar-popular-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-bar-popular"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-bar-popular-line 2.8s linear infinite; }
+            @keyframes ira-design-chart-bar-popular-sample-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 24%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-bar-popular"] [data-design-ink="sample-0"] { stroke-dasharray: 1 1; animation: ira-design-chart-bar-popular-sample-0 2.8s linear infinite; }
+            @keyframes ira-design-chart-bar-popular-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-bar-popular"] [data-design-ink="sample-1"] { stroke-dasharray: 1 1; animation: ira-design-chart-bar-popular-sample-1 2.8s linear infinite; }
+            @keyframes ira-design-chart-bar-popular-sample-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 48%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-bar-popular"] [data-design-ink="sample-2"] { stroke-dasharray: 1 1; animation: ira-design-chart-bar-popular-sample-2 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M9 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M15 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/></g>
-    <g data-ira-motion="chart-bar-popular"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 20h14"/></g></g>
+    <g data-ira-design-reveal="chart-bar-popular" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-0" pathLength="1" d="M3 13A1 1 0 0 1 4 12L8 12A1 1 0 0 1 9 13L9 19A1 1 0 0 1 8 20L4 20A1 1 0 0 1 3 19z"/><path data-design-ink="sample-1" pathLength="1" d="M9 9A1 1 0 0 1 10 8L14 8A1 1 0 0 1 15 9L15 19A1 1 0 0 1 14 20L10 20A1 1 0 0 1 9 19z"/><path data-design-ink="sample-2" pathLength="1" d="M15 5A1 1 0 0 1 16 4L20 4A1 1 0 0 1 21 5L21 19A1 1 0 0 1 20 20L16 20A1 1 0 0 1 15 19z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 20L18 20"/></g></g>
 </svg>

@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-treemap"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-chart-treemap-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-treemap"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-treemap-line 2.8s linear infinite; }
+            @keyframes ira-design-chart-treemap-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-treemap"] [data-design-ink="sample-1"] { stroke-dasharray: 1 1; animation: ira-design-chart-treemap-sample-1 2.8s linear infinite; }
+            @keyframes ira-design-chart-treemap-sample-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 48%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-treemap"] [data-design-ink="sample-2"] { stroke-dasharray: 1 1; animation: ira-design-chart-treemap-sample-2 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M12 4v16"/><path d="M4 15h8"/><path d="M12 12h8"/><path d="M16 12v8"/></g>
-    <g data-ira-motion="chart-treemap"><g transform="translate(1.5 1.5) scale(.875)"><path d="M16 16h4"/></g></g>
+    <g data-ira-design-reveal="chart-treemap" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 6A2 2 0 0 1 6 4L18 4A2 2 0 0 1 20 6L20 18A2 2 0 0 1 18 20L6 20A2 2 0 0 1 4 18z"/><path data-design-ink="sample-1" pathLength="1" d="M12 20L12 4"/><path data-design-ink="line" pathLength="1" d="M4 15L12 15"/><path data-design-ink="line" pathLength="1" d="M12 12L20 12"/><path data-design-ink="sample-2" pathLength="1" d="M16 20L16 12"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-2" pathLength="1" d="M16 16L20 16"/></g></g>
 </svg>

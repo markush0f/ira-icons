@@ -24,10 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-scatter-3d"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-design-chart-scatter-3d-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-scatter-3d"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-scatter-3d-line 2.8s linear infinite; }
+            @keyframes ira-design-chart-scatter-3d-sample-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 24%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-scatter-3d"] [data-design-ink="sample-0"] { stroke-dasharray: 1 1; animation: ira-design-chart-scatter-3d-sample-0 2.8s linear infinite; }
+            @keyframes ira-design-chart-scatter-3d-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-scatter-3d"] [data-design-ink="sample-1"] { stroke-dasharray: 1 1; animation: ira-design-chart-scatter-3d-sample-1 2.8s linear infinite; }
+            @keyframes ira-design-chart-scatter-3d-sample-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 48%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-scatter-3d"] [data-design-ink="sample-2"] { stroke-dasharray: 1 1; animation: ira-design-chart-scatter-3d-sample-2 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 20l9 -7"/><path d="M12 3v10l9 7"/><path d="M17 12v.015"/><path d="M17 4.015v.015"/><path d="M21 8.015v.015"/><path d="M12 19.015v.015"/><path d="M3 12.015v.015"/><path d="M7 8.015v.015"/></g>
-    <g data-ira-motion="chart-scatter-3d"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 4.015v.015"/></g></g>
+    <g data-ira-design-reveal="chart-scatter-3d" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 20L12 13"/><path data-design-ink="line" pathLength="1" d="M12 3L12 13L21 20"/><path data-design-ink="sample-2" pathLength="1" d="M17 12.015L17 12"/><path data-design-ink="sample-2" pathLength="1" d="M17 4.029999999999999L17 4.015"/><path data-design-ink="sample-2" pathLength="1" d="M21 8.030000000000001L21 8.015"/><path data-design-ink="sample-1" pathLength="1" d="M12 19.03L12 19.015"/><path data-design-ink="sample-0" pathLength="1" d="M3 12.030000000000001L3 12.015"/><path data-design-ink="sample-0" pathLength="1" d="M7 8.030000000000001L7 8.015"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-0" pathLength="1" d="M3 4.029999999999999L3 4.015"/></g></g>
 </svg>

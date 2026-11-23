@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="chart-area-line"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-design-chart-area-line-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-area-line"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-area-line-line 2.8s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 19l4 -6l4 2l4 -5l4 4l0 5l-16 0"/></g>
-    <g data-ira-motion="chart-area-line"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 12l3 -4l4 2l5 -6l4 4"/></g></g>
+    <g data-ira-design-reveal="chart-area-line" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 19L8 13L12 15L16 10L20 14L20 19L4 19"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 12L7 8L11 10L16 4L20 8"/></g></g>
 </svg>

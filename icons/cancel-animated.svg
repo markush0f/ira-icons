@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="cancel"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-design-cancel-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="cancel"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-cancel-line 2.4s linear infinite; }
+            @keyframes ira-design-cancel-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="cancel"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-cancel-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/></g>
-    <g data-ira-motion="cancel"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.364 5.636l-12.728 12.728"/></g></g>
+    <g data-ira-design-reveal="cancel" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0 -18z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M18.364 5.636L5.636000000000001 18.364"/></g></g>
 </svg>

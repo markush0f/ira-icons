@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="analyze"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-design-analyze-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="analyze"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-analyze-line 2.4s linear infinite; }
+            @keyframes ira-design-analyze-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="analyze"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-analyze-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M20 11a8.1 8.1 0 0 0 -6.986 -6.918a8.095 8.095 0 0 0 -8.019 3.918"/><path d="M4 13a8.1 8.1 0 0 0 15 3"/><path d="M19 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M5 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></g>
-    <g data-ira-motion="analyze"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></g>
+    <g data-ira-design-reveal="analyze" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M20 11A8.1 8.1 0 0 0 13.014 4.082A8.095 8.095 0 0 0 4.994999999999999 8"/><path data-design-ink="line" pathLength="1" d="M4 13A8.1 8.1 0 0 0 19 16"/><path data-design-ink="ring" pathLength="1" d="M19 15a1 1 0 1 1 0 2a1 1 0 1 1 0 -2z"/><path data-design-ink="ring" pathLength="1" d="M5 7a1 1 0 1 1 0 2a1 1 0 1 1 0 -2z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 9a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g></g>
 </svg>

@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="polygon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-design-polygon-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="polygon"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-polygon-line 2.4s linear infinite; }
+            @keyframes ira-design-polygon-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="polygon"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-polygon-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M19 8m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M6.5 9.5l3.5 -3"/><path d="M14 5.5l3 1.5"/><path d="M18.5 10l-2.5 7"/></g>
-    <g data-ira-motion="polygon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M13.5 17.5l-7 -5"/></g></g>
+    <g data-ira-design-reveal="polygon" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 3a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M19 6a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M5 9a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M15 17a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="line" pathLength="1" d="M6.5 9.5L10 6.5"/><path data-design-ink="line" pathLength="1" d="M14 5.5L17 7"/><path data-design-ink="line" pathLength="1" d="M18.5 10L16 17"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M13.5 17.5L6.5 12.5"/></g></g>
 </svg>

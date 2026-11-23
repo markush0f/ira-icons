@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="droplet-cancel"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-design-droplet-cancel-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="droplet-cancel"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-droplet-cancel-line 2.4s linear infinite; }
+            @keyframes ira-design-droplet-cancel-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="droplet-cancel"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-droplet-cancel-ring 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18.606 12.014a6.659 6.659 0 0 0 -.542 -1.137l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546a7.154 7.154 0 0 0 4.826 1.572"/><path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g>
-    <g data-ira-motion="droplet-cancel"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 21l4 -4"/></g></g>
+    <g data-ira-design-reveal="droplet-cancel" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M18.606 12.014A6.659 6.659 0 0 0 18.064 10.876999999999999L13.174 3.616999999999999C12.754 2.991999999999999 11.887 2.813999999999999 11.238 3.219999999999999A1.376 1.376 0 0 0 10.828 3.616999999999999L5.935 10.876999999999999C4.239999999999999 13.715 4.8999999999999995 17.317999999999998 7.502 19.423A7.154 7.154 0 0 0 12.328 20.994999999999997"/><path data-design-ink="ring" pathLength="1" d="M19 16a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M17 21L21 17"/></g></g>
 </svg>
