@@ -50,6 +50,3 @@ export function formatIcon(preview: SVGSVGElement, name: string, format: CodeFor
       return `<script>\n  import { ${component} } from '@ira/iraicons/svelte';\n</script>\n\n${usage}\n`;
   }
 }
-import { ABAnimated } from '@ira/iraicons/react';
-
-<ABAnimated size={24} color="#ad8af3" />
