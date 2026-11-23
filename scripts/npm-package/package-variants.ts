@@ -1,6 +1,14 @@
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
+interface PackageManifest {
+  files: string[];
+  exports: Record<string, string | Record<string, string>>;
+  peerDependencies: Record<string, string>;
+  peerDependenciesMeta?: Record<string, unknown>;
+  [field: string]: unknown;
+}
+
 const frameworkFiles = {
   react: ['react'],
   astro: ['astro', 'icons'],
@@ -8,7 +16,7 @@ const frameworkFiles = {
   svelte: ['svelte', 'shared'],
 };
 
-export async function writePackageVariants(source, destination, manifest) {
+export async function writePackageVariants(source: string, destination: string, manifest: PackageManifest) {
   const { exports, peerDependencies, peerDependenciesMeta, ...base } = manifest;
   const name = '@ira/iraicons';
   const complete = join(destination, 'all');
@@ -22,7 +30,7 @@ export async function writePackageVariants(source, destination, manifest) {
   for (const [framework, files] of Object.entries(frameworkFiles)) {
     const output = join(destination, framework);
     const packageName = `${name}-${framework}`;
-    const label = { react: 'React and Next.js', astro: 'Astro', vue: 'Vue', svelte: 'Svelte' }[framework];
+    const label = { react: 'React and Next.js', astro: 'Astro', vue: 'Vue', svelte: 'Svelte' }[framework as keyof typeof frameworkFiles];
     const entry = exports[`./${framework}`];
     const individual = exports[`./${framework}/*`];
     await rm(output, { recursive: true, force: true });

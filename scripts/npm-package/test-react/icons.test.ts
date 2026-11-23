@@ -15,9 +15,9 @@ const server = await createServer({
   resolve: { dedupe: ['react', 'react-dom'] },
 });
 after(() => server.close());
-const { default: Icon, Icon: NamedIcon } = await server.ssrLoadModule('/scripts/npm-package/react/Icon.jsx');
-const { iconNames, getIcon } = await server.ssrLoadModule('/scripts/npm-package/react/icons.mjs');
-const render = (props) => renderToStaticMarkup(createElement(Icon, props));
+const { default: Icon, Icon: NamedIcon } = await server.ssrLoadModule('/scripts/npm-package/react/Icon.tsx') as typeof import('../react/Icon.tsx');
+const { iconNames, getIcon } = await server.ssrLoadModule('/scripts/npm-package/react/icons.ts') as typeof import('../react/icons.ts');
+const render = (props: Partial<import('../react/Icon.tsx').IconProps> & Record<string, unknown>) => renderToStaticMarkup(createElement(Icon, props as import('../react/Icon.tsx').IconProps));
 
 test('discovers the complete, sorted source catalog through Vite', async () => {
   const files = await readdir(new URL('../../../icons/', import.meta.url));
@@ -99,9 +99,10 @@ test('bundles a React application for the browser without code generation', asyn
     resolve: { dedupe: ['react', 'react-dom'] },
     build: {
       write: false,
-      rollupOptions: { input: fileURLToPath(new URL('./fixture.jsx', import.meta.url)) },
+      rollupOptions: { input: fileURLToPath(new URL('./fixture.tsx', import.meta.url)) },
     },
   });
+  assert.ok(!Array.isArray(result) && 'output' in result);
   assert.ok(result.output.some((asset) => asset.type === 'chunk' && asset.code.includes('Unknown Ira Icons icon')));
 });
 

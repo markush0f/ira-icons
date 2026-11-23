@@ -1,6 +1,6 @@
 import { createRef } from 'react';
-import Icon, { type IconProps } from '../react/Icon.js';
-import { iconNames } from '../react/icons.mjs';
+import Icon, { type IconProps } from '../react/Icon.tsx';
+import { iconNames } from '../react/icons.ts';
 
 const ref = createRef<SVGSVGElement>();
 const props: IconProps = { name: iconNames[0], size: '1em', label: 'Search', strokeWidth: 1.5 };

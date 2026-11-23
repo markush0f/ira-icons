@@ -1,8 +1,10 @@
 import React, { forwardRef } from 'react';
-import { getIcon } from './icons.mjs';
+import { getIcon } from './icons.ts';
+import type { IconProps } from './Icon.types.d.ts';
+export type { IconProps } from './Icon.types.d.ts';
 
 /** Renders an original SVG inline by name, matching the Astro adapter's API. */
-const Icon = forwardRef(function Icon(
+const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   { name, size = 24, color = 'currentColor', label, ...props },
   ref,
 ) {

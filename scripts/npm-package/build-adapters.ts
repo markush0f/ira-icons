@@ -1,11 +1,14 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import ts from 'typescript';
 
-function parseSvg(source, file) {
+interface IconComponent { file: string; name: string; identifier: string }
+
+function parseSvg(source: string, file: string) {
   const match = source.match(/^\s*<svg\b([^>]*)>([\s\S]*)<\/svg>\s*$/);
   if (!match) throw new Error(`Invalid SVG document: ${file}`);
-  const attributes = {};
-  const remaining = match[1].replace(/\s+([\w:-]+)="([^"]*)"/g, (_, name, value) => {
+  const attributes: Record<string, string> = {};
+  const remaining = match[1].replace(/\s+([\w:-]+)="([^"]*)"/g, (_: string, name: string, value: string) => {
     attributes[name] = value;
     return '';
   });
@@ -13,22 +16,30 @@ function parseSvg(source, file) {
   return { attributes, markup: match[2].trim() };
 }
 
-export async function buildVueAndSvelte({ output, components, iconDirectory }) {
+export async function buildVueAndSvelte({ output, components, iconDirectory }: { output: string; components: IconComponent[]; iconDirectory: string }) {
   await Promise.all(['vue/icons', 'svelte/icons', 'shared/icons'].map(
     (directory) => mkdir(join(output, directory), { recursive: true }),
   ));
 
-  const write = (path, contents) => writeFile(join(output, path), contents);
-  const copy = (path) => copyFile(new URL(path, import.meta.url), join(output, path));
+  const write = (path: string, contents: string) => writeFile(join(output, path), contents);
+  const copy = (path: string) => copyFile(new URL(path, import.meta.url), join(output, path));
+  const compileRuntime = async (path: string) => {
+    const source = await readFile(new URL(path, import.meta.url), 'utf8');
+    const { outputText } = ts.transpileModule(source, {
+      compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },
+    });
+    await write(path.replace(/\.ts$/, '.js'), outputText.replaceAll('icon-props.ts', 'icon-props.js'));
+  };
   const imports = components.map(({ name, identifier }) =>
     `import ${identifier} from './icons/${name}.js';`).join('\n');
   const entries = components.map(({ name, identifier }) =>
     `  ${JSON.stringify(name)}: ${identifier},`).join('\n');
-  const namedExports = (extension) => components.map(({ name, identifier }) =>
+  const namedExports = (extension: string) => components.map(({ name, identifier }) =>
     `export { default as ${identifier} } from './icons/${name}.${extension}';\n`).join('');
 
   await Promise.all([
-    ...['shared/icon-props.js', 'vue/create-icon.js', 'vue/types.d.ts', 'svelte/Glyph.svelte', 'svelte/types.d.ts'].map(copy),
+    ...['shared/icon-props.ts', 'vue/create-icon.ts'].map(compileRuntime),
+    ...['vue/types.d.ts', 'svelte/Glyph.svelte', 'svelte/types.d.ts'].map(copy),
     write('shared/catalog.js', `${imports}
 
 export default Object.assign(Object.create(null), {

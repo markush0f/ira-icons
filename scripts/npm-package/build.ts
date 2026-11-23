@@ -1,10 +1,10 @@
 import { copyFile, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { build } from 'vite';
+import { build, type Plugin } from 'vite';
 import svgr from 'vite-plugin-svgr';
-import { buildVueAndSvelte } from './build-adapters.mjs';
-import { writePackageVariants } from './package-variants.mjs';
+import { buildVueAndSvelte } from './build-adapters.ts';
+import { writePackageVariants } from './package-variants.ts';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const output = join(root, 'dist/npm');
@@ -30,14 +30,14 @@ for (const dir of directories) {
 
 const entry = 'virtual:ira-react';
 const individualEntries = new Map(components.map((icon) => [`${entry}/${icon.name}`, icon]));
-const virtualEntries = {
+const virtualEntries: Plugin = {
   name: 'ira-package-entries',
   resolveId(id) {
     if (id === entry || individualEntries.has(id)) return `\0${id}`;
   },
   load(id) {
     if (id === `\0${entry}`) return [
-      `export { default, Icon } from ${JSON.stringify(fileURLToPath(new URL('./react/Icon.jsx', import.meta.url)))};`,
+      `export { default, Icon } from ${JSON.stringify(fileURLToPath(new URL('./react/Icon.tsx', import.meta.url)))};`,
       ...components.map(({ name, identifier }) => `export { default as ${identifier} } from ${JSON.stringify(`${entry}/${name}`)};`),
     ].join('\n');
     const icon = individualEntries.get(id.slice(1));
@@ -97,7 +97,7 @@ export type { IndividualIconProps as IconProps } from '../Icon.js';
 declare const Icon: ForwardRefExoticComponent<Omit<IconProps, 'name' | 'ref'> & RefAttributes<SVGSVGElement>>;
 export default Icon;
 `;
-const genericTypes = await readFile(new URL('./react/Icon.d.ts', import.meta.url), 'utf8');
+const genericTypes = await readFile(new URL('./react/Icon.types.d.ts', import.meta.url), 'utf8');
 const reactTypes = `${genericTypes}\nexport type IndividualIconProps = Omit<IconProps, 'name'>;\n` + components
   .map(({ name, identifier }) => `export { default as ${identifier} } from './icons/${name}.js';`)
   .join('\n') + '\n';

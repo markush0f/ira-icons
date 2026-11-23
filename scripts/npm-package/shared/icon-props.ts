@@ -1,5 +1,11 @@
+export interface SerializedIcon {
+  attributes: Record<string, string>;
+  markup: string;
+}
+export type SvgAttributes = Record<string, unknown>;
+
 // Shared defaults for the Vue and Svelte adapters.
-export function svgProps(icon, size, color, label, attrs) {
+export function svgProps(icon: SerializedIcon, size: number | string, color: string, label: string | undefined, attrs: SvgAttributes): SvgAttributes {
   const ariaLabel = attrs['aria-label'] || (typeof label === 'string' && label.trim()) || undefined;
   const labelled = Boolean(ariaLabel || attrs['aria-labelledby']);
 
@@ -16,7 +22,7 @@ export function svgProps(icon, size, color, label, attrs) {
   };
 }
 
-export function requireIcon(catalog, name) {
+export function requireIcon(catalog: Record<string, SerializedIcon>, name: string): SerializedIcon {
   const icon = catalog[name];
   if (!icon) throw new Error(`Unknown Ira Icons icon: ${String(name)}`);
   return icon;

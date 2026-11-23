@@ -3,24 +3,25 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { createRequire, registerHooks } from 'node:module';
 import { test } from 'node:test';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { createElement } from 'react';
+import { createElement, type ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { createSSRApp, h } from 'vue';
+import { createSSRApp, h, type Component as VueComponent } from 'vue';
 import { renderToString } from 'vue/server-renderer';
 import { compile } from 'svelte/compiler';
 import { render } from 'svelte/server';
+import type { Component as SvelteComponent } from 'svelte';
 
 const variants = new URL('../../dist/npm-variants/', import.meta.url);
 const complete = new URL('all/', variants);
-const resolveFrom = (directory, specifier) => createRequire(new URL('package.json', directory)).resolve(specifier);
-const importExport = (directory, specifier) => import(pathToFileURL(resolveFrom(directory, specifier)).href);
+const resolveFrom = (directory: URL, specifier: string) => createRequire(new URL('package.json', directory)).resolve(specifier);
+const importExport = (directory: URL, specifier: string) => import(pathToFileURL(resolveFrom(directory, specifier)).href);
 
 for (const [framework, files] of Object.entries({ react: ['react'], astro: ['astro', 'icons'], vue: ['vue', 'shared'], svelte: ['svelte', 'shared'] })) {
   test(`${framework} package ships only its own framework and required assets`, () => {
     const directory = new URL(`${framework}/`, variants);
     const manifest = JSON.parse(readFileSync(new URL('package.json', directory), 'utf8'));
     assert.deepEqual(Object.keys(manifest.peerDependencies), [framework]);
-    assert.deepEqual(readdirSync(directory).sort(), [...files, 'README.md', 'package.json'].sort());
+    assert.deepEqual(readdirSync(directory).sort(), [...files, 'LICENSE.tabler', 'README.md', 'package.json'].sort());
     assert.ok(resolveFrom(directory, `${manifest.name}/search-minimalist`));
     assert.ok(resolveFrom(complete, `@ira/iraicons/${framework}/search-minimalist`));
     assert.ok(resolveFrom(new URL('../../dist/npm/', import.meta.url), `@markusss0s/ira-library/${framework}/search-minimalist`));
@@ -38,10 +39,10 @@ const registerSvelteCompiler = () => registerHooks({
   },
 });
 
-const adapters = {
-  react: (component, { class: className, ...props }) => renderToStaticMarkup(createElement(component, { ...props, className })),
-  vue: (component, props) => renderToString(createSSRApp({ render: () => h(component, props) })),
-  svelte: (component, props) => render(component, { props }).body,
+const adapters: Record<string, (component: unknown, props: Record<string, unknown>) => string | Promise<string>> = {
+  react: (component, { class: className, ...props }) => renderToStaticMarkup(createElement(component as ComponentType<Record<string, unknown>>, { ...props, className })),
+  vue: (component, props) => renderToString(createSSRApp({ render: () => h(component as VueComponent, props) })),
+  svelte: (component, props) => render(component as SvelteComponent<Record<string, unknown>>, { props }).body,
 };
 
 for (const [adapter, renderIcon] of Object.entries(adapters)) {
