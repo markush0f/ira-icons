@@ -11,6 +11,7 @@
     "build": "cd web && astro build",
     "build:standalone": "node scripts/standalone/build.ts",
     "test:standalone": "node scripts/standalone/build.ts --check",
+    "typecheck": "cd web && astro sync && cd .. && tsc --noEmit && tsc -p scripts/npm-package/test-react/tsconfig.json && cd web && astro check",
     "test": "node --test scripts/npm-package/test-react/*.test.ts web/test/*.test.ts && tsc -p scripts/npm-package/test-react/tsconfig.json",
     "test:icon-tools": "node --test scripts/icon-studio/*.test.ts web/test/generate-icon.test.ts",
     "test:adapters": "bun run package:build && node --test scripts/npm-package/test-adapters.ts",

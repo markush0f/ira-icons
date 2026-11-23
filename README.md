@@ -8,6 +8,21 @@ Ira Icons is in active development. New icons and animations are added over time
 
 Many Ira Icons were designed with AI assistance. We test the SVGs for rendering, animation, and reduced-motion support.
 
+## Development checks
+
+All maintained scripts and application modules use TypeScript with strict checking. Astro components keep their `.astro` extension; React sources use `.tsx`. Node.js runs CLI and test `.ts` files directly using native type stripping (Node 22.23.4+).
+
+```sh
+bun run typecheck       # TypeScript and Astro diagnostics
+bun run test            # React integration and web/server tests
+bun run test:icon-tools # Icon compiler and CLI tests
+bun run test:adapters   # Build and verify all framework packages
+bun run build           # Production Astro build
+bun run build:standalone # Refresh the generated script in index.html
+```
+
+The npm packages and standalone HTML still ship browser-compatible JavaScript. Edit their TypeScript sources, not generated output. The standalone script source is `scripts/standalone/catalog.ts`.
+
 ## Animated variants
 
 The catalog and [standalone preview](index.html) show one card per icon. Select an icon in the catalog to reveal **Animado**, **Minimalista**, and **Normal** next to the copy formats (below them on mobile). Animated is selected first. Use names such as `check-animated`, `map-pin-animated`, or `heart-animated` like any other icon:
@@ -29,9 +44,9 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.js` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Use the color picker to set the icon color, then choose React, Astro, or SVG under **Copy as** to copy the selected icon. The code is self-contained and keeps the preview color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.ts` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Use the color picker to set the icon color, then choose React, Astro, or SVG under **Copy as** to copy the selected icon. The code is self-contained and keeps the preview color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
-The landing loads the original SVGs through its local Astro component and Vite catalog in [`web/src/icons/`](web/src/icons/). The shared helper in [`scripts/icon-catalog.mjs`](scripts/icon-catalog.mjs) validates icon names and provides catalog lookup. The landing does not depend on building the npm distribution.
+The landing loads the original SVGs through its local Astro component and Vite catalog in [`web/src/icons/`](web/src/icons/). The shared helper in [`scripts/icon-catalog.ts`](scripts/icon-catalog.ts) validates icon names and provides catalog lookup. The landing does not depend on building the npm distribution.
 
 ### Icon studio
 
@@ -41,7 +56,7 @@ Keep the key private; never prefix it with `PUBLIC_`. For production, set `CREAT
 
 The draft stays in the browser until **Generate with AI** is pressed. Astro sends the description and rendered catalog references to Gemini. It validates the original, asks Gemini to review a rendered preview, and then derives the minimalist and animated SVGs from the reviewed original. The visual review adds one provider request; if it fails, the last valid original is kept. The style selector only switches between available previews and never starts a generation. Users can preview and download them; nothing is automatically added to the catalog. The loading indicator respects reduced motion.
 
-The generation route and the icon-designer skill share the JavaScript compiler and Gemini client. Astro’s Node server handles generation without a separate worker. The route is disabled in *Coming soon* mode and limited to one concurrent request and ten generation requests per hour per Node process. Each step counts as one request. Keep it private or configure access controls and provider quotas before enabling it on a public deployment.
+The generation route and the icon-designer skill share the TypeScript SVG compiler and Gemini client. Astro’s Node server handles generation without a separate worker. The route is disabled in *Coming soon* mode and limited to one concurrent request and ten generation requests per hour per Node process. Each step counts as one request. Keep it private or configure access controls and provider quotas before enabling it on a public deployment.
 
 ### Icon reports
 
