@@ -1,8 +1,8 @@
-import { icon as i, p, c, g } from './geometry.mjs';
+import { icon as i, p, c, g } from './geometry.ts';
 
 const cloud = 'M6 14a4 4 0 0 1-.8-7.9 5 5 0 0 1 9.5-1.6A4.8 4.8 0 1 1 17 14z';
 const plainCloud = 'M6 14a4 4 0 0 1 0-8 5 5 0 0 1 9-1 4.5 4.5 0 1 1 2 9z';
-const weather = (name, mark, motion) => i(`cloud-${name}`,cloud,mark,motion,p(plainCloud)+(mark.startsWith('<')?mark:p(mark)));
+const weather = (name: string, mark: string, motion: string) => i(`cloud-${name}`,cloud,mark,motion,p(plainCloud)+(mark.startsWith('<')?mark:p(mark)));
 const snow = 'M12 3v18M4.2 7.5l15.6 9m0-9-15.6 9';
 const drop = 'M12 3q6 7 6 11a6 6 0 1 1-12 0q0-4 6-11z';
 const horizon = 'M3 17h18m-15 4h12M7 17a5 5 0 0 1 10 0';

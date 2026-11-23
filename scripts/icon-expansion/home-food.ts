@@ -1,4 +1,4 @@
-import { icon as i, p, c, r, g } from './geometry.mjs';
+import { icon as i, p, c, r, g } from './geometry.ts';
 
 const bottle = 'M10 3h4v5l3 3v8q0 2-2 2H9q-2 0-2-2v-8l3-3z';
 const glass = 'M6 4h12l-1.5 16h-9z';

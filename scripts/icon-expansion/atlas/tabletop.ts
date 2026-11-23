@@ -1,25 +1,25 @@
-import {icon, p, c, r, g} from '../geometry.mjs';
-import {label, letterStrokes} from './lettering.mjs';
-import {draw, appear, plan} from '../motion-plan.mjs';
-const framed = (name,frame,detail,simple,sequence) => ({...icon(name,frame,detail,'pulse',simple+detail),sequence});
-const write = (text,x,y,scale,end=63) => {
+import {icon, p, c, r, g} from '../geometry.ts';
+import {label, letterStrokes} from './lettering.ts';
+import {draw, appear, plan} from '../motion-plan.ts';
+const framed = (name: string,frame: string,detail: string,simple: string,sequence: ReturnType<typeof plan>) => ({...icon(name,frame,detail,'pulse',simple+detail),sequence});
+const write = (text: string | number,x: number,y: number,scale: number,end=63) => {
   const strokes = letterStrokes(text,x,y,scale);
   return strokes.map((stroke,j)=>draw(stroke,Math.round(j*end/strokes.length),Math.round((j+1)*end/strokes.length)));
 };
-const range = n => Array.from({length:n},(_,j)=>j);
+const range = (n: number) => Array.from({length:n},(_,j)=>j);
 const pips = [[],[[0,0]],[[-1,-1],[1,1]],[[-1,-1],[0,0],[1,1]],[[-1,-1],[1,-1],[-1,1],[1,1]],[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]];
-const fill = body => `<g stroke="none" fill="currentColor">${body}</g>`;
-function dots(n,x,y,dx,dy,radius) {
+const fill = (body: string) => `<g stroke="none" fill="currentColor">${body}</g>`;
+function dots(n: number,x: number,y: number,dx: number,dy: number,radius: number) {
   return fill(pips[n].map(([a,b])=>c(x+a*dx,y+b*dy,radius)).join(''));
 }
-const countPips = (n,x,y,dx,dy,radius,start,step) => pips[n].map(([a,b],i) =>
+const countPips = (n: number,x: number,y: number,dx: number,dy: number,radius: number,start: number,step: number) => pips[n].map(([a,b],i) =>
   appear(fill(c(x+a*dx,y+b*dy,radius)),start+i*step,start+i*step+9));
 const suits = {
   heart:p('M0 4C-8-1-3-7 0-3 3-7 8-1 0 4z'), diamond:p('M0-5 4 0 0 5-4 0z'),
   spade:p('M0-5C-7 1-4 4-1 2l-1 3h4L1 2c3 2 6-1-1-7z'),
   club:p('M-1-1c-5-7 7-7 2 0 6-3 6 6 0 3l1 3h-4l1-3c-6 3-6-6 0-3z'),
 };
-const clockPoint=(angle,len)=>[12+Math.sin(angle)*len,12-Math.cos(angle)*len].map(v=>+v.toFixed(2)).join(' ');
+const clockPoint=(angle: number,len: number)=>[12+Math.sin(angle)*len,12-Math.cos(angle)*len].map(v=>+v.toFixed(2)).join(' ');
 export const tabletopIcons = [
   ...range(31).map(j=>{
     const frame = r(3,5,18,16,2)+p('M7 3v4m10-4v4M3 10h18');

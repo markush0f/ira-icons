@@ -1,4 +1,4 @@
-import { icon as i, p, c, r, g } from './geometry.mjs';
+import { icon as i, p, c, r, g } from './geometry.ts';
 
 const note = 'M10 17V6l9-2v11m-9 2c0 2-4 3-4 1s4-3 4-1m9-2c0 2-4 3-4 1s4-3 4-1';
 const screen = r(3,5,18,14,2);

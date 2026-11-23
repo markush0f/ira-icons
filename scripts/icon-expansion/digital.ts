@@ -1,4 +1,4 @@
-import { icon as i, p, c, r } from './geometry.mjs';
+import { icon as i, p, c, r } from './geometry.ts';
 
 export const digitalIcons = [
   i('laptop',r(4,4,16,12,2)+p('M4 16l-2 3q0 1 2 1h16q2 0 2-1l-2-3'), 'M9 19h6','pulse','M4 5h16v11H4zm0 11-2 4h20l-2-4'),

@@ -3,13 +3,16 @@
 import {readdir,readFile,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 const dir=process.argv[2];
-const load=async file=>JSON.parse(await readFile(join(dir,file),'utf8'));
-if ((await load('package.json')).version !== '3.34.1') throw Error('Expected Tabler 3.34.1');
-const meta=await load('icons.json'), nodes=await load('tabler-nodes-outline.json');
+if (!dir) throw Error('Pass the extracted Tabler package directory');
+type TablerRow = [string, string, string[]];
+type TablerNode = [string, Record<string, string>];
+const load=async <T>(file: string): Promise<T>=>JSON.parse(await readFile(join(dir,file),'utf8'));
+if ((await load<{ version: string }>('package.json')).version !== '3.34.1') throw Error('Expected Tabler 3.34.1');
+const meta=await load<Record<string, { category?: string }>>('icons.json'), nodes=await load<Record<string, TablerNode[]>>('tabler-nodes-outline.json');
 const out=new URL('./tabler.json',import.meta.url);
-const previous=await readFile(out,'utf8').then(JSON.parse).catch(e=>{if(e.code==='ENOENT')return [];throw e});
+const previous: TablerRow[]=await readFile(out,'utf8').then(JSON.parse).catch(e=>{if(e.code==='ENOENT')return [];throw e});
 const ours=new Set(previous.map(row=>row[1]));
-const key=n=>n.split('-').map(s=>s[0].toUpperCase()+s.slice(1)).join('');
+const key=(n: string)=>n.split('-').map(s=>s[0].toUpperCase()+s.slice(1)).join('');
 const used=new Set((await readdir(new URL('../../../icons/',import.meta.url))).filter(n=>n.endsWith('.svg')).map(n=>n.slice(0,-4)).filter(n=>!ours.has(n)).map(key));
 const choices=[], seen=new Set();
 for(const [name,els] of Object.entries(nodes)) {
@@ -24,12 +27,12 @@ for(const [name,els] of Object.entries(nodes)) {
   choices.push({name,category,paths,penalty});
 }
 choices.sort((a,b)=>a.penalty-b.penalty||a.name.localeCompare(b.name,'en'));
-const groups=Map.groupBy(choices,c=>c.category), selected=[];
+const groups=Map.groupBy(choices,c=>c.category), selected: TablerRow[]=[];
 while(selected.length<2048){
   let added=0;
   for(const group of groups.values()){
     while(group.length){
-      const {name,category,paths}=group.shift();const shape=JSON.stringify([...paths].sort());
+      const {name,category,paths}=group.shift()!;const shape=JSON.stringify([...paths].sort());
       if(used.has(key(name))||seen.has(shape))continue;
       used.add(key(name));seen.add(shape);selected.push([category,name,paths]);added++;break;
     }

@@ -1,4 +1,4 @@
-import { icon as i, p, r, c } from './geometry.mjs';
+import { icon as i, p, r, c } from './geometry.ts';
 
 const bill = r(2.5,5.5,19,13,2);
 const coin = c(12,12,9);

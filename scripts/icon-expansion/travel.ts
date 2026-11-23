@@ -1,9 +1,9 @@
-import { icon as i, p, c, r, g } from './geometry.mjs';
+import { icon as i, p, c, r, g } from './geometry.ts';
 
 const wheels = c(7,18,2)+c(17,18,2);
 const car = 'M3 17v-5l3-2 2-5h8l2 5 3 2v5h-2m-4 0H9m-4 0H3zm3-7h12';
 const cabin = r(5,3,14,15,3)+p('M7 21l3-3m7 3-3-3M5 11h14');
-const turn = (angle, d) => g(`translate(12 12) rotate(${angle}) scale(.8) translate(-12 -12)`, d);
+const turn = (angle: number, d: string) => g(`translate(12 12) rotate(${angle}) scale(.8) translate(-12 -12)`, d);
 const plane = 'M12 2.5q1.5 0 1.5 2v5l7.5 5v2l-7.5-2.5V19l2.5 2h-2l-2-1-2 1H8l2.5-2v-4.5L3 17v-2l7.5-5.5v-5q0-2 1.5-2z';
 const miniPlane = 'M12 3v18m-3 0 3-2 3 2M3 15l9-5 9 5';
 

@@ -1,11 +1,11 @@
-import { icon as i, p, c, r, g } from './geometry.mjs';
+import { icon as i, p, c, r, g } from './geometry.ts';
 
 const flask = 'M9 3h6m-5 0v7l-6 9a1 1 0 0 0 1 2h14a1 1 0 0 0 1-2l-6-9V3';
 const beaker = 'M4 4h16m-13 0v15a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V4';
 const tube = 'm13 3 8 5m-7-4-9 13a3 3 0 0 0 5 3l9-13';
 const bulb = 'M8 20h8M10 17v-2a6 6 0 1 1 4 0v2zm2 3v2';
 const ray = 'M3 8l2 1m14 0 2-1M12 2v2';
-const tool = (name,base,accent,motion,mini) => i(name,base,accent,motion,mini);
+const tool = (name: string,base: string,accent: string,motion: string,mini: string) => i(name,base,accent,motion,mini);
 
 export const scienceIcons = [
   i('flask',flask,'M7 16q2-2 5 0t5 0','wave','M9 3h6m-5 0v7L4 21h16l-6-11V3m-6 13h8'),

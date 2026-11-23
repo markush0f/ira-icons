@@ -3,16 +3,16 @@ import {readFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 import {SVGPathData} from 'svg-pathdata';
-import {folioIcons} from './families.mjs';
+import {folioIcons} from './families.ts';
 
-const dir=new URL('../../../icons/',import.meta.url), ids=new Set(), hashes=new Map(), issues=[];
+const dir=new URL('../../../icons/',import.meta.url), ids=new Set(), hashes=new Map(), issues: string[]=[];
 for(const file of await readdir(dir)){
   if(!file.endsWith('.svg'))continue;
   const id=file.slice(0,-4).replace(/-([a-z0-9])/g,(_,c)=>c.toUpperCase());
   assert(!ids.has(id),`Component name collision: ${file}`);ids.add(id);
 }
 let checks=0;
-async function verify({name}){
+async function verify({name}: {name: string}){
   for(const suffix of ['', '-minimalist','-animated']){
     const file=name+suffix+'.svg', source=await readFile(new URL(file,dir),'utf8');
     for(const [,d] of source.matchAll(/<path d="([^"]+)"/g))new SVGPathData(d);
@@ -22,7 +22,7 @@ async function verify({name}){
       const ink=alpha.reduce((a,b)=>a+b,0)/255;
       if(ink<1||ink>size**2*.89)issues.push(`${file} unexpected ink ${ink} at ${size}`);
       if(size===48){
-        for(let j=0;j<size;j++)if(Math.max(alpha[j],alpha.at(-1-j),alpha[j*size],alpha[(j+1)*size-1])>=20){issues.push(`${file}: touches edge`);break}
+        for(let j=0;j<size;j++)if(Math.max(alpha[j],alpha.at(-1-j)!,alpha[j*size],alpha[(j+1)*size-1])>=20){issues.push(`${file}: touches edge`);break}
         if(!suffix){const hash=createHash('sha256').update(alpha).digest('hex');if(hashes.has(hash))issues.push(`${file}: duplicates ${hashes.get(hash)}`);hashes.set(hash,name)}
       }
       checks++;

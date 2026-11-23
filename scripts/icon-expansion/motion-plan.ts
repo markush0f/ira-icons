@@ -1,12 +1,27 @@
 // Deliberate timelines. Geometry is visible at rest and under reduced motion.
-import { svg } from './geometry.mjs';
+import { svg } from './geometry.ts';
 
-export const draw = (body, start, end, ease = 'ease-in-out') => ({body, start, end, ease, mode:'draw'});
-export const appear = (body, start, end, ease = 'ease-out') => ({body, start, end, ease, mode:'appear'});
-export const move = (body, start, end, property, ease = 'ease-out') => ({body, start, end, ease, mode:'move', property});
-export const plan = (comment, fixed, steps, seconds = 3.25) => ({comment,fixed,steps,seconds});
+export interface MotionStep {
+  body: string;
+  start: number;
+  end: number;
+  ease: string;
+  mode: 'draw' | 'appear' | 'move';
+  property?: string;
+}
+export interface MotionPlan {
+  comment: string;
+  fixed: string;
+  steps: MotionStep[];
+  seconds: number;
+}
 
-export function renderPlan(name, {comment,fixed,steps,seconds}) {
+export const draw = (body: string, start: number, end: number, ease = 'ease-in-out'): MotionStep => ({body, start, end, ease, mode:'draw'});
+export const appear = (body: string, start: number, end: number, ease = 'ease-out'): MotionStep => ({body, start, end, ease, mode:'appear'});
+export const move = (body: string, start: number, end: number, property: string, ease = 'ease-out'): MotionStep => ({body, start, end, ease, mode:'move', property});
+export const plan = (comment: string, fixed: string, steps: MotionStep[], seconds = 3.25): MotionPlan => ({comment,fixed,steps,seconds});
+
+export function renderPlan(name: string, {comment,fixed,steps,seconds}: MotionPlan) {
   const selectors = [], animations = [], layers = [];
   for (const [index, step] of steps.entries()) {
     const {body,start,end,ease,mode,property} = step;

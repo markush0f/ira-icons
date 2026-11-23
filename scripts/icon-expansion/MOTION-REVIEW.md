@@ -17,7 +17,7 @@
 | [Flecha derecha](../../icons/arrow-big-right-animated.svg) | La flecha completa avanza hacia la derecha sin deformarse. |
 | [Reproducir](../../icons/player-play-animated.svg) | El triángulo cerrado se impulsa hacia delante. |
 
-Guiones: [`folio/hand-directed.mjs`](folio/hand-directed.mjs).
+Guiones: [`folio/hand-directed.ts`](folio/hand-directed.ts).
 
 ## 177 variantes de series con secuencias compartidas
 

@@ -3,9 +3,9 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import sharp from 'sharp';
 import {SVGPathData} from 'svg-pathdata';
-import {placeIcons} from './places.mjs';
-import {tabletopIcons} from './tabletop.mjs';
-import {panelIcons} from './panels.mjs';
+import {placeIcons} from './places.ts';
+import {tabletopIcons} from './tabletop.ts';
+import {panelIcons} from './panels.ts';
 
 const families=[...placeIcons,...panelIcons,...tabletopIcons];
 const root=new URL('../../../',import.meta.url);
@@ -21,7 +21,7 @@ for(const {name} of families){
       const ink=pixels.reduce((sum,value)=>sum+value/255,0)/pixels.length;
       assert(ink>.025 && ink<.7,`${file}: unexpected ink coverage at ${size}px (${ink})`);
       if(size===48){
-        for(let j=0;j<size;j++) assert(Math.max(pixels[j],pixels.at(-1-j),pixels[j*size],pixels[j*size+size-1])<16,`${file}: clipped stroke`);
+        for(let j=0;j<size;j++) assert(Math.max(pixels[j],pixels.at(-1-j)!,pixels[j*size],pixels[j*size+size-1])<16,`${file}: clipped stroke`);
         if(!suffix){
           const key=createHash('sha256').update(pixels).digest('hex');
           assert(!hashes.has(key),`${file}: visually identical original`); hashes.add(key);

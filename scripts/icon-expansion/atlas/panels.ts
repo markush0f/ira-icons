@@ -1,4 +1,4 @@
-import {icon, p, c, r, g} from '../geometry.mjs';
+import {icon, p, c, r, g} from '../geometry.ts';
 
 // Frame, simplified silhouette, and the actual usable centre of the display.
 const panels = {
@@ -34,10 +34,10 @@ const surfaces = {
   softkey:[r(2,5,20,14,4)+p('M6 16h12'),r(3,5,18,13,2),12,10.8,.84],
   jogwheel:[c(12,12,10)+p('M10 4.8q2-.7 4 0'),c(12,12,8.8),12,12.5,1],
 };
-function engrave(frames,marks) {
+function engrave(frames: Record<string, (string | number)[]>,marks: Record<string, string>) {
   return Object.entries(frames).flatMap(([frame,[outline,simple,x,y,s]])=>Object.entries(marks).map(([key,glyph])=>{
     const detail=g(`translate(${x} ${y}) scale(${s})`,glyph);
-    return icon(`${frame}-${key}`,outline,detail,'pulse',simple+detail);
+    return icon(`${frame}-${key}`,String(outline),detail,'pulse',simple+detail);
   }));
 }
 export const panelIcons = [...engrave(panels,states),...engrave(surfaces,transports)];

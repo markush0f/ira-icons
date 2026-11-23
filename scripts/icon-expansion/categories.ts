@@ -1,17 +1,17 @@
-import { interfaceIcons } from './interface.mjs';
-import { fileIcons } from './files.mjs';
-import { digitalIcons } from './digital.mjs';
-import { weatherIcons } from './weather.mjs';
-import { travelIcons } from './travel.mjs';
-import { mediaIcons } from './media.mjs';
-import { commerceIcons } from './commerce.mjs';
-import { scienceIcons } from './science.mjs';
-import { natureIcons } from './nature.mjs';
-import { homeFoodIcons } from './home-food.mjs';
-import { panelIcons } from './atlas/panels.mjs';
-import tabler from './folio/tabler.json' with { type: 'json' };
+import { interfaceIcons } from './interface.ts';
+import { fileIcons } from './files.ts';
+import { digitalIcons } from './digital.ts';
+import { weatherIcons } from './weather.ts';
+import { travelIcons } from './travel.ts';
+import { mediaIcons } from './media.ts';
+import { commerceIcons } from './commerce.ts';
+import { scienceIcons } from './science.ts';
+import { natureIcons } from './nature.ts';
+import { homeFoodIcons } from './home-food.ts';
+import { panelIcons } from './atlas/panels.ts';
+import tablerRows from './folio/tabler.json' with { type: 'json' };
 
-export const categoryLabels = {
+export const categoryLabels: Record<string, string> = {
   animals:'Animals', buildings:'Buildings & home', communication:'Communication',
   data:'Data & charts', design:'Design & layout', development:'Development',
   devices:'Devices', documents:'Documents & files', finance:'Commerce & finance',
@@ -36,7 +36,8 @@ export const categoryGroups = {
   'Places & nature': 'navigation places transport rail geography nature animals outdoor weather wind space',
   'Everyday life': 'buildings food finance brands shopping health fitness sport games gamesTable science other',
 };
-const sourceCategories = {
+const tabler = tablerRows as [string, string, string[]][];
+const sourceCategories: Record<string, string> = {
   Animals:'animals nature', Arrows:'navigation interface', Badges:'symbols', Buildings:'buildings',
   Charts:'data', Communication:'communication', Computers:'devices', Currencies:'finance',
   Database:'data development', Design:'design', Development:'development', Devices:'devices',
@@ -47,10 +48,10 @@ const sourceCategories = {
   Symbols:'symbols', System:'interface', Text:'text', Vehicles:'transport',
   'Version control':'development', Weather:'weather nature', Zodiac:'symbols',
 };
-const defaults = new Map();
+const defaults = new Map<string, string>();
 for (const [icons,id] of [[interfaceIcons,'interface'],[fileIcons,'documents'],[digitalIcons,'devices'],
   [weatherIcons,'weather'],[travelIcons,'transport'],[mediaIcons,'media'],[commerceIcons,'finance'],
-  [scienceIcons,'science'],[natureIcons,'nature'],[homeFoodIcons,'buildings'],[panelIcons,'interface devices']]) {
+  [scienceIcons,'science'],[natureIcons,'nature'],[homeFoodIcons,'buildings'],[panelIcons,'interface devices']] as const) {
   for (const {name} of icons) defaults.set(name,id);
 }
 for (const [group,name] of tabler) if (sourceCategories[group]) defaults.set(name,sourceCategories[group]);
@@ -125,16 +126,16 @@ const legacy = {
   text:'abc braille slash slashes', transport:'balloon jetpack lane lifebuoy propeller rocket',
   weather:'moon snowman sun umbrella',
 };
-const extra = new Map();
+const extra = new Map<string, string[]>();
 for (const [id, names] of Object.entries(legacy)) {
   for (const name of names.split(' ')) {
     if (!extra.has(name)) extra.set(name, []);
-    extra.get(name).push(id);
+    extra.get(name)!.push(id);
   }
 }
 // Correct broad source buckets for individual concepts.
-const overrides = { coffee:'food', bread:'food', pizza:'food', notebook:'documents', bank:'finance buildings', flame:'nature symbols', cloud:'weather nature', activity:'health data', globe:'navigation nature' };
-export function categoriesFor(name) {
+const overrides: Record<string, string> = { coffee:'food', bread:'food', pizza:'food', notebook:'documents', bank:'finance buildings', flame:'nature symbols', cloud:'weather nature', activity:'health data', globe:'navigation nature' };
+export function categoriesFor(name: string) {
   const family = name.replace(/-(animated|minimalist)$/,'');
   const ids = new Set((Object.hasOwn(overrides,family) ? overrides[family] : defaults.get(family) ?? '').split(' ').filter(Boolean));
   for (const id of extra.get(family) ?? []) ids.add(id);

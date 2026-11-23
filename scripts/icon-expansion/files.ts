@@ -1,4 +1,4 @@
-import { icon as i, p, c, r } from './geometry.mjs';
+import { icon as i, p, c, r } from './geometry.ts';
 
 const file = 'M6 3h8l5 5v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 0v5h5';
 const simpleFile = 'M5 3h9l5 5v13H5z';

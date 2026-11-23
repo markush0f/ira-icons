@@ -1,4 +1,4 @@
-import {icon, p, c, r, g} from '../geometry.mjs';
+import {icon, p, c, r, g} from '../geometry.ts';
 
 // Local coordinates -5..5. Keep each pictogram upright even on left-pointing signs.
 const places = {
@@ -37,8 +37,8 @@ const places = {
 };
 const plate = r(3,3,18,18,4), pin = p('M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z');
 export const placeIcons = Object.entries(places).flatMap(([name,shape]) => {
-  const at = (x,y,scale) => g(`translate(${x} ${y}) scale(${scale})`,`<g stroke-width="1.55">${shape}</g>`);
-  const make = (name,frame,mark,small) => icon(name,frame,mark,'pulse',small+mark);
+  const at = (x: number,y: number,scale: number) => g(`translate(${x} ${y}) scale(${scale})`,`<g stroke-width="1.55">${shape}</g>`);
+  const make = (name: string,frame: string,mark: string,small: string) => icon(name,frame,mark,'pulse',small+mark);
   return [make(`amenity-${name}`,plate,at(12,12,1.18),''),
     make(`locator-${name}`,pin,at(12,10,.88),p('M19 10c0 4-7 11-7 11S5 14 5 10a7 7 0 1 1 14 0z')),
     make(`station-${name}`,p('M4 3h16v14H4zm3 14v4m10-4v4'),at(12,10,.9),r(4,3,16,14,1)),

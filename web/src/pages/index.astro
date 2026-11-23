@@ -6,7 +6,7 @@ import Icon from "../icons/Icon.astro";
 import IconCatalog from "../components/IconCatalog.astro";
 import IconDetails from "../components/IconDetails.astro";
 import CategoryFilters from "../components/CategoryFilters.astro";
-import { categoriesFor, categoryLabels } from '../../../scripts/icon-expansion/categories.mjs';
+import { categoriesFor, categoryLabels } from '../../../scripts/icon-expansion/categories.ts';
 
 const catalogNames = iconNames.filter(
   (name) => !/-(animated|minimalist)$/.test(name),

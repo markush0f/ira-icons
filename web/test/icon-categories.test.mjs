@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readdir } from 'node:fs/promises';
 import { test } from 'node:test';
-import { categoriesFor, categoryLabels, categoryGroups } from '../../scripts/icon-expansion/categories.mjs';
+import { categoriesFor, categoryLabels, categoryGroups } from '../../scripts/icon-expansion/categories.ts';
 import { categoryIcons } from '../src/lib/category-icons.mjs';
 
 test('every category has an existing minimalist example icon', async () => {

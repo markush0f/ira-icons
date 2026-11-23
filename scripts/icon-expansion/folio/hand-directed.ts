@@ -1,8 +1,8 @@
-import { p } from '../geometry.mjs';
-import { draw, appear, move, plan } from '../motion-plan.mjs';
+import { p } from '../geometry.ts';
+import { draw, appear, move, plan } from '../motion-plan.ts';
 
 // These are explicit shot lists, not path-order heuristics. Indices refer to Tabler geometry.
-export const handDirected = {
+export const handDirected: Record<string, (paths: string[]) => ReturnType<typeof plan>> = {
   ai: ([a,bar]) => plan('Draw the A from its left foot, cross it, then write the I from bottom to top.', '', [
     draw(a,0,26), draw(bar,26,37), draw('M16 16V8',39,65),
   ]),

@@ -1,4 +1,4 @@
-import { icon as i, p, c, r } from './geometry.mjs';
+import { icon as i, p, c, r } from './geometry.ts';
 
 const leaf = 'M4 19q0-8 7-11 3-1 8-4c.5 8-2 15-9 15H4z';
 const flower = 'M12 8C7 2 3 5 6 10c-7 1-5 7 1 7 0 5 7 6 8 0 6 1 8-6 3-7 2-4-2-8-6-2z';
