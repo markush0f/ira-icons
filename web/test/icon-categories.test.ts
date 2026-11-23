@@ -66,6 +66,7 @@ test('straight and curved arrows start at the free tail and finish with the head
     const svg = await readFile(new URL(`../../icons/${name}-animated.svg`, import.meta.url), 'utf8');
     assert.ok(svg.includes(`data-ink="shaft-back" pathLength="1" d="${shaft}"`), name);
     assert.ok(svg.includes(`ira-arrow-${name}-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; }`), name);
-    assert.ok(svg.includes(`ira-arrow-${name}-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; }`), name);
+    assert.match(svg, /30%, 88% \{ stroke-dashoffset: 0;/, name);
+    assert.ok(svg.includes(`ira-arrow-${name}-tip { 0%, 30% { stroke-dashoffset: 1; opacity: 0; }`), name);
   }
 });

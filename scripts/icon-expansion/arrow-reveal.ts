@@ -172,7 +172,7 @@ export function renderArrowReveal(name: string, { ink, fixed, transform }: Revea
   if (!ink.length || [...ink.map(({ d }) => d), ...(fixed ?? [])].some(d => !d)) throw Error(`Missing arrow geometry: ${name}`);
   const selector = `[data-ira-arrow-reveal="${name}"]`;
   const has = (phase: Ink['phase']) => ink.some(step => step.phase === phase);
-  const phases = { branch: [0, 15], shaft: has('branch') ? [15, 36] : [0, 36], tip: has('shaft') ? [36, 53] : [0, 19] };
+  const phases = { branch: [0, 15], shaft: has('branch') ? [15, 33] : [0, 30], tip: has('shaft') ? (has('branch') ? [33, 50] : [30, 47]) : [0, 19] };
   // The route definitions run from the head back to their origins. Reverse
   // their playback while keeping the arrowhead arms aimed at the vertex.
   const playback = ink.map(step => ({ ...step, reverse: step.phase === 'tip' ? Boolean(step.reverse) : !step.reverse }));

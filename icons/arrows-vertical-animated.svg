@@ -26,9 +26,9 @@ SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
             [data-ira-arrow-reveal="arrows-vertical"] [data-ink] { stroke-dasharray: 1 1; }
-            @keyframes ira-arrow-arrows-vertical-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            @keyframes ira-arrow-arrows-vertical-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 30%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
             [data-ira-arrow-reveal="arrows-vertical"] [data-ink="shaft-back"] { animation: ira-arrow-arrows-vertical-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
-            @keyframes ira-arrow-arrows-vertical-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            @keyframes ira-arrow-arrows-vertical-tip { 0%, 30% { stroke-dashoffset: 1; opacity: 0; } 30.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
             [data-ira-arrow-reveal="arrows-vertical"] [data-ink="tip"] { animation: ira-arrow-arrows-vertical-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
