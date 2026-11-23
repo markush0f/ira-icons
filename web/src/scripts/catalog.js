@@ -10,6 +10,11 @@ const copy = $('[data-icon-copy]'), status = $('[data-copy-status]');
 const options = [...panel.querySelectorAll('[data-suffix]')];
 const report = mountIconReport(panel);
 const names = grid.dataset.names.split(' '), size = Number(grid.dataset.pageSize);
+const categoryValues = grid.dataset.categories.split(' ');
+const masks = new Map(names.map((name,i) => [name, parseInt(categoryValues[i],36)]));
+const categoryPanel = $('#catalog-categories');
+const categories = [...categoryPanel.querySelectorAll('[data-bit]')].map(input => ({input, bit: Number(input.dataset.bit), label: input.parentElement.textContent.trim()}));
+const detailCategories = $('[data-detail-categories]');
 const template = grid.firstElementChild.cloneNode(true);
 const colors = new Map(), variants = new Map();
 const initialName = title.textContent.trim(), initialSvg = preview.firstElementChild.cloneNode(true);
@@ -34,6 +39,10 @@ async function select(card, name = variants.get(card.dataset.family) ?? card.dat
   selected.classList.add('is-selected'); expanded();
   for (const btn of options) btn.setAttribute('aria-pressed', String(card.dataset.family+btn.dataset.suffix === name));
   title.textContent = name; report(name); colorPicker(colors.get(name) ?? '#ad8af3');
+  detailCategories.replaceChildren(...categories.filter(({bit}) => masks.get(card.dataset.family) & bit).map(({label}) => {
+    const li = document.createElement('li'); li.textContent = label; return li;
+  }));
+  detailCategories.hidden = !detailCategories.childElementCount;
   preview.replaceChildren(); preview.setAttribute('aria-busy','true');
   try {
     let svg;
@@ -74,14 +83,22 @@ const normalize = s => s.trim().toLowerCase().replace(/[\s-]+/g,' ');
 const searchIndex = names.map(name => options.map(btn => normalize(name+btn.dataset.suffix+' '+btn.getAttribute('aria-label'))));
 function filter() {
   const q = normalize(search.value);
-  matches = q ? names.filter((_,i)=>searchIndex[i].some(text=>text.includes(q))) : names;
+  const checked = categories.filter(({input}) => input.checked);
+  const mask = checked.reduce((bits,{bit}) => bits | bit,0);
+  matches = names.filter((name,i) => (!mask || (mask & masks.get(name))) && (!q || searchIndex[i].some(text=>text.includes(q))));
+  $('[data-category-count]').textContent = checked.length ? `(${checked.length})` : '';
   page = 0; render();
 }
 pager.querySelector('[data-prev]').onclick = () => {page--;render();};
 pager.querySelector('[data-next]').onclick = () => {page++;render();};
-search.value = new URLSearchParams(location.search).get('q') ?? '';
+const params = new URLSearchParams(location.search);
+search.value = params.get('q') ?? '';
+for (const {input} of categories) input.checked = params.getAll('category').includes(input.value);
+categoryPanel.addEventListener('change',filter);
+$('[data-clear-categories]').onclick = () => {for (const {input} of categories) input.checked = false; filter();};
 search.addEventListener('input',filter);
-if (search.value) filter(); else render(true);
+if (search.value || categories.some(({input}) => input.checked)) filter(); else render(true);
+categoryPanel.hidden = false;
 $('#search-field').hidden = false; copy.hidden = false;
 
 grid.addEventListener('click', e => {

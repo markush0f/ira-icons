@@ -6,6 +6,10 @@ Open [the Atlas gallery](../../atlas.html) locally to browse just the new famili
 
 After regenerating, run `node scripts/icon-expansion/atlas/review.mjs --gallery` to validate the new paths, rasterize every Atlas variant at 16, 24 and 48 px, check ink coverage, inspect the 48 px margins, reject identical original renders, and rebuild the offline gallery.
 
+## Catalog categories
+
+[`categories.mjs`](categories.mjs) assigns one or more category IDs to each family; all three variants share those categories. It uses source categories, additive rules, and explicit assignments for exceptions. Run `node --test web/test/icon-categories.test.mjs` after adding an icon to check coverage.
+
 ## Update a family
 
 1. Edit its definition in the matching category file, such as [`commerce.mjs`](commerce.mjs) or [`weather.mjs`](weather.mjs). Edit the source definition, not the generated SVGs.
