@@ -19,4 +19,21 @@ description: Refine the motion or catalog categories of existing Ira Icons. Use 
 - Reveal posts, stops, and badges as stationary references without using them as a substitute for tracing the route. Keep the full pose visible without animation.
 - See `scripts/icon-expansion/arrow-reveal.ts`: `arrow-back` is the curved reference, `arrow-right` the straight one, and `arrows-split` the branched one.
 
+**Arrow timing (2.65 s cycle):** for a simple arrow, draw the shaft at 0–30% (~0.80 s), then the head at 30–47%. For a branched arrow, draw the incoming branches at 0–15%, the shaft at 15–33% (~0.48 s), and the head at 33–50%. Keep the head's duration unchanged. Hold the complete pose through 88%, then fade before restarting.
+
+## Design & data: charts and tables
+
+- **Charts:** trace the data from its actual first point to its last, normally left to right. Draw bars from their baseline. Keep axes or frames stationary when they serve as a reference. Use individual paths and animate their dash offset; never use a clipping sweep as a substitute for drawing a line. For complete circular outlines, apply [Circular reveals](../icon-circular-reveal/SKILL.md).
+- **Tables:** start with the header and stagger the rows from top to bottom. Each divider draws from its own endpoint, not from where a sweep intersects it. Keep completed rows visible as the next ones draw. See `table` and `table-plus` in `scripts/icon-expansion/design-reveal.ts`.
+
+Use these linear loop timings from `scripts/icon-expansion/design-reveal.ts`:
+
+| Family | Cycle | Drawing phases |
+| --- | --- | --- |
+| Charts | **2.8 s** | Continuous lines: 0–49% (~1.37 s). Staggered bars or points: 0–24%, 12–36%, 24–48%. Keep circular charts and their interior strokes on the shared 0–49% timing. |
+| Tables | **2.4 s** | Top, middle, and bottom bands: 0–30%, 12–42%, 24–54%. The last band finishes by ~1.30 s. |
+| Circles | **2.4 s** | Ring and interior lines: 0–49% together (~1.18 s). See [Circular reveals](../icon-circular-reveal/SKILL.md). |
+
+Hold completed strokes through 87% of the cycle, then fade them out before restarting. The full pose stays visible under reduced motion.
+
 Record new family-specific rules here once the user confirms them. Do not turn a rule for one family into a default for unrelated icons.
