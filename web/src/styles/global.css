@@ -186,7 +186,6 @@ main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clam
 .framework-button { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 1px solid var(--line); border-radius: .45rem; background: transparent; color: var(--muted); cursor: pointer; }
 .framework-button:hover { background: var(--hover); color: var(--text); }
 .framework-button img { object-fit: contain; }
-.copy-status { min-height: 1lh; margin: .5rem 0 0; font-size: .75rem; color: var(--text); }
 .astro-framework-logo { filter: brightness(0) invert(1); }
 :root[data-theme="light"] .astro-framework-logo { filter: none; }
 .next-framework-logo { border-radius: 50%; outline: 1px solid var(--line); }

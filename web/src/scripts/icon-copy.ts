@@ -8,13 +8,22 @@ const jsxAttributes = {
   "text-anchor": "textAnchor",
 };
 
-export function formatIcon(preview: SVGSVGElement, name: string, format: string) {
+export type CodeFormat = 'React' | 'Next.js' | 'Astro' | 'Vue' | 'Svelte' | 'SVG';
+
+// Keep the markup readable without letting it terminate the component's script.
+function templateLiteral(markup: string) {
+  return '`' + markup.replaceAll('\\', '\\\\').replaceAll('`', '\\`')
+    .replaceAll('${', '\\${').replace(/<(?=\/script\b)/gi, '\\x3c') + '`';
+}
+
+export function formatIcon(preview: SVGSVGElement, name: string, format: CodeFormat) {
+  const isJsx = format === 'React' || format === 'Next.js';
   const svg = preview.cloneNode(true) as SVGSVGElement;
   svg.setAttribute("width", "24");
   svg.setAttribute("height", "24");
 
   // Astro components can use SVG markup directly; React needs JSX attribute names.
-  if (format === "React") {
+  if (isJsx) {
     for (const element of [svg, ...svg.querySelectorAll("*")]) {
       for (const [svgName, jsxName] of Object.entries(jsxAttributes)) {
         if (!element.hasAttribute(svgName)) continue;
@@ -25,7 +34,7 @@ export function formatIcon(preview: SVGSVGElement, name: string, format: string)
   }
 
   let markup = new XMLSerializer().serializeToString(svg);
-  if (format === "React") {
+  if (isJsx) {
     // CSS braces inside a JSX child must be part of a string expression.
     markup = markup.replace(/<style>([\s\S]*?)<\/style>/g, (_, css) =>
       `<style>{${JSON.stringify(css)}}</style>`);
@@ -39,6 +48,15 @@ export function formatIcon(preview: SVGSVGElement, name: string, format: string)
     return `---\nconst { size = 24, color = ${JSON.stringify(color)} } = Astro.props;\n---\n\n${componentMarkup}\n`;
   }
   if (format === "SVG") return markup;
+  if (format === 'Vue') {
+    // Vue ignores literal <style> tags in templates. Keep SVG-local CSS in its drawing.
+    const opening = markup.indexOf('>');
+    const drawing = markup.slice(opening + 1, markup.lastIndexOf('</svg>'));
+    return `<script setup lang="ts">\nconst drawing = ${templateLiteral(drawing)};\n</script>\n\n<template>\n  ${markup.slice(0, opening)} v-html="drawing"></svg>\n</template>\n`;
+  }
+  if (format === 'Svelte') {
+    return `<script lang="ts">\nconst svg = ${templateLiteral(markup)};\n</script>\n\n{@html svg}\n`;
+  }
 
   const component = name.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join("");
   return `import * as React from "react";\n\nexport default function ${component}Icon() {\n  return (\n    ${markup}\n  );\n}\n`;

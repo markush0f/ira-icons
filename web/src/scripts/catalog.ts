@@ -1,4 +1,4 @@
-import { formatIcon } from './icon-copy.ts';
+import { formatIcon, type CodeFormat } from './icon-copy.ts';
 import { mountIconReport } from './icon-report.ts';
 import { requireElement as $ } from './dom.ts';
 
@@ -25,6 +25,13 @@ let shown = 0, matches = names, revision = 0;
 let selected: HTMLLIElement | null = null;
 let active = '';
 let request: AbortController | undefined;
+let statusTimer: number | undefined;
+
+function showStatus(message = '', duration?: number) {
+  window.clearTimeout(statusTimer);
+  status.textContent = message;
+  statusTimer = duration === undefined ? undefined : window.setTimeout(() => showStatus(), duration);
+}
 
 function expanded() {
   selected?.querySelector('button')!.setAttribute('aria-expanded', String(!compact.matches || !dialog.showModal || dialog.open));
@@ -38,7 +45,7 @@ function colorPicker(color: string) {
 async function select(card: HTMLLIElement, name = variants.get(card.dataset.family!) ?? card.dataset.family+'-animated') {
   request?.abort();
   const controller = new AbortController(); request = controller;
-  revision++; status.textContent = '';
+  revision++; showStatus();
   selected?.classList.remove('is-selected');
   selected?.querySelector('button')!.setAttribute('aria-expanded','false');
   selected = card; active = name; variants.set(card.dataset.family!, name);
@@ -65,7 +72,7 @@ async function select(card: HTMLLIElement, name = variants.get(card.dataset.fami
     svg.setAttribute('aria-hidden','true'); svg.setAttribute('color',colors.get(name) ?? '#ad8af3');
     preview.replaceChildren(svg);
   } catch {
-    if (!controller.signal.aborted) status.textContent = 'Could not load icon. Select it to retry.';
+    if (!controller.signal.aborted) showStatus('Could not load icon. Select it to retry.');
   } finally { if (!controller.signal.aborted) preview.removeAttribute('aria-busy'); }
 }
 // Image load/error do not bubble, so catch both for all current and future cards.
@@ -162,12 +169,17 @@ for (const btn of options) btn.onclick = () => {if(selected) select(selected,sel
 panel.addEventListener('icon-color-change', e => {
   if (!selected) return;
   const { color } = (e as CustomEvent<{ color: string }>).detail;
-  revision++; status.textContent=''; colors.set(active,color);
+  revision++; showStatus(); colors.set(active,color);
   preview.firstElementChild?.setAttribute('color',color);
 });
 for (const btn of copy.querySelectorAll<HTMLButtonElement>('[data-copy-format]')) btn.onclick = async () => {
-  const svg = preview.querySelector('svg'); if (!svg) return;
-  const version = ++revision, format = btn.dataset.copyFormat!;
-  try {await navigator.clipboard.writeText(formatIcon(svg,active,format)); if(version===revision) status.textContent=`${format} copied.`;}
-  catch {if(version===revision) status.textContent='Couldn’t copy. Check clipboard permissions and try again.';}
+  const svg = preview.querySelector('svg');
+  if (!svg) return;
+  const version = ++revision, format = btn.dataset.copyFormat as CodeFormat;
+  try {
+    await navigator.clipboard.writeText(formatIcon(svg, active, format));
+    if (version === revision) showStatus(`Copied as ${format}`, 4_000);
+  } catch {
+    if (version === revision) showStatus('Couldn’t copy. Check clipboard permissions.', 4_000);
+  }
 };
