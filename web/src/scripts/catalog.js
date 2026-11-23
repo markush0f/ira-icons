@@ -1,159 +1,110 @@
-/** Adds icon search, selection, color editing, and clipboard export. */
-import { formatIcon } from "./icon-copy.js";
-import { mountIconReport } from "./icon-report.js";
+import { formatIcon } from './icon-copy.js';
+import { mountIconReport } from './icon-report.js';
 
-const detailPanel = document.querySelector("#detail-panel");
-const detailColumn = detailPanel.closest(".detail-column");
-const workspace = detailColumn.parentElement;
-const detailDialog = document.querySelector("#detail-dialog");
-const compactCatalog = window.matchMedia("(max-width: 48rem)");
-const supportsDialog = typeof detailDialog?.showModal === "function";
-const selectReportIcon = mountIconReport(detailPanel);
-const detailPreview = document.querySelector("#detail-preview");
-const detailTitle = document.querySelector("#detail-title");
-const colorPicker = document.querySelector("[data-color-picker]");
-const searchField = document.querySelector("#search-field");
-const searchInput = document.querySelector("#icon-search");
-const count = document.querySelector("#icon-count");
-const emptyState = document.querySelector("#empty-state");
-const cards = [...document.querySelectorAll("#icon-grid [data-icon-name]")];
-const iconColors = new Map();
-const copyActions = detailPanel.querySelector("[data-icon-copy]");
-const variantPicker = detailPanel.querySelector("[data-variant-picker]");
-const variantButtons = [...variantPicker.querySelectorAll("[data-suffix]")];
-const copyStatus = copyActions.querySelector("[data-copy-status]");
-let copyRequest = 0;
+const $ = s => document.querySelector(s);
+const grid = $('#icon-grid'), pager = $('#catalog-pager'), search = $('#icon-search');
+const panel = $('#detail-panel'), column = panel.closest('.detail-column'), workspace = column.parentElement;
+const dialog = $('#detail-dialog'), compact = matchMedia('(max-width: 48rem)');
+const preview = $('#detail-preview'), title = $('#detail-title'), picker = $('[data-color-picker]');
+const copy = $('[data-icon-copy]'), status = $('[data-copy-status]');
+const options = [...panel.querySelectorAll('[data-suffix]')];
+const report = mountIconReport(panel);
+const names = grid.dataset.names.split(' '), size = Number(grid.dataset.pageSize);
+const template = grid.firstElementChild.cloneNode(true);
+const colors = new Map(), variants = new Map();
+const initialName = title.textContent.trim(), initialSvg = preview.firstElementChild.cloneNode(true);
+let page = 0, matches = names, selected, active, request, revision = 0;
 
-const clearCopyStatus = () => {
-  copyRequest++;
-  copyStatus.textContent = "";
-};
-let selectedCard = cards.find((card) => card.classList.contains("is-selected")) ?? cards[0];
-
-const setPickerColor = (color) => {
-  colorPicker.dataset.color = color;
-  colorPicker.style.setProperty("--picker-color", color);
-  colorPicker.querySelector("[data-color-spectrum]").value = color;
-  colorPicker.querySelector("[data-color-hex]").value = color.slice(1);
-};
-
-function syncDetailState() {
-  const compact = compactCatalog.matches && supportsDialog;
-  const button = selectedCard?.querySelector("[data-select-icon]");
-  button?.setAttribute("aria-expanded", String(!compact || detailDialog.open));
+function expanded() {
+  selected?.querySelector('button').setAttribute('aria-expanded', String(!compact.matches || !dialog.showModal || dialog.open));
 }
-
-function selectVariant(card, name) {
-  selectedCard?.classList.remove("is-selected");
-  selectedCard?.querySelector("[data-select-icon]").setAttribute("aria-expanded", "false");
-  selectedCard = card;
-  clearCopyStatus();
-  card.classList.add("is-selected");
-  card.dataset.iconName = name;
-  syncDetailState();
-  for (const option of variantButtons) {
-    option.setAttribute("aria-pressed", String(card.dataset.family + option.dataset.suffix === name));
-  }
-  for (const sample of card.querySelectorAll("[data-preview]")) {
-    sample.hidden = sample.dataset.preview !== name;
-  }
-  const svg = card.querySelector("[data-preview]:not([hidden]) svg");
-  const color = iconColors.get(name) ?? "#ad8af3";
-  svg.setAttribute("color", color);
-  const preview = svg.cloneNode(true);
-  preview.setAttribute("width", "96");
-  preview.setAttribute("height", "96");
-  detailPreview.replaceChildren(preview);
-  detailTitle.textContent = name;
-  setPickerColor(color);
-  selectReportIcon(name);
+function colorPicker(color) {
+  picker.dataset.color = color;
+  picker.style.setProperty('--picker-color', color);
+  picker.querySelector('[data-color-spectrum]').value = color;
+  picker.querySelector('[data-color-hex]').value = color.slice(1);
 }
-
-if (supportsDialog) {
-  workspace.classList.add("has-detail-dialog");
-  detailDialog.addEventListener("close", () => {
-    if (!detailDialog.open) workspace.append(detailColumn);
-    syncDetailState();
-  });
-  compactCatalog.addEventListener("change", ({ matches }) => {
-    if (!matches && detailDialog.open) detailDialog.close();
-    syncDetailState();
-  });
-}
-
-for (const card of cards) {
-  card.querySelector("[data-select-icon]").addEventListener("click", () => {
-    selectVariant(card, card.dataset.iconName);
-    if (!compactCatalog.matches) return;
-    if (supportsDialog) {
-      detailDialog.append(detailColumn);
-      detailDialog.showModal();
-      syncDetailState();
-      detailDialog.scrollTop = 0;
-    } else {
-      detailPanel.focus({ preventScroll: true });
-      detailPanel.scrollIntoView({ block: "start" });
+async function select(card, name = variants.get(card.dataset.family) ?? card.dataset.family+'-animated') {
+  request?.abort();
+  const controller = new AbortController(); request = controller;
+  revision++; status.textContent = '';
+  selected?.classList.remove('is-selected');
+  selected?.querySelector('button').setAttribute('aria-expanded','false');
+  selected = card; active = name; variants.set(card.dataset.family, name);
+  selected.classList.add('is-selected'); expanded();
+  for (const btn of options) btn.setAttribute('aria-pressed', String(card.dataset.family+btn.dataset.suffix === name));
+  title.textContent = name; report(name); colorPicker(colors.get(name) ?? '#ad8af3');
+  preview.replaceChildren(); preview.setAttribute('aria-busy','true');
+  try {
+    let svg;
+    if (name === initialName) svg = initialSvg.cloneNode(true);
+    else {
+      const res = await fetch(`/icons/${name}.svg`, {signal: controller.signal});
+      if (!res.ok) throw Error('Unavailable SVG');
+      svg = new DOMParser().parseFromString(await res.text(), 'image/svg+xml').documentElement;
+      if (svg.localName !== 'svg') throw Error('Invalid SVG');
+      svg = document.importNode(svg,true);
     }
-  });
+    if (controller.signal.aborted) return;
+    svg.setAttribute('width','96'); svg.setAttribute('height','96');
+    svg.setAttribute('aria-hidden','true'); svg.setAttribute('color',colors.get(name) ?? '#ad8af3');
+    preview.replaceChildren(svg);
+  } catch {
+    if (!controller.signal.aborted) status.textContent = 'Could not load icon. Select it to retry.';
+  } finally { if (!controller.signal.aborted) preview.removeAttribute('aria-busy'); }
 }
-for (const option of variantButtons) {
-  option.addEventListener("click", () => {
-    selectVariant(selectedCard, selectedCard.dataset.family + option.dataset.suffix);
-  });
+function render(reuse = false) {
+  const slice = matches.slice(page*size,(page+1)*size);
+  if (!reuse) grid.replaceChildren(...slice.map(name => {
+    const card = template.cloneNode(true);
+    card.dataset.family = name; card.classList.remove('is-selected'); card.querySelector('button').setAttribute('aria-expanded','false');
+    card.querySelector('img').src = `/icons/${name}.svg`;
+    card.querySelector('.icon-name').textContent = name;
+    return card;
+  }));
+  column.hidden = !slice.length; $('#empty-state').hidden = !!slice.length;
+  if (slice.length) select(grid.firstElementChild); else {request?.abort(); selected = null;}
+  $('#icon-count').textContent = `${matches.length} ${matches.length===1?'icon':'icons'}`;
+  pager.hidden = matches.length <= size;
+  pager.querySelector('[data-page]').textContent = `${page+1} / ${Math.ceil(matches.length/size)}`;
+  pager.querySelector('[data-prev]').disabled = !page;
+  pager.querySelector('[data-next]').disabled = (page+1)*size >= matches.length;
 }
+const normalize = s => s.trim().toLowerCase().replace(/[\s-]+/g,' ');
+const searchIndex = names.map(name => options.map(btn => normalize(name+btn.dataset.suffix+' '+btn.getAttribute('aria-label'))));
+function filter() {
+  const q = normalize(search.value);
+  matches = q ? names.filter((_,i)=>searchIndex[i].some(text=>text.includes(q))) : names;
+  page = 0; render();
+}
+pager.querySelector('[data-prev]').onclick = () => {page--;render();};
+pager.querySelector('[data-next]').onclick = () => {page++;render();};
+search.value = new URLSearchParams(location.search).get('q') ?? '';
+search.addEventListener('input',filter);
+if (search.value) filter(); else render(true);
+$('#search-field').hidden = false; copy.hidden = false;
 
-if (selectedCard) {
-  selectVariant(selectedCard, selectedCard.dataset.iconName);
-  copyActions.hidden = false;
-}
-
-for (const button of copyActions.querySelectorAll("[data-copy-format]")) {
-  button.addEventListener("click", async () => {
-    clearCopyStatus();
-    const request = copyRequest;
-    const format = button.dataset.copyFormat;
-    const name = selectedCard.dataset.iconName;
-    try {
-      const snippet = formatIcon(detailPreview.querySelector("svg"), name, format);
-      await navigator.clipboard.writeText(snippet);
-      if (request === copyRequest) copyStatus.textContent = `${format} copied.`;
-    } catch {
-      if (request === copyRequest) copyStatus.textContent = "Couldn’t copy. Check clipboard permissions and try again.";
-    }
-  });
-}
-
-detailPanel.addEventListener("icon-color-change", (event) => {
-  if (!selectedCard) return;
-  const { color } = event.detail;
-  const name = selectedCard.dataset.iconName;
-  clearCopyStatus();
-  iconColors.set(name, color);
-  selectedCard.querySelector("[data-preview]:not([hidden]) svg").setAttribute("color", color);
-  detailPreview.querySelector("svg").setAttribute("color", color);
+grid.addEventListener('click', e => {
+  const card = e.target.closest('[data-family]'); if (!card) return;
+  select(card);
+  if (!compact.matches) return;
+  if (dialog.showModal) {dialog.append(column); dialog.showModal(); expanded(); dialog.scrollTop=0;}
+  else {panel.focus({preventScroll:true}); panel.scrollIntoView({block:'start'});}
 });
-
-if (searchField && searchInput && count && emptyState) {
-  const filterIcons = () => {
-    // Treat spaces and hyphens alike so "arrow left" also finds "arrow-left".
-    const query = searchInput.value.trim().toLowerCase().replace(/[\s-]+/g, " ");
-    let matches = 0;
-    for (const card of cards) {
-      card.hidden = !variantButtons.some(option =>
-        ((card.dataset.family + option.dataset.suffix).replaceAll("-", " ") + " " + option.getAttribute("aria-label").toLowerCase()).includes(query)
-      );
-      if (!card.hidden) matches++;
-    }
-    count.textContent = `${matches} ${matches === 1 ? "icon" : "icons"}`;
-    emptyState.hidden = matches !== 0;
-    if (selectedCard?.hidden) {
-      const firstVisible = cards.find((card) => !card.hidden);
-      if (firstVisible) selectVariant(firstVisible, firstVisible.dataset.iconName);
-    }
-  };
-
-  searchInput.value = new URLSearchParams(window.location.search).get("q") ?? searchInput.value;
-  searchInput.addEventListener("input", filterIcons);
-  filterIcons();
-  searchField.hidden = false;
+if (dialog.showModal) {
+  workspace.classList.add('has-detail-dialog');
+  dialog.addEventListener('close',()=>{if (!dialog.open) workspace.append(column); expanded();});
+  compact.addEventListener('change',()=>{if (!compact.matches && dialog.open) dialog.close(); expanded();});
 }
+for (const btn of options) btn.onclick = () => {if(selected) select(selected,selected.dataset.family+btn.dataset.suffix);};
+panel.addEventListener('icon-color-change', e => {
+  if (!selected) return;
+  revision++; status.textContent=''; colors.set(active,e.detail.color);
+  preview.firstElementChild?.setAttribute('color',e.detail.color);
+});
+for (const btn of copy.querySelectorAll('[data-copy-format]')) btn.onclick = async () => {
+  const svg = preview.firstElementChild; if (!svg) return;
+  const version = ++revision, format = btn.dataset.copyFormat;
+  try {await navigator.clipboard.writeText(formatIcon(svg,active,format)); if(version===revision) status.textContent=`${format} copied.`;}
+  catch {if(version===revision) status.textContent='Couldn’t copy. Check clipboard permissions and try again.';}
+};

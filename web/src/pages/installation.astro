@@ -15,20 +15,21 @@ import PnpmLogo from "../assets/package-managers/pnpm.svg";
 import PnpmDarkLogo from "../assets/package-managers/pnpm_dark.svg";
 import YarnLogo from "../assets/package-managers/yarn.svg";
 
-const packageName = "@markusss0s/ira-library";
+const packageName = "@ira/iraicons";
+const reactPackage = `${packageName}-react`;
 const managers = [
-  { name: "npm", logo: NpmLogo, command: `npm install ${packageName}` },
-  { name: "Bun", logo: BunLogo, command: `bun add ${packageName}` },
+  { name: "npm", logo: NpmLogo, command: "npm install" },
+  { name: "Bun", logo: BunLogo, command: "bun add" },
   {
     name: "pnpm",
     logo: PnpmLogo,
     darkLogo: PnpmDarkLogo,
-    command: `pnpm add ${packageName}`,
+    command: "pnpm add",
   },
-  { name: "Yarn", logo: YarnLogo, command: `yarn add ${packageName}` },
+  { name: "Yarn", logo: YarnLogo, command: "yarn add" },
 ];
 
-const reactExample = `import { SearchMinimalist } from '${packageName}/react';
+const reactExample = `import { SearchMinimalist } from '${reactPackage}';
 
 export default function SearchButton() {
   return (
@@ -39,21 +40,21 @@ export default function SearchButton() {
 }`;
 
 const astroExample = `---
-import SearchMinimalist from '${packageName}/astro/search-minimalist';
+import SearchMinimalist from '${packageName}-astro/search-minimalist';
 ---
 
 <button type="button" aria-label="Search">
   <SearchMinimalist size={24} />
 </button>`;
 
-const nextExample = `import SearchMinimalist from '${packageName}/react/search-minimalist';
+const nextExample = `import SearchMinimalist from '${reactPackage}/search-minimalist';
 
 export default function Page() {
   return <SearchMinimalist size={24} label="Search" />;
 }`;
 
 const vueExample = `<script setup>
-import { SearchMinimalist } from '${packageName}/vue';
+import { SearchMinimalist } from '${packageName}-vue';
 </script>
 
 <template>
@@ -61,7 +62,7 @@ import { SearchMinimalist } from '${packageName}/vue';
 </template>`;
 
 const svelteExample = `<script>
-  import { SearchMinimalist } from '${packageName}/svelte';
+  import { SearchMinimalist } from '${packageName}-svelte';
 </script>
 
 <SearchMinimalist size={24} label="Search" />`;
@@ -83,80 +84,12 @@ const variants = [
   description="Install Ira Icons and add your first icon in React, Next.js, Astro, Vue, Svelte, or plain HTML."
 >
   <main class="installation">
-    <InstallationIntro packageName={packageName} />
-
-    <section class="step" aria-labelledby="install-title">
-      <header class="step-header">
-        <span aria-hidden="true" class="step-number">
-          01
-        </span>
-        <div>
-          <h2 id="install-title">Install the package</h2>
-          <p>Run this command from the root of your project.</p>
-        </div>
-      </header>
-
-      <fieldset data-package-options hidden>
-        <legend class="visually-hidden">Package manager</legend>
-        <div class="options">
-          {managers.map(({ name, logo, darkLogo, command }, index) => (
-            <label>
-              <input
-                class="visually-hidden"
-                type="radio"
-                name="package-manager"
-                value={command}
-                checked={index === 0}
-              />
-              <span class="option">
-                <img
-                  class:list={[{ "light-logo": darkLogo }]}
-                  src={logo.src}
-                  alt=""
-                  width="18"
-                  height="18"
-                />
-                {darkLogo && (
-                  <img
-                    class="dark-logo"
-                    src={darkLogo.src}
-                    alt=""
-                    width="18"
-                    height="18"
-                  />
-                )}
-                {name}
-              </span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <div data-install-command>
-        <CodeSnippet title="Terminal" code={managers[0].command} live />
-      </div>
-      <p class="note">
-        Vue and Svelte require <code>0.3.0</code>. Until that version is
-        published, run <code>bun run package:pack</code> from the Ira Icons
-        repository and install the resulting <code>.tgz</code> in your app.
-      </p>
-    </section>
-
-    <section class="step" aria-labelledby="usage-title">
-      <header class="step-header">
-        <span aria-hidden="true" class="step-number">
-          02
-        </span>
-        <div>
-          <h2 id="usage-title">Add your first icon</h2>
-          <p>Expand the example that matches your project.</p>
-        </div>
-      </header>
-
-      <div class="examples">
+    <InstallationIntro packageName={packageName}>
+      <div class="examples" data-install-examples>
         <InstallationExample id="react" title="React">
           <img slot="icon" src={ReactLogo.src} width="22" height="20" alt="" />
           <p slot="description">
-            Use a named import from <code>{packageName}/react</code>. The
+            Use a named import from <code>{reactPackage}</code>. The
             components work with React 18 and 19 without an SVG loader or SVGR
             configuration.
           </p>
@@ -238,17 +171,64 @@ const variants = [
           <CodeSnippet title="index.html" code={htmlExample} lang="html" />
         </InstallationExample>
       </div>
+    </InstallationIntro>
+
+    <section class="guide-section" aria-labelledby="install-title">
+      <header>
+        <h2 id="install-title">Install the package</h2>
+        <p>Run this command from the root of your project.</p>
+      </header>
+
+      <fieldset data-package-options hidden>
+        <legend class="visually-hidden">Package manager</legend>
+        <div class="options">
+          {managers.map(({ name, logo, darkLogo, command }, index) => (
+            <label>
+              <input
+                class="visually-hidden"
+                type="radio"
+                name="package-manager"
+                value={command}
+                checked={index === 0}
+              />
+              <span class="option">
+                <img
+                  class:list={[{ "light-logo": darkLogo }]}
+                  src={logo.src}
+                  alt=""
+                  width="18"
+                  height="18"
+                />
+                {darkLogo && (
+                  <img
+                    class="dark-logo"
+                    src={darkLogo.src}
+                    alt=""
+                    width="18"
+                    height="18"
+                  />
+                )}
+                {name}
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <div data-install-command data-package-base={packageName}>
+        <CodeSnippet title="Terminal" code={`${managers[0].command} ${reactPackage}`} live />
+      </div>
+      <p class="note">
+        Each framework has its own package. To install them all together, use
+        <code>{packageName}</code> and import from its framework subpaths, such as
+        <code>{packageName}/astro</code>. Until the new packages are published,
+        run <code>bun run package:pack</code> and install the matching <code>.tgz</code>.
+      </p>
     </section>
 
-    <section class="step" aria-labelledby="customize-title">
-      <header class="step-header">
-        <span aria-hidden="true" class="step-number">
-          03
-        </span>
-        <div>
-          <h2 id="customize-title">Choose a style</h2>
-          <p>The filename tells you which variant you’re using.</p>
-        </div>
+    <section class="guide-section" aria-labelledby="customize-title">
+      <header>
+        <h2 id="customize-title">Choose a style</h2>
+        <p>The filename tells you which variant you’re using.</p>
       </header>
 
       <ul class="variants">
@@ -338,29 +318,14 @@ const variants = [
     border-color: var(--accent);
   }
 
-  .step + .step {
+  .guide-section + .guide-section {
     margin-top: 2.4rem;
     padding-top: 2rem;
     border-top: 1px solid var(--line);
   }
 
-  .step-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
+  .guide-section > header {
     margin-bottom: 1rem;
-  }
-
-  .step-number {
-    display: grid;
-    flex: 0 0 2.15rem;
-    place-items: center;
-    height: 2.15rem;
-    border: 1px solid var(--line);
-    border-radius: 0.55rem;
-    background: var(--panel);
-    color: var(--accent);
-    font-size: 0.75rem;
   }
 
   h2 {
@@ -370,7 +335,7 @@ const variants = [
     letter-spacing: -0.035em;
   }
 
-  .step p,
+  .guide-section p,
   dd {
     margin: 0.35rem 0 0;
     color: var(--muted);
@@ -421,7 +386,19 @@ const variants = [
     gap: 0.75rem;
   }
 
-  .step p code,
+  .examples:has(> :not([hidden])) {
+    margin-block: 0.5rem 1rem;
+  }
+
+  .examples p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.83rem;
+    line-height: 1.65;
+  }
+
+  .guide-section p code,
+  .examples p code,
   dd code,
   .variants code {
     color: var(--text);
@@ -461,7 +438,7 @@ const variants = [
     color: var(--muted);
   }
 
-  .step .note {
+  .guide-section .note {
     margin-top: 0.75rem;
     padding: 0.65rem 0.75rem;
     border-inline-start: 2px solid var(--accent);
@@ -483,8 +460,7 @@ const variants = [
   @media (max-width: 36rem) {
     .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .option { min-height: 2.75rem; }
-    .step + .step { margin-top: 1.75rem; padding-top: 1.5rem; }
-    .step-header { gap: 0.6rem; }
+    .guide-section + .guide-section { margin-top: 1.75rem; padding-top: 1.5rem; }
   }
 
   @media (max-width: 44rem) {

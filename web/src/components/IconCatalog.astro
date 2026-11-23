@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { names, selectedName } = Astro.props;
+const pageSize = 48;
 ---
 
 <section class="catalog-panel" aria-labelledby="catalog-title">
@@ -19,6 +20,7 @@ const { names, selectedName } = Astro.props;
       <p id="icon-count" role="status">
         {names.length} icons
       </p>
+      <nav aria-label="New collections"><a href="/folio.html">Folio</a> · <a href="/atlas.html">Atlas</a></nav>
     </div>
     <div class="search-field" id="search-field" hidden>
       <Icon name="search" size={17} />
@@ -35,8 +37,13 @@ const { names, selectedName } = Astro.props;
     </div>
   </div>
 
-  <ul class="icon-grid" id="icon-grid" role="list">
-    {names.map((name) => (
+  <nav id="catalog-pager" aria-label="Catalog pages" hidden>
+    <button type="button" data-prev>Previous</button>
+    <span aria-live="polite" data-page></span>
+    <button type="button" data-next>Next</button>
+  </nav>
+  <ul class="icon-grid" id="icon-grid" role="list" data-page-size={pageSize} data-names={names.join(' ')}>
+    {names.slice(0, pageSize).map((name) => (
       <IconCard name={name} selected={name === selectedName} />
     ))}
   </ul>

@@ -1,6 +1,10 @@
 # Icon Expansion
 
-This directory contains the source definitions for the 300-family catalog expansion. The generator turns each family into three SVGs in [`icons/`](../../icons/): original (`name.svg`), minimalist (`name-minimalist.svg`), and animated (`name-animated.svg`).
+This directory contains the source definitions for the initial 300-family expansion and the 501-family Atlas collection. The generator turns each family into three SVGs in [`icons/`](../../icons/): original (`name.svg`), minimalist (`name-minimalist.svg`), and animated (`name-animated.svg`).
+
+Open [the Atlas gallery](../../atlas.html) locally to browse just the new families and switch styles. Atlas combines wayfinding pictograms, device states, media controls and complete notation sets (dates, clocks, playing cards, dominoes, dice and keycaps). Its vector lettering does not require installed fonts.
+
+After regenerating, run `node scripts/icon-expansion/atlas/review.mjs --gallery` to validate the new paths, rasterize every Atlas variant at 16, 24 and 48 px, check ink coverage, inspect the 48 px margins, reject identical original renders, and rebuild the offline gallery.
 
 ## Update a family
 

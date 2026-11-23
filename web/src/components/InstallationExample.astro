@@ -9,10 +9,9 @@ interface Props {
 const { id, title } = Astro.props;
 ---
 
-<details id={id} class="example" data-install-example>
+<details id={id} class="example" data-install-example open={id === "react"}>
   <summary>
     <span class="example-title">
-      <slot name="icon" />
       {title}
     </span>
     <span class="chevron">
@@ -21,6 +20,7 @@ const { id, title } = Astro.props;
   </summary>
   <div class="example-body">
     <div>
+      <div class="example-logo" aria-hidden="true"><slot name="icon" /></div>
       <slot name="description" />
     </div>
     <slot />
@@ -69,6 +69,13 @@ const { id, title } = Astro.props;
     font-weight: 650;
   }
 
+  .example-logo {
+    display: flex;
+    align-items: center;
+    min-height: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
   .chevron {
     display: grid;
     place-items: center;
@@ -87,6 +94,8 @@ const { id, title } = Astro.props;
     padding: clamp(0.8rem, 2.5vw, 1.25rem);
     border-top: 1px solid var(--line);
   }
+
+  summary[hidden] + .example-body { border-top: 0; }
 
   @media (max-width: 44rem) {
     .example-body {

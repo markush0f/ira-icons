@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { createRequire, registerHooks } from 'node:module';
 import { test } from 'node:test';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -10,15 +10,27 @@ import { renderToString } from 'vue/server-renderer';
 import { compile } from 'svelte/compiler';
 import { render } from 'svelte/server';
 
-const distribution = new URL('../../dist/npm/', import.meta.url);
-const resolve = createRequire(new URL('package.json', distribution)).resolve;
-const importExport = (subpath) =>
-  import(pathToFileURL(resolve(`@markusss0s/ira-library/${subpath}`)).href);
+const variants = new URL('../../dist/npm-variants/', import.meta.url);
+const complete = new URL('all/', variants);
+const resolveFrom = (directory, specifier) => createRequire(new URL('package.json', directory)).resolve(specifier);
+const importExport = (directory, specifier) => import(pathToFileURL(resolveFrom(directory, specifier)).href);
+
+for (const [framework, files] of Object.entries({ react: ['react'], astro: ['astro', 'icons'], vue: ['vue', 'shared'], svelte: ['svelte', 'shared'] })) {
+  test(`${framework} package ships only its own framework and required assets`, () => {
+    const directory = new URL(`${framework}/`, variants);
+    const manifest = JSON.parse(readFileSync(new URL('package.json', directory), 'utf8'));
+    assert.deepEqual(Object.keys(manifest.peerDependencies), [framework]);
+    assert.deepEqual(readdirSync(directory).sort(), [...files, 'README.md', 'package.json'].sort());
+    assert.ok(resolveFrom(directory, `${manifest.name}/search-minimalist`));
+    assert.ok(resolveFrom(complete, `@ira/iraicons/${framework}/search-minimalist`));
+    assert.ok(resolveFrom(new URL('../../dist/npm/', import.meta.url), `@markusss0s/ira-library/${framework}/search-minimalist`));
+  });
+}
 
 // The package ships Svelte source; emulate the consumer's SSR compilation.
 const registerSvelteCompiler = () => registerHooks({
   load(url, context, next) {
-    if (!url.startsWith(distribution.href) || !url.endsWith('.svelte')) return next(url, context);
+    if (!url.startsWith(variants.href) || !url.endsWith('.svelte')) return next(url, context);
     const filename = fileURLToPath(url);
     const { js, warnings } = compile(readFileSync(filename, 'utf8'), { filename, generate: 'server' });
     assert.deepEqual(warnings, [], filename);
@@ -38,8 +50,10 @@ for (const [adapter, renderIcon] of Object.entries(adapters)) {
       const hooks = registerSvelteCompiler();
       t.after(() => hooks.deregister());
     }
-    const icons = await importExport(adapter);
-    const individual = (await importExport(`${adapter}/search-minimalist`)).default;
+    const directory = new URL(`${adapter}/`, variants);
+    const name = `@ira/iraicons-${adapter}`;
+    const icons = await importExport(directory, name);
+    const individual = (await importExport(directory, `${name}/search-minimalist`)).default;
     assert.equal(individual, icons.SearchMinimalist);
     assert.equal(icons.default, icons.Icon);
 

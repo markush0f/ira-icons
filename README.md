@@ -1,6 +1,8 @@
 # Ira Icons
 
-A collection of 412 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
+A collection of 3381 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
+
+Browse [Folio](folio.html) offline: 2,048 pictograms adapted from [Tabler Icons 3.34.1](https://github.com/tabler/tabler-icons) ([MIT notice](scripts/icon-expansion/folio/TABLER-LICENSE.txt)), plus 320 original wind barbs and 100 original grid regions. The Folio gallery supports search, categories and all three styles.
 
 Ira Icons is in active development. New icons and animations are added over time.
 
@@ -60,7 +62,7 @@ Import the component from the npm package and select an icon with `name`:
 
 ```astro
 ---
-import Icon from '@markusss0s/ira-library/astro';
+import Icon from '@ira/iraicons-astro';
 ---
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />
@@ -73,20 +75,28 @@ The default size is 24 px. Set `size` and `color` to customize its dimensions an
 The npm package supports React 18 and 19, with no SVGR configuration needed in the consuming app:
 
 ```tsx
-import Icon from '@markusss0s/ira-library/react';
+import Icon from '@ira/iraicons-react';
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />;
 ```
 
-Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. Use an individual import, such as `@markusss0s/ira-library/react/search`, if you don't need the full catalog.
+Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. Use an individual import, such as `@ira/iraicons-react/search`, if you don't need the full catalog.
 
 Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibility, production bundling, and TypeScript props.
 
 ## Build the installable package
 
-From the repository root, run `bun install` and `bun run package:pack`. This creates `dist/markusss0s-ira-library-0.3.0.tgz` without publishing anything. From a separate project, install it with `npm install /absolute/path/to/markusss0s-ira-library-0.3.0.tgz`.
+From the repository root, run `bun install` and `bun run package:pack`. This creates five `.tgz` files in `dist/` without publishing anything. Until the packages are published, install the matching tarball in your app, for example `npm install /absolute/path/to/ira-iraicons-astro-0.3.0.tgz`.
 
-[`scripts/npm-package/build.mjs`](scripts/npm-package/build.mjs) builds all integrations into one tarball. It exposes `@markusss0s/ira-library/react` (also used by Next.js), `/astro`, `/vue`, `/svelte`, and `/icons/*.svg`. See the [package README](scripts/npm-package/README.md) for examples and single-icon imports. Run `bun run test:adapters` to build and test the React, Vue, and Svelte exports.
+| Target | Package |
+| --- | --- |
+| React / Next.js | `@ira/iraicons-react` |
+| Astro | `@ira/iraicons-astro` |
+| Vue | `@ira/iraicons-vue` |
+| Svelte | `@ira/iraicons-svelte` |
+| All frameworks and raw SVGs | `@ira/iraicons` |
+
+The [complete package](scripts/npm-package/README.md) exposes imports like `@ira/iraicons/astro` and `@ira/iraicons/icons/search.svg`. Install `@ira/iraicons`, not the import subpath. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
 
 ## Standalone preview
 

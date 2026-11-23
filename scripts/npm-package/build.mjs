@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import { buildVueAndSvelte } from './build-adapters.mjs';
+import { writePackageVariants } from './package-variants.mjs';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const output = join(root, 'dist/npm');
@@ -102,8 +103,8 @@ const reactTypes = `${genericTypes}\nexport type IndividualIconProps = Omit<Icon
   .join('\n') + '\n';
 
 await Promise.all([
-  // Share the component with the landing; only the catalog loading differs.
-  copyFile(join(root, 'web/src/icons/Icon.astro'), join(output, 'astro/Icon.astro')),
+  // Published packages use native Astro SVG component imports.
+  copyFile(new URL('./astro/Icon.astro', import.meta.url), join(output, 'astro/Icon.astro')),
   writeFile(join(output, 'astro/icons.mjs'), astroCatalog),
   ...components.flatMap(({ name, file }) => [
     writeFile(join(output, 'react/icons', `${name}.d.ts`), individualTypes),
@@ -117,10 +118,13 @@ const labelled = Boolean(ariaLabel || props['aria-labelledby']);
 `),
   ]),
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),
+  copyFile(new URL('../icon-expansion/folio/TABLER-LICENSE.txt', import.meta.url), join(output, 'LICENSE.tabler')),
   copyFile(new URL('./package.json', import.meta.url), join(output, 'package.json')),
-  copyFile(new URL('./README.md', import.meta.url), join(output, 'README.md')),
+  writeFile(join(output, 'README.md'), (await readFile(new URL('./README.md', import.meta.url), 'utf8')).replaceAll('@ira/iraicons', '@markusss0s/ira-library')),
   ...icons.map((file) => copyFile(join(iconDirectory, file), join(output, 'icons', file))),
   buildVueAndSvelte({ output, components, iconDirectory }),
 ]);
 
-console.log(`Built ${icons.length} SVGs and four adapters in dist/npm/`);
+const manifest = JSON.parse(await readFile(new URL('./package.json', import.meta.url), 'utf8'));
+await writePackageVariants(output, join(root, 'dist/npm-variants'), manifest);
+console.log(`Built ${icons.length} SVGs, the complete and standalone packages, and the legacy package.`);

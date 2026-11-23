@@ -1,23 +1,11 @@
 ---
-/**
- * Renders an original SVG inline by name, with optional sizing and an accessible label.
- * The component runs in Astro and does not ship JavaScript to the browser.
- */
-import { getIcon } from "./icons.mjs";
-
-const { name, size = 24, color = "currentColor", label } = Astro.props;
-const Svg = getIcon(name);
-if (!Svg) throw new Error(`Unknown Ira Icons icon: ${String(name)}`);
-
-// Without a nonblank label, the icon is decorative and hidden from assistive technology.
-const accessibleLabel = typeof label === "string" ? label.trim() : "";
+import { getSource } from './icons.mjs';
+const { name, size = 24, color = 'currentColor', label } = Astro.props;
+const source = getSource(name);
+if (!source) throw new Error(`Unknown Ira Icons icon: ${name}`);
+// Only trusted, checked-in SVGs enter the server catalog. Preserve their native viewBox and styling.
+const [, root, drawing] = source.trim().match(/^<svg\b([^>]+)>([\s\S]*)<\/svg>$/);
+const attrs = Object.fromEntries([...root.matchAll(/([^\s=]+)="([^"]*)"/g)].map(([,k,v])=>[k,v]));
+const accessibleLabel = typeof label === 'string' ? label.trim() : '';
 ---
-
-<Svg
-  width={size}
-  height={size}
-  color={color}
-  role={accessibleLabel ? "img" : undefined}
-  aria-label={accessibleLabel || undefined}
-  aria-hidden={accessibleLabel ? undefined : "true"}
-/>
+<svg {...attrs} width={size} height={size} color={color} role={accessibleLabel ? 'img' : undefined} aria-label={accessibleLabel || undefined} aria-hidden={accessibleLabel ? undefined : 'true'} set:html={drawing} />

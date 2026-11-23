@@ -35,7 +35,7 @@ const specimenName = "coffee-animated";
     </figure>
   </div>
 
-  <nav class="example-links" aria-label="Jump to an example" data-install-example-links>
+  <nav class="example-links" aria-label="Framework examples" data-install-example-links>
     <span aria-hidden="true">Examples</span>
     <a href="#react"><img src={ReactLogo.src} width="17" height="16" alt="" /> React</a>
     <a href="#astro"><img class="astro-framework-logo" src={AstroLogo.src} width="14" height="17" alt="" /> Astro</a>
@@ -44,6 +44,7 @@ const specimenName = "coffee-animated";
     <a href="#svelte"><img src={SvelteLogo.src} width="14" height="17" alt="" /> Svelte</a>
     <a href="#svg"><Icon name="svg" size={19} /> HTML / SVG</a>
   </nav>
+  <slot />
 </header>
 
 <style>
@@ -142,6 +143,12 @@ const specimenName = "coffee-animated";
 
   .example-links a {
     min-height: 2.75rem;
+  }
+
+  .example-links a[aria-current="true"] {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
   }
 
   @media (max-width: 44rem) {

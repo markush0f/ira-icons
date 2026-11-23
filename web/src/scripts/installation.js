@@ -1,5 +1,8 @@
 const packageOptions = document.querySelector("[data-package-options]");
-const installSnippet = document.querySelector("[data-install-command] [data-snippet]");
+const installBox = document.querySelector("[data-install-command]");
+const installSnippet = installBox?.querySelector("[data-snippet]");
+let installTarget = "react";
+let syncCommand = () => {};
 
 function resetCopyFeedback(snippet) {
   snippet.querySelector("[data-copy-label]").textContent = "Copy";
@@ -8,10 +11,14 @@ function resetCopyFeedback(snippet) {
 
 if (packageOptions && installSnippet) {
   const command = installSnippet.querySelector("[data-snippet-code] code");
-  const syncCommand = () => {
+  syncCommand = () => {
     const selected = packageOptions.querySelector("input:checked");
-    if (selected && command.textContent !== selected.value) {
-      command.textContent = selected.value;
+    if (!selected) return;
+    const name = installBox.dataset.packageBase;
+    const target = installTarget === "svg" ? name : `${name}-${installTarget}`;
+    const text = `${selected.value} ${target}`;
+    if (command.textContent !== text) {
+      command.textContent = text;
       resetCopyFeedback(installSnippet);
     }
   };
@@ -22,21 +29,39 @@ if (packageOptions && installSnippet) {
   window.addEventListener("pageshow", syncCommand);
 }
 
-function openExample(hash) {
-  const example = document.getElementById(hash.slice(1));
-  if (example instanceof HTMLDetailsElement && example.hasAttribute("data-install-example")) {
-    example.open = true;
+const exampleLinks = document.querySelector("[data-install-example-links]");
+const examples = [...document.querySelectorAll("[data-install-examples] [data-install-example]")];
+
+if (exampleLinks && examples.length) {
+  const links = [...exampleLinks.querySelectorAll("a[href^='#']")];
+  function showExample(hash) {
+    const active = examples.find((example) => `#${example.id}` === hash)?.id ?? "react";
+    installTarget = active === "next" ? "react" : active;
+    syncCommand();
+    for (const example of examples) {
+      const selected = `#${example.id}` === hash;
+      example.open = selected;
+      example.hidden = !selected;
+    }
+    for (const link of links) {
+      const selected = link.hash === hash;
+      link.setAttribute("aria-controls", link.hash.slice(1));
+      link.setAttribute("aria-expanded", String(selected));
+      if (selected) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    }
   }
+
+  for (const example of examples) example.querySelector("summary").hidden = true;
+  showExample("#react");
+  exampleLinks.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest("a[href^='#']");
+    if (!link || !examples.some((example) => `#${example.id}` === link.hash)) return;
+    event.preventDefault();
+    showExample(link.hash);
+  });
 }
-
-openExample(window.location.hash);
-window.addEventListener("hashchange", () => openExample(window.location.hash));
-
-document.querySelector("[data-install-example-links]")?.addEventListener("click", (event) => {
-  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  const link = event.target.closest("a[href^='#']");
-  if (link) openExample(link.hash);
-});
 
 if (navigator.clipboard?.writeText) {
   for (const snippet of document.querySelectorAll("[data-snippet]")) {
