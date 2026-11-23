@@ -38,7 +38,7 @@ export const categoryGroups = {
 };
 const tabler = tablerRows as [string, string, string[]][];
 const sourceCategories: Record<string, string> = {
-  Animals:'animals nature', Arrows:'navigation interface', Badges:'symbols', Buildings:'buildings',
+  Animals:'animals nature', Arrows:'interface', Badges:'symbols', Buildings:'buildings',
   Charts:'data', Communication:'communication', Computers:'devices', Currencies:'finance',
   Database:'data development', Design:'design', Development:'development', Devices:'devices',
   Document:'documents', 'E-commerce':'finance', Electrical:'devices', Food:'food', Games:'games',
@@ -59,7 +59,7 @@ for (const [group,name] of tabler) if (sourceCategories[group]) defaults.set(nam
 // Additional meanings are additive, not mutually exclusive. Use anchored families
 // where possible so e.g. a card reader isn't classified as a playing card.
 const rules = {
-  arrows: /^(?:arrow|chevron|double-chevron|corner-(?:up|down)|arrows)(?:-|$)/,
+  arrows: /^(?:arrows?|chevrons?|double-chevron|corner-(?:up|down)|caret|rotate|swipe|transition)(?:-|$)|^(?:directions?|signpost|expand|collapse|move|fold|selector|refresh(?:-alert|-dot)?|reload|switch(?:-horizontal|-vertical)?|step-(?:into|out))$/,
   audio: /^(?:audio|music|speaker|headphones|microphone|volume|podcast|radio|waveform|equalizer|vinyl|metronome)(?:-|$)|^file-audio$/,
   brands: /^(?:currency|coin|cash|credit-card|payment|banknote|dollar|euro|yen|pound)(?:-|$)/,
   calendar: /^(?:calendar|date|appointment|schedule)(?:-|$)/,
@@ -96,7 +96,7 @@ const rules = {
   interface: /^(?:arrow|chevron|close|check|menu|search|filter|sort|more|plus|minus|play|pause)(?:-|$)/,
   media: /^(?:remote|player|jogwheel|softkey|music|audio|video|play|pause|film|camera|microphone|headphones|podcast|equalizer|subtitles)(?:-|$)|^file-(?:audio|video)$/,
   nature: /^(?:wind-barb|tree|plant|flower|leaf|mountain|ocean|river|sprout|mushroom)(?:-|$)|(?:^|-)(?:summit|cave|waterfall|orchard|beach)(?:-|$)/,
-  navigation: /^(?:amenity|locator|station|sign-(?:east|west)|map|compass|route|arrow|chevron|signpost)(?:-|$)/,
+  navigation: /^(?:amenity|locator|station|sign-(?:east|west)|map|compass|route|signpost|directions|arrow-(?:bear|rotary|ramp|guide))(?:-|$)/,
   people: /^(?:face|mood|user|users|person|hand|woman|man|baby)(?:-|$)/,
   photography: /^(?:camera|webcam|photo|aperture|shutter)(?:-|$)/,
   science: /^(?:atom|molecule|microscope|telescope|beaker|flask|helix|planet|orbit|comet|satellite)(?:-|$)/,
@@ -134,7 +134,7 @@ for (const [id, names] of Object.entries(legacy)) {
   }
 }
 // Correct broad source buckets for individual concepts.
-const overrides: Record<string, string> = { coffee:'food', bread:'food', pizza:'food', notebook:'documents', bank:'finance buildings', flame:'nature symbols', cloud:'weather nature', activity:'health data', globe:'navigation nature' };
+const overrides: Record<string, string> = { 'axis-y':'data', 'step-into':'development interface', 'step-out':'development interface', coffee:'food', bread:'food', pizza:'food', notebook:'documents', bank:'finance buildings', flame:'nature symbols', cloud:'weather nature', activity:'health data', globe:'navigation nature' };
 export function categoriesFor(name: string) {
   const family = name.replace(/-(animated|minimalist)$/,'');
   const ids = new Set((Object.hasOwn(overrides,family) ? overrides[family] : defaults.get(family) ?? '').split(' ').filter(Boolean));

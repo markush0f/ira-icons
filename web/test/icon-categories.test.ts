@@ -34,3 +34,15 @@ test('icons can be found under multiple subjects', () => {
   assert.deepEqual(categoriesFor('sign-west-pharmacy'), ['buildings', 'health', 'navigation', 'places']);
   assert.deepEqual(categoriesFor('wind-barb-n-5kt'), ['nature', 'weather', 'wind']);
 });
+
+test('classifies arrows by action, not incidental arrow shapes', () => {
+  assert.deepEqual(categoriesFor('arrow-right'), ['arrows', 'interface']);
+  assert.deepEqual(categoriesFor('chevrons-left'), ['arrows', 'interface']);
+  assert.deepEqual(categoriesFor('directions'), ['arrows', 'navigation']);
+  assert.deepEqual(categoriesFor('arrow-ramp-left'), ['arrows', 'interface', 'navigation']);
+  assert.deepEqual(categoriesFor('rotate-dot'), ['arrows', 'interface']);
+  assert.deepEqual(categoriesFor('axis-y'), ['data']);
+  for (const name of ['file-arrow-left', 'chart-arrows', 'archery-arrow', 'target-arrow', 'text-direction-ltr']) {
+    assert.ok(!categoriesFor(name).includes('arrows'), name);
+  }
+});
