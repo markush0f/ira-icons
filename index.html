@@ -528,55 +528,55 @@
       "zodiac-cancer", "zodiac-capricorn", "zodiac-gemini", "zodiac-leo", "zodiac-libra", "zodiac-pisces", "zodiac-sagittarius", "zodiac-scorpio",
       "zodiac-taurus", "zodiac-virgo", "zoom", "zoom-in", "zoom-out"
     ];
+    // Generated from scripts/standalone/catalog.ts. Do not edit this block.
     const variants = [['Animado', '-animated', 'play'], ['Minimalista', '-minimalist', 'minus'], ['Normal', '', 'square']];
     const sizes = [16, 24, 32];
     const catalog = document.querySelector('#catalog');
     const cardTemplate = document.querySelector('#icon-card');
     const sampleTemplate = document.querySelector('#icon-sample');
-
     for (const name of icons) {
-      const path = `icons/${name}-animated.svg`;
-      const card = cardTemplate.content.cloneNode(true);
-      const link = card.querySelector('a');
-      link.href = path;
-      link.textContent = name;
-      const samples = card.querySelector('.samples');
-
-      for (const size of sizes) {
-        const sample = sampleTemplate.content.cloneNode(true);
-        const image = sample.querySelector('img');
-        image.width = size;
-        image.height = size;
-        image.src = path;
-        sample.querySelector('figcaption').textContent = `${size} px`;
-        samples.append(sample);
-      }
-
-      const options = document.createElement('div');
-      options.setAttribute('role', 'group');
-      options.setAttribute('aria-label', name);
-      for (const [label, suffix, glyph] of variants) {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.title = label;
-        button.setAttribute('aria-label', label);
-        const icon = document.createElement('img');
-        icon.src = `icons/${glyph}.svg`;
-        icon.width = icon.height = 20;
-        icon.alt = '';
-        button.append(icon);
-        button.setAttribute('aria-pressed', String(suffix === '-animated'));
-        button.onclick = () => {
-          const src = `icons/${name}${suffix}.svg`;
-          link.href = src;
-          samples.querySelectorAll('img').forEach(image => image.src = src);
-          for (const option of options.children) option.setAttribute('aria-pressed', String(option === button));
-        };
-        options.append(button);
-      }
-      samples.after(options);
-      catalog.append(card);
+        const path = `icons/${name}-animated.svg`;
+        const card = cardTemplate.content.cloneNode(true);
+        const link = card.querySelector('a');
+        link.href = path;
+        link.textContent = name;
+        const samples = card.querySelector('.samples');
+        for (const size of sizes) {
+            const sample = sampleTemplate.content.cloneNode(true);
+            const image = sample.querySelector('img');
+            image.width = size;
+            image.height = size;
+            image.src = path;
+            sample.querySelector('figcaption').textContent = `${size} px`;
+            samples.append(sample);
+        }
+        const options = document.createElement('div');
+        options.setAttribute('role', 'group');
+        options.setAttribute('aria-label', name);
+        for (const [label, suffix, glyph] of variants) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.title = label;
+            button.setAttribute('aria-label', label);
+            const icon = document.createElement('img');
+            icon.src = `icons/${glyph}.svg`;
+            icon.width = icon.height = 20;
+            icon.alt = '';
+            button.append(icon);
+            button.setAttribute('aria-pressed', String(suffix === '-animated'));
+            button.onclick = () => {
+                const src = `icons/${name}${suffix}.svg`;
+                link.href = src;
+                samples.querySelectorAll('img').forEach(image => image.src = src);
+                for (const option of options.children)
+                    option.setAttribute('aria-pressed', String(option === button));
+            };
+            options.append(button);
+        }
+        samples.after(options);
+        catalog.append(card);
     }
+    // End generated standalone script.
   </script>
 </body>
 

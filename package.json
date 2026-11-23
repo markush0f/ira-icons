@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "cd web && node --env-file-if-exists=../.env ../node_modules/astro/bin/astro.mjs dev",
     "build": "cd web && astro build",
+    "build:standalone": "node scripts/standalone/build.ts",
+    "test:standalone": "node scripts/standalone/build.ts --check",
     "test": "node --test scripts/npm-package/test-react/*.test.ts web/test/*.test.ts && tsc -p scripts/npm-package/test-react/tsconfig.json",
     "test:icon-tools": "node --test scripts/icon-studio/*.test.ts web/test/generate-icon.test.ts",
     "test:adapters": "bun run package:build && node --test scripts/npm-package/test-adapters.ts",
