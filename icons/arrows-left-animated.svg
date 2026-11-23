@@ -22,12 +22,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrows-left"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            [data-ira-arrow-reveal="arrows-left"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrows-left-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-left"] [data-ink="shaft-back"] { animation: ira-arrow-arrows-left-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-left-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-left"] [data-ink="tip"] { animation: ira-arrow-arrows-left-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 7l18 0"/><path d="M6 20l-3 -3l3 -3"/><path d="M6 4l-3 3l3 3"/></g>
-    <g data-ira-motion="arrows-left"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 17l18 0"/></g></g>
+    <g data-ira-arrow-reveal="arrows-left"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M6 4L3 7"/><path data-ink="tip" pathLength="1" d="M6 10L3 7"/><path data-ink="tip" pathLength="1" d="M6 14L3 17"/><path data-ink="tip" pathLength="1" d="M6 20L3 17"/><path data-ink="shaft-back" pathLength="1" d="M3 7H21"/><path data-ink="shaft-back" pathLength="1" d="M3 17H21"/></g></g>
 </svg>

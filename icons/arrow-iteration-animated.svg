@@ -22,12 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrow-iteration"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            [data-ira-arrow-reveal="arrow-iteration"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrow-iteration-branch-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 15%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrow-iteration"] [data-ink="branch-back"] { animation: ira-arrow-arrow-iteration-branch-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrow-iteration-shaft { 0%, 15% { stroke-dashoffset: 1; opacity: 0; } 15.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrow-iteration"] [data-ink="shaft"] { animation: ira-arrow-arrow-iteration-shaft 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrow-iteration-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrow-iteration"] [data-ink="tip"] { animation: ira-arrow-arrow-iteration-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8.5 16a5.5 5.5 0 1 0 -5.5 -5.5v.5"/><path d="M3 16h18"/></g>
-    <g data-ira-motion="arrow-iteration"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 13l3 3l-3 3"/></g></g>
+    <g data-ira-arrow-reveal="arrow-iteration"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M18 13L21 16"/><path data-ink="tip" pathLength="1" d="M18 19L21 16"/><path data-ink="shaft" pathLength="1" d="M3 16h18"/><path data-ink="branch-back" pathLength="1" d="M8.5 16a5.5 5.5 0 1 0 -5.5 -5.5v.5"/></g></g>
 </svg>

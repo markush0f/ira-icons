@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readdir } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 import { categoriesFor, categoryLabels, categoryGroups } from '../../scripts/icon-expansion/categories.ts';
 import { categoryIcons } from '../src/lib/category-icons.ts';
@@ -44,5 +44,28 @@ test('classifies arrows by action, not incidental arrow shapes', () => {
   assert.deepEqual(categoriesFor('axis-y'), ['data']);
   for (const name of ['file-arrow-left', 'chart-arrows', 'archery-arrow', 'target-arrow', 'text-direction-ltr']) {
     assert.ok(!categoriesFor(name).includes('arrows'), name);
+  }
+});
+
+test('every directional family ships a scoped directional animation', async () => {
+  const dir = new URL('../../icons/', import.meta.url);
+  const files = (await readdir(dir)).filter(file => file.endsWith('-animated.svg'));
+  for (const file of files) {
+    const name = file.slice(0, -'-animated.svg'.length);
+    if (!categoriesFor(name).includes('arrows')) continue;
+    const svg = await readFile(new URL(file, dir), 'utf8');
+    assert.ok(svg.includes(`data-ira-arrow-reveal="${name}"`), name);
+    assert.ok(svg.includes(`@keyframes ira-arrow-${name}-tip`), name);
+    assert.ok(svg.includes('@media (prefers-reduced-motion: no-preference)'), name);
+    assert.match(svg, /data-ink="tip(?:-back)?" pathLength="1"/, name);
+  }
+});
+
+test('straight and curved arrows start at the free tail and finish with the head', async () => {
+  for (const [name, shaft] of [['arrow-right','M21 12H3'], ['arrow-back','M5 15h11a4 4 0 0 0 0 -8h-1'], ['arrow-forward','M19 15h-11a4 4 0 0 1 0 -8h1']]) {
+    const svg = await readFile(new URL(`../../icons/${name}-animated.svg`, import.meta.url), 'utf8');
+    assert.ok(svg.includes(`data-ink="shaft-back" pathLength="1" d="${shaft}"`), name);
+    assert.ok(svg.includes(`ira-arrow-${name}-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; }`), name);
+    assert.ok(svg.includes(`ira-arrow-${name}-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; }`), name);
   }
 });

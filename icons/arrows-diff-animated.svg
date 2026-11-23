@@ -22,12 +22,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrows-diff"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            [data-ira-arrow-reveal="arrows-diff"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrows-diff-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-diff"] [data-ink="shaft-back"] { animation: ira-arrow-arrows-diff-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-diff-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-diff"] [data-ink="tip"] { animation: ira-arrow-arrows-diff-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M11 16h10"/><path d="M11 16l4 4"/><path d="M11 16l4 -4"/><path d="M13 8h-10"/><path d="M13 8l-4 4"/></g>
-    <g data-ira-motion="arrows-diff"><g transform="translate(1.5 1.5) scale(.875)"><path d="M13 8l-4 -4"/></g></g>
+    <g data-ira-arrow-reveal="arrows-diff"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M15 12L11 16"/><path data-ink="tip" pathLength="1" d="M15 20L11 16"/><path data-ink="tip" pathLength="1" d="M9 4L13 8"/><path data-ink="tip" pathLength="1" d="M9 12L13 8"/><path data-ink="shaft-back" pathLength="1" d="M11 16h10"/><path data-ink="shaft-back" pathLength="1" d="M13 8H3"/></g></g>
 </svg>

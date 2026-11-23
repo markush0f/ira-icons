@@ -22,12 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrows-join"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            [data-ira-arrow-reveal="arrows-join"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrows-join-branch { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-join"] [data-ink="branch"] { animation: ira-arrow-arrows-join-branch 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-join-shaft { 0%, 15% { stroke-dashoffset: 1; opacity: 0; } 15.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-join"] [data-ink="shaft"] { animation: ira-arrow-arrows-join-shaft 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-join-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-join"] [data-ink="tip"] { animation: ira-arrow-arrows-join-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 7h5l3.5 5h9.5"/><path d="M3 17h5l3.495 -5"/></g>
-    <g data-ira-motion="arrows-join"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 15l3 -3l-3 -3"/></g></g>
+    <g data-ira-arrow-reveal="arrows-join"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M18 9L21 12"/><path data-ink="tip" pathLength="1" d="M18 15L21 12"/><path data-ink="shaft" pathLength="1" d="M3 7h5l3.5 5h9.5"/><path data-ink="branch" pathLength="1" d="M3 17h5l3.495 -5"/></g></g>
 </svg>

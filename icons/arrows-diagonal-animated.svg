@@ -22,12 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrows-diagonal"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            [data-ira-arrow-reveal="arrows-diagonal"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrows-diagonal-shaft { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-diagonal"] [data-ink="shaft"] { animation: ira-arrow-arrows-diagonal-shaft 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-diagonal-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-diagonal"] [data-ink="shaft-back"] { animation: ira-arrow-arrows-diagonal-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrows-diagonal-tip { 0%, 36% { stroke-dashoffset: 1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrows-diagonal"] [data-ink="tip"] { animation: ira-arrow-arrows-diagonal-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M16 4l4 0l0 4"/><path d="M14 10l6 -6"/><path d="M8 20l-4 0l0 -4"/></g>
-    <g data-ira-motion="arrows-diagonal"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 20l6 -6"/></g></g>
+    <g data-ira-arrow-reveal="arrows-diagonal"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M16 4L20 4"/><path data-ink="tip" pathLength="1" d="M20 8L20 4"/><path data-ink="tip" pathLength="1" d="M8 20L4 20"/><path data-ink="tip" pathLength="1" d="M4 16L4 20"/><path data-ink="shaft" pathLength="1" d="M14 10l6 -6"/><path data-ink="shaft-back" pathLength="1" d="M4 20l6 -6"/></g></g>
 </svg>

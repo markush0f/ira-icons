@@ -27,7 +27,5 @@ export const handDirected: Record<string, (paths: string[]) => ReturnType<typeof
   alarm: ([ring,hand,left,right]) => plan('Build the two bells together, then draw the clock hand from its center toward the hour mark.', p(ring), [
     draw(p(left)+p(right),0,20), draw('M12 13v-3',21,45), draw('M12 13h2',34,57),
   ]),
-  'arrow-big-left': ([arrow]) => plan('The complete arrow travels left without changing shape.', '', [move(arrow,5,42,'transform: translateX(1.45px);')],2.6),
-  'arrow-big-right': ([arrow]) => plan('The complete arrow travels right without changing shape.', '', [move(arrow,5,42,'transform: translateX(-1.45px);')],2.6),
   'player-play': ([triangle]) => plan('The play button pushes forward slightly, keeping a closed triangle.', '', [move(triangle,5,35,'transform: translateX(-1.25px);')],2.6),
 };

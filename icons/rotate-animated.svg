@@ -22,11 +22,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="rotate"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            [data-ira-arrow-reveal="rotate"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-rotate-shaft { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="rotate"] [data-ink="shaft"] { animation: ira-arrow-rotate-shaft 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-rotate-tip-back { 0%, 36% { stroke-dashoffset: -1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="rotate"] [data-ink="tip-back"] { animation: ira-arrow-rotate-tip-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="rotate"><g transform="translate(1.5 1.5) scale(.875)"><path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5"/></g></g>
+    <g data-ira-arrow-reveal="rotate"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip-back" pathLength="1" d="M19.95 15l-5 0"/><path data-ink="tip-back" pathLength="1" d="M19.95 15v5"/><path data-ink="shaft" pathLength="1" d="M19.95 11a8 8 0 1 0 -.5 4"/></g></g>
 </svg>

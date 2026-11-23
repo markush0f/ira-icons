@@ -22,12 +22,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="selector"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            [data-ira-arrow-reveal="selector"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-selector-tip { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 19%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="selector"] [data-ink="tip"] { animation: ira-arrow-selector-tip 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8 9l4 -4l4 4"/></g>
-    <g data-ira-motion="selector"><g transform="translate(1.5 1.5) scale(.875)"><path d="M16 15l-4 4l-4 -4"/></g></g>
+    <g data-ira-arrow-reveal="selector"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip" pathLength="1" d="M8 9L12 5"/><path data-ink="tip" pathLength="1" d="M16 9L12 5"/><path data-ink="tip" pathLength="1" d="M8 15L12 19"/><path data-ink="tip" pathLength="1" d="M16 15L12 19"/></g></g>
 </svg>

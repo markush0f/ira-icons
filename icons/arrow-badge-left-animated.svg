@@ -22,11 +22,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="arrow-badge-left"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            [data-ira-arrow-reveal="arrow-badge-left"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-arrow-badge-left-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrow-badge-left"] [data-ink="shaft-back"] { animation: ira-arrow-arrow-badge-left-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-arrow-badge-left-tip-back { 0%, 36% { stroke-dashoffset: -1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="arrow-badge-left"] [data-ink="tip-back"] { animation: ira-arrow-arrow-badge-left-tip-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="arrow-badge-left"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11 17h6l-4 -5l4 -5h-6l-4 5z"/></g></g>
+    <g data-ira-arrow-reveal="arrow-badge-left"><g transform="translate(1.5 1.5) scale(.875)"><path data-ink="tip-back" pathLength="1" d="M7 12l4 -5"/><path data-ink="tip-back" pathLength="1" d="M7 12l4 5"/><path data-ink="shaft-back" pathLength="1" d="M11 7h6l-4 5"/><path data-ink="shaft-back" pathLength="1" d="M11 17h6l-4 -5"/></g></g>
 </svg>

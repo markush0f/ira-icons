@@ -22,12 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="directions"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            [data-ira-arrow-reveal="directions"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-directions-shaft-back { 0% { stroke-dashoffset: -1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="directions"] [data-ink="shaft-back"] { animation: ira-arrow-directions-shaft-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-directions-tip-back { 0%, 36% { stroke-dashoffset: -1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="directions"] [data-ink="tip-back"] { animation: ira-arrow-directions-tip-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-directions-reference { 0%, 8% { opacity: 0; } 24%, 88% { opacity: 1; } 100% { opacity: 0; } }
+            [data-ira-arrow-reveal="directions"] [data-reference] { animation: ira-arrow-directions-reference 2.65s ease-out infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 21v-4"/><path d="M12 13v-4"/><path d="M12 5v-2"/><path d="M10 21h4"/><path d="M8 5v4h11l2 -2l-2 -2z"/></g>
-    <g data-ira-motion="directions"><g transform="translate(1.5 1.5) scale(.875)"><path d="M14 13v4h-8l-2 -2l2 -2z"/></g></g>
+    <g data-ira-arrow-reveal="directions"><g transform="translate(1.5 1.5) scale(.875)"><g data-reference=""><path d="M12 21v-4"/><path d="M12 13v-4"/><path d="M12 5v-2"/><path d="M10 21h4"/></g><path data-ink="tip-back" pathLength="1" d="M21 7l-2 -2"/><path data-ink="tip-back" pathLength="1" d="M21 7l-2 2"/><path data-ink="tip-back" pathLength="1" d="M4 15l2 -2"/><path data-ink="tip-back" pathLength="1" d="M4 15l2 2"/><path data-ink="shaft-back" pathLength="1" d="M19 5H8v4h11"/><path data-ink="shaft-back" pathLength="1" d="M6 13h8v4H6"/></g></g>
 </svg>

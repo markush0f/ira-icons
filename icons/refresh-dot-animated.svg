@@ -22,12 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace the route from its origin to the destination, then finish the arrowhead. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="refresh-dot"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            [data-ira-arrow-reveal="refresh-dot"] [data-ink] { stroke-dasharray: 1 1; }
+            @keyframes ira-arrow-refresh-dot-shaft { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 36%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="refresh-dot"] [data-ink="shaft"] { animation: ira-arrow-refresh-dot-shaft 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-refresh-dot-tip-back { 0%, 36% { stroke-dashoffset: -1; opacity: 0; } 36.4% { opacity: 1; } 53%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-arrow-reveal="refresh-dot"] [data-ink="tip-back"] { animation: ira-arrow-refresh-dot-tip-back 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-arrow-refresh-dot-reference { 0%, 8% { opacity: 0; } 24%, 88% { opacity: 1; } 100% { opacity: 0; } }
+            [data-ira-arrow-reveal="refresh-dot"] [data-reference] { animation: ira-arrow-refresh-dot-reference 2.65s ease-out infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></g>
-    <g data-ira-motion="refresh-dot"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></g></g>
+    <g data-ira-arrow-reveal="refresh-dot"><g transform="translate(1.5 1.5) scale(.875)"><g data-reference=""><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></g><path data-ink="tip-back" pathLength="1" d="M4 9v-4"/><path data-ink="tip-back" pathLength="1" d="M4 9h4"/><path data-ink="tip-back" pathLength="1" d="M20 15v4"/><path data-ink="tip-back" pathLength="1" d="M20 15h-4"/><path data-ink="shaft" pathLength="1" d="M20 11a8.1 8.1 0 0 0 -15.5 -2"/><path data-ink="shaft" pathLength="1" d="M4 13a8.1 8.1 0 0 0 15.5 2"/></g></g>
 </svg>
