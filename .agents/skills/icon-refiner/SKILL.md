@@ -1,0 +1,22 @@
+---
+name: icon-refiner
+description: Refine the motion or catalog categories of existing Ira Icons. Use for a single existing icon or a category batch, not for creating new icons.
+---
+
+# Ira Icons — Refine existing icons
+
+1. **Scope the batch.** List the families that actually appear in the category via `categoriesFor` in `scripts/icon-expansion/categories.ts`. Inspect nearby icons that are missing or misplaced. Categorize by what the icon depicts or does, not a word or detail it contains: a file with an arrow is still a document, and a UI chevron is not necessarily a map icon. Keep meaningful secondary categories. Add inclusion/exclusion tests in `web/test/icon-categories.test.ts`.
+2. **Preserve the icon.** Keep public names, original/minimalist assets, license notices, viewBox, and `currentColor`. Edit generator sources for generated assets and regenerate with `node scripts/icon-expansion/generate.ts`. Change a handwritten animated SVG directly unless its family is explicitly adopted by a generator. Never hand-edit a generated SVG.
+3. **Animate the concept, not a random detail.** Apply the instruction for the requested family. Keep motion scoped to the icon (selectors **and** keyframes), within `prefers-reduced-motion: no-preference`. Without CSS or with reduced motion, show the full static icon. Keep the SVG self-contained and pause visibly on the completed pose before resetting.
+4. **Review the result.** In a browser, sample the beginning, middle, hold and reset at 16, 20 and 24 px, light and dark; compare the completed and reduced-motion poses to the original. Put several variants inline together to catch CSS leakage. For large batches, render-compare all static poses and visually inspect a sample covering every motion pattern. Run `node scripts/icon-expansion/generate.ts --check`, `bun run test`, `bun run build`, and `git diff --check`. Report the scope, what changed, and what was verified.
+
+## Arrows & directions: trace the route from origin to destination
+
+**Start at the free end of the shaft (the tail), follow the route, and draw the arrowhead last.** For `arrow-back`, that means the short upper end appears first, the line curves around to the right and travels left, and only then do the two arms form the left-pointing head. Starting on either arm of the head is already starting at the destination, even if the vertex is still hidden.
+
+- Use `pathLength="1"` and animate dash offset from `1` to `0` for a path authored origin-first, or from `-1` to `0` for one authored destination-first. Check an early frame: only the origin of the route should be drawn, not the head. Check a later frame to verify the line reaches the destination before the head appears.
+- Trace incoming branches before the joined route and multiple equivalent routes together. Double chevrons have no shaft: reveal the trailing chevron before the leading one. For a thick outline, start at the back of the body, then draw the shoulders into the nose.
+- Reveal posts, stops, and badges as stationary references without using them as a substitute for tracing the route. Keep the full pose visible without animation.
+- See `scripts/icon-expansion/arrow-reveal.ts`: `arrow-back` is the curved reference, `arrow-right` the straight one, and `arrows-split` the branched one.
+
+Record new family-specific rules here once the user confirms them. Do not turn a rule for one family into a default for unrelated icons.
