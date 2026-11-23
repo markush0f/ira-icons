@@ -4,8 +4,25 @@ const { name, selected = false } = Astro.props;
 ---
 <li class:list={['icon-card', { 'is-selected': selected }]} data-family={name}>
   <button class="icon-select" type="button" data-select-icon aria-controls="detail-panel" aria-expanded={selected}>
-    <span class="icon-preview"><img src={`/icons/${name}.svg`} alt="" width="40" height="40" loading="lazy" decoding="async" /></span>
+    <span class="icon-preview">
+      <img src={`/icons/${name}.svg`} alt="" width="40" height="40" loading="lazy" decoding="async" />
+      <span class="thumbnail-loader" aria-hidden="true"><i></i><i></i><i></i></span>
+    </span>
     <span class="icon-name">{name}</span>
   </button>
 </li>
-<style>.icon-preview img { filter: brightness(0) saturate(100%) invert(65%) sepia(56%) saturate(1500%) hue-rotate(212deg); }</style>
+<style>
+  .icon-preview img { filter: brightness(0) saturate(100%) invert(65%) sepia(56%) saturate(1500%) hue-rotate(212deg); }
+  .icon-preview > * { grid-area: 1 / 1; }
+  .thumbnail-loader { display: none; align-items: center; gap: .2rem; }
+  .thumbnail-loader i { width: .25rem; height: .25rem; border-radius: 50%; background: currentColor; opacity: .65; }
+  .icon-card[data-thumbnail-pending] img { opacity: 0; }
+  .icon-card[data-thumbnail-pending] .thumbnail-loader { display: flex; }
+  @media (prefers-reduced-motion: no-preference) {
+    .thumbnail-loader i { animation: dot-pulse .8s ease-in-out infinite alternate; }
+    .thumbnail-loader i:nth-child(2) { animation-delay: .12s; }
+    .thumbnail-loader i:nth-child(3) { animation-delay: .24s; }
+    .icon-preview img { transition: opacity .18s ease-out; }
+  }
+  @keyframes dot-pulse { from { opacity: .25; } to { opacity: .9; } }
+</style>

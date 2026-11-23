@@ -123,8 +123,8 @@ button, input { font: inherit; }
 main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clamp(1rem, 3vw, 3rem); }
 
 /* Opening the detail panel narrows the catalog and reserves a column on the right. */
-.workspace { display: grid; grid-template-columns: minmax(0, 1fr) clamp(17rem, 32vw, 26rem); align-items: start; gap: 1.5rem; }
-.catalog-panel { min-width: 0; }
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) clamp(17rem, 32vw, 26rem); grid-template-areas: 'catalog categories' 'catalog detail'; grid-template-rows: auto 1fr; align-items: start; gap: .75rem 1.5rem; }
+.catalog-panel { grid-area: catalog; min-width: 0; scroll-margin-top: calc(var(--site-header-height) + 1rem); }
 .catalog-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
 .catalog-heading { display: flex; align-items: baseline; gap: .75rem; }
 .catalog-heading h1 { margin: 0; font-size: 1.4rem; font-weight: 600; letter-spacing: -.035em; }
@@ -158,7 +158,7 @@ main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clam
 .icon-card:hover .icon-name, .icon-card.is-selected .icon-name { color: var(--text); }
 .empty-state { padding-block: 2rem; color: var(--muted); text-align: center; font-size: .9rem; }
 
-.detail-column { position: sticky; top: calc(var(--site-header-height) + 1rem); min-width: 0; }
+.detail-column { grid-area: detail; position: sticky; top: calc(var(--site-header-height) + 1rem); min-width: 0; }
 .detail-panel { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--panel); animation: panel-in .18s ease-out; }
 @keyframes panel-in { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
 .detail-header { display: flex; align-items: center; justify-content: space-between; }
@@ -220,7 +220,8 @@ html:has(.detail-dialog[open]) { overflow: hidden; }
 }
 @media (max-width: 48rem) {
   main { padding-block: 1.5rem; }
-  .workspace { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .workspace { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'categories' 'catalog' 'detail'; grid-template-rows: auto; gap: 1rem; }
+  .workspace.has-detail-dialog { grid-template-areas: 'categories' 'catalog'; }
   .workspace.has-detail-dialog > .detail-column { display: none; }
   .detail-column { position: static; }
   .icon-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr)); gap: .5rem; }

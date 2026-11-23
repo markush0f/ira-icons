@@ -20,6 +20,21 @@ export const categoryLabels = {
   people:'People & expressions', photography:'Photography', science:'Science & math',
   security:'Security & privacy', sport:'Sports', symbols:'Symbols', text:'Text & typography',
   time:'Time & calendar', transport:'Travel & transport', weather:'Weather', other:'Other',
+  arrows:'Arrows & directions', audio:'Music & audio', brands:'Currency & payment',
+  calendar:'Dates & scheduling', connectivity:'Networks & connectivity', controls:'Playback controls',
+  desktop:'Computers & keyboards', fitness:'Fitness & training', gamesTable:'Cards, dice & tabletop',
+  geography:'Landscapes & geography', grids:'Grids & alignment', messaging:'Mail & messaging',
+  mobile:'Phones & wearables', outdoor:'Outdoors & recreation', places:'Points of interest',
+  rail:'Rail & public transit', shopping:'Shopping & delivery', space:'Space & astronomy',
+  status:'Status & alerts', tools:'Tools & maintenance', video:'Video & cinema', wind:'Wind & forecasts',
+};
+
+export const categoryGroups = {
+  'Interface & design': 'interface arrows controls design grids text symbols status',
+  'Technology & work': 'devices desktop mobile connectivity development documents data security time calendar tools',
+  'Media & people': 'media audio video photography communication messaging people',
+  'Places & nature': 'navigation places transport rail geography nature animals outdoor weather wind space',
+  'Everyday life': 'buildings food finance brands shopping health fitness sport games gamesTable science other',
 };
 const sourceCategories = {
   Animals:'animals nature', Arrows:'navigation interface', Badges:'symbols', Buildings:'buildings',
@@ -43,6 +58,28 @@ for (const [group,name] of tabler) if (sourceCategories[group]) defaults.set(nam
 // Additional meanings are additive, not mutually exclusive. Use anchored families
 // where possible so e.g. a card reader isn't classified as a playing card.
 const rules = {
+  arrows: /^(?:arrow|chevron|double-chevron|corner-(?:up|down)|arrows)(?:-|$)/,
+  audio: /^(?:audio|music|speaker|headphones|microphone|volume|podcast|radio|waveform|equalizer|vinyl|metronome)(?:-|$)|^file-audio$/,
+  brands: /^(?:currency|coin|cash|credit-card|payment|banknote|dollar|euro|yen|pound)(?:-|$)/,
+  calendar: /^(?:calendar|date|appointment|schedule)(?:-|$)/,
+  connectivity: /^(?:wifi|bluetooth|ethernet|antenna|router|modem|network|radio-tower|access-point|mobiledata)(?:-|$)/,
+  controls: /^(?:play|pause|stop-circle|record|fast-forward|rewind|skip|shuffle|repeat|remote|jogwheel|softkey|player)(?:-|$)/,
+  desktop: /^(?:desktop|computer|monitor|laptop|keyboard|keycap|mouse|workstation)(?:-|$)/,
+  fitness: /(?:^|-)(?:dumbbell|barbell|treadmill|gym|gymnastics|yoga|stretching)(?:-|$)/,
+  gamesTable: /^(?:card-(?:heart|diamond|club|spade)|die-face|dice|domino|chess|checker)(?:-|$)/,
+  geography: /(?:^|-)(?:mountain|mountains|summit|cave|waterfall|island|desert|beach|river|volcano|ocean)(?:-|$)/,
+  grids: /^(?:grid|layout|align|columns|rows)(?:-|$)/,
+  messaging: /^(?:mail|message|chat|inbox|send)(?:-|$)/,
+  mobile: /^(?:phone|handset|smartphone|device-mobile|device-watch|smartwatch|wristwatch|tablet)(?:-|$)/,
+  outdoor: /(?:^|-)(?:camping|campsite|picnic|trailhead|lookout|hiking|tent|beach|canoe)(?:-|$)/,
+  places: /^(?:amenity|locator|station|sign-(?:east|west))(?:-|$)/,
+  rail: /(?:^|-)(?:tram|train|metro|subway|bus|trolleybus)(?:-|$)/,
+  shopping: /^(?:cart|shopping|package|basket|delivery|storefront|discount|coupon|gift)(?:-|$)/,
+  space: /^(?:rocket|galaxy|planet|orbit|comet|satellite|telescope|ufo|alien)(?:-|$)/,
+  status: /^(?:alert|warning|info|success|error|ban|help-circle)(?:-|$)|-(?:accepted|rejected|pending|warning|synced)$/,
+  tools: /^(?:toolbox|tool|hammer|wrench|screwdriver|saw|drill|chisel|shovel|tape-measure)(?:-|$)/,
+  video: /^(?:video|movie|film|clapperboard|subtitles|cinema|picture-in-picture)(?:-|$)|^file-video$/,
+  wind: /^(?:wind-barb|wind|weather-vane|hurricane|tornado|cloud-wind)(?:-|$)/,
   animals: /^(?:paw|animal|cat|dog|bird|fish|bee|butterfly|bug|horse)(?:-|$)/,
   buildings: /(?:^|-)(?:museum|library|stadium|lighthouse|bakery|pharmacy|storefront|station|shelter)(?:-|$)/,
   communication: /^(?:mail|message|chat|phone|phone-call|send|inbox|megaphone|antenna)(?:-|$)/,

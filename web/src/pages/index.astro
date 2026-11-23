@@ -4,17 +4,25 @@ import { iconNames } from "../icons/icons.mjs";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import IconCatalog from "../components/IconCatalog.astro";
 import IconDetails from "../components/IconDetails.astro";
+import CategoryFilters from "../components/CategoryFilters.astro";
+import { categoriesFor, categoryLabels } from '../../../scripts/icon-expansion/categories.mjs';
 
 const catalogNames = iconNames.filter(
   (name) => !/-(animated|minimalist)$/.test(name),
 );
 const firstIcon = catalogNames[0];
+const usedCategories = new Set(catalogNames.flatMap(categoriesFor));
+const categories = Object.entries(categoryLabels)
+  .filter(([id]) => usedCategories.has(id))
+  .map(([id, label]) => ({ id, label }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 ---
 
 <SiteLayout>
   <main>
     <div class="workspace" id="workspace">
       <IconCatalog names={catalogNames} selectedName={firstIcon} />
+      <CategoryFilters categories={categories} />
       <div class="detail-column">
         <IconDetails name={`${firstIcon}-animated`} />
         <p class="detail-note">

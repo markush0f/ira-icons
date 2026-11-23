@@ -1,7 +1,7 @@
 ---
 import Icon from "../icons/Icon.astro";
 import IconCard from "./IconCard.astro";
-import { categoriesFor, categoryLabels } from '../../../scripts/icon-expansion/categories.mjs';
+import { categoriesFor } from '../../../scripts/icon-expansion/categories.mjs';
 
 interface Props {
   names: readonly string[];
@@ -10,10 +10,8 @@ interface Props {
 
 const { names, selectedName } = Astro.props;
 const pageSize = 48;
-const ids = Object.keys(categoryLabels);
-const masks = names.map(name => categoriesFor(name).reduce((mask, id) => mask | (1 << ids.indexOf(id)), 0));
-const categories = ids.map((id, index) => ({id, label: categoryLabels[id], bit: 1 << index}))
-  .filter(({bit}) => masks.some(mask => mask & bit)).sort((a,b) => a.label.localeCompare(b.label));
+const memberships = names.map(name => categoriesFor(name).join(','));
+
 ---
 
 <section class="catalog-panel" aria-labelledby="catalog-title">
@@ -41,22 +39,7 @@ const categories = ids.map((id, index) => ({id, label: categoryLabels[id], bit: 
     </div>
   </div>
 
-  <details id="catalog-categories" hidden>
-    <summary>Categories <span data-category-count></span></summary>
-    <p>Show icons in any selected category.</p>
-    <fieldset aria-label="Filter by category">
-      {categories.map(({id, label, bit}) => (
-        <label><input type="checkbox" value={id} data-bit={bit} /> {label}</label>
-      ))}
-    </fieldset>
-    <button type="button" data-clear-categories>Clear categories</button>
-  </details>
-  <nav id="catalog-pager" aria-label="Catalog pages" hidden>
-    <button type="button" data-prev>Previous</button>
-    <span aria-live="polite" data-page></span>
-    <button type="button" data-next>Next</button>
-  </nav>
-  <ul class="icon-grid" id="icon-grid" role="list" data-page-size={pageSize} data-names={names.join(' ')} data-categories={masks.map(mask => mask.toString(36)).join(' ')}>
+  <ul class="icon-grid" id="icon-grid" role="list" data-page-size={pageSize} data-names={names.join(' ')} data-categories={memberships.join(' ')}>
     {names.slice(0, pageSize).map((name) => (
       <IconCard name={name} selected={name === selectedName} />
     ))}
@@ -64,10 +47,14 @@ const categories = ids.map((id, index) => ({id, label: categoryLabels[id], bit: 
   <p class="empty-state" id="empty-state" hidden>
     No icons found.
   </p>
+  <div class="catalog-loader" id="catalog-loader" hidden>
+    <p role="status" data-loaded-count></p>
+    <button type="button" data-load-more aria-controls="icon-grid">Load more <Icon name="chevron-down" size={16} /></button>
+  </div>
 </section>
 <style>
-  #catalog-categories { margin-block: .65rem; }
-  summary { cursor: pointer; }
-  fieldset { display: flex; flex-wrap: wrap; gap: .35rem 1rem; padding: 0; border: 0; margin-bottom: .65rem; }
-  fieldset label { display: flex; align-items: center; gap: .25rem; }
+  .catalog-loader { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .65rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font: .78rem var(--font-mono); }
+  .catalog-loader p { margin: 0; }
+  .catalog-loader button { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.5rem; padding-inline: .65rem; border: 1px solid var(--line); border-radius: .5rem; background: var(--panel); color: var(--text); cursor: pointer; }
+  .catalog-loader button:hover { border-color: var(--accent); background: var(--hover); }
 </style>

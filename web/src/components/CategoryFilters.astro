@@ -1,0 +1,33 @@
+---
+interface Props {
+  categories: { id: string; label: string }[];
+}
+const { categories } = Astro.props;
+---
+<section class="category-filters" id="catalog-categories" aria-labelledby="category-title" hidden>
+  <header class="category-header">
+    <h2 id="category-title" tabindex="-1">Categories <span data-category-count hidden></span></h2>
+    <button type="button" data-clear-categories hidden>Clear</button>
+  </header>
+  <div class="category-list" role="group" aria-labelledby="category-title">
+    {categories.map(({ id, label }) => (
+      <label class="category-check">
+        <input type="checkbox" value={id} data-category={label} aria-controls="icon-grid" />
+        <span>{label}</span>
+      </label>
+    ))}
+  </div>
+</section>
+
+<style>
+  .category-filters { grid-area: categories; min-width: 0; padding: .7rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--panel); }
+  .category-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 1.75rem; margin: 0 .25rem .4rem; }
+  .category-header h2 { display: flex; align-items: center; gap: .4rem; margin: 0; font-size: .85rem; }
+  [data-category-count] { color: var(--accent); font: .7rem var(--font-mono); }
+  .category-header button { padding: .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .75rem; cursor: pointer; }
+  .category-header button:hover { text-decoration: underline; }
+  .category-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .15rem .35rem; max-height: 9rem; overflow-y: auto; scrollbar-width: thin; padding: .15rem; }
+  .category-check { display: flex; align-items: center; gap: .45rem; min-height: 2rem; padding: .2rem .35rem; border-radius: .35rem; font-size: .76rem; cursor: pointer; }
+  .category-check:hover, .category-check:has(:checked) { background: var(--hover); }
+  .category-check input { flex: none; width: .95rem; height: .95rem; margin: 0; accent-color: var(--accent); }
+</style>

@@ -2,7 +2,8 @@ import { formatIcon } from './icon-copy.js';
 import { mountIconReport } from './icon-report.js';
 
 const $ = s => document.querySelector(s);
-const grid = $('#icon-grid'), pager = $('#catalog-pager'), search = $('#icon-search');
+const grid = $('#icon-grid'), loader = $('#catalog-loader'), search = $('#icon-search');
+const loadButton = $('[data-load-more]'), loadedCount = $('[data-loaded-count]');
 const panel = $('#detail-panel'), column = panel.closest('.detail-column'), workspace = column.parentElement;
 const dialog = $('#detail-dialog'), compact = matchMedia('(max-width: 48rem)');
 const preview = $('#detail-preview'), title = $('#detail-title'), picker = $('[data-color-picker]');
@@ -11,14 +12,16 @@ const options = [...panel.querySelectorAll('[data-suffix]')];
 const report = mountIconReport(panel);
 const names = grid.dataset.names.split(' '), size = Number(grid.dataset.pageSize);
 const categoryValues = grid.dataset.categories.split(' ');
-const masks = new Map(names.map((name,i) => [name, parseInt(categoryValues[i],36)]));
+const memberships = new Map(names.map((name,i) => [name, new Set(categoryValues[i].split(','))]));
 const categoryPanel = $('#catalog-categories');
-const categories = [...categoryPanel.querySelectorAll('[data-bit]')].map(input => ({input, bit: Number(input.dataset.bit), label: input.parentElement.textContent.trim()}));
+const categories = [...categoryPanel.querySelectorAll('[data-category]')].map(input => ({input, id: input.value, label: input.dataset.category}));
 const detailCategories = $('[data-detail-categories]');
+const categoryCount = $('[data-category-count]');
+const clearCategories = $('[data-clear-categories]');
 const template = grid.firstElementChild.cloneNode(true);
 const colors = new Map(), variants = new Map();
 const initialName = title.textContent.trim(), initialSvg = preview.firstElementChild.cloneNode(true);
-let page = 0, matches = names, selected, active, request, revision = 0;
+let shown = 0, matches = names, selected, active, request, revision = 0;
 
 function expanded() {
   selected?.querySelector('button').setAttribute('aria-expanded', String(!compact.matches || !dialog.showModal || dialog.open));
@@ -39,7 +42,7 @@ async function select(card, name = variants.get(card.dataset.family) ?? card.dat
   selected.classList.add('is-selected'); expanded();
   for (const btn of options) btn.setAttribute('aria-pressed', String(card.dataset.family+btn.dataset.suffix === name));
   title.textContent = name; report(name); colorPicker(colors.get(name) ?? '#ad8af3');
-  detailCategories.replaceChildren(...categories.filter(({bit}) => masks.get(card.dataset.family) & bit).map(({label}) => {
+  detailCategories.replaceChildren(...categories.filter(({id}) => memberships.get(card.dataset.family).has(id)).map(({label}) => {
     const li = document.createElement('li'); li.textContent = label; return li;
   }));
   detailCategories.hidden = !detailCategories.childElementCount;
@@ -62,40 +65,79 @@ async function select(card, name = variants.get(card.dataset.family) ?? card.dat
     if (!controller.signal.aborted) status.textContent = 'Could not load icon. Select it to retry.';
   } finally { if (!controller.signal.aborted) preview.removeAttribute('aria-busy'); }
 }
+// Image load/error do not bubble, so catch both for all current and future cards.
+for (const type of ['load', 'error']) grid.addEventListener(type, ({target}) => {
+  if (target instanceof HTMLImageElement && target.complete) {
+    target.closest('[data-family]')?.removeAttribute('data-thumbnail-pending');
+  }
+}, true);
+for (const img of grid.querySelectorAll('.icon-preview img')) {
+  img.closest('[data-family]').toggleAttribute('data-thumbnail-pending', !img.complete);
+}
+function makeCard(name) {
+  const card = template.cloneNode(true);
+  card.dataset.family = name; card.classList.remove('is-selected'); card.querySelector('button').setAttribute('aria-expanded','false');
+  const img = card.querySelector('img');
+  img.src = `/icons/${name}.svg`;
+  card.toggleAttribute('data-thumbnail-pending', !img.complete);
+  card.querySelector('.icon-name').textContent = name;
+  return card;
+}
+function updateLoader() {
+  const hasMore = shown < matches.length;
+  loader.hidden = matches.length <= size;
+  loadButton.hidden = !hasMore;
+  loadedCount.textContent = `Showing ${shown} of ${matches.length} icons`;
+  // Re-arm after the sentinel moves; on wide screens it may still be within range.
+  moreObserver?.unobserve(loader);
+  if (hasMore) moreObserver?.observe(loader);
+}
+function loadMore(manual = false) {
+  if (shown >= matches.length) return;
+  const cards = matches.slice(shown,shown+size).map(makeCard);
+  grid.append(...cards);
+  shown += cards.length;
+  if (manual) cards[0].querySelector('button').focus();
+  updateLoader();
+}
+const moreObserver = typeof IntersectionObserver === 'function'
+  ? new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && document.activeElement !== loadButton) loadMore();
+    }, {rootMargin: '0px 0px 360px 0px'})
+  : null;
+loadButton.addEventListener('click', () => loadMore(true));
+loadButton.addEventListener('blur', updateLoader);
+
 function render(reuse = false) {
-  const slice = matches.slice(page*size,(page+1)*size);
-  if (!reuse) grid.replaceChildren(...slice.map(name => {
-    const card = template.cloneNode(true);
-    card.dataset.family = name; card.classList.remove('is-selected'); card.querySelector('button').setAttribute('aria-expanded','false');
-    card.querySelector('img').src = `/icons/${name}.svg`;
-    card.querySelector('.icon-name').textContent = name;
-    return card;
-  }));
-  column.hidden = !slice.length; $('#empty-state').hidden = !!slice.length;
-  if (slice.length) select(grid.firstElementChild); else {request?.abort(); selected = null;}
-  $('#icon-count').textContent = `${matches.length} ${matches.length===1?'icon':'icons'}`;
-  pager.hidden = matches.length <= size;
-  pager.querySelector('[data-page]').textContent = `${page+1} / ${Math.ceil(matches.length/size)}`;
-  pager.querySelector('[data-prev]').disabled = !page;
-  pager.querySelector('[data-next]').disabled = (page+1)*size >= matches.length;
+  const slice = matches.slice(0,size);
+  if (!reuse) grid.replaceChildren(...slice.map(makeCard));
+  shown = slice.length;
+  column.hidden = !shown; $('#empty-state').hidden = !!shown;
+  if (shown) select(grid.firstElementChild); else {request?.abort(); selected = null;}
+  const resultText = `${matches.length.toLocaleString()} ${matches.length === 1 ? 'icon' : 'icons'}`;
+  $('#icon-count').textContent = resultText;
+  updateLoader();
 }
 const normalize = s => s.trim().toLowerCase().replace(/[\s-]+/g,' ');
 const searchIndex = names.map(name => options.map(btn => normalize(name+btn.dataset.suffix+' '+btn.getAttribute('aria-label'))));
 function filter() {
   const q = normalize(search.value);
   const checked = categories.filter(({input}) => input.checked);
-  const mask = checked.reduce((bits,{bit}) => bits | bit,0);
-  matches = names.filter((name,i) => (!mask || (mask & masks.get(name))) && (!q || searchIndex[i].some(text=>text.includes(q))));
-  $('[data-category-count]').textContent = checked.length ? `(${checked.length})` : '';
-  page = 0; render();
+  matches = names.filter((name,i) => (!checked.length || checked.some(({id}) => memberships.get(name).has(id))) && (!q || searchIndex[i].some(text=>text.includes(q))));
+  categoryCount.hidden = !checked.length;
+  categoryCount.textContent = `(${checked.length})`;
+  clearCategories.hidden = !checked.length;
+  render();
 }
-pager.querySelector('[data-prev]').onclick = () => {page--;render();};
-pager.querySelector('[data-next]').onclick = () => {page++;render();};
 const params = new URLSearchParams(location.search);
 search.value = params.get('q') ?? '';
 for (const {input} of categories) input.checked = params.getAll('category').includes(input.value);
-categoryPanel.addEventListener('change',filter);
-$('[data-clear-categories]').onclick = () => {for (const {input} of categories) input.checked = false; filter();};
+categoryPanel.addEventListener('change', event => { if (event.target.matches('[data-category]')) filter(); });
+clearCategories.onclick = () => {
+  for (const {input} of categories) input.checked = false;
+  $('#category-title').focus();
+  filter();
+};
 search.addEventListener('input',filter);
 if (search.value || categories.some(({input}) => input.checked)) filter(); else render(true);
 categoryPanel.hidden = false;
