@@ -2,7 +2,7 @@
 
 A collection of 3381 icons in three styles: animated, minimalist, and original. All variants live in [`icons/`](icons/). Use the English icon name plus `-minimalist.svg` for the simplified version (for example, [`alarm-clock-minimalist.svg`](icons/alarm-clock-minimalist.svg)). In Astro or React, use `name="alarm-clock-minimalist"`.
 
-Browse [Folio](folio.html) offline: 2,048 pictograms adapted from [Tabler Icons 3.34.1](https://github.com/tabler/tabler-icons) ([MIT notice](scripts/icon-expansion/folio/TABLER-LICENSE.txt)), plus 320 original wind barbs and 100 original grid regions. The Folio gallery supports search, categories and all three styles.
+The catalog includes 2,048 pictograms adapted from [Tabler Icons 3.34.1](https://github.com/tabler/tabler-icons) ([MIT notice](scripts/icon-expansion/folio/TABLER-LICENSE.txt)), plus 320 original wind barbs and 100 original grid regions.
 
 Ira Icons is in active development. New icons and animations are added over time.
 

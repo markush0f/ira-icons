@@ -1,12 +1,12 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, envField } from "astro/config";
 import node from "@astrojs/node";
-import { svgCatalog, publishGalleries } from './catalog-assets.mjs';
+import { svgCatalog, publishCatalogAssets } from './catalog-assets.mjs';
 
 export default defineConfig({
   // Keep Astro and Vite caches in the root installation.
   cacheDir: "../node_modules/.astro",
-  integrations: [publishGalleries],
+  integrations: [publishCatalogAssets],
   vite: {
     plugins: [svgCatalog],
     cacheDir: fileURLToPath(new URL("../node_modules/.vite-web/", import.meta.url)),

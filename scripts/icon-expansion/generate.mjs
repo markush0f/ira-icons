@@ -128,7 +128,6 @@ const all = [...new Set([...existing, ...files.keys()])]
 const rows = [];
 for (let index = 0; index < all.length; index += 8) rows.push(`      ${all.slice(index, index + 8).map(JSON.stringify).join(', ')}`);
 const replacements = [
-  ['folio.html', /const catalog = \[[\s\S]*?\];/, `const catalog = [\n${folioIcons.map(({category,name})=>JSON.stringify([category,name])).join(',\n')}\n];`],
   ['index.html', /    const icons = \[[\s\S]*?\];/, `    const icons = [\n${rows.join(',\n')}\n    ];`],
   ['README.md', /A collection of \d+ icons in three styles/, `A collection of ${all.length} icons in three styles`],
 ];
