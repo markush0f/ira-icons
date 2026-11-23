@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { iconNames } from "../../icons/icons.mjs";
 import { MAX_REPORT_COMMENT_LENGTH } from "../../lib/icon-report.mjs";
-import { saveIconReport } from "../../server/icon-reports.mjs";
+import { CREATE_COMING_SOON } from "../../lib/feature-flags.mjs";
 
 export const prerender = false;
 
@@ -32,6 +32,8 @@ async function readReport(request: Request) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  if (CREATE_COMING_SOON) return new Response(null, { status: 404 });
+
   // JSON requires a CORS preflight from other sites; this endpoint doesn't enable CORS.
   if (request.headers.get("content-type")?.split(";", 1)[0].trim().toLowerCase() !== "application/json") {
     return new Response(null, { status: 415 });
@@ -49,6 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
+    const { saveIconReport } = await import("../../server/icon-reports.mjs");
     saveIconReport(report.name, comment?.trim() || null);
     return new Response(null, { status: 201 });
   } catch (error) {

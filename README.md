@@ -45,7 +45,9 @@ The generation route and the icon-designer skill share the JavaScript compiler a
 
 ### Icon reports
 
-Open a card and press **Report icon**. You can expand **Add a comment (optional)** first to include up to 500 characters. Astro handles the POST with its Node adapter; SQLite records the exact variant, a timestamp, and the optional comment. Existing databases gain the comment column automatically when the next report is saved. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`web/` when using `bun run dev`). The database is created on the first report and is not served publicly.
+Reports are disabled by default alongside generation through the shared `CREATE_COMING_SOON` flag: the form is hidden and the API returns 404 without opening SQLite. Set `CREATE_COMING_SOON=false` at build time to enable both features (and restart the dev server after changing `.env`). Enabling reports still requires the Node server described below.
+
+When enabled, open a card and press **Report icon**. You can expand **Add a comment (optional)** first to include up to 500 characters. Astro handles the POST with its Node adapter; SQLite records the exact variant, a timestamp, and the optional comment. Existing databases gain the comment column automatically when the next report is saved. No account or personal information is needed. The default database is `data/icon-reports.sqlite` relative to the process working directory (`web/` when using `bun run dev`). The database is created on the first report and is not served publicly.
 
 For production, run the Astro Node server after building and point it to a writable, persistent path:
 

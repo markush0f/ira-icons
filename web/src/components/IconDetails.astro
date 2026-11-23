@@ -3,6 +3,7 @@ import Icon from "../icons/Icon.astro";
 import ColorPicker from "./ColorPicker.astro";
 import IconCopy from "./IconCopy.astro";
 import IconReport from "./IconReport.astro";
+import { CREATE_COMING_SOON } from "../lib/feature-flags.mjs";
 
 interface Props {
   name: string;
@@ -34,7 +35,7 @@ const { name } = Astro.props;
   <ul class="detail-categories" aria-label="Icon categories" data-detail-categories hidden></ul>
   <IconCopy />
   <ColorPicker />
-  <IconReport />
+  {!CREATE_COMING_SOON && <IconReport />}
 </aside>
 <style is:global>
   .detail-categories { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: none; }
