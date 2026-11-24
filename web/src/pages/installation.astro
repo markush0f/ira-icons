@@ -2,6 +2,7 @@
 import Icon from "../icons/Icon.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import CodeSnippet from "../components/CodeSnippet.astro";
+import AnimationDemo from "../components/AnimationDemo.astro";
 import InstallationExample from "../components/InstallationExample.astro";
 import InstallationIntro from "../components/InstallationIntro.astro";
 import ReactLogo from "../assets/frameworks/react.svg";
@@ -75,6 +76,25 @@ const htmlExample = `<button type="button" aria-label="${searchLabel}">
        width="24" height="24" alt="">
 </button>`;
 
+const directExample = `import SearchMinimalist from '${reactPackage}/search-minimalist';
+
+export default function SearchIcon() {
+  return <SearchMinimalist size={24} label="${searchLabel}" />;
+}`;
+const dynamicExample = `import Icon from '${reactPackage}';
+
+export function ActionIcon({ iconName }) {
+  return <Icon name={iconName} size={24} />;
+}`;
+const props = [
+  { name: 'name', fallback: t(locale, 'docs.props.required'), detail: 'docs.props.iconName' },
+  { name: 'size', fallback: '24', detail: 'docs.props.size' },
+  { name: 'color', fallback: 'currentColor', detail: 'docs.props.color' },
+  { name: 'label', fallback: '—', detail: 'docs.props.label' },
+  { name: 'speed', fallback: '1', detail: 'docs.props.speed' },
+  { name: 'constant', fallback: 'true', detail: 'docs.props.constant' },
+] as const;
+
 const variants = [
   { name: "search", label: t(locale, "variant.original") },
   { name: "search-minimalist", label: t(locale, "variant.minimalist") },
@@ -87,6 +107,18 @@ const variants = [
   description={t(locale, "meta.install.description")}
 >
   <main class="installation">
+    <aside class="docs-sidebar">
+      <nav aria-labelledby="docs-index-title">
+        <p id="docs-index-title">{t(locale, "docs.index")}</p>
+        <ul>
+          <li><a href="#install-title">{t(locale, "docs.install")}</a></li>
+          <li><a href="#usage">{t(locale, "docs.usage")}</a></li>
+          <li><a href="#customize-title">{t(locale, "install.style.title")}</a></li>
+          <li><a href="#reference">{t(locale, "docs.reference")}</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="docs-content">
     <InstallationIntro packageName={packageName}>
       <div class="examples" data-install-examples>
         <InstallationExample id="react" title="React">
@@ -163,11 +195,10 @@ const variants = [
           <CodeSnippet title="index.html" code={htmlExample} lang="html" />
         </InstallationExample>
       </div>
-    </InstallationIntro>
 
-    <section class="guide-section" aria-labelledby="install-title">
+      <div class="guide-section package-section">
       <header>
-        <h2 id="install-title">{t(locale, "install.packages.title")}</h2>
+        <h3>{t(locale, "install.packages.title")}</h3>
         <p>{t(locale, "install.packages.lead")}</p>
       </header>
 
@@ -212,9 +243,29 @@ const variants = [
       <p class="note">
         {t(locale, "install.packages.beforeName")}<code>{packageName}</code>{t(locale, "install.packages.beforePath")}<code>{packageName}/astro</code>{t(locale, "install.packages.beforeCommand")}<code>bun run package:pack</code>{t(locale, "install.packages.beforeTgz")}<code>.tgz</code>{t(locale, "install.packages.end")}
       </p>
+      </div>
+    </InstallationIntro>
+
+    <section class="guide-section doc-chapter usage-chapter" aria-labelledby="usage">
+      <header><h2 id="usage">{t(locale, "docs.usage")}</h2></header>
+      <div class="topic">
+        <h3>{t(locale, "docs.direct")}</h3>
+        <p>{t(locale, "docs.direct.body")}</p>
+        <CodeSnippet title="React · SearchMinimalist" code={directExample} lang="jsx" />
+      </div>
+      <div class="topic">
+        <h3>{t(locale, "docs.dynamic")}</h3>
+        <p>{t(locale, "docs.dynamic.body")}</p>
+        <CodeSnippet title="React · Icon" code={dynamicExample} lang="jsx" />
+      </div>
+      <div class="topic">
+        <h3>{t(locale, "docs.svg")}</h3>
+        <p>{t(locale, "docs.svg.body")}</p>
+        <CodeSnippet title="HTML" code={htmlExample} lang="html" />
+      </div>
     </section>
 
-    <section class="guide-section" aria-labelledby="customize-title">
+    <section class="guide-section doc-chapter" aria-labelledby="customize-title">
       <header>
         <h2 id="customize-title">{t(locale, "install.style.title")}</h2>
         <p>{t(locale, "install.style.lead")}</p>
@@ -223,7 +274,7 @@ const variants = [
       <ul class="variants">
         {variants.map(({ name, label }) => (
           <li>
-            <Icon name={name} size={28} />
+            <Icon name={name} size={28} constant={false} />
             <div>
               <strong>{label}</strong>
               <code>{name}</code>
@@ -236,13 +287,28 @@ const variants = [
         {t(locale, "install.versions.lead")}<code>0.2.0</code>{t(locale, "install.versions.mid")}<code>0.3.0</code>{t(locale, "install.versions.end")}
       </p>
 
+      <div class="topic">
+        <h3>{t(locale, "docs.demo")}</h3>
+        <p>{t(locale, "docs.demo.body")}</p>
+        <AnimationDemo />
+      </div>
+    </section>
+
+    <section class="guide-section doc-chapter" aria-labelledby="reference">
+      <header><h2 id="reference">{t(locale, "docs.reference")}</h2></header>
+      <table class="props" aria-labelledby="reference">
+        <thead><tr>
+          <th scope="col">{t(locale, "docs.props.name")}</th>
+          <th scope="col">{t(locale, "docs.props.default")}</th>
+          <th scope="col">{t(locale, "docs.props.effect")}</th>
+        </tr></thead>
+        <tbody>
+          {props.map(({ name, fallback, detail }) => (
+            <tr><th scope="row"><code>{name}</code></th><td>{name === 'name' ? fallback : <code>{fallback}</code>}</td><td>{t(locale, detail)}</td></tr>
+          ))}
+        </tbody>
+      </table>
       <dl class="tips">
-        <div>
-          <dt>{t(locale, "install.tip.size")}</dt>
-          <dd>
-            {t(locale, "install.size.lead")}<code>size</code>{t(locale, "install.size.and")}<code>color</code>{t(locale, "install.size.end")}
-          </dd>
-        </div>
         <div>
           <dt>{t(locale, "install.tip.a11y")}</dt>
           <dd>
@@ -256,6 +322,7 @@ const variants = [
         <Icon name="arrow-right-minimalist" size={16} />
       </a>
     </section>
+    </div>
   </main>
 </SiteLayout>
 
@@ -263,8 +330,64 @@ const variants = [
 
 <style>
   .installation {
-    max-width: 68rem;
+    display: grid;
+    --docs-tint: color-mix(in srgb, var(--accent) 8%, var(--panel));
+    --docs-edge: color-mix(in srgb, var(--accent) 24%, var(--line));
+    grid-template-columns: clamp(13rem, 16vw, 16rem) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+    max-width: 106rem;
     padding-bottom: 4rem;
+  }
+
+  .docs-content { min-width: 0; }
+
+  .docs-sidebar {
+    position: sticky;
+    inset-block-start: calc(var(--site-header-height) + 2rem);
+    padding-inline-end: 1rem;
+    border-inline-end: 1px solid var(--docs-edge);
+  }
+
+  .docs-sidebar p {
+    margin: 0 0 0.45rem;
+    padding-inline: 0.65rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 650;
+  }
+
+  .docs-sidebar ul { display: grid; gap: 0.15rem; margin: 0; padding: 0; list-style: none; }
+  .docs-sidebar a {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.4rem;
+    color: var(--text);
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  .docs-sidebar a:hover,
+  .docs-sidebar a:focus-visible,
+  .installation:has(#install-title:target) a[href="#install-title"],
+  .installation:has(#usage:target) a[href="#usage"],
+  .installation:has(#customize-title:target) a[href="#customize-title"],
+  .installation:has(#reference:target) a[href="#reference"] {
+    background: var(--docs-tint);
+    color: var(--accent);
+  }
+
+  @media (min-width: 75rem) {
+    .usage-chapter { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
+    .usage-chapter > header { grid-column: 1 / -1; margin-bottom: 0; }
+  }
+
+  @media (max-width: 58rem) {
+    .installation { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+    .docs-sidebar { position: static; padding: 0 0 0.5rem; border-inline-end: 0; border-block-end: 1px solid var(--line); }
+    .docs-sidebar ul { grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
   }
 
   .catalog-link {
@@ -300,7 +423,7 @@ const variants = [
     border-color: var(--accent);
   }
 
-  .guide-section + .guide-section {
+  .doc-chapter {
     margin-top: 2.4rem;
     padding-top: 2rem;
     border-top: 1px solid var(--line);
@@ -316,6 +439,17 @@ const variants = [
     font-weight: 650;
     letter-spacing: -0.035em;
   }
+
+  h3 { margin: 0; font-size: 0.98rem; font-weight: 650; }
+  .package-section { margin-top: 1.35rem; }
+  .topic { margin-top: 1.35rem; }
+  .guide-section p { max-width: 70ch; }
+  .guide-section .topic > p { margin: 0.35rem 0 0.65rem; }
+
+  .props { width: 100%; border-collapse: collapse; text-align: start; font-size: 0.85rem; line-height: 1.55; }
+  .props :is(th, td) { padding: 0.65rem 0.6rem; border-bottom: 1px solid var(--line); text-align: start; vertical-align: top; overflow-wrap: anywhere; }
+  .props td { color: var(--muted); }
+  .props code { color: var(--text); font-family: var(--font-mono); }
 
   .guide-section p,
   dd {
@@ -423,8 +557,8 @@ const variants = [
   .guide-section .note {
     margin-top: 0.75rem;
     padding: 0.65rem 0.75rem;
-    border-inline-start: 2px solid var(--accent);
-    background: var(--panel);
+    border-inline-start: 1px solid var(--accent);
+    background: var(--docs-tint);
   }
 
   .tips {
@@ -442,7 +576,8 @@ const variants = [
   @media (max-width: 36rem) {
     .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .option { min-height: 2.75rem; }
-    .guide-section + .guide-section { margin-top: 1.75rem; padding-top: 1.5rem; }
+    .doc-chapter { margin-top: 1.75rem; padding-top: 1.5rem; }
+    .props :is(th, td) { padding-inline: 0.35rem; }
   }
 
   @media (max-width: 44rem) {

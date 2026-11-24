@@ -1,0 +1,61 @@
+---
+import CodeSnippet from "./CodeSnippet.astro";
+import Icon from "../icons/Icon.astro";
+import { localeFromPath, t } from "../i18n/index.ts";
+
+const locale = localeFromPath(Astro.url.pathname);
+const example = `import DogAnimated from '@ira/iraicons-react/dog-animated';
+
+export function DogIcon() {
+  return <DogAnimated speed={1} constant={true} />;
+}`;
+---
+
+<div class="animation-demo" data-animation-demo>
+  <div class="preview">
+    <div class="specimen" data-animation-preview>
+      <Icon name="dog" size={64} />
+    </div>
+    <template data-animation-template><Icon name="dog-animated" size={64} /></template>
+    <div class="controls" data-animation-controls hidden>
+      <label>
+        {t(locale, "docs.demo.speed")}
+        <select data-animation-speed>
+          <option value="0.5">0.5×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+        </select>
+      </label>
+      <label><input type="checkbox" data-animation-loop checked /> {t(locale, "docs.demo.repeat")}</label>
+      <button type="button" data-animation-play>{t(locale, "docs.demo.play")}</button>
+      <button type="button" data-animation-stop disabled>{t(locale, "docs.demo.stop")}</button>
+    </div>
+  </div>
+  <p class="reduced-note" data-animation-reduced hidden>{t(locale, "docs.demo.reduced")}</p>
+  <CodeSnippet title="React · DogAnimated" code={example} live />
+</div>
+
+<style>
+  .animation-demo { display: grid; gap: 0.65rem; }
+  .preview { border: 1px solid var(--line); border-radius: 0.65rem; background: var(--panel); }
+  .specimen { display: grid; min-height: 8rem; place-items: center; background: var(--docs-tint, var(--panel)); color: var(--accent); border-radius: 0.6rem 0.6rem 0 0; }
+  .specimen :global(svg) { width: 4rem; height: 4rem; }
+  .controls:not([hidden]) { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.7rem; padding: 0.5rem 0.75rem; border-top: 1px solid var(--line); }
+  label { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; color: var(--text); }
+  .controls, button, select, .reduced-note { font-size: 0.85rem; }
+  button, select { min-height: 2.75rem; padding: 0.35rem 0.65rem; border: 1px solid var(--line); border-radius: 0.4rem; background: var(--page); color: var(--text); }
+  button:not(:disabled), select, input { cursor: pointer; }
+  button:disabled { color: var(--muted); }
+  button[data-animation-play]:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  button:not(:disabled):hover, select:hover { border-color: var(--accent); background: var(--docs-tint, var(--hover)); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  input { accent-color: var(--accent); }
+  .reduced-note { margin: 0; color: var(--muted); }
+  @media (min-width: 75rem) {
+    .animation-demo { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; gap: 0.75rem 1.5rem; }
+    .preview { grid-column: 1; grid-row: 1; }
+    .animation-demo > :global([data-snippet]) { grid-column: 2; grid-row: 1; }
+    .reduced-note { grid-column: 1; }
+  }
+</style>

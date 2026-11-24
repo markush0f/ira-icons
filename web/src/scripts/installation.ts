@@ -1,6 +1,7 @@
 import { requireElement } from './dom.ts';
 import { t } from './i18n.ts';
 import { onPageLoad } from './page-load.ts';
+import { constantIteration, iterationProperty, speedProperty } from '../../../scripts/npm-package/shared/animation-speed.ts';
 
 
 let installationNavigation: AbortController | undefined;
@@ -72,7 +73,10 @@ if (exampleLinks && examples.length) {
   }
 
   for (const example of examples) example.querySelector("summary")!.hidden = true;
-  showExample("#react");
+  showExample(links.some(link => link.hash === location.hash) ? location.hash : "#react");
+  window.addEventListener("hashchange", () => {
+    if (links.some(link => link.hash === location.hash)) showExample(location.hash);
+  }, { signal });
   exampleLinks.addEventListener("click", (event: MouseEvent) => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href^='#']") : null;
@@ -80,6 +84,64 @@ if (exampleLinks && examples.length) {
     event.preventDefault();
     showExample(link.hash);
   });
+}
+
+const demo = document.querySelector('[data-animation-demo]');
+if (demo) {
+  const preview = requireElement('[data-animation-preview]', demo);
+  const still = preview.firstElementChild!;
+  const template = requireElement<HTMLTemplateElement>('[data-animation-template]', demo);
+  const speed = requireElement<HTMLSelectElement>('[data-animation-speed]', demo);
+  const loop = requireElement<HTMLInputElement>('[data-animation-loop]', demo);
+  const play = requireElement<HTMLButtonElement>('[data-animation-play]', demo);
+  const stop = requireElement<HTMLButtonElement>('[data-animation-stop]', demo);
+  const snippet = requireElement('[data-snippet]', demo);
+  const code = requireElement('[data-snippet-code] code', snippet);
+  const reducedNote = requireElement<HTMLElement>('[data-animation-reduced]', demo);
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+
+  function resetPreview() {
+    preview.replaceChildren(still);
+    stop.disabled = true;
+  }
+
+  function playPreview() {
+    if (motionPreference.matches) return;
+    const svg = template.content.querySelector('svg')!.cloneNode(true) as SVGSVGElement;
+    svg.style.setProperty(speedProperty, speed.value);
+    svg.style.setProperty(iterationProperty, constantIteration(loop.checked));
+    preview.replaceChildren(svg);
+    stop.disabled = false;
+    if (!loop.checked) {
+      const animations = svg.getAnimations({ subtree: true });
+      void Promise.all(animations.map(animation => animation.finished)).then(() => {
+        if (preview.firstElementChild !== svg) return;
+        if (document.activeElement === stop) play.focus();
+        resetPreview();
+      }, () => { /* A stopped or restarted preview cancels its animations. */ });
+    }
+  }
+
+  function syncPreview() {
+    code.textContent = code.textContent.replace(/speed=\{[^}]+\} constant=\{[^}]+\}/,
+      `speed={${speed.value}} constant={${loop.checked}}`);
+    resetCopyFeedback(snippet);
+    if (!stop.disabled) playPreview();
+  }
+
+  function syncMotionPreference() {
+    reducedNote.hidden = !motionPreference.matches;
+    play.disabled = motionPreference.matches;
+    if (motionPreference.matches) resetPreview();
+  }
+
+  play.addEventListener('click', playPreview, { signal });
+  stop.addEventListener('click', () => { play.focus(); resetPreview(); }, { signal });
+  speed.addEventListener('change', syncPreview, { signal });
+  loop.addEventListener('change', syncPreview, { signal });
+  motionPreference.addEventListener('change', syncMotionPreference, { signal });
+  syncMotionPreference();
+  requireElement<HTMLElement>('[data-animation-controls]', demo).hidden = false;
 }
 
 if (navigator.clipboard?.writeText) {
