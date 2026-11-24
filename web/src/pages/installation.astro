@@ -87,12 +87,16 @@ export function ActionIcon({ iconName }) {
   return <Icon name={iconName} size={24} />;
 }`;
 const props = [
-  { name: 'name', fallback: t(locale, 'docs.props.required'), detail: 'docs.props.iconName' },
-  { name: 'size', fallback: '24', detail: 'docs.props.size' },
-  { name: 'color', fallback: 'currentColor', detail: 'docs.props.color' },
-  { name: 'label', fallback: '—', detail: 'docs.props.label' },
-  { name: 'speed', fallback: '1', detail: 'docs.props.speed' },
-  { name: 'constant', fallback: 'true', detail: 'docs.props.constant' },
+  {
+    name: "name",
+    fallback: t(locale, "docs.props.required"),
+    detail: "docs.props.iconName",
+  },
+  { name: "size", fallback: "24", detail: "docs.props.size" },
+  { name: "color", fallback: "currentColor", detail: "docs.props.color" },
+  { name: "label", fallback: "—", detail: "docs.props.label" },
+  { name: "speed", fallback: "1", detail: "docs.props.speed" },
+  { name: "constant", fallback: "true", detail: "docs.props.constant" },
 ] as const;
 
 const variants = [
@@ -111,217 +115,299 @@ const variants = [
       <nav aria-labelledby="docs-index-title">
         <p id="docs-index-title">{t(locale, "docs.index")}</p>
         <ul>
-          <li><a href="#install-title">{t(locale, "docs.install")}</a></li>
-          <li><a href="#usage">{t(locale, "docs.usage")}</a></li>
-          <li><a href="#customize-title">{t(locale, "install.style.title")}</a></li>
-          <li><a href="#reference">{t(locale, "docs.reference")}</a></li>
+          <li>
+            <a href="#install-title">{t(locale, "docs.install")}</a>
+          </li>
+          <li>
+            <a href="#usage">{t(locale, "docs.usage")}</a>
+          </li>
+          <li>
+            <a href="#customize-title">{t(locale, "install.style.title")}</a>
+          </li>
+          <li>
+            <a href="#reference">{t(locale, "docs.reference")}</a>
+          </li>
         </ul>
       </nav>
     </aside>
     <div class="docs-content">
-    <InstallationIntro packageName={packageName}>
-      <div class="examples" data-install-examples>
-        <InstallationExample id="react" title="React">
-          <img slot="icon" src={ReactLogo.src} width="22" height="20" alt="" />
-          <p slot="description">
-            {t(locale, "install.react.lead")} <code>{reactPackage}</code>{t(locale, "install.react.end")}
+      <InstallationIntro packageName={packageName}>
+        <div class="examples" data-install-examples>
+          <InstallationExample id="react" title="React">
+            <img
+              slot="icon"
+              src={ReactLogo.src}
+              width="22"
+              height="20"
+              alt=""
+            />
+            <p slot="description">
+              {t(locale, "install.react.lead")} <code>{reactPackage}</code>
+              {t(locale, "install.react.end")}
+            </p>
+            <CodeSnippet
+              title="SearchButton.jsx"
+              code={reactExample}
+              lang="jsx"
+            />
+          </InstallationExample>
+
+          <InstallationExample id="astro" title="Astro">
+            <img
+              slot="icon"
+              class="astro-framework-logo"
+              src={AstroLogo.src}
+              width="17"
+              height="21"
+              alt=""
+            />
+            <p slot="description">
+              {t(locale, "install.astro.lead")} <code>.astro</code>
+              {t(locale, "install.astro.mid")}
+              <code>client:*</code>
+              {t(locale, "install.astro.end")}
+            </p>
+            <CodeSnippet
+              title="SearchButton.astro"
+              code={astroExample}
+              lang="astro"
+            />
+          </InstallationExample>
+
+          <InstallationExample id="next" title="Next.js">
+            <img
+              slot="icon"
+              class="next-framework-logo"
+              src={NextLogo.src}
+              width="20"
+              height="20"
+              alt=""
+            />
+            <p slot="description">
+              {t(locale, "install.next.lead")}
+              <code>'use client'</code>
+              {t(locale, "install.next.end")}
+            </p>
+            <CodeSnippet title="app/page.jsx" code={nextExample} lang="jsx" />
+          </InstallationExample>
+
+          <InstallationExample id="vue" title="Vue 3">
+            <img slot="icon" src={VueLogo.src} width="22" height="19" alt="" />
+            <p slot="description">
+              {t(locale, "install.vue.lead")}
+              <code>&lt;script setup&gt;</code>
+              {t(locale, "install.vue.end")}
+            </p>
+            <CodeSnippet title="SearchIcon.vue" code={vueExample} lang="vue" />
+          </InstallationExample>
+
+          <InstallationExample id="svelte" title="Svelte 5">
+            <img
+              slot="icon"
+              src={SvelteLogo.src}
+              width="17"
+              height="21"
+              alt=""
+            />
+            <p slot="description">
+              {t(locale, "install.svelte.lead")}
+              <code>.svelte</code>
+              {t(locale, "install.svelte.end")}
+            </p>
+            <CodeSnippet
+              title="SearchIcon.svelte"
+              code={svelteExample}
+              lang="svelte"
+            />
+          </InstallationExample>
+
+          <InstallationExample id="svg" title="HTML / SVG">
+            <Icon slot="icon" name="svg" size={23} />
+            <p slot="description">
+              {t(locale, "install.svg.lead")}
+              <code>
+                node_modules/{packageName}/icons/search-minimalist.svg
+              </code>
+              {t(locale, "install.svg.mid")}
+              <code>icons/</code>
+              {t(locale, "install.svg.afterFolder")}
+              <strong>{t(locale, "install.svg.action")}</strong>
+              {t(locale, "install.svg.end")}
+            </p>
+            <CodeSnippet title="index.html" code={htmlExample} lang="html" />
+          </InstallationExample>
+        </div>
+
+        <div class="guide-section package-section">
+          <header>
+            <h3>{t(locale, "install.packages.title")}</h3>
+            <p>{t(locale, "install.packages.lead")}</p>
+          </header>
+
+          <fieldset data-package-options hidden>
+            <legend class="visually-hidden">
+              {t(locale, "install.manager")}
+            </legend>
+            <div class="options">
+              {managers.map(({ name, logo, darkLogo, command }, index) => (
+                <label>
+                  <input
+                    class="visually-hidden"
+                    type="radio"
+                    name="package-manager"
+                    value={command}
+                    checked={index === 0}
+                  />
+                  <span class="option">
+                    <img
+                      class:list={[{ "light-logo": darkLogo }]}
+                      src={logo.src}
+                      alt=""
+                      width="18"
+                      height="18"
+                    />
+                    {darkLogo && (
+                      <img
+                        class="dark-logo"
+                        src={darkLogo.src}
+                        alt=""
+                        width="18"
+                        height="18"
+                      />
+                    )}
+                    {name}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <div data-install-command data-package-base={packageName}>
+            <CodeSnippet
+              title="Terminal"
+              code={`${managers[0].command} ${reactPackage}`}
+              live
+            />
+          </div>
+          <p class="note">
+            {t(locale, "install.packages.beforeName")}
+            <code>{packageName}</code>
+            {t(locale, "install.packages.beforePath")}
+            <code>{packageName}/astro</code>
+            {t(locale, "install.packages.beforeCommand")}
+            <code>bun run package:pack</code>
+            {t(locale, "install.packages.beforeTgz")}
+            <code>.tgz</code>
+            {t(locale, "install.packages.end")}
           </p>
+        </div>
+      </InstallationIntro>
+
+      <section
+        class="guide-section doc-chapter usage-chapter"
+        aria-labelledby="usage"
+      >
+        <header>
+          <h2 id="usage">{t(locale, "docs.usage")}</h2>
+        </header>
+        <div class="topic">
+          <h3>{t(locale, "docs.direct")}</h3>
+          <p>{t(locale, "docs.direct.body")}</p>
           <CodeSnippet
-            title="SearchButton.jsx"
-            code={reactExample}
+            title="React · SearchMinimalist"
+            code={directExample}
             lang="jsx"
           />
-        </InstallationExample>
-
-        <InstallationExample id="astro" title="Astro">
-          <img
-            slot="icon"
-            class="astro-framework-logo"
-            src={AstroLogo.src}
-            width="17"
-            height="21"
-            alt=""
-          />
-          <p slot="description">
-            {t(locale, "install.astro.lead")} <code>.astro</code>{t(locale, "install.astro.mid")}<code>client:*</code>{t(locale, "install.astro.end")}
-          </p>
-          <CodeSnippet
-            title="SearchButton.astro"
-            code={astroExample}
-            lang="astro"
-          />
-        </InstallationExample>
-
-        <InstallationExample id="next" title="Next.js">
-          <img
-            slot="icon"
-            class="next-framework-logo"
-            src={NextLogo.src}
-            width="20"
-            height="20"
-            alt=""
-          />
-          <p slot="description">
-            {t(locale, "install.next.lead")}<code>'use client'</code>{t(locale, "install.next.end")}
-          </p>
-          <CodeSnippet title="app/page.jsx" code={nextExample} lang="jsx" />
-        </InstallationExample>
-
-        <InstallationExample id="vue" title="Vue 3">
-          <img slot="icon" src={VueLogo.src} width="22" height="19" alt="" />
-          <p slot="description">
-            {t(locale, "install.vue.lead")}<code>&lt;script setup&gt;</code>{t(locale, "install.vue.end")}
-          </p>
-          <CodeSnippet title="SearchIcon.vue" code={vueExample} lang="vue" />
-        </InstallationExample>
-
-        <InstallationExample id="svelte" title="Svelte 5">
-          <img slot="icon" src={SvelteLogo.src} width="17" height="21" alt="" />
-          <p slot="description">
-            {t(locale, "install.svelte.lead")}<code>.svelte</code>{t(locale, "install.svelte.end")}
-          </p>
-          <CodeSnippet
-            title="SearchIcon.svelte"
-            code={svelteExample}
-            lang="svelte"
-          />
-        </InstallationExample>
-
-        <InstallationExample id="svg" title="HTML / SVG">
-          <Icon slot="icon" name="svg" size={23} />
-          <p slot="description">
-            {t(locale, "install.svg.lead")}<code>node_modules/{packageName}/icons/search-minimalist.svg</code>{t(locale, "install.svg.mid")}<code>icons/</code>{t(locale, "install.svg.afterFolder")}<strong>{t(locale, "install.svg.action")}</strong>{t(locale, "install.svg.end")}
-          </p>
-          <CodeSnippet title="index.html" code={htmlExample} lang="html" />
-        </InstallationExample>
-      </div>
-
-      <div class="guide-section package-section">
-      <header>
-        <h3>{t(locale, "install.packages.title")}</h3>
-        <p>{t(locale, "install.packages.lead")}</p>
-      </header>
-
-      <fieldset data-package-options hidden>
-        <legend class="visually-hidden">{t(locale, "install.manager")}</legend>
-        <div class="options">
-          {managers.map(({ name, logo, darkLogo, command }, index) => (
-            <label>
-              <input
-                class="visually-hidden"
-                type="radio"
-                name="package-manager"
-                value={command}
-                checked={index === 0}
-              />
-              <span class="option">
-                <img
-                  class:list={[{ "light-logo": darkLogo }]}
-                  src={logo.src}
-                  alt=""
-                  width="18"
-                  height="18"
-                />
-                {darkLogo && (
-                  <img
-                    class="dark-logo"
-                    src={darkLogo.src}
-                    alt=""
-                    width="18"
-                    height="18"
-                  />
-                )}
-                {name}
-              </span>
-            </label>
-          ))}
         </div>
-      </fieldset>
-      <div data-install-command data-package-base={packageName}>
-        <CodeSnippet title="Terminal" code={`${managers[0].command} ${reactPackage}`} live />
-      </div>
-      <p class="note">
-        {t(locale, "install.packages.beforeName")}<code>{packageName}</code>{t(locale, "install.packages.beforePath")}<code>{packageName}/astro</code>{t(locale, "install.packages.beforeCommand")}<code>bun run package:pack</code>{t(locale, "install.packages.beforeTgz")}<code>.tgz</code>{t(locale, "install.packages.end")}
-      </p>
-      </div>
-    </InstallationIntro>
-
-    <section class="guide-section doc-chapter usage-chapter" aria-labelledby="usage">
-      <header><h2 id="usage">{t(locale, "docs.usage")}</h2></header>
-      <div class="topic">
-        <h3>{t(locale, "docs.direct")}</h3>
-        <p>{t(locale, "docs.direct.body")}</p>
-        <CodeSnippet title="React · SearchMinimalist" code={directExample} lang="jsx" />
-      </div>
-      <div class="topic">
-        <h3>{t(locale, "docs.dynamic")}</h3>
-        <p>{t(locale, "docs.dynamic.body")}</p>
-        <CodeSnippet title="React · Icon" code={dynamicExample} lang="jsx" />
-      </div>
-      <div class="topic">
-        <h3>{t(locale, "docs.svg")}</h3>
-        <p>{t(locale, "docs.svg.body")}</p>
-        <CodeSnippet title="HTML" code={htmlExample} lang="html" />
-      </div>
-    </section>
-
-    <section class="guide-section doc-chapter" aria-labelledby="customize-title">
-      <header>
-        <h2 id="customize-title">{t(locale, "install.style.title")}</h2>
-        <p>{t(locale, "install.style.lead")}</p>
-      </header>
-
-      <ul class="variants">
-        {variants.map(({ name, label }) => (
-          <li>
-            <Icon name={name} size={28} constant={false} />
-            <div>
-              <strong>{label}</strong>
-              <code>{name}</code>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p class="note">
-        {t(locale, "install.versions.lead")}<code>0.2.0</code>{t(locale, "install.versions.mid")}<code>0.3.0</code>{t(locale, "install.versions.end")}
-      </p>
-
-      <div class="topic">
-        <h3>{t(locale, "docs.demo")}</h3>
-        <p>{t(locale, "docs.demo.body")}</p>
-        <AnimationDemo />
-      </div>
-    </section>
-
-    <section class="guide-section doc-chapter" aria-labelledby="reference">
-      <header><h2 id="reference">{t(locale, "docs.reference")}</h2></header>
-      <table class="props" aria-labelledby="reference">
-        <thead><tr>
-          <th scope="col">{t(locale, "docs.props.name")}</th>
-          <th scope="col">{t(locale, "docs.props.default")}</th>
-          <th scope="col">{t(locale, "docs.props.effect")}</th>
-        </tr></thead>
-        <tbody>
-          {props.map(({ name, fallback, detail }) => (
-            <tr><th scope="row"><code>{name}</code></th><td>{name === 'name' ? fallback : <code>{fallback}</code>}</td><td>{t(locale, detail)}</td></tr>
-          ))}
-        </tbody>
-      </table>
-      <dl class="tips">
-        <div>
-          <dt>{t(locale, "install.tip.a11y")}</dt>
-          <dd>
-            {t(locale, "install.a11y.lead")}<code>label</code>{t(locale, "install.a11y.mid")}<code>alt</code>{t(locale, "install.a11y.end")}
-          </dd>
+        <div class="topic">
+          <h3>{t(locale, "docs.dynamic")}</h3>
+          <p>{t(locale, "docs.dynamic.body")}</p>
+          <CodeSnippet title="React · Icon" code={dynamicExample} lang="jsx" />
         </div>
-      </dl>
+        <div class="topic">
+          <h3>{t(locale, "docs.svg")}</h3>
+          <p>{t(locale, "docs.svg.body")}</p>
+          <CodeSnippet title="HTML" code={htmlExample} lang="html" />
+        </div>
+      </section>
 
-      <a class="catalog-link" href={localizePath("/", locale)}>
-        {t(locale, "install.browse")}
-        <Icon name="arrow-right-minimalist" size={16} />
-      </a>
-    </section>
+      <section
+        class="guide-section doc-chapter"
+        aria-labelledby="customize-title"
+      >
+        <header>
+          <h2 id="customize-title">{t(locale, "install.style.title")}</h2>
+          <p>{t(locale, "install.style.lead")}</p>
+        </header>
+
+        <ul class="variants">
+          {variants.map(({ name, label }) => (
+            <li>
+              <Icon name={name} size={28} constant={false} />
+              <div>
+                <strong>{label}</strong>
+                <code>{name}</code>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <p class="note">
+          {t(locale, "install.versions.lead")}
+          <code>0.2.0</code>
+          {t(locale, "install.versions.mid")}
+          <code>0.3.0</code>
+          {t(locale, "install.versions.end")}
+        </p>
+
+        <div class="topic">
+          <h3>{t(locale, "docs.demo")}</h3>
+          <p>{t(locale, "docs.demo.body")}</p>
+          <AnimationDemo />
+        </div>
+      </section>
+
+      <section class="guide-section doc-chapter" aria-labelledby="reference">
+        <header>
+          <h2 id="reference">{t(locale, "docs.reference")}</h2>
+        </header>
+        <table class="props" aria-labelledby="reference">
+          <thead>
+            <tr>
+              <th scope="col">{t(locale, "docs.props.name")}</th>
+              <th scope="col">{t(locale, "docs.props.default")}</th>
+              <th scope="col">{t(locale, "docs.props.effect")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.map(({ name, fallback, detail }) => (
+              <tr>
+                <th scope="row">
+                  <code>{name}</code>
+                </th>
+                <td>{name === "name" ? fallback : <code>{fallback}</code>}</td>
+                <td>{t(locale, detail)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <dl class="tips">
+          <div>
+            <dt>{t(locale, "install.tip.a11y")}</dt>
+            <dd>
+              {t(locale, "install.a11y.lead")}
+              <code>label</code>
+              {t(locale, "install.a11y.mid")}
+              <code>alt</code>
+              {t(locale, "install.a11y.end")}
+            </dd>
+          </div>
+        </dl>
+
+        <a class="catalog-link" href={localizePath("/", locale)}>
+          {t(locale, "install.browse")}
+          <Icon name="arrow-right-minimalist" size={16} />
+        </a>
+      </section>
     </div>
   </main>
 </SiteLayout>
@@ -340,7 +426,9 @@ const variants = [
     padding-bottom: 4rem;
   }
 
-  .docs-content { min-width: 0; }
+  .docs-content {
+    min-width: 0;
+  }
 
   .docs-sidebar {
     position: sticky;
@@ -357,7 +445,13 @@ const variants = [
     font-weight: 650;
   }
 
-  .docs-sidebar ul { display: grid; gap: 0.15rem; margin: 0; padding: 0; list-style: none; }
+  .docs-sidebar ul {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
   .docs-sidebar a {
     display: flex;
     align-items: center;
@@ -371,23 +465,37 @@ const variants = [
 
   .docs-sidebar a:hover,
   .docs-sidebar a:focus-visible,
-  .installation:has(#install-title:target) a[href="#install-title"],
-  .installation:has(#usage:target) a[href="#usage"],
-  .installation:has(#customize-title:target) a[href="#customize-title"],
-  .installation:has(#reference:target) a[href="#reference"] {
+  .docs-sidebar a[aria-current="location"] {
     background: var(--docs-tint);
     color: var(--accent);
   }
 
   @media (min-width: 75rem) {
-    .usage-chapter { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
-    .usage-chapter > header { grid-column: 1 / -1; margin-bottom: 0; }
+    .usage-chapter {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.5rem;
+    }
+    .usage-chapter > header {
+      grid-column: 1 / -1;
+      margin-bottom: 0;
+    }
   }
 
   @media (max-width: 58rem) {
-    .installation { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-    .docs-sidebar { position: static; padding: 0 0 0.5rem; border-inline-end: 0; border-block-end: 1px solid var(--line); }
-    .docs-sidebar ul { grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
+    .installation {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+    .docs-sidebar {
+      position: static;
+      padding: 0 0 0.5rem;
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--line);
+    }
+    .docs-sidebar ul {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    }
   }
 
   .catalog-link {
@@ -435,21 +543,53 @@ const variants = [
 
   h2 {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 650;
-    letter-spacing: -0.035em;
+    color: var(--accent);
+    font-size: clamp(1.6rem, 1.3rem + 0.8vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
   }
 
-  h3 { margin: 0; font-size: 0.98rem; font-weight: 650; }
-  .package-section { margin-top: 1.35rem; }
-  .topic { margin-top: 1.35rem; }
-  .guide-section p { max-width: 70ch; }
-  .guide-section .topic > p { margin: 0.35rem 0 0.65rem; }
+  h3 {
+    margin: 0;
+    font-size: 0.98rem;
+    font-weight: 650;
+  }
+  .package-section {
+    margin-top: 1.35rem;
+  }
+  .topic {
+    margin-top: 1.35rem;
+  }
+  .guide-section p {
+    max-width: 70ch;
+  }
+  .guide-section .topic > p {
+    margin: 0.35rem 0 0.65rem;
+  }
 
-  .props { width: 100%; border-collapse: collapse; text-align: start; font-size: 0.85rem; line-height: 1.55; }
-  .props :is(th, td) { padding: 0.65rem 0.6rem; border-bottom: 1px solid var(--line); text-align: start; vertical-align: top; overflow-wrap: anywhere; }
-  .props td { color: var(--muted); }
-  .props code { color: var(--text); font-family: var(--font-mono); }
+  .props {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: start;
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .props :is(th, td) {
+    padding: 0.65rem 0.6rem;
+    border-bottom: 1px solid var(--line);
+    text-align: start;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .props td {
+    color: var(--muted);
+  }
+  .props code {
+    color: var(--text);
+    font-family: var(--font-mono);
+  }
 
   .guide-section p,
   dd {
@@ -574,10 +714,20 @@ const variants = [
   }
 
   @media (max-width: 36rem) {
-    .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .option { min-height: 2.75rem; }
-    .doc-chapter { margin-top: 1.75rem; padding-top: 1.5rem; }
-    .props :is(th, td) { padding-inline: 0.35rem; }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .option {
+      min-height: 2.75rem;
+    }
+    .doc-chapter {
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+    }
+    .props :is(th, td) {
+      padding-inline: 0.35rem;
+    }
   }
 
   @media (max-width: 44rem) {

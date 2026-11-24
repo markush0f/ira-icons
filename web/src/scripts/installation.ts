@@ -18,6 +18,46 @@ export function mountInstallation() {
   installationNavigation?.abort();
   installationNavigation = new AbortController();
   const { signal } = installationNavigation;
+
+  const chapters = [...document.querySelectorAll<HTMLAnchorElement>(".docs-sidebar a[href^='#']")]
+    .map(link => ({ link, heading: document.getElementById(link.hash.slice(1)) }))
+    .filter((chapter): chapter is { link: HTMLAnchorElement; heading: HTMLElement } => chapter.heading !== null);
+
+  if (chapters.length) {
+    let frame = 0;
+    function syncActiveChapter() {
+      frame = 0;
+      const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      let active = chapters[0];
+      for (const chapter of chapters) {
+        if (chapter.heading.getBoundingClientRect().top <= offset + 1) active = chapter;
+      }
+      // The final heading may never reach the top on shorter viewports/pages.
+      const page = document.documentElement;
+      if (window.scrollY > 0 && window.scrollY + window.innerHeight >= page.scrollHeight - 2) {
+        active = chapters[chapters.length - 1];
+      }
+      for (const chapter of chapters) {
+        if (chapter === active) chapter.link.setAttribute("aria-current", "location");
+        else chapter.link.removeAttribute("aria-current");
+      }
+    }
+    function scheduleChapterSync() {
+      if (!frame) frame = requestAnimationFrame(syncActiveChapter);
+    }
+    window.addEventListener("scroll", scheduleChapterSync, { passive: true, signal });
+    window.addEventListener("resize", scheduleChapterSync, { signal });
+    window.addEventListener("pageshow", scheduleChapterSync, { signal });
+    const observer = new ResizeObserver(scheduleChapterSync);
+    observer.observe(document.querySelector(".docs-content")!);
+    signal.addEventListener("abort", () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    }, { once: true });
+    document.addEventListener("astro:before-swap", () => installationNavigation?.abort(), { once: true, signal });
+    syncActiveChapter();
+  }
+
 const packageOptions = document.querySelector<HTMLElement>("[data-package-options]");
 const installBox = document.querySelector<HTMLElement>("[data-install-command]");
 const installSnippet = installBox?.querySelector("[data-snippet]");

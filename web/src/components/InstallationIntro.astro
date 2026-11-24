@@ -60,7 +60,15 @@ const catalogHref = localizePath("/", locale);
     border-bottom: 1px solid var(--line);
   }
 
-  h2 { margin: 0 0 0.8rem; font-size: 1.25rem; font-weight: 650; letter-spacing: -0.03em; }
+  h2 {
+    margin: 0 0 0.8rem;
+    color: var(--accent);
+    font-size: clamp(1.6rem, 1.3rem + 0.8vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
 
   .back-link,
   .example-links a {
