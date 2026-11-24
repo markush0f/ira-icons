@@ -64,6 +64,16 @@ Both adapters have an individual import such as `/vue/search-minimalist` or `/sv
 
 Omit `label` when the icon is decorative. `size` defaults to 24 and `color` defaults to `currentColor`.
 
+Animated components accept a numeric `speed` multiplier in all adapters. `1` is the default, `2` is twice as fast, and `0.5` is half speed. Invalid values fall back to `1`; static icons ignore it. Reduced-motion preferences still apply.
+
+```jsx
+import { ArrowBackAnimated } from '@ira/iraicons/react';
+
+<ArrowBackAnimated size={24} color="#663399" speed={1.5} />
+```
+
+In Vue templates, pass a number with `:speed="1.5"`.
+
 ## SVG files
 
 The package ships the original SVG files under `icons/`. For example, in Vite you can import a URL:

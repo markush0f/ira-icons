@@ -5,6 +5,7 @@ export type IconProps = Omit<SVGAttributes<SVGSVGElement>, 'size' | 'color' | 'c
   size?: number | string;
   color?: string;
   label?: string;
+  speed?: number;
 };
 
 export type IndividualIconProps = Omit<IconProps, 'name'>;

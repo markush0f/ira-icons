@@ -1,6 +1,7 @@
 export interface SerializedIcon {
   attributes: Record<string, string>;
   markup: string;
+  animated: boolean;
 }
 export type SvgAttributes = Record<string, unknown>;
 

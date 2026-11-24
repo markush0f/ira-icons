@@ -65,10 +65,15 @@ for (const [adapter, renderIcon] of Object.entries(adapters)) {
     assert.doesNotMatch(labelled, /aria-hidden/);
     assert.match(await renderIcon(icons.Svg, {}), />SVG<\/text>/);
 
-    const animated = await renderIcon(icons.Icon, { name: 'coffee-animated' });
+    const animated = await renderIcon(icons.Icon, { name: 'coffee-animated', speed: 1.5 });
     assert.match(animated, /viewBox="0 0 24 24"/);
     assert.match(animated, /aria-hidden="true"/);
     assert.match(animated, /@keyframes ira-coffee-steam/);
     assert.match(animated, /prefers-reduced-motion: no-preference/);
+    assert.match(animated, /--ira-icon-speed:\s*1\.5/);
+    assert.match(animated, /calc\(-\.8s \/ var\(--ira-icon-speed, 1\)\)/);
+    assert.doesNotMatch(animated, / speed=/);
+    assert.match(await renderIcon(icons.CoffeeAnimated, { speed: 2 }), /--ira-icon-speed:\s*2/);
+    assert.doesNotMatch(await renderIcon(icons.Coffee, { speed: 2 }), /--ira-icon-speed| speed=/);
   });
 }

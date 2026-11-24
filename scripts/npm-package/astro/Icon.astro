@@ -5,7 +5,10 @@
  */
 import { getIcon } from "./icons.mjs";
 
-const { name, size = 24, color = "currentColor", label } = Astro.props;
+import { isAnimatedIcon, speedStyle } from './animation-speed.ts';
+
+interface Props { name: string; size?: number | string; color?: string; label?: string; speed?: number; style?: string }
+const { name, size = 24, color = "currentColor", label, speed, style } = Astro.props;
 const Svg = getIcon(name);
 if (!Svg) throw new Error(`Unknown Ira Icons icon: ${String(name)}`);
 
@@ -17,6 +20,7 @@ const accessibleLabel = typeof label === "string" ? label.trim() : "";
   width={size}
   height={size}
   color={color}
+  style={speedStyle(isAnimatedIcon(name), speed, style)}
   role={accessibleLabel ? "img" : undefined}
   aria-label={accessibleLabel || undefined}
   aria-hidden={accessibleLabel ? undefined : "true"}

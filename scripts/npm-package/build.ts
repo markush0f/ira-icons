@@ -2,7 +2,8 @@ import { copyFile, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promi
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build, type Plugin } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import { reactSvgPlugin } from './react/svg-plugin.ts';
+import { scaleAnimationSvg } from './shared/animation-speed.ts';
 import { buildVueAndSvelte } from './build-adapters.ts';
 import { writePackageVariants } from './package-variants.ts';
 
@@ -45,15 +46,16 @@ const virtualEntries: Plugin = {
     return `
 import { createElement, forwardRef } from 'react';
 import $Svg from ${JSON.stringify(`${join(root, 'icons', icon.file)}?react`)};
+import { normalizeSpeed, speedProperty } from ${JSON.stringify(fileURLToPath(new URL('./shared/animation-speed.ts', import.meta.url)))};
 export default /* @__PURE__ */ forwardRef(function ${icon.identifier}(
-  { size = 24, color = 'currentColor', label, ...props }, ref
+  { size = 24, color = 'currentColor', label, speed, ...props }, ref
 ) {
   const ariaLabel = props['aria-label'] || (typeof label === 'string' ? label.trim() : '');
   const labelled = Boolean(ariaLabel || props['aria-labelledby']);
   return createElement($Svg, {
     width: size, height: size, color, role: labelled ? 'img' : undefined,
     'aria-hidden': labelled ? undefined : true, focusable: false,
-    ...props, 'aria-label': ariaLabel || undefined, ref,
+    ...props, ${icon.name.endsWith('-animated') ? 'style: { ...props.style, [speedProperty]: normalizeSpeed(speed) },' : ''} 'aria-label': ariaLabel || undefined, ref,
   });
 });`;
   },
@@ -62,7 +64,7 @@ export default /* @__PURE__ */ forwardRef(function ${icon.identifier}(
 await build({
   root,
   configFile: false,
-  plugins: [virtualEntries, svgr({ svgrOptions: { ref: true } })],
+  plugins: [virtualEntries, reactSvgPlugin()],
   build: {
     outDir: join(output, 'react'),
     lib: {
@@ -105,23 +107,29 @@ const reactTypes = `${genericTypes}\nexport type IndividualIconProps = Omit<Icon
 await Promise.all([
   // Published packages use native Astro SVG component imports.
   copyFile(new URL('./astro/Icon.astro', import.meta.url), join(output, 'astro/Icon.astro')),
+  copyFile(new URL('./shared/animation-speed.ts', import.meta.url), join(output, 'astro/animation-speed.ts')),
   writeFile(join(output, 'astro/icons.mjs'), astroCatalog),
   ...components.flatMap(({ name, file }) => [
     writeFile(join(output, 'react/icons', `${name}.d.ts`), individualTypes),
     writeFile(join(output, 'astro/icons', `${name}.astro`), `---
 import Svg from ${JSON.stringify(`../../icons/${file}`)};
-const { size = 24, color = 'currentColor', label, ...props } = Astro.props;
+import { speedStyle } from '../animation-speed.ts';
+const { size = 24, color = 'currentColor', label, speed, style, ...props } = Astro.props;
 const ariaLabel = props['aria-label'] || (typeof label === 'string' ? label.trim() : '');
 const labelled = Boolean(ariaLabel || props['aria-labelledby']);
 ---
-<Svg width={size} height={size} color={color} role={labelled ? 'img' : undefined} aria-hidden={labelled ? undefined : 'true'} {...props} aria-label={ariaLabel || undefined} />
+<Svg width={size} height={size} color={color} role={labelled ? 'img' : undefined} aria-hidden={labelled ? undefined : 'true'} {...props} style={speedStyle(${name.endsWith('-animated')}, speed, style)} aria-label={ariaLabel || undefined} />
 `),
   ]),
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),
   copyFile(new URL('../icon-expansion/folio/TABLER-LICENSE.txt', import.meta.url), join(output, 'LICENSE.tabler')),
   copyFile(new URL('./package.json', import.meta.url), join(output, 'package.json')),
   writeFile(join(output, 'README.md'), (await readFile(new URL('./README.md', import.meta.url), 'utf8')).replaceAll('@ira/iraicons', '@markusss0s/ira-library')),
-  ...icons.map((file) => copyFile(join(iconDirectory, file), join(output, 'icons', file))),
+  ...icons.map(async (file) => {
+    const source = join(iconDirectory, file), destination = join(output, 'icons', file);
+    if (file.endsWith('-animated.svg')) await writeFile(destination, scaleAnimationSvg(await readFile(source, 'utf8')));
+    else await copyFile(source, destination);
+  }),
   buildVueAndSvelte({ output, components, iconDirectory }),
 ]);
 

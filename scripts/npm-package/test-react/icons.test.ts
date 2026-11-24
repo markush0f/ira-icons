@@ -5,13 +5,13 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { fileURLToPath } from 'node:url';
 import { build, createServer } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import { reactSvgPlugin } from '../react/svg-plugin.ts';
 
 // Use the same SVG import pipeline as a consuming React/Vite project.
 const server = await createServer({
   configFile: false,
   server: { middlewareMode: true },
-  plugins: [svgr({ svgrOptions: { ref: true } })],
+  plugins: [reactSvgPlugin()],
   resolve: { dedupe: ['react', 'react-dom'] },
 });
 after(() => server.close());
@@ -71,6 +71,15 @@ test('draws simple lines while preserving the bell and heart motions', () => {
   assert.doesNotMatch(heart, /stroke-dashoffset/);
 });
 
+test('speed sets an instance-local multiplier without replacing caller styles', () => {
+  const html = render({ name: 'coffee-animated', speed: 2, style: { opacity: 0.5 } });
+  assert.match(html, /opacity:0\.5;--ira-icon-speed:2/);
+  assert.match(html, /animation-delay: calc\(-\.8s \/ var\(--ira-icon-speed, 1\)\)/);
+  assert.doesNotMatch(html, / speed=/);
+  assert.match(render({ name: 'coffee-animated', speed: 0 }), /style="--ira-icon-speed:1"/);
+  assert.doesNotMatch(render({ name: 'coffee', speed: 2 }), /--ira-icon-speed| speed=/);
+});
+
 test('supports defaults and standard SVG props', () => {
   const html = render({ name: 'search', size: 32, color: '#6339b8', className: 'icon', strokeWidth: 1, 'data-testid': 'search', style: { opacity: 0.5 } });
   for (const part of ['width="32"', 'height="32"', 'color="#6339b8"', 'class="icon"', 'stroke-width="1"', 'data-testid="search"', 'opacity:0.5', 'aria-hidden="true"']) {
@@ -95,7 +104,7 @@ test('bundles a React application for the browser without code generation', asyn
   const result = await build({
     configFile: false,
     logLevel: 'silent',
-    plugins: [svgr({ svgrOptions: { ref: true } })],
+    plugins: [reactSvgPlugin()],
     resolve: { dedupe: ['react', 'react-dom'] },
     build: {
       write: false,

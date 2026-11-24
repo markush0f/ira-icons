@@ -1,6 +1,7 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import ts from 'typescript';
+import { isAnimatedIcon, scaleAnimationSvg } from './shared/animation-speed.ts';
 
 interface IconComponent { file: string; name: string; identifier: string }
 
@@ -28,7 +29,7 @@ export async function buildVueAndSvelte({ output, components, iconDirectory }: {
     const { outputText } = ts.transpileModule(source, {
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },
     });
-    await write(path.replace(/\.ts$/, '.js'), outputText.replaceAll('icon-props.ts', 'icon-props.js'));
+    await write(path.replace(/\.ts$/, '.js'), outputText.replaceAll('icon-props.ts', 'icon-props.js').replaceAll('animation-speed.ts', 'animation-speed.js'));
   };
   const imports = components.map(({ name, identifier }) =>
     `import ${identifier} from './icons/${name}.js';`).join('\n');
@@ -38,7 +39,7 @@ export async function buildVueAndSvelte({ output, components, iconDirectory }: {
     `export { default as ${identifier} } from './icons/${name}.${extension}';\n`).join('');
 
   await Promise.all([
-    ...['shared/icon-props.ts', 'vue/create-icon.ts'].map(compileRuntime),
+    ...['shared/icon-props.ts', 'shared/animation-speed.ts', 'vue/create-icon.ts'].map(compileRuntime),
     ...['vue/types.d.ts', 'svelte/Glyph.svelte', 'svelte/types.d.ts'].map(copy),
     write('shared/catalog.js', `${imports}
 
@@ -85,7 +86,9 @@ declare const Icon: Component<IconProps>;
 export default Icon;
 `),
     ...components.map(async ({ file, name, identifier }) => {
-      const icon = parseSvg(await readFile(join(iconDirectory, file), 'utf8'), file);
+      const animated = isAnimatedIcon(name);
+      const source = await readFile(join(iconDirectory, file), 'utf8');
+      const icon = { ...parseSvg(animated ? scaleAnimationSvg(source) : source, file), animated };
       await Promise.all([
         write(`shared/icons/${name}.js`, `export default ${JSON.stringify(icon)};\n`),
         write(`vue/icons/${name}.js`, `import icon from '../../shared/icons/${name}.js';

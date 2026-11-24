@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { speedStyle } from '../shared/animation-speed.js';
   import { svgProps } from '../shared/icon-props.js';
   import type { IndividualIconProps } from './types.js';
 
@@ -7,10 +8,12 @@
     size = 24,
     color = 'currentColor',
     label,
+    speed,
+    style,
     ...attrs
   }: IndividualIconProps & {
-    icon: { attributes: Record<string, string>; markup: string };
+    icon: { attributes: Record<string, string>; markup: string; animated: boolean };
   } = $props();
 </script>
 
-<svg {...svgProps(icon, size, color, label, attrs)}>{@html icon.markup}</svg>
+<svg {...svgProps(icon, size, color, label, attrs)} style={speedStyle(icon.animated, speed, style)}>{@html icon.markup}</svg>
