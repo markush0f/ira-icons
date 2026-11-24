@@ -52,19 +52,26 @@ const switchTo = (code: Locale) => localizePath(`${stripLocale(Astro.url.pathnam
       <Icon name="download" size={17} />
       <span class="nav-label">{t(locale, "nav.install")}</span>
     </a>
-    <nav class="locale-switch" aria-label={t(locale, "locale.switch")}>
-      {locales.map((code) => (
-        <a
-          href={switchTo(code)}
-          lang={code}
-          hreflang={code}
-          aria-label={t(locale, code === "en" ? "locale.en" : "locale.es")}
-          title={t(locale, code === "en" ? "locale.en" : "locale.es")}
-          aria-current={code === locale ? "true" : undefined}
-          data-astro-prefetch={code === locale ? undefined : "hover"}
-        ><LocaleFlag locale={code} /></a>
-      ))}
-    </nav>
+    <details class="locale-menu">
+      <summary aria-label={`${t(locale, "locale.switch")}: ${t(locale, locale === "en" ? "locale.en" : "locale.es")}`}>
+        <LocaleFlag locale={locale} id="trigger" />
+        <Icon name="chevron-down-minimalist" size={14} />
+      </summary>
+      <div class="locale-options">
+        {locales.map((code) => (
+          <a
+            href={switchTo(code)}
+            lang={code}
+            hreflang={code}
+            aria-current={code === locale ? "true" : undefined}
+            data-astro-prefetch={code === locale ? undefined : "hover"}
+          >
+            <LocaleFlag locale={code} id={`option-${code}`} />
+            <span>{t(locale, code === "en" ? "locale.en" : "locale.es")}</span>
+          </a>
+        ))}
+      </div>
+    </details>
     <a
       class="github-link"
       href="https://github.com/markush0f/ira-icons"
@@ -98,33 +105,89 @@ const switchTo = (code: Locale) => localizePath(`${stripLocale(Astro.url.pathnam
   </div>
 </header>
 
+<script>
+  const menuSelector = ".locale-menu";
+  document.addEventListener("click", (event) => {
+    const menu = document.querySelector(menuSelector);
+    if (!(menu instanceof HTMLDetailsElement) || !menu.open) return;
+    if (event.target instanceof Node && menu.contains(event.target)) return;
+    menu.open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const menu = document.querySelector(menuSelector);
+    if (!(menu instanceof HTMLDetailsElement) || !menu.open) return;
+    menu.open = false;
+    menu.querySelector("summary")?.focus();
+  });
+</script>
+
 <style>
-  .locale-switch {
+  .locale-menu {
+    position: relative;
+  }
+
+  .locale-menu summary {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.15rem;
-  }
-
-  .locale-switch a {
-    display: grid;
-    place-items: center;
     min-width: 2.25rem;
     min-height: 2.25rem;
+    padding-inline: 0.35rem;
     border-radius: 0.35rem;
-    opacity: 0.55;
+    color: var(--muted);
+    list-style: none;
+    cursor: pointer;
   }
 
-  .locale-switch a[aria-current="true"] {
-    opacity: 1;
-    box-shadow: inset 0 0 0 1px var(--accent);
+  .locale-menu summary::-webkit-details-marker {
+    display: none;
   }
 
-  .locale-switch a:hover {
-    opacity: 1;
+  .locale-menu summary:hover,
+  .locale-menu[open] summary {
+    color: var(--text);
     background: var(--hover);
   }
 
+  .locale-menu[open] summary :global(svg:last-child) {
+    transform: rotate(180deg);
+  }
+
+  .locale-options {
+    position: absolute;
+    z-index: 3;
+    top: calc(100% + 0.35rem);
+    inset-inline-end: 0;
+    display: grid;
+    min-width: 9.5rem;
+    padding: 0.3rem;
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    background: var(--panel);
+  }
+
+  .locale-options a {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.25rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 0.35rem;
+    font-size: 0.78rem;
+  }
+
+  .locale-options a:hover,
+  .locale-options a[aria-current="true"] {
+    background: var(--hover);
+    color: var(--accent);
+  }
+
   @media (max-width: 36rem) {
-    .locale-switch a { min-width: 2.25rem; min-height: 2.75rem; }
+    .locale-menu summary,
+    .locale-options a {
+      min-height: 2.75rem;
+    }
   }
 </style>

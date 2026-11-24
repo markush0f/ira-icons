@@ -1,17 +1,19 @@
 ---
 interface Props {
   locale: "en" | "es";
+  id: string;
 }
 
-const { locale } = Astro.props;
+const { locale, id } = Astro.props;
+const clipId = `locale-flag-${locale}-${id}`;
 ---
 
 {locale === "es" ? (
   <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
     <defs>
-      <clipPath id="locale-flag-es"><rect width="18" height="12" rx="1.5" /></clipPath>
+      <clipPath id={clipId}><rect width="18" height="12" rx="1.5" /></clipPath>
     </defs>
-    <g clip-path="url(#locale-flag-es)">
+    <g clip-path={`url(#${clipId})`}>
       <rect width="18" height="12" fill="#aa151b" />
       <rect y="3" width="18" height="6" fill="#f1bf00" />
     </g>
@@ -19,9 +21,9 @@ const { locale } = Astro.props;
 ) : (
   <svg viewBox="0 0 60 30" width="18" height="12" aria-hidden="true">
     <defs>
-      <clipPath id="locale-flag-en"><rect width="60" height="30" rx="5" /></clipPath>
+      <clipPath id={clipId}><rect width="60" height="30" rx="5" /></clipPath>
     </defs>
-    <g clip-path="url(#locale-flag-en)">
+    <g clip-path={`url(#${clipId})`}>
       <rect width="60" height="30" fill="#012169" />
       <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
       <path d="M0 0 L60 30 M60 0 L0 30" stroke="#c8102e" stroke-width="4" />
