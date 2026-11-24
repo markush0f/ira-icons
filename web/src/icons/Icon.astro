@@ -1,8 +1,24 @@
 ---
-import { getSource } from './icons.ts';
-import { isAnimatedIcon, iterationProperty, scaleAnimationCss } from '../../../scripts/npm-package/shared/animation-speed.ts';
-interface Props { name: string; size?: number | string; color?: string; label?: string; constant?: boolean }
-const { name, size = 24, color = 'currentColor', label, constant } = Astro.props;
+import { getSource } from "./icons.ts";
+import {
+  isAnimatedIcon,
+  iterationProperty,
+  scaleAnimationCss,
+} from "../../../scripts/npm-package/shared/animation-speed.ts";
+interface Props {
+  name: string;
+  size?: number | string;
+  color?: string;
+  label?: string;
+  constant?: boolean;
+}
+const {
+  name,
+  size = 24,
+  color = "currentColor",
+  label,
+  constant,
+} = Astro.props;
 const source = getSource(name);
 if (!source) throw new Error(`Unknown Ira Icons icon: ${name}`);
 // Only trusted, checked-in SVGs enter the server catalog. Preserve their native viewBox and styling.
@@ -10,10 +26,28 @@ const match = source.trim().match(/^<svg\b([^>]+)>([\s\S]*)<\/svg>$/);
 if (!match) throw new Error(`Invalid Ira Icons SVG: ${name}`);
 const [, root, sourceDrawing] = match;
 const drawing = isAnimatedIcon(name)
-  ? sourceDrawing.replace(/(<style\b[^>]*>)([\s\S]*?)(<\/style>)/g, (_tag, open, css, close) => open + scaleAnimationCss(css) + close)
+  ? sourceDrawing.replace(
+      /(<style\b[^>]*>)([\s\S]*?)(<\/style>)/g,
+      (_tag, open, css, close) => open + scaleAnimationCss(css) + close,
+    )
   : sourceDrawing;
-const motion = isAnimatedIcon(name) ? `${iterationProperty}:${constant === false ? '1' : 'infinite'}` : undefined;
-const attrs = Object.fromEntries([...root.matchAll(/([^\s=]+)="([^"]*)"/g)].map(([,k,v])=>[k,v]));
-const accessibleLabel = typeof label === 'string' ? label.trim() : '';
+const motion = isAnimatedIcon(name)
+  ? `${iterationProperty}:${constant === false ? "1" : "infinite"}`
+  : undefined;
+const attrs = Object.fromEntries(
+  [...root.matchAll(/([^\s=]+)="([^"]*)"/g)].map(([, k, v]) => [k, v]),
+);
+const accessibleLabel = typeof label === "string" ? label.trim() : "";
 ---
-<svg {...attrs} width={size} height={size} color={color} style={motion} role={accessibleLabel ? 'img' : undefined} aria-label={accessibleLabel || undefined} aria-hidden={accessibleLabel ? undefined : 'true'} set:html={drawing} />
+
+<svg
+  {...attrs}
+  width={size}
+  height={size}
+  color={color}
+  style={motion}
+  role={accessibleLabel ? "img" : undefined}
+  aria-label={accessibleLabel || undefined}
+  aria-hidden={accessibleLabel ? undefined : "true"}
+  set:html={drawing}
+/>
