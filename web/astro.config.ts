@@ -15,6 +15,11 @@ export default defineConfig({
   // Keep the catalog and installation guide prerendered. Only the report route runs on demand.
   adapter: node({ mode: "standalone" }),
   prefetch: { prefetchAll: false },
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "es"],
+    routing: { prefixDefaultLocale: false },
+  },
   env: {
     schema: {
       GEMINI_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
