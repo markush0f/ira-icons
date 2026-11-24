@@ -6,6 +6,7 @@ export type IconProps = Omit<SVGAttributes, 'size' | 'color'> & {
   color?: string;
   label?: string;
   speed?: number;
+  constant?: boolean;
 };
 
 export type IndividualIconProps = Omit<IconProps, 'name'>;

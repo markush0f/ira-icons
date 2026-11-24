@@ -1,9 +1,9 @@
 import { defineComponent, h, type ComponentObjectPropsOptions } from 'vue';
 import { svgProps, type SerializedIcon } from '../shared/icon-props.ts';
 
-import { normalizeSpeed, speedProperty } from '../shared/animation-speed.ts';
+import { motionVars } from '../shared/animation-speed.ts';
 
-interface GlyphProps { name?: string; size: number | string; color: string; label?: string; speed?: number }
+interface GlyphProps { name?: string; size: number | string; color: string; label?: string; speed?: number; constant?: boolean }
 
 export function createIcon(options: { name: string; props?: ComponentObjectPropsOptions }, resolveIcon: (props: GlyphProps) => SerializedIcon) {
   return defineComponent({
@@ -14,6 +14,7 @@ export function createIcon(options: { name: string; props?: ComponentObjectProps
       color: { type: String, default: 'currentColor' },
       label: String,
       speed: Number,
+      constant: { type: Boolean, default: true },
       ...options.props,
     },
     setup(props, { attrs }) {
@@ -22,7 +23,7 @@ export function createIcon(options: { name: string; props?: ComponentObjectProps
         const icon = resolveIcon(glyphProps);
         return h('svg', {
           ...svgProps(icon, glyphProps.size, glyphProps.color, glyphProps.label, attrs),
-          ...(icon.animated && { style: [attrs.style, { [speedProperty]: normalizeSpeed(glyphProps.speed) }] }),
+          ...(icon.animated && { style: [attrs.style, motionVars(glyphProps.speed, glyphProps.constant)] }),
           // Only render the SVG markup shipped with the package.
           innerHTML: icon.markup,
         });

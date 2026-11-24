@@ -9,6 +9,7 @@
     color = 'currentColor',
     label,
     speed,
+    constant,
     style,
     ...attrs
   }: IndividualIconProps & {
@@ -16,4 +17,4 @@
   } = $props();
 </script>
 
-<svg {...svgProps(icon, size, color, label, attrs)} style={speedStyle(icon.animated, speed, style)}>{@html icon.markup}</svg>
+<svg {...svgProps(icon, size, color, label, attrs)} style={speedStyle(icon.animated, speed, style, constant)}>{@html icon.markup}</svg>

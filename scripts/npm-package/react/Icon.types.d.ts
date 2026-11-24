@@ -6,6 +6,8 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'name' | 'child
   label?: string;
   /** Playback multiplier for animated icons. Defaults to 1. */
   speed?: number;
+  /** Keep an animated icon looping. Set false to play the cycle once. Defaults to true. */
+  constant?: boolean;
 }
 
 declare const Icon: ForwardRefExoticComponent<Omit<IconProps, 'ref'> & RefAttributes<SVGSVGElement>>;

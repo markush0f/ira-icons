@@ -46,16 +46,16 @@ const virtualEntries: Plugin = {
     return `
 import { createElement, forwardRef } from 'react';
 import $Svg from ${JSON.stringify(`${join(root, 'icons', icon.file)}?react`)};
-import { normalizeSpeed, speedProperty } from ${JSON.stringify(fileURLToPath(new URL('./shared/animation-speed.ts', import.meta.url)))};
+import { motionVars } from ${JSON.stringify(fileURLToPath(new URL('./shared/animation-speed.ts', import.meta.url)))};
 export default /* @__PURE__ */ forwardRef(function ${icon.identifier}(
-  { size = 24, color = 'currentColor', label, speed, ...props }, ref
+  { size = 24, color = 'currentColor', label, speed, constant, ...props }, ref
 ) {
   const ariaLabel = props['aria-label'] || (typeof label === 'string' ? label.trim() : '');
   const labelled = Boolean(ariaLabel || props['aria-labelledby']);
   return createElement($Svg, {
     width: size, height: size, color, role: labelled ? 'img' : undefined,
     'aria-hidden': labelled ? undefined : true, focusable: false,
-    ...props, ${icon.name.endsWith('-animated') ? 'style: { ...props.style, [speedProperty]: normalizeSpeed(speed) },' : ''} 'aria-label': ariaLabel || undefined, ref,
+    ...props, ${icon.name.endsWith('-animated') ? 'style: { ...props.style, ...motionVars(speed, constant) },' : ''} 'aria-label': ariaLabel || undefined, ref,
   });
 });`;
   },
@@ -114,11 +114,11 @@ await Promise.all([
     writeFile(join(output, 'astro/icons', `${name}.astro`), `---
 import Svg from ${JSON.stringify(`../../icons/${file}`)};
 import { speedStyle } from '../animation-speed.ts';
-const { size = 24, color = 'currentColor', label, speed, style, ...props } = Astro.props;
+const { size = 24, color = 'currentColor', label, speed, constant, style, ...props } = Astro.props;
 const ariaLabel = props['aria-label'] || (typeof label === 'string' ? label.trim() : '');
 const labelled = Boolean(ariaLabel || props['aria-labelledby']);
 ---
-<Svg width={size} height={size} color={color} role={labelled ? 'img' : undefined} aria-hidden={labelled ? undefined : 'true'} {...props} style={speedStyle(${name.endsWith('-animated')}, speed, style)} aria-label={ariaLabel || undefined} />
+<Svg width={size} height={size} color={color} role={labelled ? 'img' : undefined} aria-hidden={labelled ? undefined : 'true'} {...props} style={speedStyle(${name.endsWith('-animated')}, speed, style, constant)} aria-label={ariaLabel || undefined} />
 `),
   ]),
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),

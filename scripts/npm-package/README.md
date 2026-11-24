@@ -64,7 +64,7 @@ Both adapters have an individual import such as `/vue/search-minimalist` or `/sv
 
 Omit `label` when the icon is decorative. `size` defaults to 24 and `color` defaults to `currentColor`.
 
-Animated components accept a numeric `speed` multiplier in all adapters. `1` is the default, `2` is twice as fast, and `0.5` is half speed. Invalid values fall back to `1`; static icons ignore it. Reduced-motion preferences still apply.
+Animated components accept a numeric `speed` multiplier in all adapters. `1` is the default, `2` is twice as fast, and `0.5` is half speed. Invalid values fall back to `1`; static icons ignore it. They also accept `constant`, which defaults to `true` and keeps each icon’s animation looping. Set `constant={false}` to play the cycle once. Reduced-motion preferences still apply.
 
 ```jsx
 import { ArrowBackAnimated } from '@ira/iraicons/react';

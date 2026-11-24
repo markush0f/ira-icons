@@ -76,7 +76,10 @@ test('speed sets an instance-local multiplier without replacing caller styles', 
   assert.match(html, /opacity:0\.5;--ira-icon-speed:2/);
   assert.match(html, /animation-delay: calc\(-\.8s \/ var\(--ira-icon-speed, 1\)\)/);
   assert.doesNotMatch(html, / speed=/);
-  assert.match(render({ name: 'coffee-animated', speed: 0 }), /style="--ira-icon-speed:1"/);
+  assert.match(render({ name: 'coffee-animated', speed: 0 }), /--ira-icon-speed:1/);
+  assert.match(render({ name: 'coffee-animated' }), /--ira-icon-iteration:infinite/);
+  assert.match(render({ name: 'coffee-animated', constant: false }), /--ira-icon-iteration:1/);
+  assert.match(render({ name: 'coffee-animated' }), /var\(--ira-icon-iteration, infinite\)/);
   assert.doesNotMatch(render({ name: 'coffee', speed: 2 }), /--ira-icon-speed| speed=/);
 });
 

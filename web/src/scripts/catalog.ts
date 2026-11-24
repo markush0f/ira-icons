@@ -1,4 +1,4 @@
-import { isAnimatedIcon, longestAnimationSeconds, scaleAnimationCss, speedProperty } from '../../../scripts/npm-package/shared/animation-speed.ts';
+import { isAnimatedIcon, iterationProperty, longestAnimationSeconds, scaleAnimationCss, speedProperty } from '../../../scripts/npm-package/shared/animation-speed.ts';
 import { formatIcon, type CodeFormat } from './icon-copy.ts';
 import { mountIconReport } from './icon-report.ts';
 import { requireElement as $ } from './dom.ts';
@@ -121,6 +121,7 @@ async function select(card: HTMLLIElement, name = variants.get(card.dataset.fami
       }
       showLoopDuration();
       svg.style.setProperty(speedProperty, String(speeds.get(name) ?? 1));
+      svg.style.setProperty(iterationProperty, 'infinite');
     }
     preview.replaceChildren(svg);
   } catch {
