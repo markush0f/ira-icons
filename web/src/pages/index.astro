@@ -10,9 +10,9 @@ import { categoriesFor } from '../../../scripts/icon-expansion/categories.ts';
 import { categoryLabel, localeFromPath, t } from '../i18n/index.ts';
 
 const locale = localeFromPath(Astro.url.pathname);
-const catalogNames = iconNames.filter(
-  (name) => !/-(animated|minimalist)$/.test(name),
-);
+const catalogNames = iconNames
+  .filter((name) => !/-(animated|minimalist)$/.test(name))
+  .sort((a, b) => Number(categoriesFor(b).includes('arrows')) - Number(categoriesFor(a).includes('arrows')));
 const firstIcon = catalogNames[0];
 const usedCategories = new Set(catalogNames.flatMap(categoriesFor));
 const categories = [...usedCategories]

@@ -141,7 +141,7 @@ function makeCard(name: string) {
   const card = template.cloneNode(true) as HTMLLIElement;
   card.dataset.family = name; card.classList.remove('is-selected'); card.querySelector('button')!.setAttribute('aria-expanded','false');
   const img = card.querySelector('img')!;
-  img.src = `/icons/${name}.svg`;
+  img.src = `/icons/${name}-animated.svg`;
   card.toggleAttribute('data-thumbnail-pending', !img.complete);
   card.querySelector('.icon-name')!.textContent = name;
   return card;

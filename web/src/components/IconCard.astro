@@ -5,7 +5,7 @@ const { name, selected = false } = Astro.props;
 <li class:list={['icon-card', { 'is-selected': selected }]} data-family={name}>
   <button class="icon-select" type="button" data-select-icon aria-controls="detail-panel" aria-expanded={selected}>
     <span class="icon-preview">
-      <img src={`/icons/${name}.svg`} alt="" width="40" height="40" loading="lazy" decoding="async" />
+      <img src={`/icons/${name}-animated.svg`} alt="" width="40" height="40" loading="lazy" decoding="async" />
       <span class="thumbnail-loader" aria-hidden="true"><i></i><i></i><i></i></span>
     </span>
     <span class="icon-name">{name}</span>
