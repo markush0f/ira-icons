@@ -22,24 +22,56 @@ const formats = [
   <div class="detail-actions">
     <div>
       <div class="copy-heading">
-        <p class="detail-eyebrow" id="copy-label">Copy as</p>
-        <span class="detail-eyebrow copy-status" role="status" data-copy-status></span>
+        <p class="detail-eyebrow" id="copy-label">
+          Copy as
+        </p>
+        <span
+          class="detail-eyebrow copy-status"
+          role="status"
+          data-copy-status
+        ></span>
       </div>
       <div class="framework-links" role="group" aria-labelledby="copy-label">
         {formats.map((format) => (
-          <button class="framework-button" type="button" data-copy-format={format.name}
-            aria-label={`Copy ${format.name}`} title={`Copy ${format.name}`}>
-            {format.logo ? <img class={format.class} src={format.logo.src} alt="" width="18" height="18" /> : <Icon name="svg" size={20} />}
+          <button
+            class="framework-button"
+            type="button"
+            data-copy-format={format.name}
+            aria-label={`Copy ${format.name}`}
+            title={`Copy ${format.name}`}
+          >
+            {format.logo ? (
+              <img
+                class={format.class}
+                src={format.logo.src}
+                alt=""
+                width="18"
+                height="18"
+              />
+            ) : (
+              <Icon name="svg" size={20} />
+            )}
           </button>
         ))}
       </div>
     </div>
     <div data-variant-picker>
-      <p class="detail-eyebrow" id="variant-label">Variante</p>
+      <p class="detail-eyebrow" id="variant-label">
+        Variant
+      </p>
       <div class="variant-options" role="group" aria-labelledby="variant-label">
-        {[["Animado", "-animated", "play"], ["Minimalista", "-minimalist", "minus"], ["Normal", "", "square"]].map(([label, suffix, glyph]) => (
-          <button class="framework-button" type="button" data-suffix={suffix} aria-label={label} title={label} aria-pressed="false">
-            <Icon name={glyph} size={19} />
+        {[
+          ["Animated", "-animated"],
+          ["Original", ""],
+          ["Minimalist", "-minimalist"],
+        ].map(([label, suffix]) => (
+          <button
+            class="framework-button variant-button"
+            type="button"
+            data-suffix={suffix}
+            aria-pressed="false"
+          >
+            {label}
           </button>
         ))}
       </div>
@@ -48,8 +80,21 @@ const formats = [
 </div>
 
 <style>
-  .copy-heading { display: grid; }
-  .copy-heading > * { grid-area: 1 / 1; }
-  .copy-heading:has(.copy-status:not(:empty)) #copy-label { clip-path: inset(50%); }
-  .framework-links { flex-wrap: wrap; }
+  .copy-heading {
+    display: grid;
+  }
+  .copy-heading > * {
+    grid-area: 1 / 1;
+  }
+  .copy-heading:has(.copy-status:not(:empty)) #copy-label {
+    clip-path: inset(50%);
+  }
+  .framework-links {
+    flex-wrap: wrap;
+  }
+  .variant-options .variant-button {
+    width: auto;
+    padding-inline: .65rem;
+    font: 500 .75rem var(--font-mono);
+  }
 </style>
