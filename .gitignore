@@ -6,3 +6,4 @@ dist/
 !.env.example
 /web/data/
 /data/
+.playwright-mcp/
