@@ -16,7 +16,7 @@
       "default": "./react/index.js"
     },
     "./react/*": {
-      "types": "./react/icons/*.d.ts",
+      "types": "./react/IndividualIcon.d.ts",
       "default": "./react/icons/*.js"
     },
     "./astro": "./astro/Icon.astro",
@@ -26,7 +26,7 @@
       "default": "./vue/index.js"
     },
     "./vue/*": {
-      "types": "./vue/icons/*.d.ts",
+      "types": "./vue/IndividualIcon.d.ts",
       "default": "./vue/icons/*.js"
     },
     "./svelte": {
@@ -35,7 +35,7 @@
       "default": "./svelte/index.js"
     },
     "./svelte/*": {
-      "types": "./svelte/icons/*.svelte.d.ts",
+      "types": "./svelte/IndividualIcon.d.ts",
       "svelte": "./svelte/icons/*.svelte",
       "default": "./svelte/icons/*.svelte"
     },

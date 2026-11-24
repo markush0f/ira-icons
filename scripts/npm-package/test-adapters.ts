@@ -10,6 +10,7 @@ import { renderToString } from 'vue/server-renderer';
 import { compile } from 'svelte/compiler';
 import { render } from 'svelte/server';
 import type { Component as SvelteComponent } from 'svelte';
+import ts from 'typescript';
 
 const variants = new URL('../../dist/npm-variants/', import.meta.url);
 const complete = new URL('all/', variants);
@@ -31,6 +32,46 @@ for (const [framework, files] of Object.entries({ react: ['react'], astro: ['ast
     assert.ok(resolveFrom(new URL('../../dist/npm/', import.meta.url), `@markusss0s/ira-library/${framework}/search-minimalist`));
   });
 }
+
+test('complete package stays below the npm file budget and shares individual declarations', () => {
+  const files = readdirSync(complete, { recursive: true, withFileTypes: true }).filter(entry => entry.isFile());
+  assert.ok(files.length < 75000, `Package has ${files.length} files`);
+  for (const framework of ['react', 'vue', 'svelte']) {
+    assert.ok(resolveFrom(complete, `@ira-icons/iraicons/${framework}/search-minimalist`));
+    const manifest = JSON.parse(readFileSync(new URL('package.json', complete), 'utf8'));
+    assert.equal(manifest.exports[`./${framework}/*`].types, `./${framework}/IndividualIcon.d.ts`);
+    assert.ok(!readdirSync(new URL(`${framework}/icons/`, complete)).some(file => file.endsWith('.d.ts')));
+  }
+});
+
+test('named and individual imports retain their TypeScript props after sharing declarations', () => {
+  for (const [directory, prefix] of [[complete, '@ira-icons/iraicons'], [new URL('react/', variants), '@ira-icons/iraicons-react']] as const) {
+    const specifier = prefix.endsWith('-react') ? prefix : `${prefix}/react`;
+    const filename = fileURLToPath(new URL('__consumer_typecheck__.ts', directory));
+    const source = `import { SearchMinimalist } from '${specifier}';
+import Search from '${specifier}/search-minimalist';
+import type { ComponentProps } from 'react';
+const component: typeof SearchMinimalist = Search;
+const props: ComponentProps<typeof Search> = { size: 24, label: 'Search', speed: 1.5 };
+// @ts-expect-error size does not accept booleans
+const invalid: ComponentProps<typeof Search> = { size: true };
+${prefix.endsWith('-react') ? '' : `import { SearchMinimalist as VueNamed } from '${prefix}/vue';
+import VueIndividual from '${prefix}/vue/search-minimalist';
+import { SearchMinimalist as SvelteNamed } from '${prefix}/svelte';
+import SvelteIndividual from '${prefix}/svelte/search-minimalist';
+const vue: typeof VueNamed = VueIndividual;
+const svelte: typeof SvelteNamed = SvelteIndividual;
+`}`;
+    const options: ts.CompilerOptions = { noEmit: true, strict: true, skipLibCheck: true, module: ts.ModuleKind.NodeNext, moduleResolution: ts.ModuleResolutionKind.NodeNext, target: ts.ScriptTarget.ES2022 };
+    const host = ts.createCompilerHost(options);
+    const getSourceFile = host.getSourceFile.bind(host);
+    host.getSourceFile = (path, languageVersion, ...rest) => path === filename
+      ? ts.createSourceFile(path, source, languageVersion, true) : getSourceFile(path, languageVersion, ...rest);
+    const program = ts.createProgram([filename], options, host);
+    const errors = ts.getPreEmitDiagnostics(program);
+    assert.equal(ts.formatDiagnosticsWithColorAndContext(errors, { getCanonicalFileName: name => name, getCurrentDirectory: () => process.cwd(), getNewLine: () => '\n' }), '');
+  }
+});
 
 // The package ships Svelte source; emulate the consumer's SSR compilation.
 const registerSvelteCompiler = () => registerHooks({

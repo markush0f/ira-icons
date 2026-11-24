@@ -94,14 +94,14 @@ const astroCatalog = [
 
 await mkdir(join(output, 'astro/icons'), { recursive: true });
 const individualTypes = `import type { ForwardRefExoticComponent, RefAttributes } from 'react';
-import type { IconProps } from '../Icon.js';
-export type { IndividualIconProps as IconProps } from '../Icon.js';
+import type { IconProps } from './Icon.js';
+export type { IndividualIconProps as IconProps } from './Icon.js';
 declare const Icon: ForwardRefExoticComponent<Omit<IconProps, 'name' | 'ref'> & RefAttributes<SVGSVGElement>>;
 export default Icon;
 `;
 const genericTypes = await readFile(new URL('./react/Icon.types.d.ts', import.meta.url), 'utf8');
 const reactTypes = `${genericTypes}\nexport type IndividualIconProps = Omit<IconProps, 'name'>;\n` + components
-  .map(({ name, identifier }) => `export { default as ${identifier} } from './icons/${name}.js';`)
+  .map(({ identifier }) => `export { default as ${identifier} } from './IndividualIcon.js';`)
   .join('\n') + '\n';
 
 await Promise.all([
@@ -110,7 +110,6 @@ await Promise.all([
   copyFile(new URL('./shared/animation-speed.ts', import.meta.url), join(output, 'astro/animation-speed.ts')),
   writeFile(join(output, 'astro/icons.mjs'), astroCatalog),
   ...components.flatMap(({ name, file }) => [
-    writeFile(join(output, 'react/icons', `${name}.d.ts`), individualTypes),
     writeFile(join(output, 'astro/icons', `${name}.astro`), `---
 import Svg from ${JSON.stringify(`../../icons/${file}`)};
 import { speedStyle } from '../animation-speed.ts';
@@ -122,6 +121,7 @@ const labelled = Boolean(ariaLabel || props['aria-labelledby']);
 `),
   ]),
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),
+  writeFile(join(output, 'react/IndividualIcon.d.ts'), individualTypes),
   copyFile(new URL('../icon-expansion/folio/TABLER-LICENSE.txt', import.meta.url), join(output, 'LICENSE.tabler')),
   copyFile(new URL('../../LICENSE', import.meta.url), join(output, 'LICENSE')),
   writeFile(join(output, 'package.json'), JSON.stringify({

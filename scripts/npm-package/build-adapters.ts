@@ -37,6 +37,10 @@ export async function buildVueAndSvelte({ output, components, iconDirectory }: {
     `  ${JSON.stringify(name)}: ${identifier},`).join('\n');
   const namedExports = (extension: string) => components.map(({ name, identifier }) =>
     `export { default as ${identifier} } from './icons/${name}.${extension}';\n`).join('');
+  // Every individual icon in a framework has the same props. Share its type
+  // declaration instead of shipping 30,000 identical files to npm.
+  const namedTypes = components.map(({ identifier }) =>
+    `export { default as ${identifier} } from './IndividualIcon.js';\n`).join('');
 
   await Promise.all([
     ...['shared/icon-props.ts', 'shared/animation-speed.ts', 'vue/create-icon.ts'].map(compileRuntime),
@@ -62,7 +66,17 @@ import type { IconProps } from './types.js';
 export type { IconProps, IndividualIconProps } from './types.js';
 export declare const Icon: DefineComponent<IconProps>;
 export default Icon;
-${namedExports('js')}`),
+${namedTypes}`),
+    write('vue/IndividualIcon.d.ts', `import type { DefineComponent } from 'vue';
+import type { IndividualIconProps } from './types.js';
+declare const Icon: DefineComponent<IndividualIconProps>;
+export default Icon;
+`),
+    write('svelte/IndividualIcon.d.ts', `import type { Component } from 'svelte';
+import type { IndividualIconProps } from './types.js';
+declare const Icon: Component<IndividualIconProps>;
+export default Icon;
+`),
     write('svelte/Icon.svelte', `<script lang="ts">
   import catalog from '../shared/catalog.js';
   import { requireIcon } from '../shared/icon-props.js';
@@ -79,7 +93,7 @@ ${namedExports('js')}`),
 ${namedExports('svelte')}`),
     write('svelte/index.d.ts', `export type { IconProps, IndividualIconProps } from './types.js';
 export { default, default as Icon } from './Icon.svelte';
-${namedExports('svelte')}`),
+${namedTypes}`),
     write('svelte/Icon.svelte.d.ts', `import type { Component } from 'svelte';
 import type { IconProps } from './types.js';
 declare const Icon: Component<IconProps>;
@@ -95,11 +109,6 @@ export default Icon;
 import { createIcon } from '../create-icon.js';
 export default /* @__PURE__ */ createIcon({ name: '${identifier}' }, () => icon);
 `),
-        write(`vue/icons/${name}.d.ts`, `import type { DefineComponent } from 'vue';
-import type { IndividualIconProps } from '../types.js';
-declare const Icon: DefineComponent<IndividualIconProps>;
-export default Icon;
-`),
         write(`svelte/icons/${name}.svelte`, `<script lang="ts">
   import icon from '../../shared/icons/${name}.js';
   import Glyph from '../Glyph.svelte';
@@ -109,11 +118,6 @@ export default Icon;
 </script>
 
 <Glyph {icon} {...props} />
-`),
-        write(`svelte/icons/${name}.svelte.d.ts`, `import type { Component } from 'svelte';
-import type { IndividualIconProps } from '../types.js';
-declare const Icon: Component<IndividualIconProps>;
-export default Icon;
 `),
       ]);
     }),
