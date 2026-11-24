@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="deer"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-animal-deer-left-ear { 0%, 100% { transform: none; } 16% { transform: rotate(-36deg); } 25% { transform: rotate(14deg); } 34% { transform: none; } }
+            [data-ira-animal="deer"] [data-ira-part="left-ear"] { transform-origin: 8.5px 10px; animation: ira-animal-deer-left-ear 2.7s ease-in-out infinite; }
+            @keyframes ira-animal-deer-right-ear { 0%, 100% { transform: none; } 20% { transform: rotate(38deg); } 29% { transform: rotate(-12deg); } 38% { transform: none; } }
+            [data-ira-animal="deer"] [data-ira-part="right-ear"] { transform-origin: 15.5px 10px; animation: ira-animal-deer-right-ear 2.7s ease-in-out infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3c0 2 1 3 4 3c2 0 3 1 3 3"/><path d="M21 3c0 2 -1 3 -4 3c-2 0 -3 .333 -3 3"/><path d="M12 18c-1 0 -4 -3 -4 -6c0 -2 1.333 -3 4 -3s4 1 4 3c0 3 -3 6 -4 6"/><path d="M15.185 14.889l.095 -.18a4 4 0 1 1 -6.56 0"/><path d="M17 3c0 1.333 -.333 2.333 -1 3"/><path d="M7 3c0 1.333 .333 2.333 1 3"/><path d="M7 6c-2.667 .667 -4.333 1.667 -5 3"/><path d="M17 6c2.667 .667 4.333 1.667 5 3"/><path d="M8.5 10l-1.5 -1"/><path d="M15.5 10l1.5 -1"/></g>
-    <g data-ira-motion="deer"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 15h.01"/></g></g>
+    <g data-ira-animal="deer"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3c0 2 1 3 4 3c2 0 3 1 3 3"/><path d="M21 3c0 2 -1 3 -4 3c-2 0 -3 .333 -3 3"/><path d="M12 18c-1 0 -4 -3 -4 -6c0 -2 1.333 -3 4 -3s4 1 4 3c0 3 -3 6 -4 6"/><path d="M15.185 14.889l.095 -.18a4 4 0 1 1 -6.56 0"/><path d="M17 3c0 1.333 -.333 2.333 -1 3"/><path d="M7 3c0 1.333 .333 2.333 1 3"/><path d="M7 6c-2.667 .667 -4.333 1.667 -5 3"/><path d="M17 6c2.667 .667 4.333 1.667 5 3"/><path data-ira-part="left-ear" d="M8.5 10l-1.5 -1"/><path data-ira-part="right-ear" d="M15.5 10l1.5 -1"/></g><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 15h.01"/></g></g>
 </svg>

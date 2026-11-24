@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="cat"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-animal-cat-left-eye { 0%, 100% { d: path("M9 11L9 11.01"); stroke-width: 2; } 10% { d: path("M9 11L9 11.01"); stroke-width: 2; } 15% { d: path("M8.35 11.15L9.65 11.15"); stroke-width: 0.9; } 18% { d: path("M8.35 11.15L9.65 11.15"); stroke-width: 0.9; } 24% { d: path("M9 11L9 11.01"); stroke-width: 2; } }
+            [data-ira-animal="cat"] [data-ira-part="left-eye"] { animation: ira-animal-cat-left-eye 2.9s ease-in-out infinite; }
+            @keyframes ira-animal-cat-right-eye { 0%, 100% { d: path("M15 11L15 11.01"); stroke-width: 2; } 10% { d: path("M15 11L15 11.01"); stroke-width: 2; } 15% { d: path("M14.35 11.15L15.65 11.15"); stroke-width: 0.9; } 18% { d: path("M14.35 11.15L15.65 11.15"); stroke-width: 0.9; } 24% { d: path("M15 11L15 11.01"); stroke-width: 2; } }
+            [data-ira-animal="cat"] [data-ira-part="right-eye"] { animation: ira-animal-cat-right-eye 2.9s ease-in-out infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M20 3v10a8 8 0 1 1 -16 0v-10l3.432 3.432a7.963 7.963 0 0 1 4.568 -1.432c1.769 0 3.403 .574 4.728 1.546l3.272 -3.546z"/><path d="M2 16h5l-4 4"/><path d="M22 16h-5l4 4"/><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M9 11v.01"/></g>
-    <g data-ira-motion="cat"><g transform="translate(1.5 1.5) scale(.875)"><path d="M15 11v.01"/></g></g>
+    <g data-ira-animal="cat"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20 3v10a8 8 0 1 1 -16 0v-10l3.432 3.432a7.963 7.963 0 0 1 4.568 -1.432c1.769 0 3.403 .574 4.728 1.546l3.272 -3.546z"/><path d="M2 16h5l-4 4"/><path d="M22 16h-5l4 4"/><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path data-ira-part="left-eye" d="M9 11v.01"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-part="right-eye" d="M15 11v.01"/></g></g>
 </svg>

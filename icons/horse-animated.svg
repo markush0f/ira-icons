@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="horse"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-animal-horse-tail { 0%, 100% { d: path("M22 14v-2a3 3 0 0 0 -3 -3"); } 20% { d: path("M20.5 16v-1.7a5.4 3.1 72 0 0 -1.5 -5.3"); } 35% { d: path("M22.6 12.5v-1a3.7 2.5 0 0 0 -3.6 -2.5"); } 48% { d: path("M22 14v-2a3 3 0 0 0 -3 -3"); } }
+            [data-ira-animal="horse"] [data-ira-part="tail"] { animation: ira-animal-horse-tail 2.45s ease-in-out infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M7 10l-.85 8.507a1.357 1.357 0 0 0 1.35 1.493h.146a2 2 0 0 0 1.857 -1.257l.994 -2.486a2 2 0 0 1 1.857 -1.257h1.292a2 2 0 0 1 1.857 1.257l.994 2.486a2 2 0 0 0 1.857 1.257h.146a1.37 1.37 0 0 0 1.364 -1.494l-.864 -9.506h-8c0 -3 -3 -5 -6 -5l-3 6l2 2l3 -2z"/></g>
-    <g data-ira-motion="horse"><g transform="translate(1.5 1.5) scale(.875)"><path d="M22 14v-2a3 3 0 0 0 -3 -3"/></g></g>
+    <g data-ira-animal="horse"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 10l-.85 8.507a1.357 1.357 0 0 0 1.35 1.493h.146a2 2 0 0 0 1.857 -1.257l.994 -2.486a2 2 0 0 1 1.857 -1.257h1.292a2 2 0 0 1 1.857 1.257l.994 2.486a2 2 0 0 0 1.857 1.257h.146a1.37 1.37 0 0 0 1.364 -1.494l-.864 -9.506h-8c0 -3 -3 -5 -6 -5l-3 6l2 2l3 -2z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-part="tail" d="M22 14v-2a3 3 0 0 0 -3 -3"/></g></g>
 </svg>

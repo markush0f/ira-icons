@@ -12,6 +12,7 @@ import { homeFoodIcons } from './home-food.ts';
 import { svg } from './geometry.ts';
 import { renderPlan } from './motion-plan.ts';
 import { designRevealFor } from './design-reveal.ts';
+import { animalMotionFor } from './animal-motion.ts';
 import { arrowRevealFor, manualArrowReveals, renderArrowReveal } from './arrow-reveal.ts';
 import tablerRows from './folio/tabler.json' with { type: 'json' };
 
@@ -109,6 +110,7 @@ for (const icon of collection) {
   files.set(`${name}-minimalist.svg`, wrap([svg(minimal)], icon.notice));
   const reveal = arrowRevealFor(name, folioPaths.get(name));
   const sequence = reveal ? renderArrowReveal(name, reveal) : designRevealFor(name, geometry)
+    ?? animalMotionFor(name, geometry)
     ?? (icon.sequence ? renderPlan(name, icon.sequence) : animated(icon));
   files.set(`${name}-animated.svg`, wrap(sequence, icon.notice));
 }

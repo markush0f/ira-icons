@@ -7,7 +7,7 @@ description: Refine the motion or catalog categories of existing Ira Icons. Use 
 
 1. **Scope the batch.** List the families that actually appear in the category via `categoriesFor` in `scripts/icon-expansion/categories.ts`. Inspect nearby icons that are missing or misplaced. Categorize by what the icon depicts or does, not a word or detail it contains: a file with an arrow is still a document, and a UI chevron is not necessarily a map icon. Keep meaningful secondary categories. Add inclusion/exclusion tests in `web/test/icon-categories.test.ts`.
 2. **Preserve the icon.** Keep public names, original/minimalist assets, license notices, viewBox, and `currentColor`. Edit generator sources for generated assets and regenerate with `node scripts/icon-expansion/generate.ts`. Change a handwritten animated SVG directly unless its family is explicitly adopted by a generator. Never hand-edit a generated SVG.
-3. **Animate the concept, not a random detail.** Apply the instruction for the requested family. Keep motion scoped to the icon (selectors **and** keyframes), within `prefers-reduced-motion: no-preference`. Without CSS or with reduced motion, show the full static icon. Keep the SVG self-contained and pause visibly on the completed pose before resetting.
+3. **Animate the concept, not a random detail.** Apply the instruction for the requested family. Keep motion scoped to the icon (selectors **and** keyframes), within `prefers-reduced-motion: no-preference`. Without CSS or with reduced motion, show the full static icon. Keep the SVG self-contained and pause visibly on the completed pose before resetting, unless the family calls for a continuous loop.
 4. **Review the result.** In a browser, sample the beginning, middle, hold and reset at 16, 20 and 24 px, light and dark; compare the completed and reduced-motion poses to the original. Put several variants inline together to catch CSS leakage. For large batches, render-compare all static poses and visually inspect a sample covering every motion pattern. Run `node scripts/icon-expansion/generate.ts --check`, `bun run test`, `bun run build`, and `git diff --check`. Report the scope, what changed, and what was verified.
 
 ## Arrows & directions: trace the route from origin to destination
@@ -35,5 +35,9 @@ Use these linear loop timings from `scripts/icon-expansion/design-reveal.ts`:
 | Circles | **2.4 s** | Ring and interior lines: 0–49% together (~1.18 s). See [Circular reveals](../icon-circular-reveal/SKILL.md). |
 
 Hold completed strokes through 87% of the cycle, then fade them out before restarting. The full pose stays visible under reduced motion.
+
+## Animals: move a body part naturally
+
+Use [Animal motion](../icon-animal-motion/SKILL.md) for icons depicting animals or their body parts. Choose a visible part and a gesture that fits the animal and its pose. Use the gesture's own timing and return to rest or loop seamlessly instead of fading out.
 
 Record new family-specific rules here once the user confirms them. Do not turn a rule for one family into a default for unrelated icons.
