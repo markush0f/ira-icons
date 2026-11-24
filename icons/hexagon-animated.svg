@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="hexagon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-hexagon-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="hexagon"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-hexagon-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="hexagon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"/></g></g>
+    <g data-ira-stroke-reveal="hexagon"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M19.875 6.27A2.225 2.225 0 0 1 21 8.218L21 15.501999999999999C21 16.311 20.557 17.057 19.842 17.45L13.091999999999999 21.72A2.269 2.269 0 0 1 10.907999999999998 21.72L4.157999999999998 17.45A2.225 2.225 0 0 1 2.999999999999998 15.501999999999999L2.999999999999998 8.216999999999999C2.999999999999998 7.407999999999999 3.442999999999998 6.6629999999999985 4.157999999999998 6.269999999999999L10.907999999999998 2.2899999999999987A2.33 2.33 0 0 1 13.157999999999998 2.2899999999999987L19.907999999999998 6.269999999999999L19.874999999999996 6.269999999999999z"/></g></g>
 </svg>

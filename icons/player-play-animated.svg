@@ -22,12 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
-    <!-- Motion: The play button pushes forward slightly, keeping a closed triangle. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-seq-player-play-0 { 0%, 5% { transform: translateX(-1.25px); } 35%, 83% { transform: none; } 100% { transform: translateX(-1.25px); } }
-            [data-ira-sequence="player-play"] > [data-step="0"] { transform-box: view-box; transform-origin: center; animation: ira-seq-player-play-0 2.6s ease-out infinite; }
+            @keyframes ira-stroke-player-play-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="player-play"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-player-play-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-sequence="player-play"><g data-step="0"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 4v16l13 -8z"/></g></g></g>
+    <g data-ira-stroke-reveal="player-play"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M7 4L7 20L20 12z"/></g></g>
 </svg>

@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
+            @keyframes ira-design-chart-dots-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="chart-dots"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-line 2.8s linear infinite; }
             @keyframes ira-design-chart-dots-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
             [data-ira-design-reveal="chart-dots"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-ring 2.8s linear infinite; }
             @keyframes ira-design-chart-dots-sample-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 36%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
@@ -32,5 +34,5 @@ SOFTWARE. -->
             [data-ira-design-reveal="chart-dots"] [data-design-ink="sample-2"] { stroke-dasharray: 1 1; animation: ira-design-chart-dots-sample-2 2.8s linear infinite; }
         }
     </style>
-    <g data-ira-design-reveal="chart-dots" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3v18h18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M9 7a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M19 5a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M14 13a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="sample-1" pathLength="1" d="M10.16 10.62L12.5 13.5"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-2" pathLength="1" d="M15.088 13.328L17.925 8.741999999999999"/></g></g>
+    <g data-ira-design-reveal="chart-dots" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 3L3 21L21 21"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M9 7a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M19 5a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="ring" pathLength="1" d="M14 13a2 2 0 1 1 0 4a2 2 0 1 1 0 -4z"/><path data-design-ink="sample-1" pathLength="1" d="M10.16 10.62L12.5 13.5"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="sample-2" pathLength="1" d="M15.088 13.328L17.925 8.741999999999999"/></g></g>
 </svg>

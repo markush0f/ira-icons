@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="playstation-square"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-playstation-square-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="playstation-square"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-playstation-square-row-0 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z"/></g>
-    <g data-ira-motion="playstation-square"><g transform="translate(1.5 1.5) scale(.875)"><path d="M8 8m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"/></g></g>
+    <g data-ira-design-reveal="playstation-square" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M12 21A9 9 0 0 0 21 12A9 9 0 0 0 12 3A9 9 0 0 0 3 12A9 9 0 0 0 12 21z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M8 9A1 1 0 0 1 9 8L15 8A1 1 0 0 1 16 9L16 15A1 1 0 0 1 15 16L9 16A1 1 0 0 1 8 15z"/></g></g>
 </svg>

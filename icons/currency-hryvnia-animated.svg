@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="currency-hryvnia"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-stroke-currency-hryvnia-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="currency-hryvnia"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-currency-hryvnia-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-currency-hryvnia-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="currency-hryvnia"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-currency-hryvnia-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-currency-hryvnia-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="currency-hryvnia"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-currency-hryvnia-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8 7a2.64 2.64 0 0 1 2.562 -2h3.376a2.64 2.64 0 0 1 2.562 2a2.57 2.57 0 0 1 -1.344 2.922l-5.876 2.938a3.338 3.338 0 0 0 -1.78 3.64a3.11 3.11 0 0 0 3.05 2.5h2.888a2.64 2.64 0 0 0 2.562 -2"/><path d="M6 10h12"/></g>
-    <g data-ira-motion="currency-hryvnia"><g transform="translate(1.5 1.5) scale(.875)"><path d="M6 14h12"/></g></g>
+    <g data-ira-stroke-reveal="currency-hryvnia"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M8 7A2.64 2.64 0 0 1 10.562 5L13.937999999999999 5A2.64 2.64 0 0 1 16.5 7A2.57 2.57 0 0 1 15.156 9.922L9.280000000000001 12.860000000000001A3.338 3.338 0 0 0 7.500000000000001 16.5A3.11 3.11 0 0 0 10.55 19L13.438 19A2.64 2.64 0 0 0 16 17"/><path data-ira-line="1" pathLength="1" d="M6 10L18 10"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M6 14L18 14"/></g></g>
 </svg>

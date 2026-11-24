@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="robot"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-design-robot-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="robot"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-robot-row-0 2.4s linear infinite; }
+            @keyframes ira-design-robot-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="robot"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-robot-row-1 2.4s linear infinite; }
+            @keyframes ira-design-robot-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="robot"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-robot-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M6 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"/><path d="M12 2v2"/><path d="M9 12v9"/><path d="M15 12v9"/><path d="M5 16l4 -2"/><path d="M15 14l4 2"/><path d="M9 18h6"/><path d="M10 8v.01"/></g>
-    <g data-ira-motion="robot"><g transform="translate(1.5 1.5) scale(.875)"><path d="M14 8v.01"/></g></g>
+    <g data-ira-design-reveal="robot" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M6 6A2 2 0 0 1 8 4L16 4A2 2 0 0 1 18 6L18 10A2 2 0 0 1 16 12L8 12A2 2 0 0 1 6 10z"/><path data-design-ink="row-0" pathLength="1" d="M12 2L12 4"/><path data-design-ink="row-1" pathLength="1" d="M9 12L9 21"/><path data-design-ink="row-1" pathLength="1" d="M15 12L15 21"/><path data-design-ink="row-1" pathLength="1" d="M5 16L9 14"/><path data-design-ink="row-1" pathLength="1" d="M15 14L19 16"/><path data-design-ink="row-2" pathLength="1" d="M9 18L15 18"/><path data-design-ink="row-0" pathLength="1" d="M10 8L10 8.01"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M14 8L14 8.01"/></g></g>
 </svg>

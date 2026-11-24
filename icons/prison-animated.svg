@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="prison"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-prison-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="prison"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-prison-row-0 2.4s linear infinite; }
+            @keyframes ira-design-prison-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="prison"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-prison-row-1 2.4s linear infinite; }
+            @keyframes ira-design-prison-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="prison"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-prison-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18 4v16"/><path d="M14 4v16"/><path d="M6 4v5"/><path d="M6 15v5"/><path d="M10 4v5"/><path d="M11 9h-6v6h6z"/><path d="M10 15v5"/></g>
-    <g data-ira-motion="prison"><g transform="translate(1.5 1.5) scale(.875)"><path d="M8 12h-.01"/></g></g>
+    <g data-ira-design-reveal="prison" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M18 4L18 20"/><path data-design-ink="row-0" pathLength="1" d="M14 4L14 20"/><path data-design-ink="row-0" pathLength="1" d="M6 4L6 9"/><path data-design-ink="row-2" pathLength="1" d="M6 15L6 20"/><path data-design-ink="row-0" pathLength="1" d="M10 4L10 9"/><path data-design-ink="row-1" pathLength="1" d="M11 9L5 9L5 15L11 15z"/><path data-design-ink="row-2" pathLength="1" d="M10 15L10 20"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M7.99 12L8 12"/></g></g>
 </svg>

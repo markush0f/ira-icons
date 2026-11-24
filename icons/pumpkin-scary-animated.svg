@@ -22,12 +22,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="pumpkin-scary"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-stroke-pumpkin-scary-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pumpkin-scary"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-pumpkin-scary-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-pumpkin-scary-1 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pumpkin-scary"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-pumpkin-scary-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-pumpkin-scary-2 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pumpkin-scary"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-pumpkin-scary-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-pumpkin-scary-3 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pumpkin-scary"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-pumpkin-scary-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-pumpkin-scary-4 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pumpkin-scary"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-pumpkin-scary-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M9 15l1.5 1l1.5 -1l1.5 1l1.5 -1"/><path d="M10 11h.01"/><path d="M14 11h.01"/><path d="M17 6.082c2.609 .588 3.627 4.162 2.723 7.983c-.903 3.82 -2.75 6.44 -5.359 5.853a3.355 3.355 0 0 1 -.774 -.279a3.728 3.728 0 0 1 -1.59 .361c-.556 0 -1.09 -.127 -1.59 -.362a3.296 3.296 0 0 1 -.774 .28c-2.609 .588 -4.456 -2.033 -5.36 -5.853c-.903 -3.82 .115 -7.395 2.724 -7.983c1.085 -.244 1.575 .066 2.585 .787c.716 -.554 1.54 -.869 2.415 -.869c.876 0 1.699 .315 2.415 .87c1.01 -.722 1.5 -1.032 2.585 -.788z"/></g>
-    <g data-ira-motion="pumpkin-scary"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 6c0 -1.226 .693 -2.346 1.789 -2.894l.211 -.106"/></g></g>
+    <g data-ira-stroke-reveal="pumpkin-scary"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M9 15L10.5 16L12 15L13.5 16L15 15"/><path data-ira-line="1" pathLength="1" d="M10 11L10.01 11"/><path data-ira-line="2" pathLength="1" d="M14 11L14.01 11"/><path data-ira-line="3" pathLength="1" d="M17 6.082C19.609 6.67 20.627 10.244 19.723 14.065C18.82 17.884999999999998 16.973 20.505 14.363999999999999 19.918A3.355 3.355 0 0 1 13.59 19.639A3.728 3.728 0 0 1 12 20C11.443999999999999 20 10.91 19.873 10.41 19.638A3.296 3.296 0 0 1 9.636 19.918000000000003C7.026999999999999 20.506000000000004 5.179999999999999 17.885 4.275999999999999 14.065000000000003C3.372999999999999 10.245000000000003 4.390999999999999 6.6700000000000035 6.999999999999999 6.082000000000003C8.084999999999999 5.838000000000004 8.575 6.148000000000003 9.584999999999999 6.869000000000003C10.300999999999998 6.315000000000003 11.125 6.0000000000000036 12 6.0000000000000036C12.876 6.0000000000000036 13.699 6.315000000000004 14.415 6.870000000000004C15.424999999999999 6.148000000000003 15.915 5.838000000000004 17 6.082000000000003z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="4" pathLength="1" d="M12 6C12 4.774 12.693 3.654 13.789 3.106L14 3"/></g></g>
 </svg>

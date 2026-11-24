@@ -24,11 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-design-square-dot-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-            [data-ira-design-reveal="square-dot"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-square-dot-line 2.4s linear infinite; }
             @keyframes ira-design-square-dot-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
             [data-ira-design-reveal="square-dot"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-square-dot-ring 2.4s linear infinite; }
+            @keyframes ira-design-square-dot-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="square-dot"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-square-dot-row-0 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-design-reveal="square-dot" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 5A2 2 0 0 1 5 3L19 3A2 2 0 0 1 21 5L21 19A2 2 0 0 1 19 21L5 21A2 2 0 0 1 3 19z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 11a1 1 0 1 1 0 2a1 1 0 1 1 0 -2z"/></g></g>
+    <g data-ira-design-reveal="square-dot" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M3 5A2 2 0 0 1 5 3L19 3A2 2 0 0 1 21 5L21 19A2 2 0 0 1 19 21L5 21A2 2 0 0 1 3 19z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M12 11a1 1 0 1 1 0 2a1 1 0 1 1 0 -2z"/></g></g>
 </svg>

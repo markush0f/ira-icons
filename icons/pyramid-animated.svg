@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="pyramid"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-stroke-pyramid-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pyramid"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-pyramid-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-pyramid-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pyramid"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-pyramid-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M11.105 21.788a1.994 1.994 0 0 0 1.789 0l8.092 -4.054c.538 -.27 .718 -.951 .385 -1.452l-8.54 -13.836a.999 .999 0 0 0 -1.664 0l-8.54 13.836a1.005 1.005 0 0 0 .386 1.452l8.092 4.054z"/></g>
-    <g data-ira-motion="pyramid"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 2v20"/></g></g>
+    <g data-ira-stroke-reveal="pyramid"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M11.105 21.788A1.994 1.994 0 0 0 12.894 21.788L20.986 17.734C21.524 17.464000000000002 21.704 16.783 21.371000000000002 16.282000000000004L12.831000000000003 2.4460000000000033A0.999 0.999 0 0 0 11.167000000000003 2.4460000000000033L2.627000000000004 16.282000000000004A1.005 1.005 0 0 0 3.0130000000000043 17.734L11.105000000000004 21.788000000000004z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M12 2L12 22"/></g></g>
 </svg>

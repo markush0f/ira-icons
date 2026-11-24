@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="circuit-inductor"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-circuit-inductor-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="circuit-inductor"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-circuit-inductor-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="circuit-inductor"><g transform="translate(1.5 1.5) scale(.875)"><path d="M2 14h3v-2a2 2 0 1 1 4 0v2v-1.5a2.5 2.5 0 1 1 5 0v1.5v-1.5a2.5 2.5 0 1 1 5 0v1.5h3"/></g></g>
+    <g data-ira-stroke-reveal="circuit-inductor"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M2 14L5 14L5 12A2 2 0 1 1 9 12L9 14L9 12.5A2.5 2.5 0 1 1 14 12.5L14 14L14 12.5A2.5 2.5 0 1 1 19 12.5L19 14L22 14"/></g></g>
 </svg>

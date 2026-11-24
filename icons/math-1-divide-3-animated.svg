@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="math-1-divide-3"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-stroke-math-1-divide-3-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="math-1-divide-3"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-math-1-divide-3-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-math-1-divide-3-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="math-1-divide-3"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-math-1-divide-3-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-math-1-divide-3-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="math-1-divide-3"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-math-1-divide-3-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 15.5a.5 .5 0 0 1 .5 -.5h2a1.5 1.5 0 0 1 0 3h-1.167h1.167a1.5 1.5 0 0 1 0 3h-2a.5 .5 0 0 1 -.5 -.5"/><path d="M5 12h14"/></g>
-    <g data-ira-motion="math-1-divide-3"><g transform="translate(1.5 1.5) scale(.875)"><path d="M10 5l2 -2v6"/></g></g>
+    <g data-ira-stroke-reveal="math-1-divide-3"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 15.5A0.5 0.5 0 0 1 10.5 15L12.5 15A1.5 1.5 0 0 1 12.5 18L11.333 18L12.5 18A1.5 1.5 0 0 1 12.5 21L10.5 21A0.5 0.5 0 0 1 10 20.5"/><path data-ira-line="1" pathLength="1" d="M5 12L19 12"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M10 5L12 3L12 9"/></g></g>
 </svg>

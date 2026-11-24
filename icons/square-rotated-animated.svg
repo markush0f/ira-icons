@@ -24,9 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="square-rotated"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-square-rotated-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="square-rotated"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-square-rotated-row-0 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-motion="square-rotated"><g transform="translate(1.5 1.5) scale(.875)"><path d="M13.446 2.6l7.955 7.954a2.045 2.045 0 0 1 0 2.892l-7.955 7.955a2.045 2.045 0 0 1 -2.892 0l-7.955 -7.955a2.045 2.045 0 0 1 0 -2.892l7.955 -7.955a2.045 2.045 0 0 1 2.892 0z"/></g></g>
+    <g data-ira-design-reveal="square-rotated" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M13.446 2.6L21.401 10.554A2.045 2.045 0 0 1 21.401 13.446L13.446 21.401A2.045 2.045 0 0 1 10.554 21.401L2.599 13.446A2.045 2.045 0 0 1 2.599 10.554L10.554 2.599A2.045 2.045 0 0 1 13.446 2.599z"/></g></g>
 </svg>

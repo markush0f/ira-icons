@@ -10,6 +10,15 @@ description: Refine the motion or catalog categories of existing Ira Icons. Use 
 3. **Animate the concept, not a random detail.** Apply the instruction for the requested family. Keep motion scoped to the icon (selectors **and** keyframes), within `prefers-reduced-motion: no-preference`. Without CSS or with reduced motion, show the full static icon. Keep the SVG self-contained and pause visibly on the completed pose before resetting, unless the family calls for a continuous loop.
 4. **Review the result.** In a browser, sample the beginning, middle, hold and reset at 16, 20 and 24 px, light and dark; compare the completed and reduced-motion poses to the original. Put several variants inline together to catch CSS leakage. For large batches, render-compare all static poses and visually inspect a sample covering every motion pattern. Run `node scripts/icon-expansion/generate.ts --check`, `bun run test`, `bun run build`, and `git diff --check`. Report the scope, what changed, and what was verified.
 
+## Global rule: every line icon is drawn progressively
+
+The user explicitly confirmed this applies to **all** line icons, including animals, gears, bells, hearts, and other formerly moving subjects. Replace body gestures, spins, pulses, geometric deformations, and clipping sweeps with real stroke tracing. Original and minimalist assets remain unchanged.
+
+- Use the arrow principle: begin each stroke at its actual endpoint, follow its route, accumulate completed strokes, hold the finished icon, then fade before restarting. Split disconnected subpaths so each pen stroke has its own origin.
+- Keep curated arrow routes/head ordering and the established circle/table/box/chart timelines. Trace chart axes too. Dashed/dotted circles trace their individual marks clockwise instead of using a clipping sweep.
+- The fallback in `scripts/icon-expansion/stroke-reveal.ts` draws strokes sequentially during 0–47% of a **2.65 s** loop, holds through 88%, and scopes every selector/keyframe by icon name. Filled details keep their original fill only as the stroke completes. Reduced motion shows the full original pose.
+- `generate.ts` now owns every animated variant, including legacy icons. Do not edit generated SVGs by hand or re-enable legacy motion plans as the fallback.
+
 ## Arrows & directions: trace the route from origin to destination
 
 **Start at the free end of the shaft (the tail), follow the route, and draw the arrowhead last.** For `arrow-back`, that means the short upper end appears first, the line curves around to the right and travels left, and only then do the two arms form the left-pointing head. Starting on either arm of the head is already starting at the destination, even if the vertex is still hidden.
@@ -23,7 +32,7 @@ description: Refine the motion or catalog categories of existing Ira Icons. Use 
 
 ## Design & data: charts and tables
 
-- **Charts:** trace the data from its actual first point to its last, normally left to right. Draw bars from their baseline. Keep axes or frames stationary when they serve as a reference. Use individual paths and animate their dash offset; never use a clipping sweep as a substitute for drawing a line. For complete circular outlines, apply [Circular reveals](../icon-circular-reveal/SKILL.md).
+- **Charts:** trace the data from its actual first point to its last, normally left to right. Draw bars from their baseline. Trace axes and frames too, without moving their geometry. Use individual paths and animate their dash offset; never use a clipping sweep as a substitute for drawing a line. For complete circular outlines, apply [Circular reveals](../icon-circular-reveal/SKILL.md).
 - **Tables:** start with the header and stagger the rows from top to bottom. Each divider draws from its own endpoint, not from where a sweep intersects it. Keep completed rows visible as the next ones draw. See `table` and `table-plus` in `scripts/icon-expansion/design-reveal.ts`.
 
 Use these linear loop timings from `scripts/icon-expansion/design-reveal.ts`:
@@ -36,8 +45,15 @@ Use these linear loop timings from `scripts/icon-expansion/design-reveal.ts`:
 
 Hold completed strokes through 87% of the cycle, then fade them out before restarting. The full pose stays visible under reduced motion.
 
-## Animals: move a body part naturally
+## Boxes, squares, and rectangular frames: accumulate strokes like tables
 
-Use [Animal motion](../icon-animal-motion/SKILL.md) for icons depicting animals or their body parts. Choose a visible part and a gesture that fits the animal and its pose. Use the gesture's own timing and return to rest or loop seamlessly instead of fading out.
+- Apply progressive tracing to box-like icons throughout the catalog, not only the code category: squares, rectangular frames, terminals, windows, files, folders, containers, packages, and cubes.
+- Preserve the outlined design; “filling in” means drawing the existing strokes, not adding solid fills. Keep original and minimalist variants unchanged.
+- Use the table family's **2.4 s linear loop**: draw upper, middle, and lower strokes at 0–30%, 12–42%, and 24–54%, hold the completed pose through 87%, then fade before restarting. Disconnected strokes begin at their own endpoints.
+- See `scripts/icon-expansion/box-reveal.ts` for geometry-based recognition and `design-reveal.ts` for rendering. Reduced motion must show the complete original silhouette.
+
+## Animals: follow the same global tracing rule
+
+Animals and their body parts now use the same progressive stroke reveal as other line icons. Do not restore blinking, flapping, or joint motion unless the user explicitly requests an exception to the global rule.
 
 Record new family-specific rules here once the user confirms them. Do not turn a rule for one family into a default for unrelated icons.

@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="placeholder"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-placeholder-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="placeholder"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-placeholder-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-placeholder-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="placeholder"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-placeholder-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-placeholder-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="placeholder"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-placeholder-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 20.415a8 8 0 1 0 3 -15.415h-3"/><path d="M13 8l-3 -3l3 -3"/></g>
-    <g data-ira-motion="placeholder"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 17l4 -4l-4 -4l-4 4z"/></g></g>
+    <g data-ira-stroke-reveal="placeholder"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 20.415A8 8 0 1 0 13 5L10 5"/><path data-ira-line="1" pathLength="1" d="M13 8L10 5L13 2"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M7 17L11 13L7 9L3 13z"/></g></g>
 </svg>

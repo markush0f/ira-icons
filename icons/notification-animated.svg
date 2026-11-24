@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="notification"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-notification-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="notification"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-notification-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-notification-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="notification"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-notification-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 6h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/></g>
-    <g data-ira-motion="notification"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></g>
+    <g data-ira-stroke-reveal="notification"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 6L7 6A2 2 0 0 0 5 8L5 17A2 2 0 0 0 7 19L16 19A2 2 0 0 0 18 17L18 14"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M17 4A3 3 0 1 1 17 10A3 3 0 1 1 17 4z"/></g></g>
 </svg>

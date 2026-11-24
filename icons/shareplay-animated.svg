@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="shareplay"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-shareplay-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="shareplay"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-shareplay-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-shareplay-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="shareplay"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-shareplay-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18 18a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8a3 3 0 0 0 3 3"/></g>
-    <g data-ira-motion="shareplay"><g transform="translate(1.5 1.5) scale(.875)"><path d="M9 20h6l-3 -5z"/></g></g>
+    <g data-ira-stroke-reveal="shareplay"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M18 18A3 3 0 0 0 21 15L21 7A3 3 0 0 0 18 4L6 4A3 3 0 0 0 3 7L3 15A3 3 0 0 0 6 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M9 20L15 20L12 15z"/></g></g>
 </svg>

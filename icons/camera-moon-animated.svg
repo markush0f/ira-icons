@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="camera-moon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-stroke-camera-moon-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="camera-moon"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-camera-moon-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-camera-moon-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="camera-moon"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-camera-moon-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-camera-moon-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="camera-moon"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-camera-moon-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M11.5 20h-6.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v3.5"/><path d="M14.815 11.96a3.001 3.001 0 1 0 -3.398 3.983"/></g>
-    <g data-ira-motion="camera-moon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.62 22c-2 0 -3.62 -1.58 -3.62 -3.53c0 -1.727 1.273 -3.165 2.954 -3.47a3.4 3.4 0 0 0 -.24 1.264c0 1.95 1.621 3.53 3.62 3.53q .342 0 .666 -.06c-.521 1.326 -1.838 2.266 -3.38 2.266"/></g></g>
+    <g data-ira-stroke-reveal="camera-moon"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M11.5 20L5 20A2 2 0 0 1 3 18L3 9A2 2 0 0 1 5 7L6 7A2 2 0 0 0 8 5A1 1 0 0 1 9 4L15 4A1 1 0 0 1 16 5A2 2 0 0 0 18 7L19 7A2 2 0 0 1 21 9L21 12.5"/><path data-ira-line="1" pathLength="1" d="M14.815 11.96A3.001 3.001 0 1 0 11.417 15.943000000000001"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M18.62 22C16.62 22 15 20.42 15 18.47C15 16.743 16.273 15.305 17.954 14.999999999999998A3.4 3.4 0 0 0 17.714000000000002 16.264C17.714000000000002 18.214 19.335 19.794 21.334000000000003 19.794Q21.676000000000002 19.794 22.000000000000004 19.734C21.479000000000003 21.060000000000002 20.162000000000003 22 18.620000000000005 22"/></g></g>
 </svg>

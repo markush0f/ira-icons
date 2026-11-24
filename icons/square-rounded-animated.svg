@@ -24,9 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="square-rounded"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-design-square-rounded-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="square-rounded"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-square-rounded-row-0 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-motion="square-rounded"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"/></g></g>
+    <g data-ira-design-reveal="square-rounded" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M12 3C19.2 3 21 4.8 21 12S19.2 21 12 21S3 19.2 3 12S4.8 3 12 3z"/></g></g>
 </svg>

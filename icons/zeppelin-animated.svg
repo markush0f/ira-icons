@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="zeppelin"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-zeppelin-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="zeppelin"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-zeppelin-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-zeppelin-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="zeppelin"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-zeppelin-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M13.5 4c4.694 0 8.5 2.686 8.5 6s-3.806 6 -8.5 6c-2.13 0 -4.584 -.926 -7.364 -2.777l-2.136 1.777v-3.33a46.07 46.07 0 0 1 -2 -1.67a46.07 46.07 0 0 1 2 -1.67v-3.33l2.135 1.778c2.78 -1.852 5.235 -2.778 7.365 -2.778z"/></g>
-    <g data-ira-motion="zeppelin"><g transform="translate(1.5 1.5) scale(.875)"><path d="M10 15.5v4.5h6v-4"/></g></g>
+    <g data-ira-stroke-reveal="zeppelin"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M13.5 4C18.194 4 22 6.686 22 10S18.194 16 13.5 16C11.370000000000001 16 8.916 15.074 6.136 13.222999999999999L4 14.999999999999998L4 11.669999999999998A46.07 46.07 0 0 1 2 9.999999999999998A46.07 46.07 0 0 1 4 8.329999999999998L4 4.999999999999998L6.135 6.777999999999999C8.915 4.925999999999998 11.370000000000001 3.9999999999999987 13.5 3.9999999999999987z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M10 15.5L10 20L16 20L16 16"/></g></g>
 </svg>

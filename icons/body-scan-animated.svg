@@ -22,12 +22,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="body-scan"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-body-scan-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 5.875%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-1 { 0%, 5.875% { stroke-dashoffset: 1; opacity: 0; } 6.275% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-2 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 17.625%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-3 { 0%, 17.625% { stroke-dashoffset: 1; opacity: 0; } 18.025% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-4 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 29.375%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-5 { 0%, 29.375% { stroke-dashoffset: 1; opacity: 0; } 29.775% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-6 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 41.125%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-body-scan-7 { 0%, 41.125% { stroke-dashoffset: 1; opacity: 0; } 41.525% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="body-scan"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-body-scan-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 8v-2a2 2 0 0 1 2 -2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2 -2v-2"/><path d="M12 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M10 17v-1a2 2 0 1 1 4 0v1"/><path d="M8 10c.666 .666 1.334 1 2 1h4c.666 0 1.334 -.334 2 -1"/></g>
-    <g data-ira-motion="body-scan"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 11v3"/></g></g>
+    <g data-ira-stroke-reveal="body-scan"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M4 8L4 6A2 2 0 0 1 6 4L8 4"/><path data-ira-line="1" pathLength="1" d="M4 16L4 18A2 2 0 0 0 6 20L8 20"/><path data-ira-line="2" pathLength="1" d="M16 4L18 4A2 2 0 0 1 20 6L20 8"/><path data-ira-line="3" pathLength="1" d="M16 20L18 20A2 2 0 0 0 20 18L20 16"/><path data-ira-line="4" pathLength="1" d="M12 7A1 1 0 1 1 12 9A1 1 0 1 1 12 7z"/><path data-ira-line="5" pathLength="1" d="M10 17L10 16A2 2 0 1 1 14 16L14 17"/><path data-ira-line="6" pathLength="1" d="M8 10C8.666 10.666 9.334 11 10 11L14 11C14.666 11 15.334 10.666 16 10"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="7" pathLength="1" d="M12 11L12 14"/></g></g>
 </svg>

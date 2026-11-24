@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="clover"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-clover-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="clover"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-clover-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-clover-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="clover"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-clover-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-clover-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="clover"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-clover-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-clover-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="clover"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-clover-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 10l-3.397 -3.44a2.104 2.104 0 0 1 0 -2.95a2.04 2.04 0 0 1 2.912 0l.485 .39l.485 -.39a2.04 2.04 0 0 1 2.912 0a2.104 2.104 0 0 1 0 2.95l-3.397 3.44z"/><path d="M12 14l-3.397 3.44a2.104 2.104 0 0 0 0 2.95a2.04 2.04 0 0 0 2.912 0l.485 -.39l.485 .39a2.04 2.04 0 0 0 2.912 0a2.104 2.104 0 0 0 0 -2.95l-3.397 -3.44z"/><path d="M14 12l3.44 -3.397a2.104 2.104 0 0 1 2.95 0a2.04 2.04 0 0 1 0 2.912l-.39 .485l.39 .485a2.04 2.04 0 0 1 0 2.912a2.104 2.104 0 0 1 -2.95 0l-3.44 -3.397z"/></g>
-    <g data-ira-motion="clover"><g transform="translate(1.5 1.5) scale(.875)"><path d="M10 12l-3.44 -3.397a2.104 2.104 0 0 0 -2.95 0a2.04 2.04 0 0 0 0 2.912l.39 .485l-.39 .485a2.04 2.04 0 0 0 0 2.912a2.104 2.104 0 0 0 2.95 0l3.44 -3.397z"/></g></g>
+    <g data-ira-stroke-reveal="clover"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 10L8.603 6.5600000000000005A2.104 2.104 0 0 1 8.603 3.6100000000000003A2.04 2.04 0 0 1 11.515 3.6100000000000003L12 4L12.485 3.61A2.04 2.04 0 0 1 15.396999999999998 3.61A2.104 2.104 0 0 1 15.396999999999998 6.5600000000000005L11.999999999999998 10z"/><path data-ira-line="1" pathLength="1" d="M12 14L8.603 17.44A2.104 2.104 0 0 0 8.603 20.39A2.04 2.04 0 0 0 11.515 20.39L12 20L12.485 20.39A2.04 2.04 0 0 0 15.396999999999998 20.39A2.104 2.104 0 0 0 15.396999999999998 17.44L11.999999999999998 14.000000000000002z"/><path data-ira-line="2" pathLength="1" d="M14 12L17.44 8.603A2.104 2.104 0 0 1 20.39 8.603A2.04 2.04 0 0 1 20.39 11.515L20 12L20.39 12.485A2.04 2.04 0 0 1 20.39 15.396999999999998A2.104 2.104 0 0 1 17.44 15.396999999999998L14.000000000000002 11.999999999999998z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M10 12L6.5600000000000005 8.603A2.104 2.104 0 0 0 3.6100000000000003 8.603A2.04 2.04 0 0 0 3.6100000000000003 11.515L4 12L3.61 12.485A2.04 2.04 0 0 0 3.61 15.396999999999998A2.104 2.104 0 0 0 6.5600000000000005 15.396999999999998L10 11.999999999999998z"/></g></g>
 </svg>

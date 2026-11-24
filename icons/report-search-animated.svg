@@ -22,12 +22,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="report-search"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-report-search-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 6.7143%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-1 { 0%, 6.7143% { stroke-dashoffset: 1; opacity: 0; } 7.1143% { opacity: 1; } 13.4286%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-2 { 0%, 13.4286% { stroke-dashoffset: 1; opacity: 0; } 13.8286% { opacity: 1; } 20.1429%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-3 { 0%, 20.1429% { stroke-dashoffset: 1; opacity: 0; } 20.5429% { opacity: 1; } 26.8571%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-4 { 0%, 26.8571% { stroke-dashoffset: 1; opacity: 0; } 27.2571% { opacity: 1; } 33.5714%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-5 { 0%, 33.5714% { stroke-dashoffset: 1; opacity: 0; } 33.9714% { opacity: 1; } 40.2857%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-report-search-6 { 0%, 40.2857% { stroke-dashoffset: 1; opacity: 0; } 40.6857% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="report-search"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-report-search-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697"/><path d="M18 12v-5a2 2 0 0 0 -2 -2h-2"/><path d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M8 11h4"/><path d="M8 15h3"/><path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/></g>
-    <g data-ira-motion="report-search"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.5 19.5l2.5 2.5"/></g></g>
+    <g data-ira-stroke-reveal="report-search"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M8 5L6 5A2 2 0 0 0 4 7L4 19A2 2 0 0 0 6 21L11.697 21"/><path data-ira-line="1" pathLength="1" d="M18 12L18 7A2 2 0 0 0 16 5L14 5"/><path data-ira-line="2" pathLength="1" d="M8 5A2 2 0 0 1 10 3L12 3A2 2 0 0 1 14 5L14 5A2 2 0 0 1 12 7L10 7A2 2 0 0 1 8 5z"/><path data-ira-line="3" pathLength="1" d="M8 11L12 11"/><path data-ira-line="4" pathLength="1" d="M8 15L11 15"/><path data-ira-line="5" pathLength="1" d="M16.5 15A2.5 2.5 0 1 1 16.5 20A2.5 2.5 0 1 1 16.5 15z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="6" pathLength="1" d="M18.5 19.5L21 22"/></g></g>
 </svg>

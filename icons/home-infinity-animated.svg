@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="home-infinity"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-home-infinity-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="home-infinity"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-home-infinity-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-home-infinity-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="home-infinity"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-home-infinity-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-home-infinity-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="home-infinity"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-home-infinity-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-home-infinity-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="home-infinity"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-home-infinity-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M19 14v-2h2l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h2.5"/><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 1.75 1.032"/><path d="M15.536 17.586a2.123 2.123 0 0 0 -2.929 0a1.951 1.951 0 0 0 0 2.828c.809 .781 2.12 .781 2.929 0c.809 -.781 -.805 .778 0 0l1.46 -1.41l1.46 -1.419"/></g>
-    <g data-ira-motion="home-infinity"><g transform="translate(1.5 1.5) scale(.875)"><path d="M15.54 17.582l1.46 1.42l1.46 1.41c.809 .78 -.805 -.779 0 0s2.12 .781 2.929 0a1.951 1.951 0 0 0 0 -2.828a2.123 2.123 0 0 0 -2.929 0"/></g></g>
+    <g data-ira-stroke-reveal="home-infinity"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M19 14L19 12L21 12L12 3L3 12L5 12L5 19A2 2 0 0 0 7 21L9.5 21"/><path data-ira-line="1" pathLength="1" d="M9 21L9 15A2 2 0 0 1 11 13L13 13A2 2 0 0 1 14.75 14.032"/><path data-ira-line="2" pathLength="1" d="M15.536 17.586A2.123 2.123 0 0 0 12.607 17.586A1.951 1.951 0 0 0 12.607 20.413999999999998C13.415999999999999 21.194999999999997 14.727 21.194999999999997 15.536 20.413999999999998C16.345 19.633 14.731 21.191999999999997 15.536 20.413999999999998L16.996 19.003999999999998L18.456 17.584999999999997"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M15.54 17.582L17 19.002000000000002L18.46 20.412000000000003C19.269000000000002 21.192000000000004 17.655 19.633000000000003 18.46 20.412000000000003S20.580000000000002 21.193 21.389 20.412000000000003A1.951 1.951 0 0 0 21.389 17.584000000000003A2.123 2.123 0 0 0 18.46 17.584000000000003"/></g></g>
 </svg>

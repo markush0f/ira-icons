@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="float-right"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-design-float-right-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="float-right"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-float-right-row-0 2.4s linear infinite; }
+            @keyframes ira-design-float-right-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="float-right"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-float-right-row-1 2.4s linear infinite; }
+            @keyframes ira-design-float-right-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="float-right"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-float-right-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M14 5m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M4 7l6 0"/><path d="M4 11l6 0"/><path d="M4 15l16 0"/></g>
-    <g data-ira-motion="float-right"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 19l16 0"/></g></g>
+    <g data-ira-design-reveal="float-right" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M14 6A1 1 0 0 1 15 5L19 5A1 1 0 0 1 20 6L20 10A1 1 0 0 1 19 11L15 11A1 1 0 0 1 14 10z"/><path data-design-ink="row-0" pathLength="1" d="M4 7L10 7"/><path data-design-ink="row-1" pathLength="1" d="M4 11L10 11"/><path data-design-ink="row-2" pathLength="1" d="M4 15L20 15"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-2" pathLength="1" d="M4 19L20 19"/></g></g>
 </svg>

@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="pentagon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-pentagon-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="pentagon"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-pentagon-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="pentagon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M13.163 2.168l8.021 5.828c.694 .504 .984 1.397 .719 2.212l-3.064 9.43a1.978 1.978 0 0 1 -1.881 1.367h-9.916a1.978 1.978 0 0 1 -1.881 -1.367l-3.064 -9.43a1.978 1.978 0 0 1 .719 -2.212l8.021 -5.828a1.978 1.978 0 0 1 2.326 0z"/></g></g>
+    <g data-ira-stroke-reveal="pentagon"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M13.163 2.168L21.184 7.996C21.878 8.5 22.168 9.393 21.903000000000002 10.208L18.839000000000002 19.637999999999998A1.978 1.978 0 0 1 16.958000000000002 21.005L7.042000000000002 21.005A1.978 1.978 0 0 1 5.161000000000001 19.637999999999998L2.0970000000000013 10.207999999999998A1.978 1.978 0 0 1 2.816000000000001 7.995999999999999L10.837000000000002 2.1679999999999984A1.978 1.978 0 0 1 13.163000000000002 2.1679999999999984z"/></g></g>
 </svg>

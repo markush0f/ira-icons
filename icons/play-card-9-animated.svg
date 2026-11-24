@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="play-card-9"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-play-card-9-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="play-card-9"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-play-card-9-row-0 2.4s linear infinite; }
+            @keyframes ira-design-play-card-9-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="play-card-9"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-play-card-9-row-1 2.4s linear infinite; }
+            @keyframes ira-design-play-card-9-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="play-card-9"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-play-card-9-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2"/><path d="M8 6h.01"/><path d="M16 18h.01"/></g>
-    <g data-ira-motion="play-card-9"><g transform="translate(1.5 1.5) scale(.875)"><path d="M10 15h3a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v1a1 1 0 0 0 1 1h3"/></g></g>
+    <g data-ira-design-reveal="play-card-9" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M19 5L19 19A2 2 0 0 1 17 21L7 21A2 2 0 0 1 5 19L5 5A2 2 0 0 1 7 3L17 3A2 2 0 0 1 19 5"/><path data-design-ink="row-0" pathLength="1" d="M8 6L8.01 6"/><path data-design-ink="row-2" pathLength="1" d="M16 18L16.01 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M10 15L13 15A1 1 0 0 0 14 14L14 10A1 1 0 0 0 13 9L11 9A1 1 0 0 0 10 10L10 11A1 1 0 0 0 11 12L14 12"/></g></g>
 </svg>

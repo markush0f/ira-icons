@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="versions"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-design-versions-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="versions"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-versions-row-0 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 5m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"/><path d="M7 7l0 10"/></g>
-    <g data-ira-motion="versions"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 8l0 8"/></g></g>
+    <g data-ira-design-reveal="versions" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M10 7A2 2 0 0 1 12 5L18 5A2 2 0 0 1 20 7L20 17A2 2 0 0 1 18 19L12 19A2 2 0 0 1 10 17z"/><path data-design-ink="row-0" pathLength="1" d="M7 7L7 17"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M4 8L4 16"/></g></g>
 </svg>

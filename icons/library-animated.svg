@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="library"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-design-library-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="library"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-library-row-0 2.4s linear infinite; }
+            @keyframes ira-design-library-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="library"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-library-row-1 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"/><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1"/><path d="M11 7h5"/><path d="M11 10h6"/></g>
-    <g data-ira-motion="library"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11 13h3"/></g></g>
+    <g data-ira-design-reveal="library" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M7 5.667A2.667 2.667 0 0 1 9.667 3L18.333 3A2.667 2.667 0 0 1 21 5.667L21 14.333A2.667 2.667 0 0 1 18.333 17L9.666999999999998 17A2.667 2.667 0 0 1 6.999999999999998 14.333z"/><path data-design-ink="row-0" pathLength="1" d="M4.012 7.26A2.005 2.005 0 0 0 2.9999999999999996 8.997L2.9999999999999996 18.997C2.9999999999999996 20.097 3.8999999999999995 20.997 5 20.997L15 20.997C15.75 20.997 16.158 20.612 16.5 19.997"/><path data-design-ink="row-0" pathLength="1" d="M11 7L16 7"/><path data-design-ink="row-1" pathLength="1" d="M11 10L17 10"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M11 13L14 13"/></g></g>
 </svg>

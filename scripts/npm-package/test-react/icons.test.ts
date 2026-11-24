@@ -52,29 +52,26 @@ test('renders every original SVG with its geometry and text', async () => {
   assert.match(render({ name: 'svg' }), />SVG<\/text>/);
 });
 
-test('draws simple lines while preserving the bell and heart motions', () => {
-  for (const name of ['activity', 'check', 'arrow-right', 'chart-line']) {
+test('draws all line icons, including bells, hearts and animals', () => {
+  for (const name of ['activity', 'check', 'arrow-right', 'chart-line', 'bell', 'heart', 'bird', 'settings']) {
     const html = render({ name: `${name}-animated` });
     assert.match(html, /@media \(prefers-reduced-motion: no-preference\)/, name);
     assert.match(html, /stroke-dashoffset: 0/, name);
     assert.match(html, /<path\b[^>]*\bpathLength="1"/, name);
   }
   const chart = render({ name: 'chart-line-animated' });
-  assert.match(chart, /<path d="M3 4v16h18"><\/path><path data-design-ink="line" pathLength="1" d="M7 15/);
-
-  const bell = render({ name: 'bell-animated' });
-  assert.match(bell, /rotate\(-13deg\)/);
-  assert.match(bell, /<path data-ira-motion="bell-clapper"/);
-  assert.doesNotMatch(bell, /stroke-dashoffset/);
-  const heart = render({ name: 'heart-animated' });
-  assert.match(heart, /scale\(1\.08\)/);
-  assert.doesNotMatch(heart, /stroke-dashoffset/);
+  assert.match(chart, /<path data-design-ink="line" pathLength="1" d="M3 4v16h18"><\/path><path data-design-ink="line" pathLength="1" d="M7 15/);
+  for (const name of ['bell', 'heart', 'bird', 'settings']) {
+    const html = render({ name: `${name}-animated` });
+    assert.ok(html.includes(`data-ira-stroke-reveal="${name}"`), name);
+    assert.doesNotMatch(html, /transform:| d: path\(/, name);
+  }
 });
 
 test('speed sets an instance-local multiplier without replacing caller styles', () => {
   const html = render({ name: 'coffee-animated', speed: 2, style: { opacity: 0.5 } });
   assert.match(html, /opacity:0\.5;--ira-icon-speed:2/);
-  assert.match(html, /animation-delay: calc\(-\.8s \/ var\(--ira-icon-speed, 1\)\)/);
+  assert.match(html, /animation: ira-stroke-coffee-0 calc\(2\.65s \/ var\(--ira-icon-speed, 1\)\)/);
   assert.doesNotMatch(html, / speed=/);
   assert.match(render({ name: 'coffee-animated', speed: 0 }), /--ira-icon-speed:1/);
   assert.match(render({ name: 'coffee-animated' }), /--ira-icon-iteration:infinite/);

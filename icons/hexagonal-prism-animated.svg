@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="hexagonal-prism"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-hexagonal-prism-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="hexagonal-prism"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-hexagonal-prism-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-hexagonal-prism-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="hexagonal-prism"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-hexagonal-prism-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-hexagonal-prism-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="hexagonal-prism"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-hexagonal-prism-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-hexagonal-prism-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="hexagonal-prism"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-hexagonal-prism-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M20.792 6.996l-3.775 2.643a2.005 2.005 0 0 1 -1.147 .361h-7.74c-.41 0 -.81 -.126 -1.146 -.362l-3.774 -2.641"/><path d="M8 10v11"/><path d="M16 10v11"/></g>
-    <g data-ira-motion="hexagonal-prism"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3.853 18.274l3.367 2.363a2 2 0 0 0 1.147 .363h7.265c.41 0 .811 -.126 1.147 -.363l3.367 -2.363c.536 -.375 .854 -.99 .854 -1.643v-9.262c0 -.655 -.318 -1.268 -.853 -1.643l-3.367 -2.363a2 2 0 0 0 -1.147 -.363h-7.266c-.41 0 -.811 .126 -1.147 .363l-3.367 2.363a2.006 2.006 0 0 0 -.853 1.644v9.261c0 .655 .318 1.269 .853 1.644z"/></g></g>
+    <g data-ira-stroke-reveal="hexagonal-prism"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M20.792 6.996L17.017000000000003 9.639A2.005 2.005 0 0 1 15.870000000000003 10L8.130000000000003 10C7.720000000000002 10 7.320000000000002 9.874 6.984000000000003 9.638L3.2100000000000026 6.997"/><path data-ira-line="1" pathLength="1" d="M8 10L8 21"/><path data-ira-line="2" pathLength="1" d="M16 10L16 21"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M3.853 18.274L7.220000000000001 20.637A2 2 0 0 0 8.367 21L15.632000000000001 21C16.042 21 16.443 20.874 16.779 20.637L20.146 18.274C20.682000000000002 17.899 21 17.284000000000002 21 16.631L21 7.369C21 6.7139999999999995 20.682 6.101 20.147 5.726L16.779999999999998 3.363A2 2 0 0 0 15.632999999999997 3L8.366999999999997 3C7.956999999999997 3 7.555999999999997 3.126 7.219999999999997 3.363L3.852999999999997 5.726A2.006 2.006 0 0 0 2.9999999999999973 7.37L2.9999999999999973 16.631C2.9999999999999973 17.286 3.3179999999999974 17.9 3.852999999999997 18.275z"/></g></g>
 </svg>

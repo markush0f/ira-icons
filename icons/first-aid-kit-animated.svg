@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="first-aid-kit"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-design-first-aid-kit-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="first-aid-kit"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-first-aid-kit-row-0 2.4s linear infinite; }
+            @keyframes ira-design-first-aid-kit-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="first-aid-kit"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-first-aid-kit-row-1 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8 8v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"/><path d="M4 8m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M10 14h4"/></g>
-    <g data-ira-motion="first-aid-kit"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12v4"/></g></g>
+    <g data-ira-design-reveal="first-aid-kit" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M8 8L8 6A2 2 0 0 1 10 4L14 4A2 2 0 0 1 16 6L16 8"/><path data-design-ink="row-0" pathLength="1" d="M4 10A2 2 0 0 1 6 8L18 8A2 2 0 0 1 20 10L20 18A2 2 0 0 1 18 20L6 20A2 2 0 0 1 4 18z"/><path data-design-ink="row-1" pathLength="1" d="M10 14L14 14"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M12 12L12 16"/></g></g>
 </svg>

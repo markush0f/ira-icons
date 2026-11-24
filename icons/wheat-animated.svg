@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="wheat"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-wheat-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="wheat"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-wheat-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-wheat-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="wheat"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-wheat-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-wheat-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="wheat"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-wheat-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-wheat-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="wheat"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-wheat-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12.014 21.514v-3.75"/><path d="M5.93 9.504l-.43 1.604c-.712 2.659 .866 5.391 3.524 6.105c.997 .268 1.993 .535 2.99 .801v-3.44c-.164 -2.105 -1.637 -3.879 -3.676 -4.426l-2.408 -.644z"/><path d="M13.744 11.164c.454 -.454 .815 -.994 1.061 -1.587c.246 -.594 .372 -1.23 .372 -1.873c0 -.643 -.126 -1.279 -.372 -1.872c-.246 -.594 -.606 -1.133 -1.061 -1.588l-1.73 -1.73l-1.73 1.73c-.454 .454 -.815 .994 -1.06 1.588c-.246 .594 -.372 1.23 -.373 1.872c0 .643 .127 1.279 .373 1.873c.246 .594 .606 1.133 1.06 1.587"/></g>
-    <g data-ira-motion="wheat"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.099 9.504l.43 1.604c.712 2.659 -.866 5.391 -3.525 6.105c-.997 .268 -1.994 .535 -2.99 .801v-3.44c.164 -2.105 1.637 -3.879 3.677 -4.426l2.408 -.644z"/></g></g>
+    <g data-ira-stroke-reveal="wheat"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12.014 21.514L12.014 17.764"/><path data-ira-line="1" pathLength="1" d="M5.93 9.504L5.5 11.108C4.788 13.767 6.366 16.499000000000002 9.024000000000001 17.213C10.021 17.481 11.017000000000001 17.748 12.014000000000001 18.014L12.014000000000001 14.574C11.850000000000001 12.469 10.377 10.695 8.338000000000001 10.148L5.9300000000000015 9.504z"/><path data-ira-line="2" pathLength="1" d="M13.744 11.164C14.198 10.709999999999999 14.559 10.17 14.805 9.577C15.051 8.983 15.177 8.347 15.177 7.704C15.177 7.061 15.051 6.425 14.805 5.832C14.559 5.2379999999999995 14.199 4.699 13.744 4.244L12.014 2.514L10.283999999999999 4.244C9.829999999999998 4.6979999999999995 9.469 5.2379999999999995 9.223999999999998 5.832C8.977999999999998 6.426 8.851999999999999 7.061999999999999 8.850999999999999 7.704C8.850999999999999 8.347 8.978 8.983 9.223999999999998 9.577C9.469999999999999 10.171 9.829999999999998 10.71 10.283999999999999 11.164"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M18.099 9.504L18.529 11.108C19.241 13.767 17.663 16.499000000000002 15.004 17.213C14.007 17.481 13.01 17.748 12.014 18.014L12.014 14.574C12.177999999999999 12.469 13.651 10.695 15.690999999999999 10.148L18.099 9.504z"/></g></g>
 </svg>

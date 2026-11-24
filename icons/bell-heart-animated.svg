@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="bell-heart"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-bell-heart-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="bell-heart"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-bell-heart-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-bell-heart-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="bell-heart"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-bell-heart-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-bell-heart-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="bell-heart"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-bell-heart-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 17h-6a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6a2 2 0 1 1 4 0a7 7 0 0 1 4 6"/><path d="M9 17v1c0 1.408 .97 2.59 2.28 2.913"/></g>
-    <g data-ira-motion="bell-heart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"/></g></g>
+    <g data-ira-stroke-reveal="bell-heart"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 17L4 17A4 4 0 0 0 6 14L6 11A7 7 0 0 1 10 5A2 2 0 1 1 14 5A7 7 0 0 1 18 11"/><path data-ira-line="1" pathLength="1" d="M9 17L9 18C9 19.408 9.97 20.59 11.28 20.913"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M18 22L21.35 18.716A2.143 2.143 0 0 0 21.355 15.645000000000001A2.242 2.242 0 0 0 18.226 15.639000000000001L18.002 15.859000000000002L17.779 15.639000000000001A2.242 2.242 0 0 0 14.651 15.633000000000001A2.143 2.143 0 0 0 14.645 18.704L18 22z"/></g></g>
 </svg>

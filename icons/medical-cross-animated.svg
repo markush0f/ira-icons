@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="medical-cross"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-medical-cross-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="medical-cross"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-medical-cross-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="medical-cross"><g transform="translate(1.5 1.5) scale(.875)"><path d="M13 3a1 1 0 0 1 1 1v4.535l3.928 -2.267a1 1 0 0 1 1.366 .366l1 1.732a1 1 0 0 1 -.366 1.366l-3.927 2.268l3.927 2.269a1 1 0 0 1 .366 1.366l-1 1.732a1 1 0 0 1 -1.366 .366l-3.928 -2.269v4.536a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-4.536l-3.928 2.268a1 1 0 0 1 -1.366 -.366l-1 -1.732a1 1 0 0 1 .366 -1.366l3.927 -2.268l-3.927 -2.268a1 1 0 0 1 -.366 -1.366l1 -1.732a1 1 0 0 1 1.366 -.366l3.928 2.267v-4.535a1 1 0 0 1 1 -1h2z"/></g></g>
+    <g data-ira-stroke-reveal="medical-cross"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M13 3A1 1 0 0 1 14 4L14 8.535L17.928 6.268000000000001A1 1 0 0 1 19.294 6.634L20.294 8.366A1 1 0 0 1 19.928 9.732L16.001 12L19.928 14.269A1 1 0 0 1 20.294 15.635L19.294 17.367A1 1 0 0 1 17.928 17.733L14 15.464L14 20A1 1 0 0 1 13 21L11 21A1 1 0 0 1 10 20L10 15.464L6.072 17.732A1 1 0 0 1 4.7059999999999995 17.366L3.7059999999999995 15.634A1 1 0 0 1 4.071999999999999 14.268L7.998999999999999 12L4.071999999999999 9.732A1 1 0 0 1 3.705999999999999 8.366L4.7059999999999995 6.6339999999999995A1 1 0 0 1 6.071999999999999 6.268L10 8.535L10 4A1 1 0 0 1 11 3L13 3z"/></g></g>
 </svg>

@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="automation"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-automation-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="automation"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-automation-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-automation-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="automation"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-automation-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-automation-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="automation"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-automation-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M13 20.693c-.905 .628 -2.36 .292 -2.675 -1.01a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.492 .362 1.716 2.219 .674 3.03"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/></g>
-    <g data-ira-motion="automation"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 22l5 -3l-5 -3z"/></g></g>
+    <g data-ira-stroke-reveal="automation"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M13 20.693C12.095 21.321 10.64 20.985000000000003 10.325 19.683A1.724 1.724 0 0 0 7.751999999999999 18.617C6.208999999999999 19.557000000000002 4.441999999999998 17.791 5.381999999999999 16.247A1.724 1.724 0 0 0 4.316999999999998 13.675C2.560999999999998 13.249 2.560999999999998 10.751000000000001 4.316999999999998 10.325000000000001A1.724 1.724 0 0 0 5.382999999999998 7.752000000000001C4.442999999999998 6.2090000000000005 6.208999999999998 4.442 7.752999999999998 5.382000000000001C8.752999999999998 5.99 10.048999999999998 5.452000000000001 10.325 4.317C10.751 2.561 13.248999999999999 2.561 13.674999999999999 4.317A1.724 1.724 0 0 0 16.247999999999998 5.383C17.790999999999997 4.443 19.557999999999996 6.209 18.618 7.753A1.724 1.724 0 0 0 19.683 10.325C21.175 10.687 21.399 12.543999999999999 20.357 13.354999999999999"/><path data-ira-line="1" pathLength="1" d="M12 9A3 3 0 1 1 12 15A3 3 0 1 1 12 9z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M17 22L22 19L17 16z"/></g></g>
 </svg>

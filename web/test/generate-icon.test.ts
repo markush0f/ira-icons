@@ -124,7 +124,7 @@ test("uses the existing car animation as a reference for a Spanish car brief", a
       assert.deepEqual(brief.relatedCatalogNames, ["car"]);
       if (schema.properties.motion) {
         assert.equal(brief.catalogReferences[2].name, "car-animated");
-        assert.match(brief.catalogReferences[2].svg, /data-ira-motion="car"/);
+        assert.match(brief.catalogReferences[2].svg, /data-ira-stroke-reveal="car"/);
       }
       return geminiResponse(proposal, schema);
     },

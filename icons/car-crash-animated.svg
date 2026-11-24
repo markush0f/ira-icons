@@ -22,12 +22,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="car-crash"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-stroke-car-crash-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 4.7%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-1 { 0%, 4.7% { stroke-dashoffset: 1; opacity: 0; } 5.1% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-2 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 14.1%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-3 { 0%, 14.1% { stroke-dashoffset: 1; opacity: 0; } 14.5% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-4 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-5 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-6 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 32.9%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-7 { 0%, 32.9% { stroke-dashoffset: 1; opacity: 0; } 33.3% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-8 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 42.3%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-car-crash-9 { 0%, 42.3% { stroke-dashoffset: 1; opacity: 0; } 42.7% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="car-crash"] [data-ira-line="9"] { stroke-dasharray: 1 1; animation: ira-stroke-car-crash-9 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M7 6l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-5m0 -6h8m-6 0v-5m2 0h-4"/><path d="M14 8v-2"/><path d="M19 12h2"/><path d="M17.5 15.5l1.5 1.5"/></g>
-    <g data-ira-motion="car-crash"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17.5 8.5l1.5 -1.5"/></g></g>
+    <g data-ira-stroke-reveal="car-crash"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 15A2 2 0 1 1 10 19A2 2 0 1 1 10 15z"/><path data-ira-line="1" pathLength="1" d="M7 6L11 11L12 11A2 2 0 0 1 14 13L14 17L12 17"/><path data-ira-line="2" pathLength="1" d="M8 17L3 17"/><path data-ira-line="3" pathLength="1" d="M3 11L11 11"/><path data-ira-line="4" pathLength="1" d="M5 11L5 6"/><path data-ira-line="5" pathLength="1" d="M7 6L3 6"/><path data-ira-line="6" pathLength="1" d="M14 8L14 6"/><path data-ira-line="7" pathLength="1" d="M19 12L21 12"/><path data-ira-line="8" pathLength="1" d="M17.5 15.5L19 17"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="9" pathLength="1" d="M17.5 8.5L19 7"/></g></g>
 </svg>

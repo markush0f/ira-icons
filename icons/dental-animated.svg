@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="dental"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-dental-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="dental"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-dental-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-dental-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="dental"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-dental-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 5.5c-1.074 -.586 -2.583 -1.5 -4 -1.5c-2.1 0 -4 1.247 -4 5c0 4.899 1.056 8.41 2.671 10.537c.573 .756 1.97 .521 2.567 -.236c.398 -.505 .819 -1.439 1.262 -2.801c.292 -.771 .892 -1.504 1.5 -1.5c.602 0 1.21 .737 1.5 1.5c.443 1.362 .864 2.295 1.262 2.8c.597 .759 2 .993 2.567 .237c1.615 -2.127 2.671 -5.637 2.671 -10.537c0 -3.74 -1.908 -5 -4 -5c-1.423 0 -2.92 .911 -4 1.5z"/></g>
-    <g data-ira-motion="dental"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 5.5l3 1.5"/></g></g>
+    <g data-ira-stroke-reveal="dental"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 5.5C10.926 4.914 9.417 4 8 4C5.9 4 4 5.247 4 9C4 13.899000000000001 5.056 17.41 6.670999999999999 19.537C7.244 20.293 8.641 20.058 9.238 19.301C9.636 18.796 10.056999999999999 17.862 10.5 16.5C10.792 15.729 11.392 14.996 12 15C12.602 15 13.21 15.737 13.5 16.5C13.943 17.862000000000002 14.364 18.795 14.762 19.3C15.359 20.059 16.762 20.293 17.329 19.537C18.944 17.41 20 13.899999999999999 20 8.999999999999998C20 5.259999999999998 18.092 3.9999999999999982 16 3.9999999999999982C14.577 3.9999999999999982 13.08 4.910999999999998 12 5.499999999999998z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M12 5.5L15 7"/></g></g>
 </svg>

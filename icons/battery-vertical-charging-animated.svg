@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="battery-vertical-charging"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-battery-vertical-charging-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="battery-vertical-charging"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-battery-vertical-charging-row-0 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M7 18v-11a2 2 0 0 1 2 -2h.5a.5 .5 0 0 0 .5 -.5a.5 .5 0 0 1 .5 -.5h3a.5 .5 0 0 1 .5 .5a.5 .5 0 0 0 .5 .5h.5a2 2 0 0 1 2 2v11a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2"/></g>
-    <g data-ira-motion="battery-vertical-charging"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12.667 8l-2.667 4h4l-2.667 4"/></g></g>
+    <g data-ira-design-reveal="battery-vertical-charging" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M7 18L7 7A2 2 0 0 1 9 5L9.5 5A0.5 0.5 0 0 0 10 4.5A0.5 0.5 0 0 1 10.5 4L13.5 4A0.5 0.5 0 0 1 14 4.5A0.5 0.5 0 0 0 14.5 5L15 5A2 2 0 0 1 17 7L17 18A2 2 0 0 1 15 20L9 20A2 2 0 0 1 7 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M11.333 16L14 12L10 12L12.667 8"/></g></g>
 </svg>

@@ -22,12 +22,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="git-pull-request-closed"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 6.7143%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-1 { 0%, 6.7143% { stroke-dashoffset: 1; opacity: 0; } 7.1143% { opacity: 1; } 13.4286%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-2 { 0%, 13.4286% { stroke-dashoffset: 1; opacity: 0; } 13.8286% { opacity: 1; } 20.1429%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-3 { 0%, 20.1429% { stroke-dashoffset: 1; opacity: 0; } 20.5429% { opacity: 1; } 26.8571%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-4 { 0%, 26.8571% { stroke-dashoffset: 1; opacity: 0; } 27.2571% { opacity: 1; } 33.5714%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-5 { 0%, 33.5714% { stroke-dashoffset: 1; opacity: 0; } 33.9714% { opacity: 1; } 40.2857%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-pull-request-closed-6 { 0%, 40.2857% { stroke-dashoffset: 1; opacity: 0; } 40.6857% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-pull-request-closed"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-git-pull-request-closed-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M6 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M6 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M6 8v8"/><path d="M18 11v5"/></g>
-    <g data-ira-motion="git-pull-request-closed"><g transform="translate(1.5 1.5) scale(.875)"><path d="M16 4l4 4m0 -4l-4 4"/></g></g>
+    <g data-ira-stroke-reveal="git-pull-request-closed"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M6 16A2 2 0 1 1 6 20A2 2 0 1 1 6 16z"/><path data-ira-line="1" pathLength="1" d="M6 4A2 2 0 1 1 6 8A2 2 0 1 1 6 4z"/><path data-ira-line="2" pathLength="1" d="M18 16A2 2 0 1 1 18 20A2 2 0 1 1 18 16z"/><path data-ira-line="3" pathLength="1" d="M6 8L6 16"/><path data-ira-line="4" pathLength="1" d="M18 11L18 16"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M16 4L20 8"/><path data-ira-line="6" pathLength="1" d="M20 4L16 8"/></g></g>
 </svg>

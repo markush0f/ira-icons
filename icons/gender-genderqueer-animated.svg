@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="gender-genderqueer"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-gender-genderqueer-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="gender-genderqueer"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-gender-genderqueer-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-gender-genderqueer-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="gender-genderqueer"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-gender-genderqueer-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-gender-genderqueer-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="gender-genderqueer"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-gender-genderqueer-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-gender-genderqueer-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="gender-genderqueer"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-gender-genderqueer-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 11a5 5 0 1 1 0 10a5 5 0 0 1 0 -10z"/><path d="M12 11v-8"/><path d="M14.5 4.5l-5 3"/></g>
-    <g data-ira-motion="gender-genderqueer"><g transform="translate(1.5 1.5) scale(.875)"><path d="M9.5 4.5l5 3"/></g></g>
+    <g data-ira-stroke-reveal="gender-genderqueer"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 11A5 5 0 1 1 12 21A5 5 0 1 1 12 11z"/><path data-ira-line="1" pathLength="1" d="M12 11L12 3"/><path data-ira-line="2" pathLength="1" d="M14.5 4.5L9.5 7.5"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M9.5 4.5L14.5 7.5"/></g></g>
 </svg>

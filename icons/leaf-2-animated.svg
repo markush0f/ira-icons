@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="leaf-2"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-stroke-leaf-2-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="leaf-2"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-leaf-2-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-leaf-2-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="leaf-2"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-leaf-2-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M5 21c.5 -4.5 2.5 -8 7 -10"/></g>
-    <g data-ira-motion="leaf-2"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7.5 15q -3.5 0 -4.5 -6a8.4 8.4 0 0 1 3.438 .402a12 12 0 0 1 -.052 -.793c0 -3.606 3.204 -5.609 3.204 -5.609s2.003 1.252 2.842 3.557q 2.568 -1.557 6.568 -1.557q .396 3.775 -1.557 6.568c2.305 .839 3.557 2.842 3.557 2.842s-3 2.59 -7 2.59c0 1 0 1 .5 3q -6 0 -7 -5"/></g></g>
+    <g data-ira-stroke-reveal="leaf-2"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M5 21C5.5 16.5 7.5 13 12 11"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M7.5 15Q4 15 3 9A8.4 8.4 0 0 1 6.438000000000001 9.402A12 12 0 0 1 6.386000000000001 8.609C6.386000000000001 5.003 9.590000000000002 3 9.590000000000002 3S11.593000000000002 4.252 12.432000000000002 6.557Q15.000000000000002 5 19 5Q19.396 8.775 17.443 11.568C19.748 12.407 21 14.41 21 14.41S18 17 14 17C14 18 14 18 14.5 20Q8.5 20 7.5 15"/></g></g>
 </svg>

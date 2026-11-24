@@ -22,17 +22,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-animal-spider-left-outer-legs { 0%, 100% { transform: none; } 25% { transform: rotate(8deg); } 75% { transform: rotate(-8deg); } }
-            [data-ira-animal="spider"] [data-ira-part="left-outer-legs"] { transform-origin: 10px 11px; animation: ira-animal-spider-left-outer-legs 1.02s ease-in-out infinite; }
-            @keyframes ira-animal-spider-left-middle-leg { 0%, 100% { transform: none; } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
-            [data-ira-animal="spider"] [data-ira-part="left-middle-leg"] { transform-origin: 10px 11px; animation: ira-animal-spider-left-middle-leg 1.02s ease-in-out infinite; }
-            @keyframes ira-animal-spider-right-outer-legs { 0%, 100% { transform: none; } 25% { transform: rotate(8deg); } 75% { transform: rotate(-8deg); } }
-            [data-ira-animal="spider"] [data-ira-part="right-outer-legs"] { transform-origin: 14px 11px; animation: ira-animal-spider-right-outer-legs 1.02s ease-in-out infinite; }
-            @keyframes ira-animal-spider-right-middle-leg { 0%, 100% { transform: none; } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
-            [data-ira-animal="spider"] [data-ira-part="right-middle-leg"] { transform-origin: 14px 11px; animation: ira-animal-spider-right-middle-leg 1.02s ease-in-out infinite; }
+            @keyframes ira-stroke-spider-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 5.875%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-1 { 0%, 5.875% { stroke-dashoffset: 1; opacity: 0; } 6.275% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-2 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 17.625%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-3 { 0%, 17.625% { stroke-dashoffset: 1; opacity: 0; } 18.025% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-4 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 29.375%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-5 { 0%, 29.375% { stroke-dashoffset: 1; opacity: 0; } 29.775% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-6 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 41.125%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-spider-7 { 0%, 41.125% { stroke-dashoffset: 1; opacity: 0; } 41.525% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="spider"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-spider-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-animal="spider"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-part="left-outer-legs" d="M5 4v2l5 5"/><path data-ira-part="left-middle-leg" d="M2.5 9.5l1.5 1.5h6"/><path data-ira-part="left-outer-legs" d="M4 19v-2l6 -6"/><path data-ira-part="right-outer-legs" d="M19 4v2l-5 5"/><path data-ira-part="right-middle-leg" d="M21.5 9.5l-1.5 1.5h-6"/><path data-ira-part="right-outer-legs" d="M20 19v-2l-6 -6"/><path d="M12 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/></g><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g></g>
+    <g data-ira-stroke-reveal="spider"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M5 4L5 6L10 11"/><path data-ira-line="1" pathLength="1" d="M2.5 9.5L4 11L10 11"/><path data-ira-line="2" pathLength="1" d="M4 19L4 17L10 11"/><path data-ira-line="3" pathLength="1" d="M19 4L19 6L14 11"/><path data-ira-line="4" pathLength="1" d="M21.5 9.5L20 11L14 11"/><path data-ira-line="5" pathLength="1" d="M20 19L20 17L14 11"/><path data-ira-line="6" pathLength="1" d="M12 11A4 4 0 1 1 12 19A4 4 0 1 1 12 11z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="7" pathLength="1" d="M12 7A2 2 0 1 1 12 11A2 2 0 1 1 12 7z"/></g></g>
 </svg>

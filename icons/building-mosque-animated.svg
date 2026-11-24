@@ -22,12 +22,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="building-mosque"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-stroke-building-mosque-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 5.2222%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-1 { 0%, 5.2222% { stroke-dashoffset: 1; opacity: 0; } 5.6222% { opacity: 1; } 10.4444%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-2 { 0%, 10.4444% { stroke-dashoffset: 1; opacity: 0; } 10.8444% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-3 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 20.8889%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-4 { 0%, 20.8889% { stroke-dashoffset: 1; opacity: 0; } 21.2889% { opacity: 1; } 26.1111%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-5 { 0%, 26.1111% { stroke-dashoffset: 1; opacity: 0; } 26.5111% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-6 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 36.5556%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-7 { 0%, 36.5556% { stroke-dashoffset: 1; opacity: 0; } 36.9556% { opacity: 1; } 41.7778%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-building-mosque-8 { 0%, 41.7778% { stroke-dashoffset: 1; opacity: 0; } 42.1778% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="building-mosque"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-building-mosque-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 21h7v-2a2 2 0 1 1 4 0v2h7"/><path d="M4 21v-10"/><path d="M20 21v-10"/><path d="M4 16h3v-3h10v3h3"/><path d="M17 13a5 5 0 0 0 -10 0"/><path d="M21 10.5c0 -.329 -.077 -.653 -.224 -.947l-.776 -1.553l-.776 1.553a2.118 2.118 0 0 0 -.224 .947a.5 .5 0 0 0 .5 .5h1a.5 .5 0 0 0 .5 -.5z"/><path d="M5 10.5c0 -.329 -.077 -.653 -.224 -.947l-.776 -1.553l-.776 1.553a2.118 2.118 0 0 0 -.224 .947a.5 .5 0 0 0 .5 .5h1a.5 .5 0 0 0 .5 -.5z"/><path d="M12 2a2 2 0 1 0 2 2"/></g>
-    <g data-ira-motion="building-mosque"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 6v2"/></g></g>
+    <g data-ira-stroke-reveal="building-mosque"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M3 21L10 21L10 19A2 2 0 1 1 14 19L14 21L21 21"/><path data-ira-line="1" pathLength="1" d="M4 21L4 11"/><path data-ira-line="2" pathLength="1" d="M20 21L20 11"/><path data-ira-line="3" pathLength="1" d="M4 16L7 16L7 13L17 13L17 16L20 16"/><path data-ira-line="4" pathLength="1" d="M17 13A5 5 0 0 0 7 13"/><path data-ira-line="5" pathLength="1" d="M21 10.5C21 10.171 20.923 9.847 20.776 9.553L20 8L19.224 9.553A2.118 2.118 0 0 0 19 10.5A0.5 0.5 0 0 0 19.5 11L20.5 11A0.5 0.5 0 0 0 21 10.5z"/><path data-ira-line="6" pathLength="1" d="M5 10.5C5 10.171 4.923 9.847 4.776 9.553L4 8L3.224 9.553A2.118 2.118 0 0 0 3 10.5A0.5 0.5 0 0 0 3.5 11L4.5 11A0.5 0.5 0 0 0 5 10.5z"/><path data-ira-line="7" pathLength="1" d="M12 2A2 2 0 1 0 14 4"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="8" pathLength="1" d="M12 6L12 8"/></g></g>
 </svg>

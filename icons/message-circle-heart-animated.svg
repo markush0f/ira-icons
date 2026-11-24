@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="message-circle-heart"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-message-circle-heart-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="message-circle-heart"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-message-circle-heart-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-message-circle-heart-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="message-circle-heart"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-message-circle-heart-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10.59 19.88a9.763 9.763 0 0 1 -2.89 -.88l-4.7 1l1.3 -3.9c-2.324 -3.437 -1.426 -7.872 2.1 -10.374c3.526 -2.501 8.59 -2.296 11.845 .48c1.565 1.335 2.479 3.065 2.71 4.861"/></g>
-    <g data-ira-motion="message-circle-heart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"/></g></g>
+    <g data-ira-stroke-reveal="message-circle-heart"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10.59 19.88A9.763 9.763 0 0 1 7.699999999999999 19L2.999999999999999 20L4.299999999999999 16.1C1.975999999999999 12.663000000000002 2.8739999999999988 8.228000000000002 6.399999999999999 5.726000000000001C9.925999999999998 3.225000000000001 14.989999999999998 3.430000000000001 18.244999999999997 6.206000000000001C19.81 7.541000000000001 20.723999999999997 9.271 20.955 11.067"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M18 22L21.35 18.716A2.143 2.143 0 0 0 21.355 15.645000000000001A2.242 2.242 0 0 0 18.226 15.639000000000001L18.002 15.859000000000002L17.779 15.639000000000001A2.242 2.242 0 0 0 14.651 15.633000000000001A2.143 2.143 0 0 0 14.645 18.704L18 22z"/></g></g>
 </svg>

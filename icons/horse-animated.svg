@@ -22,11 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-animal-horse-tail { 0%, 100% { d: path("M22 14v-2a3 3 0 0 0 -3 -3"); } 20% { d: path("M20.5 16v-1.7a5.4 3.1 72 0 0 -1.5 -5.3"); } 35% { d: path("M22.6 12.5v-1a3.7 2.5 0 0 0 -3.6 -2.5"); } 48% { d: path("M22 14v-2a3 3 0 0 0 -3 -3"); } }
-            [data-ira-animal="horse"] [data-ira-part="tail"] { animation: ira-animal-horse-tail 2.45s ease-in-out infinite; }
+            @keyframes ira-stroke-horse-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="horse"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-horse-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-horse-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="horse"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-horse-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-animal="horse"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 10l-.85 8.507a1.357 1.357 0 0 0 1.35 1.493h.146a2 2 0 0 0 1.857 -1.257l.994 -2.486a2 2 0 0 1 1.857 -1.257h1.292a2 2 0 0 1 1.857 1.257l.994 2.486a2 2 0 0 0 1.857 1.257h.146a1.37 1.37 0 0 0 1.364 -1.494l-.864 -9.506h-8c0 -3 -3 -5 -6 -5l-3 6l2 2l3 -2z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-part="tail" d="M22 14v-2a3 3 0 0 0 -3 -3"/></g></g>
+    <g data-ira-stroke-reveal="horse"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M7 10L6.15 18.506999999999998A1.357 1.357 0 0 0 7.5 19.999999999999996L7.646 19.999999999999996A2 2 0 0 0 9.503 18.742999999999995L10.497 16.256999999999994A2 2 0 0 1 12.354 14.999999999999995L13.645999999999999 14.999999999999995A2 2 0 0 1 15.502999999999998 16.256999999999994L16.497 18.742999999999995A2 2 0 0 0 18.354 19.999999999999996L18.5 19.999999999999996A1.37 1.37 0 0 0 19.864 18.505999999999997L19 8.999999999999996L11 8.999999999999996C11 5.9999999999999964 8 3.9999999999999964 5 3.9999999999999964L2 9.999999999999996L4 11.999999999999996L7 9.999999999999996z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M22 14L22 12A3 3 0 0 0 19 9"/></g></g>
 </svg>

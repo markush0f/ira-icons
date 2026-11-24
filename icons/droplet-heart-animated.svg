@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="droplet-heart"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-stroke-droplet-heart-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="droplet-heart"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-droplet-heart-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-droplet-heart-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="droplet-heart"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-droplet-heart-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18.288 11.282a6.734 6.734 0 0 0 -.224 -.405l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546a7.117 7.117 0 0 0 3.824 1.548"/></g>
-    <g data-ira-motion="droplet-heart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"/></g></g>
+    <g data-ira-stroke-reveal="droplet-heart"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M18.288 11.282A6.734 6.734 0 0 0 18.064 10.877L13.174 3.617000000000001C12.754 2.992000000000001 11.887 2.814000000000001 11.238 3.2200000000000006A1.376 1.376 0 0 0 10.828 3.617000000000001L5.935 10.877C4.239999999999999 13.715 4.8999999999999995 17.318 7.502 19.423000000000002A7.117 7.117 0 0 0 11.326 20.971000000000004"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M18 22L21.35 18.716A2.143 2.143 0 0 0 21.355 15.645000000000001A2.242 2.242 0 0 0 18.226 15.639000000000001L18.002 15.859000000000002L17.779 15.639000000000001A2.242 2.242 0 0 0 14.651 15.633000000000001A2.143 2.143 0 0 0 14.645 18.704L18 22z"/></g></g>
 </svg>

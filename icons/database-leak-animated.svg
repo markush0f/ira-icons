@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="database-leak"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-design-database-leak-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="database-leak"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-database-leak-line 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3"/><path d="M4 6v12c0 1.657 3.582 3 8 3s8 -1.343 8 -3v-12"/></g>
-    <g data-ira-motion="database-leak"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 15a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1"/></g></g>
+    <g data-ira-design-reveal="database-leak" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 6C4 7.657 7.582 9 12 9S20 7.657 20 6S16.418 3 12 3S4 4.343 4 6"/><path data-design-ink="line" pathLength="1" d="M4 6L4 18C4 19.657 7.582 21 12 21S20 19.657 20 18L20 6"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 15A2.4 2.4 0 0 0 6 14A2.4 2.4 0 0 1 8 13A2.4 2.4 0 0 1 10 14A2.4 2.4 0 0 0 12 15A2.4 2.4 0 0 0 14 14A2.4 2.4 0 0 1 16 13A2.4 2.4 0 0 1 18 14A2.4 2.4 0 0 0 20 15"/></g></g>
 </svg>

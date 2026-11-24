@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="panorama-horizontal"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-stroke-panorama-horizontal-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="panorama-horizontal"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-panorama-horizontal-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="panorama-horizontal"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4.338 5.53c5.106 1.932 10.211 1.932 15.317 0a1 1 0 0 1 1.345 .934v11c0 .692 -.692 1.2 -1.34 .962c-5.107 -1.932 -10.214 -1.932 -15.321 0c-.648 .246 -1.339 -.242 -1.339 -.935v-11.027a1 1 0 0 1 1.338 -.935z"/></g></g>
+    <g data-ira-stroke-reveal="panorama-horizontal"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M4.338 5.53C9.443999999999999 7.462 14.549 7.462 19.655 5.53A1 1 0 0 1 21 6.464L21 17.464C21 18.156 20.308 18.663999999999998 19.66 18.426C14.553 16.494 9.446 16.494 4.339 18.426C3.6910000000000003 18.671999999999997 3.0000000000000004 18.183999999999997 3.0000000000000004 17.491L3.0000000000000004 6.464A1 1 0 0 1 4.338000000000001 5.529z"/></g></g>
 </svg>

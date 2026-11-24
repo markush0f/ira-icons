@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="carambola"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-stroke-carambola-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="carambola"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-carambola-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="carambola"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17.286 21.09q -1.69 .001 -5.288 -2.615q -3.596 2.617 -5.288 2.616q -2.726 0 -.495 -6.8q -9.389 -6.775 2.135 -6.775h.076q 1.785 -5.516 3.574 -5.516q 1.785 0 3.574 5.516h.076q 11.525 0 2.133 6.774q 2.23 6.802 -.497 6.8"/></g></g>
+    <g data-ira-stroke-reveal="carambola"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M17.286 21.09Q15.596000000000002 21.091 11.998000000000001 18.475Q8.402000000000001 21.092000000000002 6.710000000000001 21.091Q3.984000000000001 21.091 6.215000000000001 14.291Q-3.1739999999999986 7.516 8.350000000000001 7.516L8.426000000000002 7.516Q10.211000000000002 2 12.000000000000002 2Q13.785000000000002 2 15.574000000000002 7.516L15.650000000000002 7.516Q27.175000000000004 7.516 17.783 14.29Q20.013 21.092 17.286 21.09"/></g></g>
 </svg>

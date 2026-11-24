@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="database-heart"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-design-database-heart-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="database-heart"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-database-heart-line 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3"/><path d="M4 6v6c0 1.453 2.755 2.665 6.414 2.941"/><path d="M20 11v-5"/><path d="M4 12v6c0 1.579 3.253 2.873 7.383 2.991"/></g>
-    <g data-ira-motion="database-heart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z"/></g></g>
+    <g data-ira-design-reveal="database-heart" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 6C4 7.657 7.582 9 12 9S20 7.657 20 6S16.418 3 12 3S4 4.343 4 6"/><path data-design-ink="line" pathLength="1" d="M4 6L4 12C4 13.453 6.755 14.665 10.414 14.940999999999999"/><path data-design-ink="line" pathLength="1" d="M20 11L20 6"/><path data-design-ink="line" pathLength="1" d="M4 12L4 18C4 19.579 7.253 20.873 11.383 20.991"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M18 22L21.35 18.716A2.143 2.143 0 0 0 21.355 15.645000000000001A2.242 2.242 0 0 0 18.226 15.639000000000001L18.002 15.859000000000002L17.779 15.639000000000001A2.242 2.242 0 0 0 14.651 15.633000000000001A2.143 2.143 0 0 0 14.645 18.704L18 22z"/></g></g>
 </svg>

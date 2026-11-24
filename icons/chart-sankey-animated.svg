@@ -28,5 +28,5 @@ SOFTWARE. -->
             [data-ira-design-reveal="chart-sankey"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-chart-sankey-line 2.8s linear infinite; }
         }
     </style>
-    <g data-ira-design-reveal="chart-sankey" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path d="M3 3v18h18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 6L21 6"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 8C13 8 11 17 21 17"/></g></g>
+    <g data-ira-design-reveal="chart-sankey" data-design-kind="chart"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 3L3 21L21 21"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 6L21 6"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M3 8C13 8 11 17 21 17"/></g></g>
 </svg>

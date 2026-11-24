@@ -5,6 +5,8 @@ description: Animate animal icons in Ira Icons with plausible body-part movement
 
 # Animal motion
 
+**Current project override:** the user explicitly requested progressive tracing for every line icon, including animals. For normal creation/refinement, follow the global rule in [icon-refiner](../icon-refiner/SKILL.md) and `scripts/icon-expansion/stroke-reveal.ts`; do not apply the body gestures below. The following guidance applies only when the user explicitly asks for a natural-motion exception.
+
 **Move at least one visible body part the way that animal would actually move it.** Pick one recognizable gesture that fits the species, the view, and the pose. Start by naming the action and its source: “the dog turns its ear at the base,” not “the dog wiggles.”
 
 - **Use what the icon shows.** A dog can wag a visible tail; a head-only dog can perk an ear. A cat can blink if its eyes are drawn, or flick a visible ear. A fish can flick its tail at the base; a bird, bee, or butterfly can flap visible wings from where they attach. Don't invent missing anatomy to force a gesture.

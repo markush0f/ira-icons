@@ -22,12 +22,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="ski-jumping"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-ski-jumping-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 7.8333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-ski-jumping-1 { 0%, 7.8333% { stroke-dashoffset: 1; opacity: 0; } 8.2333% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-ski-jumping-2 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-ski-jumping-3 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-ski-jumping-4 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 39.1667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-ski-jumping-5 { 0%, 39.1667% { stroke-dashoffset: 1; opacity: 0; } 39.5667% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="ski-jumping"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-ski-jumping-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M11 3a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"/><path d="M17 17.5l-5 -4.5v-6l5 4"/><path d="M7 17.5l5 -4.5"/><path d="M15.103 21.58l6.762 -14.502a2 2 0 0 0 -.968 -2.657"/><path d="M8.897 21.58l-6.762 -14.503a2 2 0 0 1 .968 -2.657"/></g>
-    <g data-ira-motion="ski-jumping"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 11l5 -4"/></g></g>
+    <g data-ira-stroke-reveal="ski-jumping"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 2A1 1 0 1 1 12 4A1 1 0 1 1 12 2z"/><path data-ira-line="1" pathLength="1" d="M17 17.5L12 13L12 7L17 11"/><path data-ira-line="2" pathLength="1" d="M7 17.5L12 13"/><path data-ira-line="3" pathLength="1" d="M15.103 21.58L21.865 7.077999999999998A2 2 0 0 0 20.897 4.420999999999998"/><path data-ira-line="4" pathLength="1" d="M8.897 21.58L2.1350000000000007 7.076999999999998A2 2 0 0 1 3.1030000000000006 4.419999999999998"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M7 11L12 7"/></g></g>
 </svg>

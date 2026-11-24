@@ -22,12 +22,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="git-compare"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-git-compare-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 7.8333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-compare-1 { 0%, 7.8333% { stroke-dashoffset: 1; opacity: 0; } 8.2333% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-compare-2 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-compare-3 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-compare-4 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 39.1667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-git-compare-5 { 0%, 39.1667% { stroke-dashoffset: 1; opacity: 0; } 39.5667% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="git-compare"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-git-compare-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M6 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M18 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M11 6h5a2 2 0 0 1 2 2v8"/><path d="M14 9l-3 -3l3 -3"/><path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/></g>
-    <g data-ira-motion="git-compare"><g transform="translate(1.5 1.5) scale(.875)"><path d="M10 15l3 3l-3 3"/></g></g>
+    <g data-ira-stroke-reveal="git-compare"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M6 4A2 2 0 1 1 6 8A2 2 0 1 1 6 4z"/><path data-ira-line="1" pathLength="1" d="M18 16A2 2 0 1 1 18 20A2 2 0 1 1 18 16z"/><path data-ira-line="2" pathLength="1" d="M11 6L16 6A2 2 0 0 1 18 8L18 16"/><path data-ira-line="3" pathLength="1" d="M14 9L11 6L14 3"/><path data-ira-line="4" pathLength="1" d="M13 18L8 18A2 2 0 0 1 6 16L6 8"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M10 15L13 18L10 21"/></g></g>
 </svg>

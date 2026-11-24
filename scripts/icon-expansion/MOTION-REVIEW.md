@@ -1,5 +1,13 @@
 # Revisión de animaciones
 
+## Regla vigente: trazado progresivo en todo el catálogo
+
+Todos los iconos de líneas, incluidos animales y engranajes, se dibujan ahora por trazos reales desde sus extremos. `generate.ts` conserva las secuencias de flechas, círculos, tablas, cajas y gráficos, y aplica `stroke-reveal.ts` al resto. Las variantes originales y minimalistas no cambian. El generador ya no ejecuta los antiguos gestos ni planes de movimiento.
+
+`web/test/stroke-reveal.test.ts` comprueba el catálogo completo: ámbito CSS por icono, movimiento reducido, ausencia de transformaciones animadas y comparación rasterizada de la silueta final con cada original. La muestra visual cubre inicio, desarrollo, pausa y reinicio a 16, 20 y 24 px en claro y oscuro; no equivale a dirección manual de cada icono.
+
+Lo siguiente es **histórico**, anterior a esta regla, y no describe las animaciones actuales.
+
 ## Primera tanda: 12 iconos dirigidos individualmente
 
 | Icono | Secuencia |

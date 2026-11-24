@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="alphabet-thai"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-alphabet-thai-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="alphabet-thai"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-alphabet-thai-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="alphabet-thai"><g transform="translate(1.5 1.5) scale(.875)"><path d="M8 18v-3.444c0 -.49 .165 -.924 .494 -1.363c.326 -.449 1.009 -.76 1.506 -.934c.032 -.011 .035 -.079 .004 -.095c-.434 -.22 -1.294 -.52 -1.626 -1.032l-.014 -.021l-.083 -.125c-.281 -.42 -.281 -1.246 -.281 -1.246c0 -1.456 .849 -2.62 1.837 -3.199q .9 -.54 2.137 -.541q 1.077 0 1.995 .47c1.328 .647 2.031 2.202 2.031 3.976v7.554"/></g></g>
+    <g data-ira-stroke-reveal="alphabet-thai"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M8 18L8 14.556000000000001C8 14.066 8.165 13.632000000000001 8.494 13.193000000000001C8.82 12.744000000000002 9.503 12.433000000000002 10 12.259000000000002C10.032 12.248000000000003 10.035 12.180000000000001 10.004 12.164000000000001C9.57 11.944 8.709999999999999 11.644000000000002 8.378 11.132000000000001L8.364 11.111L8.281 10.986C8 10.566 8 9.74 8 9.74C8 8.284 8.849 7.12 9.837 6.541Q10.737 6.001 11.974 6Q13.051 6 13.969000000000001 6.47C15.297 7.117 16 8.672 16 10.446L16 18"/></g></g>
 </svg>

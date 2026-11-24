@@ -22,12 +22,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="skull"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-skull-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="skull"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-skull-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-skull-1 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="skull"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-skull-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-skull-2 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="skull"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-skull-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-skull-3 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="skull"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-skull-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-skull-4 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="skull"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-skull-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 4c4.418 0 8 3.358 8 7.5c0 1.901 -.755 3.637 -2 4.96l0 2.54a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2.54c-1.245 -1.322 -2 -3.058 -2 -4.96c0 -4.142 3.582 -7.5 8 -7.5z"/><path d="M10 17v3"/><path d="M14 17v3"/><path d="M9 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></g>
-    <g data-ira-motion="skull"><g transform="translate(1.5 1.5) scale(.875)"><path d="M15 11m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></g></g>
+    <g data-ira-stroke-reveal="skull"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 4C16.418 4 20 7.3580000000000005 20 11.5C20 13.401 19.245 15.137 18 16.46L18 19A1 1 0 0 1 17 20L7 20A1 1 0 0 1 6 19L6 16.46C4.755 15.138000000000002 4 13.402000000000001 4 11.5C4 7.358 7.582 4 12 4z"/><path data-ira-line="1" pathLength="1" d="M10 17L10 20"/><path data-ira-line="2" pathLength="1" d="M14 17L14 20"/><path data-ira-line="3" pathLength="1" d="M9 10A1 1 0 1 1 9 12A1 1 0 1 1 9 10z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="4" pathLength="1" d="M15 10A1 1 0 1 1 15 12A1 1 0 1 1 15 10z"/></g></g>
 </svg>

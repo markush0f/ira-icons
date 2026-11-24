@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="octagon"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-stroke-octagon-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octagon"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-octagon-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="octagon"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12.802 2.165l5.575 2.389c.48 .206 .863 .589 1.07 1.07l2.388 5.574c.22 .512 .22 1.092 0 1.604l-2.389 5.575c-.206 .48 -.589 .863 -1.07 1.07l-5.574 2.388c-.512 .22 -1.092 .22 -1.604 0l-5.575 -2.389a2.036 2.036 0 0 1 -1.07 -1.07l-2.388 -5.574a2.036 2.036 0 0 1 0 -1.604l2.389 -5.575c.206 -.48 .589 -.863 1.07 -1.07l5.574 -2.388a2.036 2.036 0 0 1 1.604 0z"/></g></g>
+    <g data-ira-stroke-reveal="octagon"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12.802 2.165L18.377 4.554C18.857 4.760000000000001 19.24 5.143000000000001 19.447 5.6240000000000006L21.835 11.198C22.055 11.71 22.055 12.290000000000001 21.835 12.802L19.446 18.377C19.240000000000002 18.857 18.857000000000003 19.24 18.376 19.447L12.802000000000001 21.835C12.290000000000001 22.055 11.71 22.055 11.198 21.835L5.623 19.446A2.036 2.036 0 0 1 4.553 18.376L2.165 12.802000000000001A2.036 2.036 0 0 1 2.165 11.198L4.554 5.623C4.760000000000001 5.143000000000001 5.143000000000001 4.76 5.6240000000000006 4.553L11.198 2.165A2.036 2.036 0 0 1 12.802 2.165z"/></g></g>
 </svg>

@@ -22,12 +22,32 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="buildings"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-stroke-buildings-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 4.2727%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-1 { 0%, 4.2727% { stroke-dashoffset: 1; opacity: 0; } 4.6727% { opacity: 1; } 8.5455%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-2 { 0%, 8.5455% { stroke-dashoffset: 1; opacity: 0; } 8.9455% { opacity: 1; } 12.8182%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-3 { 0%, 12.8182% { stroke-dashoffset: 1; opacity: 0; } 13.2182% { opacity: 1; } 17.0909%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-4 { 0%, 17.0909% { stroke-dashoffset: 1; opacity: 0; } 17.4909% { opacity: 1; } 21.3636%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-5 { 0%, 21.3636% { stroke-dashoffset: 1; opacity: 0; } 21.7636% { opacity: 1; } 25.6364%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-6 { 0%, 25.6364% { stroke-dashoffset: 1; opacity: 0; } 26.0364% { opacity: 1; } 29.9091%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-7 { 0%, 29.9091% { stroke-dashoffset: 1; opacity: 0; } 30.3091% { opacity: 1; } 34.1818%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-8 { 0%, 34.1818% { stroke-dashoffset: 1; opacity: 0; } 34.5818% { opacity: 1; } 38.4545%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-9 { 0%, 38.4545% { stroke-dashoffset: 1; opacity: 0; } 38.8545% { opacity: 1; } 42.7273%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="9"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-9 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-buildings-10 { 0%, 42.7273% { stroke-dashoffset: 1; opacity: 0; } 43.1273% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="buildings"] [data-ira-line="10"] { stroke-dasharray: 1 1; animation: ira-stroke-buildings-10 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 21v-15c0 -1 1 -2 2 -2h5c1 0 2 1 2 2v15"/><path d="M16 8h2c1 0 2 1 2 2v11"/><path d="M3 21h18"/><path d="M10 12v0"/><path d="M10 16v0"/><path d="M10 8v0"/><path d="M7 12v0"/><path d="M7 16v0"/><path d="M7 8v0"/><path d="M17 12v0"/></g>
-    <g data-ira-motion="buildings"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 16v0"/></g></g>
+    <g data-ira-stroke-reveal="buildings"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M4 21L4 6C4 5 5 4 6 4L11 4C12 4 13 5 13 6L13 21"/><path data-ira-line="1" pathLength="1" d="M16 8L18 8C19 8 20 9 20 10L20 21"/><path data-ira-line="2" pathLength="1" d="M3 21L21 21"/><path data-ira-line="3" pathLength="1" d="M10 12L10 12"/><path data-ira-line="4" pathLength="1" d="M10 16L10 16"/><path data-ira-line="5" pathLength="1" d="M10 8L10 8"/><path data-ira-line="6" pathLength="1" d="M7 12L7 12"/><path data-ira-line="7" pathLength="1" d="M7 16L7 16"/><path data-ira-line="8" pathLength="1" d="M7 8L7 8"/><path data-ira-line="9" pathLength="1" d="M17 12L17 12"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="10" pathLength="1" d="M17 16L17 16"/></g></g>
 </svg>

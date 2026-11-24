@@ -22,12 +22,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="poker-chip"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-poker-chip-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 4.7%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-1 { 0%, 4.7% { stroke-dashoffset: 1; opacity: 0; } 5.1% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-2 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 14.1%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-3 { 0%, 14.1% { stroke-dashoffset: 1; opacity: 0; } 14.5% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-4 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-5 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-6 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 32.9%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-7 { 0%, 32.9% { stroke-dashoffset: 1; opacity: 0; } 33.3% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-8 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 42.3%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poker-chip-9 { 0%, 42.3% { stroke-dashoffset: 1; opacity: 0; } 42.7% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poker-chip"] [data-ira-line="9"] { stroke-dasharray: 1 1; animation: ira-stroke-poker-chip-9 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 12m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/><path d="M18.364 5.636l-2.828 2.828"/><path d="M8.464 15.536l-2.828 2.828"/><path d="M5.636 5.636l2.828 2.828"/></g>
-    <g data-ira-motion="poker-chip"><g transform="translate(1.5 1.5) scale(.875)"><path d="M15.536 15.536l2.828 2.828"/></g></g>
+    <g data-ira-stroke-reveal="poker-chip"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 3A9 9 0 1 1 12 21A9 9 0 1 1 12 3z"/><path data-ira-line="1" pathLength="1" d="M12 7A5 5 0 1 1 12 17A5 5 0 1 1 12 7z"/><path data-ira-line="2" pathLength="1" d="M12 3L12 7"/><path data-ira-line="3" pathLength="1" d="M12 17L12 21"/><path data-ira-line="4" pathLength="1" d="M3 12L7 12"/><path data-ira-line="5" pathLength="1" d="M17 12L21 12"/><path data-ira-line="6" pathLength="1" d="M18.364 5.636L15.536000000000001 8.464"/><path data-ira-line="7" pathLength="1" d="M8.464 15.536L5.636000000000001 18.364"/><path data-ira-line="8" pathLength="1" d="M5.636 5.636L8.464 8.464"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="9" pathLength="1" d="M15.536 15.536L18.364 18.364"/></g></g>
 </svg>

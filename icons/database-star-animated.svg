@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="database-star"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-design-database-star-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="database-star"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-database-star-line 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3"/><path d="M4 6v6c0 1.43 2.67 2.627 6.243 2.927"/><path d="M20 10.5v-4.5"/><path d="M4 12v6c0 1.546 3.12 2.82 7.128 2.982"/></g>
-    <g data-ira-motion="database-star"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17.8 20.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z"/></g></g>
+    <g data-ira-design-reveal="database-star" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 6C4 7.657 7.582 9 12 9S20 7.657 20 6S16.418 3 12 3S4 4.343 4 6"/><path data-design-ink="line" pathLength="1" d="M4 6L4 12C4 13.43 6.67 14.626999999999999 10.243 14.927"/><path data-design-ink="line" pathLength="1" d="M20 10.5L20 6"/><path data-design-ink="line" pathLength="1" d="M4 12L4 18C4 19.546 7.12 20.82 11.128 20.982"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M17.8 20.817L15.628 21.955A0.392 0.392 0 0 1 15.06 21.544999999999998L15.475 19.133999999999997L13.718 17.426999999999996A0.389 0.389 0 0 1 13.935 16.761999999999997L16.363 16.409999999999997L17.448999999999998 14.216999999999997A0.392 0.392 0 0 1 18.150999999999996 14.216999999999997L19.236999999999995 16.409999999999997L21.664999999999996 16.761999999999997A0.39 0.39 0 0 1 21.881999999999994 17.426999999999996L20.124999999999993 19.133999999999997L20.538999999999994 21.543999999999997A0.39 0.39 0 0 1 19.971999999999994 21.955L17.799999999999994 20.817z"/></g></g>
 </svg>

@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="qrcode"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-design-qrcode-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="qrcode"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-qrcode-row-0 2.4s linear infinite; }
+            @keyframes ira-design-qrcode-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="qrcode"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-qrcode-row-1 2.4s linear infinite; }
+            @keyframes ira-design-qrcode-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="qrcode"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-qrcode-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M7 17l0 .01"/><path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M7 7l0 .01"/><path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M17 7l0 .01"/><path d="M14 14l3 0"/><path d="M20 14l0 .01"/><path d="M14 14l0 3"/><path d="M14 20l3 0"/><path d="M17 17l3 0"/></g>
-    <g data-ira-motion="qrcode"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20 17l0 3"/></g></g>
+    <g data-ira-design-reveal="qrcode" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M4 5A1 1 0 0 1 5 4L9 4A1 1 0 0 1 10 5L10 9A1 1 0 0 1 9 10L5 10A1 1 0 0 1 4 9z"/><path data-design-ink="row-2" pathLength="1" d="M7 17L7 17.01"/><path data-design-ink="row-0" pathLength="1" d="M14 5A1 1 0 0 1 15 4L19 4A1 1 0 0 1 20 5L20 9A1 1 0 0 1 19 10L15 10A1 1 0 0 1 14 9z"/><path data-design-ink="row-0" pathLength="1" d="M7 7L7 7.01"/><path data-design-ink="row-1" pathLength="1" d="M4 15A1 1 0 0 1 5 14L9 14A1 1 0 0 1 10 15L10 19A1 1 0 0 1 9 20L5 20A1 1 0 0 1 4 19z"/><path data-design-ink="row-0" pathLength="1" d="M17 7L17 7.01"/><path data-design-ink="row-1" pathLength="1" d="M14 14L17 14"/><path data-design-ink="row-1" pathLength="1" d="M20 14L20 14.01"/><path data-design-ink="row-1" pathLength="1" d="M14 14L14 17"/><path data-design-ink="row-2" pathLength="1" d="M14 20L17 20"/><path data-design-ink="row-2" pathLength="1" d="M17 17L20 17"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-2" pathLength="1" d="M20 17L20 20"/></g></g>
 </svg>

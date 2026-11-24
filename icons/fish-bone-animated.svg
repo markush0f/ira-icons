@@ -22,12 +22,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="fish-bone"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-stroke-fish-bone-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 7.8333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-fish-bone-1 { 0%, 7.8333% { stroke-dashoffset: 1; opacity: 0; } 8.2333% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-fish-bone-2 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-fish-bone-3 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-fish-bone-4 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 39.1667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-fish-bone-5 { 0%, 39.1667% { stroke-dashoffset: 1; opacity: 0; } 39.5667% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="fish-bone"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-fish-bone-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M16.69 7.44a6.973 6.973 0 0 0 -1.69 4.56a6.97 6.97 0 0 0 1.699 4.571c1.914 -.684 3.691 -2.183 5.301 -4.565c-1.613 -2.384 -3.394 -3.883 -5.312 -4.565"/><path d="M2 9.504a40.73 40.73 0 0 0 2.422 2.504a39.679 39.679 0 0 0 -2.422 2.498"/><path d="M18 11v.01"/><path d="M4.422 12h10.578"/><path d="M7 10v4"/></g>
-    <g data-ira-motion="fish-bone"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11 8v8"/></g></g>
+    <g data-ira-stroke-reveal="fish-bone"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M16.69 7.44A6.973 6.973 0 0 0 15.000000000000002 12A6.97 6.97 0 0 0 16.699 16.570999999999998C18.613000000000003 15.886999999999999 20.39 14.387999999999998 22 12.005999999999997C20.387 9.621999999999996 18.606 8.122999999999998 16.688 7.440999999999996"/><path data-ira-line="1" pathLength="1" d="M2 9.504A40.73 40.73 0 0 0 4.422000000000001 12.008A39.679 39.679 0 0 0 2.0000000000000004 14.506"/><path data-ira-line="2" pathLength="1" d="M18 11L18 11.01"/><path data-ira-line="3" pathLength="1" d="M4.422 12L15 12"/><path data-ira-line="4" pathLength="1" d="M7 10L7 14"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M11 8L11 16"/></g></g>
 </svg>

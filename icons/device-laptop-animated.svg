@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="device-laptop"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-device-laptop-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="device-laptop"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-device-laptop-row-0 2.4s linear infinite; }
+            @keyframes ira-design-device-laptop-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="device-laptop"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-device-laptop-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M3 19l18 0"/></g>
-    <g data-ira-motion="device-laptop"><g transform="translate(1.5 1.5) scale(.875)"><path d="M5 6m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z"/></g></g>
+    <g data-ira-design-reveal="device-laptop" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-2" pathLength="1" d="M3 19L21 19"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M5 7A1 1 0 0 1 6 6L18 6A1 1 0 0 1 19 7L19 15A1 1 0 0 1 18 16L6 16A1 1 0 0 1 5 15z"/></g></g>
 </svg>

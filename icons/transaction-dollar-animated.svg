@@ -22,12 +22,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="transaction-dollar"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-stroke-transaction-dollar-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 7.8333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-transaction-dollar-1 { 0%, 7.8333% { stroke-dashoffset: 1; opacity: 0; } 8.2333% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-transaction-dollar-2 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-transaction-dollar-3 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-transaction-dollar-4 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 39.1667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-transaction-dollar-5 { 0%, 39.1667% { stroke-dashoffset: 1; opacity: 0; } 39.5667% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="transaction-dollar"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-transaction-dollar-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M20.8 13a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1"/><path d="M18 11v10"/><path d="M5 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M17 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M7 5h8"/></g>
-    <g data-ira-motion="transaction-dollar"><g transform="translate(1.5 1.5) scale(.875)"><path d="M7 5v8a3 3 0 0 0 3 3h1"/></g></g>
+    <g data-ira-stroke-reveal="transaction-dollar"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M20.8 13A2 2 0 0 0 19 12L17 12A2 2 0 1 0 17 16L19 16A2 2 0 1 1 19 20L17 20A2 2 0 0 1 15.2 19"/><path data-ira-line="1" pathLength="1" d="M18 11L18 21"/><path data-ira-line="2" pathLength="1" d="M5 3A2 2 0 1 1 5 7A2 2 0 1 1 5 3z"/><path data-ira-line="3" pathLength="1" d="M17 3A2 2 0 1 1 17 7A2 2 0 1 1 17 3z"/><path data-ira-line="4" pathLength="1" d="M7 5L15 5"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M7 5L7 13A3 3 0 0 0 10 16L11 16"/></g></g>
 </svg>

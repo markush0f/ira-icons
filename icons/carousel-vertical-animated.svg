@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="carousel-vertical"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-carousel-vertical-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="carousel-vertical"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-carousel-vertical-row-0 2.4s linear infinite; }
+            @keyframes ira-design-carousel-vertical-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="carousel-vertical"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-carousel-vertical-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M19 8v8a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1v-8a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1z"/><path d="M7 22v-1a1 1 0 0 1 1 -1h8a1 1 0 0 1 1 1v1"/></g>
-    <g data-ira-motion="carousel-vertical"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 2v1a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-1"/></g></g>
+    <g data-ira-design-reveal="carousel-vertical" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M19 8L19 16A1 1 0 0 1 18 17L6 17A1 1 0 0 1 5 16L5 8A1 1 0 0 1 6 7L18 7A1 1 0 0 1 19 8z"/><path data-design-ink="row-2" pathLength="1" d="M7 22L7 21A1 1 0 0 1 8 20L16 20A1 1 0 0 1 17 21L17 22"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M17 2L17 3A1 1 0 0 1 16 4L8 4A1 1 0 0 1 7 3L7 2"/></g></g>
 </svg>

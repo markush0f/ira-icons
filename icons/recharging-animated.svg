@@ -22,12 +22,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="recharging"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-recharging-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 4.7%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-1 { 0%, 4.7% { stroke-dashoffset: 1; opacity: 0; } 5.1% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-2 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 14.1%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-3 { 0%, 14.1% { stroke-dashoffset: 1; opacity: 0; } 14.5% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-4 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-5 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-6 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 32.9%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-7 { 0%, 32.9% { stroke-dashoffset: 1; opacity: 0; } 33.3% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-8 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 42.3%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-recharging-9 { 0%, 42.3% { stroke-dashoffset: 1; opacity: 0; } 42.7% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="recharging"] [data-ira-line="9"] { stroke-dasharray: 1 1; animation: ira-stroke-recharging-9 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M7.038 4.5a9 9 0 0 0 -2.495 2.47"/><path d="M3.186 10.209a9 9 0 0 0 0 3.508"/><path d="M4.5 16.962a9 9 0 0 0 2.47 2.495"/><path d="M10.209 20.814a9 9 0 0 0 3.5 0"/><path d="M16.962 19.5a9 9 0 0 0 2.495 -2.47"/><path d="M20.814 13.791a9 9 0 0 0 0 -3.508"/><path d="M19.5 7.038a9 9 0 0 0 -2.47 -2.495"/><path d="M13.791 3.186a9 9 0 0 0 -3.508 -.02"/><path d="M12 8l-2 4h4l-2 4"/></g>
-    <g data-ira-motion="recharging"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 21a9 9 0 0 0 0 -18"/></g></g>
+    <g data-ira-stroke-reveal="recharging"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M7.038 4.5A9 9 0 0 0 4.543 6.970000000000001"/><path data-ira-line="1" pathLength="1" d="M3.186 10.209A9 9 0 0 0 3.186 13.716999999999999"/><path data-ira-line="2" pathLength="1" d="M4.5 16.962A9 9 0 0 0 6.970000000000001 19.457"/><path data-ira-line="3" pathLength="1" d="M10.209 20.814A9 9 0 0 0 13.709 20.814"/><path data-ira-line="4" pathLength="1" d="M16.962 19.5A9 9 0 0 0 19.457 17.03"/><path data-ira-line="5" pathLength="1" d="M20.814 13.791A9 9 0 0 0 20.814 10.283000000000001"/><path data-ira-line="6" pathLength="1" d="M19.5 7.038A9 9 0 0 0 17.03 4.543"/><path data-ira-line="7" pathLength="1" d="M13.791 3.186A9 9 0 0 0 10.283000000000001 3.166"/><path data-ira-line="8" pathLength="1" d="M12 8L10 12L14 12L12 16"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="9" pathLength="1" d="M12 21A9 9 0 0 0 12 3"/></g></g>
 </svg>

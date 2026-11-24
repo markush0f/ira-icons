@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="box-margin"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-design-box-margin-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="box-margin"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-box-margin-row-0 2.4s linear infinite; }
+            @keyframes ira-design-box-margin-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="box-margin"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-box-margin-row-1 2.4s linear infinite; }
+            @keyframes ira-design-box-margin-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="box-margin"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-box-margin-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M8 8h8v8h-8z"/><path d="M4 4v.01"/><path d="M8 4v.01"/><path d="M12 4v.01"/><path d="M16 4v.01"/><path d="M20 4v.01"/><path d="M4 20v.01"/><path d="M8 20v.01"/><path d="M12 20v.01"/><path d="M16 20v.01"/><path d="M20 20v.01"/><path d="M20 16v.01"/><path d="M20 12v.01"/><path d="M20 8v.01"/><path d="M4 16v.01"/><path d="M4 12v.01"/></g>
-    <g data-ira-motion="box-margin"><g transform="translate(1.5 1.5) scale(.875)"><path d="M4 8v.01"/></g></g>
+    <g data-ira-design-reveal="box-margin" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M8 8L16 8L16 16L8 16z"/><path data-design-ink="row-0" pathLength="1" d="M4 4L4 4.01"/><path data-design-ink="row-0" pathLength="1" d="M8 4L8 4.01"/><path data-design-ink="row-0" pathLength="1" d="M12 4L12 4.01"/><path data-design-ink="row-0" pathLength="1" d="M16 4L16 4.01"/><path data-design-ink="row-0" pathLength="1" d="M20 4L20 4.01"/><path data-design-ink="row-2" pathLength="1" d="M4 20L4 20.01"/><path data-design-ink="row-2" pathLength="1" d="M8 20L8 20.01"/><path data-design-ink="row-2" pathLength="1" d="M12 20L12 20.01"/><path data-design-ink="row-2" pathLength="1" d="M16 20L16 20.01"/><path data-design-ink="row-2" pathLength="1" d="M20 20L20 20.01"/><path data-design-ink="row-2" pathLength="1" d="M20 16L20 16.01"/><path data-design-ink="row-1" pathLength="1" d="M20 12L20 12.01"/><path data-design-ink="row-0" pathLength="1" d="M20 8L20 8.01"/><path data-design-ink="row-2" pathLength="1" d="M4 16L4 16.01"/><path data-design-ink="row-1" pathLength="1" d="M4 12L4 12.01"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M4 8L4 8.01"/></g></g>
 </svg>

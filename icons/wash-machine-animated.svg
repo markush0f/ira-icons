@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="wash-machine"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.6s infinite; }
+            @keyframes ira-design-wash-machine-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="wash-machine"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-wash-machine-ring 2.4s linear infinite; }
+            @keyframes ira-design-wash-machine-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="wash-machine"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-wash-machine-row-0 2.4s linear infinite; }
+            @keyframes ira-design-wash-machine-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="wash-machine"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-wash-machine-row-1 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/><path d="M12 14m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M8 6h.01"/><path d="M11 6h.01"/><path d="M14 6h2"/></g>
-    <g data-ira-motion="wash-machine"><g transform="translate(1.5 1.5) scale(.875)"><path d="M8 14c1.333 -.667 2.667 -.667 4 0c1.333 .667 2.667 .667 4 0"/></g></g>
+    <g data-ira-design-reveal="wash-machine" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M5 5A2 2 0 0 1 7 3L17 3A2 2 0 0 1 19 5L19 19A2 2 0 0 1 17 21L7 21A2 2 0 0 1 5 19z"/><path data-design-ink="ring" pathLength="1" d="M12 10a4 4 0 1 1 0 8a4 4 0 1 1 0 -8z"/><path data-design-ink="row-0" pathLength="1" d="M8 6L8.01 6"/><path data-design-ink="row-0" pathLength="1" d="M11 6L11.01 6"/><path data-design-ink="row-0" pathLength="1" d="M14 6L16 6"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M8 14C9.333 13.333 10.667 13.333 12 14C13.333 14.667 14.667 14.667 16 14"/></g></g>
 </svg>

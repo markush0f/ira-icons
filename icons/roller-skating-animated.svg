@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="roller-skating"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-roller-skating-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="roller-skating"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-roller-skating-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-roller-skating-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="roller-skating"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-roller-skating-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-roller-skating-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="roller-skating"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-roller-skating-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M5.905 5h3.418a1 1 0 0 1 .928 .629l1.143 2.856a3 3 0 0 0 2.207 1.83l4.717 .926a2.084 2.084 0 0 1 1.682 2.045v.714a1 1 0 0 1 -1 1h-13.895a1 1 0 0 1 -1 -1.1l.8 -8a1 1 0 0 1 1 -.9z"/><path d="M8 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g>
-    <g data-ira-motion="roller-skating"><g transform="translate(1.5 1.5) scale(.875)"><path d="M16 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/></g></g>
+    <g data-ira-stroke-reveal="roller-skating"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M5.905 5L9.323 5A1 1 0 0 1 10.251000000000001 5.629L11.394000000000002 8.485A3 3 0 0 0 13.601000000000003 10.315L18.318 11.241A2.084 2.084 0 0 1 20 13.286L20 14A1 1 0 0 1 19 15L5.105 15A1 1 0 0 1 4.105 13.9L4.905 5.9A1 1 0 0 1 5.905 5z"/><path data-ira-line="1" pathLength="1" d="M8 15A2 2 0 1 1 8 19A2 2 0 1 1 8 15z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M16 15A2 2 0 1 1 16 19A2 2 0 1 1 16 15z"/></g></g>
 </svg>

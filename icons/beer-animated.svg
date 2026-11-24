@@ -22,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="beer"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.7s infinite; }
+            @keyframes ira-stroke-beer-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="beer"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-beer-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-beer-1 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="beer"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-beer-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M9 21h6a1 1 0 0 0 1 -1v-3.625c0 -1.397 .29 -2.775 .845 -4.025l.31 -.7c.556 -1.25 .845 -2.253 .845 -3.65v-4a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v4c0 1.397 .29 2.4 .845 3.65l.31 .7a9.931 9.931 0 0 1 .845 4.025v3.625a1 1 0 0 0 1 1z"/></g>
-    <g data-ira-motion="beer"><g transform="translate(1.5 1.5) scale(.875)"><path d="M6 8h12"/></g></g>
+    <g data-ira-stroke-reveal="beer"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M9 21L15 21A1 1 0 0 0 16 20L16 16.375C16 14.978 16.29 13.6 16.845 12.35L17.154999999999998 11.65C17.711 10.4 17.999999999999996 9.397 17.999999999999996 8L17.999999999999996 4A1 1 0 0 0 16.999999999999996 3L6.9999999999999964 3A1 1 0 0 0 5.9999999999999964 4L5.9999999999999964 8C5.9999999999999964 9.397 6.2899999999999965 10.4 6.844999999999996 11.65L7.154999999999996 12.35A9.931 9.931 0 0 1 7.999999999999996 16.375L7.999999999999996 20A1 1 0 0 0 8.999999999999996 21z"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="1" pathLength="1" d="M6 8L18 8"/></g></g>
 </svg>

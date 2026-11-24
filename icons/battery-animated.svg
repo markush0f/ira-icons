@@ -24,9 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="battery"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-design-battery-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="battery"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-battery-row-0 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-motion="battery"><g transform="translate(1.5 1.5) scale(.875)"><path d="M6 7h11a2 2 0 0 1 2 2v.5a.5 .5 0 0 0 .5 .5a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5a.5 .5 0 0 0 -.5 .5v.5a2 2 0 0 1 -2 2h-11a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2"/></g></g>
+    <g data-ira-design-reveal="battery" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M6 7L17 7A2 2 0 0 1 19 9L19 9.5A0.5 0.5 0 0 0 19.5 10A0.5 0.5 0 0 1 20 10.5L20 13.5A0.5 0.5 0 0 1 19.5 14A0.5 0.5 0 0 0 19 14.5L19 15A2 2 0 0 1 17 17L6 17A2 2 0 0 1 4 15L4 9A2 2 0 0 1 6 7"/></g></g>
 </svg>

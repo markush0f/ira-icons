@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="file-infinity"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-design-file-infinity-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="file-infinity"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-file-infinity-row-0 2.4s linear infinite; }
+            @keyframes ira-design-file-infinity-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="file-infinity"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-file-infinity-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M15.536 17.586a2.123 2.123 0 0 0 -2.929 0a1.951 1.951 0 0 0 0 2.828c.809 .781 2.12 .781 2.929 0c.809 -.781 -.805 .778 0 0l1.46 -1.41l1.46 -1.419"/><path d="M15.54 17.582l1.46 1.42l1.46 1.41c.809 .78 -.805 -.779 0 0s2.12 .781 2.929 0a1.951 1.951 0 0 0 0 -2.828a2.123 2.123 0 0 0 -2.929 0"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/></g>
-    <g data-ira-motion="file-infinity"><g transform="translate(1.5 1.5) scale(.875)"><path d="M9.5 21h-2.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v6"/></g></g>
+    <g data-ira-design-reveal="file-infinity" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-2" pathLength="1" d="M15.536 17.586A2.123 2.123 0 0 0 12.607 17.586A1.951 1.951 0 0 0 12.607 20.413999999999998C13.415999999999999 21.194999999999997 14.727 21.194999999999997 15.536 20.413999999999998C16.345 19.633 14.731 21.191999999999997 15.536 20.413999999999998L16.996 19.003999999999998L18.456 17.584999999999997"/><path data-design-ink="row-2" pathLength="1" d="M15.54 17.582L17 19.002000000000002L18.46 20.412000000000003C19.269000000000002 21.192000000000004 17.655 19.633000000000003 18.46 20.412000000000003S20.580000000000002 21.193 21.389 20.412000000000003A1.951 1.951 0 0 0 21.389 17.584000000000003A2.123 2.123 0 0 0 18.46 17.584000000000003"/><path data-design-ink="row-0" pathLength="1" d="M14 3L14 7A1 1 0 0 0 15 8L19 8"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M9.5 21L7 21A2 2 0 0 1 5 19L5 5A2 2 0 0 1 7 3L14 3L19 8L19 14"/></g></g>
 </svg>

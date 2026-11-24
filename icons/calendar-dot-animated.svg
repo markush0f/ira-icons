@@ -24,10 +24,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="calendar-dot"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -1s infinite; }
+            @keyframes ira-design-calendar-dot-ring { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="calendar-dot"] [data-design-ink="ring"] { stroke-dasharray: 1 1; animation: ira-design-calendar-dot-ring 2.4s linear infinite; }
+            @keyframes ira-design-calendar-dot-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="calendar-dot"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-calendar-dot-row-0 2.4s linear infinite; }
+            @keyframes ira-design-calendar-dot-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="calendar-dot"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-calendar-dot-row-1 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/></g>
-    <g data-ira-motion="calendar-dot"><g transform="translate(1.5 1.5) scale(.875)"><path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></g>
+    <g data-ira-design-reveal="calendar-dot" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M12.5 21L6 21A2 2 0 0 1 4 19L4 7A2 2 0 0 1 6 5L18 5A2 2 0 0 1 20 7L20 12"/><path data-design-ink="row-0" pathLength="1" d="M16 3L16 7"/><path data-design-ink="row-0" pathLength="1" d="M8 3L8 7"/><path data-design-ink="row-1" pathLength="1" d="M4 11L20 11"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="ring" pathLength="1" d="M19 16a3 3 0 1 1 0 6a3 3 0 1 1 0 -6z"/></g></g>
 </svg>

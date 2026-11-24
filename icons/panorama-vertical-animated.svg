@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="panorama-vertical"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-panorama-vertical-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="panorama-vertical"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-panorama-vertical-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="panorama-vertical"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.463 4.338c-1.932 5.106 -1.932 10.211 0 15.317a1 1 0 0 1 -.934 1.345h-11c-.692 0 -1.208 -.692 -.962 -1.34c1.932 -5.107 1.932 -10.214 0 -15.321c-.246 -.648 .243 -1.339 .935 -1.339h11.028c.693 0 1.18 .691 .935 1.338z"/></g></g>
+    <g data-ira-stroke-reveal="panorama-vertical"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M18.463 4.338C16.531000000000002 9.443999999999999 16.531000000000002 14.549 18.463 19.655A1 1 0 0 1 17.529 21L6.529 21C5.837 21 5.321 20.308 5.567 19.66C7.4990000000000006 14.553 7.4990000000000006 9.446 5.567 4.339C5.321 3.6910000000000003 5.8100000000000005 3.0000000000000004 6.502000000000001 3.0000000000000004L17.53 3.0000000000000004C18.223000000000003 3.0000000000000004 18.71 3.6910000000000003 18.465 4.338000000000001z"/></g></g>
 </svg>

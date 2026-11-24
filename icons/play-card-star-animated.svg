@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="play-card-star"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-design-play-card-star-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="play-card-star"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-play-card-star-row-0 2.4s linear infinite; }
+            @keyframes ira-design-play-card-star-row-2 { 0%, 24% { stroke-dashoffset: 1; opacity: 0; } 25% { opacity: 1; } 54%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="play-card-star"] [data-design-ink="row-2"] { stroke-dasharray: 1 1; animation: ira-design-play-card-star-row-2 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M19 5v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2"/><path d="M8 6h.01"/><path d="M16 18h.01"/></g>
-    <g data-ira-motion="play-card-star"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11.75 14.112l-1.63 .853a.294 .294 0 0 1 -.425 -.307l.31 -1.808l-1.317 -1.28a.292 .292 0 0 1 .163 -.499l1.82 -.264l.815 -1.644a.294 .294 0 0 1 .527 0l.814 1.644l1.82 .264a.292 .292 0 0 1 .164 .499l-1.318 1.28l.31 1.807a.292 .292 0 0 1 -.425 .308z"/></g></g>
+    <g data-ira-design-reveal="play-card-star" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M19 5L19 19A2 2 0 0 1 17 21L7 21A2 2 0 0 1 5 19L5 5A2 2 0 0 1 7 3L17 3A2 2 0 0 1 19 5"/><path data-design-ink="row-0" pathLength="1" d="M8 6L8.01 6"/><path data-design-ink="row-2" pathLength="1" d="M16 18L16.01 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M11.75 14.112L10.120000000000001 14.965A0.294 0.294 0 0 1 9.695 14.658L10.005 12.85L8.688 11.57A0.292 0.292 0 0 1 8.851 11.071L10.671000000000001 10.807L11.486 9.163A0.294 0.294 0 0 1 12.013 9.163L12.827 10.807L14.647 11.071A0.292 0.292 0 0 1 14.811 11.57L13.493 12.85L13.803 14.657A0.292 0.292 0 0 1 13.378 14.965z"/></g></g>
 </svg>

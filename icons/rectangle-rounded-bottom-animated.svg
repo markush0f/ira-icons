@@ -24,9 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="rectangle-rounded-bottom"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0s infinite; }
+            @keyframes ira-design-rectangle-rounded-bottom-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="rectangle-rounded-bottom"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-rectangle-rounded-bottom-row-0 2.4s linear infinite; }
         }
     </style>
-    <g data-ira-motion="rectangle-rounded-bottom"><g transform="translate(1.5 1.5) scale(.875)"><path d="M9 18h6a6 6 0 0 0 6 -6v-5a1 1 0 0 0 -1 -1h-16a1 1 0 0 0 -1 1v5a6 6 0 0 0 6 6z"/></g></g>
+    <g data-ira-design-reveal="rectangle-rounded-bottom" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M9 18L15 18A6 6 0 0 0 21 12L21 7A1 1 0 0 0 20 6L4 6A1 1 0 0 0 3 7L3 12A6 6 0 0 0 9 18z"/></g></g>
 </svg>

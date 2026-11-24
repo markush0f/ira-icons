@@ -24,10 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="database-edit"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-design-database-edit-line { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 49%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="database-edit"] [data-design-ink="line"] { stroke-dasharray: 1 1; animation: ira-design-database-edit-line 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3"/><path d="M4 6v6c0 1.657 3.582 3 8 3c.478 0 .947 -.016 1.402 -.046"/><path d="M20 12v-6"/><path d="M4 12v6c0 1.526 3.04 2.786 6.972 2.975"/></g>
-    <g data-ira-motion="database-edit"><g transform="translate(1.5 1.5) scale(.875)"><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"/></g></g>
+    <g data-ira-design-reveal="database-edit" data-design-kind="circle"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M4 6C4 7.657 7.582 9 12 9S20 7.657 20 6S16.418 3 12 3S4 4.343 4 6"/><path data-design-ink="line" pathLength="1" d="M4 6L4 12C4 13.657 7.582 15 12 15C12.478 15 12.947 14.984 13.402 14.954"/><path data-design-ink="line" pathLength="1" d="M20 12L20 6"/><path data-design-ink="line" pathLength="1" d="M4 12L4 18C4 19.526 7.04 20.786 10.972000000000001 20.975"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="line" pathLength="1" d="M18.42 15.61A2.1 2.1 0 0 1 21.39 18.58L18 22L15 22L15 19L18.42 15.61z"/></g></g>
 </svg>

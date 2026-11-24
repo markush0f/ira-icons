@@ -22,12 +22,44 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="border-vertical"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.1s infinite; }
+            @keyframes ira-stroke-border-vertical-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 2.7647%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-1 { 0%, 2.7647% { stroke-dashoffset: 1; opacity: 0; } 3.1647% { opacity: 1; } 5.5294%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-2 { 0%, 5.5294% { stroke-dashoffset: 1; opacity: 0; } 5.9294% { opacity: 1; } 8.2941%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-3 { 0%, 8.2941% { stroke-dashoffset: 1; opacity: 0; } 8.6941% { opacity: 1; } 11.0588%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-4 { 0%, 11.0588% { stroke-dashoffset: 1; opacity: 0; } 11.4588% { opacity: 1; } 13.8235%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-5 { 0%, 13.8235% { stroke-dashoffset: 1; opacity: 0; } 14.2235% { opacity: 1; } 16.5882%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-6 { 0%, 16.5882% { stroke-dashoffset: 1; opacity: 0; } 16.9882% { opacity: 1; } 19.3529%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-7 { 0%, 19.3529% { stroke-dashoffset: 1; opacity: 0; } 19.7529% { opacity: 1; } 22.1176%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-8 { 0%, 22.1176% { stroke-dashoffset: 1; opacity: 0; } 22.5176% { opacity: 1; } 24.8824%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="8"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-8 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-9 { 0%, 24.8824% { stroke-dashoffset: 1; opacity: 0; } 25.2824% { opacity: 1; } 27.6471%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="9"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-9 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-10 { 0%, 27.6471% { stroke-dashoffset: 1; opacity: 0; } 28.0471% { opacity: 1; } 30.4118%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="10"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-10 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-11 { 0%, 30.4118% { stroke-dashoffset: 1; opacity: 0; } 30.8118% { opacity: 1; } 33.1765%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="11"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-11 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-12 { 0%, 33.1765% { stroke-dashoffset: 1; opacity: 0; } 33.5765% { opacity: 1; } 35.9412%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="12"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-12 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-13 { 0%, 35.9412% { stroke-dashoffset: 1; opacity: 0; } 36.3412% { opacity: 1; } 38.7059%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="13"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-13 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-14 { 0%, 38.7059% { stroke-dashoffset: 1; opacity: 0; } 39.1059% { opacity: 1; } 41.4706%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="14"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-14 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-15 { 0%, 41.4706% { stroke-dashoffset: 1; opacity: 0; } 41.8706% { opacity: 1; } 44.2353%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="15"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-15 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-border-vertical-16 { 0%, 44.2353% { stroke-dashoffset: 1; opacity: 0; } 44.6353% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="border-vertical"] [data-ira-line="16"] { stroke-dasharray: 1 1; animation: ira-stroke-border-vertical-16 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 4l0 16"/><path d="M4 4l0 .01"/><path d="M8 4l0 .01"/><path d="M16 4l0 .01"/><path d="M20 4l0 .01"/><path d="M4 8l0 .01"/><path d="M20 8l0 .01"/><path d="M4 12l0 .01"/><path d="M8 12l0 .01"/><path d="M16 12l0 .01"/><path d="M20 12l0 .01"/><path d="M4 16l0 .01"/><path d="M20 16l0 .01"/><path d="M4 20l0 .01"/><path d="M8 20l0 .01"/><path d="M16 20l0 .01"/></g>
-    <g data-ira-motion="border-vertical"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20 20l0 .01"/></g></g>
+    <g data-ira-stroke-reveal="border-vertical"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 4L12 20"/><path data-ira-line="1" pathLength="1" d="M4 4L4 4.01"/><path data-ira-line="2" pathLength="1" d="M8 4L8 4.01"/><path data-ira-line="3" pathLength="1" d="M16 4L16 4.01"/><path data-ira-line="4" pathLength="1" d="M20 4L20 4.01"/><path data-ira-line="5" pathLength="1" d="M4 8L4 8.01"/><path data-ira-line="6" pathLength="1" d="M20 8L20 8.01"/><path data-ira-line="7" pathLength="1" d="M4 12L4 12.01"/><path data-ira-line="8" pathLength="1" d="M8 12L8 12.01"/><path data-ira-line="9" pathLength="1" d="M16 12L16 12.01"/><path data-ira-line="10" pathLength="1" d="M20 12L20 12.01"/><path data-ira-line="11" pathLength="1" d="M4 16L4 16.01"/><path data-ira-line="12" pathLength="1" d="M20 16L20 16.01"/><path data-ira-line="13" pathLength="1" d="M4 20L4 20.01"/><path data-ira-line="14" pathLength="1" d="M8 20L8 20.01"/><path data-ira-line="15" pathLength="1" d="M16 20L16 20.01"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="16" pathLength="1" d="M20 20L20 20.01"/></g></g>
 </svg>

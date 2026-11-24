@@ -22,11 +22,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="blob"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-stroke-blob-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="blob"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-blob-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g data-ira-motion="blob"><g transform="translate(1.5 1.5) scale(.875)"><path d="M5.897 20.188c1.67 .752 3.896 .812 6.103 .812s4.434 -.059 6.104 -.812c.868 -.392 1.614 -.982 2.133 -1.856c.514 -.865 .763 -1.94 .763 -3.234c0 -2.577 -.983 -5.315 -2.557 -7.416c-1.57 -2.094 -3.833 -3.682 -6.443 -3.682s-4.873 1.588 -6.443 3.682c-1.574 2.101 -2.557 4.84 -2.557 7.416c0 1.295 .249 2.369 .763 3.234c.519 .874 1.265 1.464 2.134 1.856"/></g></g>
+    <g data-ira-stroke-reveal="blob"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M5.897 20.188C7.567 20.939999999999998 9.793 21 12 21S16.434 20.941 18.104 20.188C18.971999999999998 19.796 19.718 19.206 20.237 18.331999999999997C20.750999999999998 17.467 21 16.391999999999996 21 15.097999999999997C21 12.520999999999997 20.017 9.782999999999998 18.443 7.681999999999997C16.873 5.587999999999997 14.610000000000001 3.999999999999997 12.000000000000002 3.999999999999997S7.127000000000002 5.587999999999997 5.557000000000002 7.681999999999997C3.9830000000000023 9.782999999999998 3.000000000000002 12.521999999999997 3.000000000000002 15.097999999999997C3.000000000000002 16.392999999999997 3.2490000000000023 17.467 3.763000000000002 18.331999999999997C4.282000000000002 19.205999999999996 5.028000000000002 19.795999999999996 5.897000000000002 20.188"/></g></g>
 </svg>

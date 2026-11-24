@@ -24,10 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="calendar-star"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-design-calendar-star-row-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 30%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="calendar-star"] [data-design-ink="row-0"] { stroke-dasharray: 1 1; animation: ira-design-calendar-star-row-0 2.4s linear infinite; }
+            @keyframes ira-design-calendar-star-row-1 { 0%, 12% { stroke-dashoffset: 1; opacity: 0; } 13% { opacity: 1; } 42%, 87% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-design-reveal="calendar-star"] [data-design-ink="row-1"] { stroke-dasharray: 1 1; animation: ira-design-calendar-star-row-1 2.4s linear infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M11 21h-5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3.5"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h11"/></g>
-    <g data-ira-motion="calendar-star"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17.8 20.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z"/></g></g>
+    <g data-ira-design-reveal="calendar-star" data-design-kind="box"><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-0" pathLength="1" d="M11 21L6 21A2 2 0 0 1 4 19L4 7A2 2 0 0 1 6 5L18 5A2 2 0 0 1 20 7L20 10.5"/><path data-design-ink="row-0" pathLength="1" d="M16 3L16 7"/><path data-design-ink="row-0" pathLength="1" d="M8 3L8 7"/><path data-design-ink="row-1" pathLength="1" d="M4 11L15 11"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-design-ink="row-1" pathLength="1" d="M17.8 20.817L15.628 21.955A0.392 0.392 0 0 1 15.06 21.544999999999998L15.475 19.133999999999997L13.718 17.426999999999996A0.389 0.389 0 0 1 13.935 16.761999999999997L16.363 16.409999999999997L17.448999999999998 14.216999999999997A0.392 0.392 0 0 1 18.150999999999996 14.216999999999997L19.236999999999995 16.409999999999997L21.664999999999996 16.761999999999997A0.39 0.39 0 0 1 21.881999999999994 17.426999999999996L20.124999999999993 19.133999999999997L20.538999999999994 21.543999999999997A0.39 0.39 0 0 1 19.971999999999994 21.955L17.799999999999994 20.817z"/></g></g>
 </svg>

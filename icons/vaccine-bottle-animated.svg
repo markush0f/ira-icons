@@ -22,12 +22,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="vaccine-bottle"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.5s infinite; }
+            @keyframes ira-stroke-vaccine-bottle-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 9.4%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="vaccine-bottle"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-vaccine-bottle-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-vaccine-bottle-1 { 0%, 9.4% { stroke-dashoffset: 1; opacity: 0; } 9.8% { opacity: 1; } 18.8%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="vaccine-bottle"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-vaccine-bottle-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-vaccine-bottle-2 { 0%, 18.8% { stroke-dashoffset: 1; opacity: 0; } 19.2% { opacity: 1; } 28.2%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="vaccine-bottle"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-vaccine-bottle-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-vaccine-bottle-3 { 0%, 28.2% { stroke-dashoffset: 1; opacity: 0; } 28.6% { opacity: 1; } 37.6%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="vaccine-bottle"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-vaccine-bottle-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-vaccine-bottle-4 { 0%, 37.6% { stroke-dashoffset: 1; opacity: 0; } 38% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="vaccine-bottle"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-vaccine-bottle-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M9 3m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/><path d="M10 6v.98c0 .877 -.634 1.626 -1.5 1.77c-.866 .144 -1.5 .893 -1.5 1.77v8.48a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-8.48c0 -.877 -.634 -1.626 -1.5 -1.77a1.795 1.795 0 0 1 -1.5 -1.77v-.98"/><path d="M7 12h10"/><path d="M7 18h10"/></g>
-    <g data-ira-motion="vaccine-bottle"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11 15h2"/></g></g>
+    <g data-ira-stroke-reveal="vaccine-bottle"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M9 4A1 1 0 0 1 10 3L14 3A1 1 0 0 1 15 4L15 5A1 1 0 0 1 14 6L10 6A1 1 0 0 1 9 5z"/><path data-ira-line="1" pathLength="1" d="M10 6L10 6.98C10 7.857 9.366 8.606 8.5 8.75C7.634 8.894 7 9.643 7 10.52L7 19A2 2 0 0 0 9 21L15 21A2 2 0 0 0 17 19L17 10.52C17 9.642999999999999 16.366 8.894 15.5 8.75A1.795 1.795 0 0 1 14 6.98L14 6"/><path data-ira-line="2" pathLength="1" d="M7 12L17 12"/><path data-ira-line="3" pathLength="1" d="M7 18L17 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="4" pathLength="1" d="M11 15L13 15"/></g></g>
 </svg>

@@ -22,12 +22,24 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="books"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.3s infinite; }
+            @keyframes ira-stroke-books-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 6.7143%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-books-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-1 { 0%, 6.7143% { stroke-dashoffset: 1; opacity: 0; } 7.1143% { opacity: 1; } 13.4286%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-books-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-2 { 0%, 13.4286% { stroke-dashoffset: 1; opacity: 0; } 13.8286% { opacity: 1; } 20.1429%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-books-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-3 { 0%, 20.1429% { stroke-dashoffset: 1; opacity: 0; } 20.5429% { opacity: 1; } 26.8571%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-books-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-4 { 0%, 26.8571% { stroke-dashoffset: 1; opacity: 0; } 27.2571% { opacity: 1; } 33.5714%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-books-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-5 { 0%, 33.5714% { stroke-dashoffset: 1; opacity: 0; } 33.9714% { opacity: 1; } 40.2857%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-books-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-books-6 { 0%, 40.2857% { stroke-dashoffset: 1; opacity: 0; } 40.6857% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="books"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-books-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"/><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"/><path d="M5 8h4"/><path d="M9 16h4"/><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z"/><path d="M14 9l4 -1"/></g>
-    <g data-ira-motion="books"><g transform="translate(1.5 1.5) scale(.875)"><path d="M16 16l3.923 -.98"/></g></g>
+    <g data-ira-stroke-reveal="books"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M5 5A1 1 0 0 1 6 4L8 4A1 1 0 0 1 9 5L9 19A1 1 0 0 1 8 20L6 20A1 1 0 0 1 5 19z"/><path data-ira-line="1" pathLength="1" d="M9 5A1 1 0 0 1 10 4L12 4A1 1 0 0 1 13 5L13 19A1 1 0 0 1 12 20L10 20A1 1 0 0 1 9 19z"/><path data-ira-line="2" pathLength="1" d="M5 8L9 8"/><path data-ira-line="3" pathLength="1" d="M9 16L13 16"/><path data-ira-line="4" pathLength="1" d="M13.803 4.56L15.987000000000002 4.029999999999999C16.549000000000003 3.8949999999999996 17.12 4.22 17.269000000000002 4.762L20.964000000000002 18.18A1.02 1.02 0 0 1 20.330000000000002 19.399L20.197000000000003 19.44L18.013 19.970000000000002C17.451 20.105000000000004 16.880000000000003 19.78 16.731 19.238000000000003L13.036000000000001 5.820000000000004A1.02 1.02 0 0 1 13.670000000000002 4.6010000000000035L13.803 4.560000000000003z"/><path data-ira-line="5" pathLength="1" d="M14 9L18 8"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="6" pathLength="1" d="M16 16L19.923000000000002 15.02"/></g></g>
 </svg>

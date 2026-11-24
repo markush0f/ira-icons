@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="irregular-polyhedron"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-irregular-polyhedron-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="irregular-polyhedron"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-irregular-polyhedron-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-irregular-polyhedron-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="irregular-polyhedron"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-irregular-polyhedron-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-irregular-polyhedron-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="irregular-polyhedron"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-irregular-polyhedron-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-irregular-polyhedron-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="irregular-polyhedron"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-irregular-polyhedron-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M6 12l-1.752 6.13a1 1 0 0 0 .592 1.205l6.282 2.503a2.46 2.46 0 0 0 1.756 0l6.282 -2.503a1 1 0 0 0 .592 -1.204l-1.752 -6.131l1.752 -6.13a1 1 0 0 0 -.592 -1.205l-6.282 -2.503a2.46 2.46 0 0 0 -1.756 0l-6.282 2.503a1 1 0 0 0 -.592 1.204l1.752 6.131z"/><path d="M4.5 5.5l6.622 2.33a2.35 2.35 0 0 0 1.756 0l6.622 -2.33"/><path d="M6 12l5.21 1.862a2.34 2.34 0 0 0 1.58 0l5.21 -1.862"/></g>
-    <g data-ira-motion="irregular-polyhedron"><g transform="translate(1.5 1.5) scale(.875)"><path d="M12 22v-14"/></g></g>
+    <g data-ira-stroke-reveal="irregular-polyhedron"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M6 12L4.248 18.13A1 1 0 0 0 4.84 19.335L11.122 21.838A2.46 2.46 0 0 0 12.878 21.838L19.16 19.335A1 1 0 0 0 19.752 18.131L18 12L19.752 5.87A1 1 0 0 0 19.16 4.665L12.878 2.162A2.46 2.46 0 0 0 11.122 2.162L4.84 4.665A1 1 0 0 0 4.248 5.869L6 12z"/><path data-ira-line="1" pathLength="1" d="M4.5 5.5L11.122 7.83A2.35 2.35 0 0 0 12.878 7.83L19.5 5.5"/><path data-ira-line="2" pathLength="1" d="M6 12L11.21 13.862A2.34 2.34 0 0 0 12.790000000000001 13.862L18 12"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M12 22L12 8"/></g></g>
 </svg>

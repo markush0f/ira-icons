@@ -22,12 +22,22 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="octahedron-plus"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.9s infinite; }
+            @keyframes ira-stroke-octahedron-plus-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 7.8333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-octahedron-plus-1 { 0%, 7.8333% { stroke-dashoffset: 1; opacity: 0; } 8.2333% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-octahedron-plus-2 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-octahedron-plus-3 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-octahedron-plus-4 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 39.1667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-octahedron-plus-5 { 0%, 39.1667% { stroke-dashoffset: 1; opacity: 0; } 39.5667% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="octahedron-plus"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-octahedron-plus-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M21.498 12.911l.206 -.208a.984 .984 0 0 0 0 -1.407l-8.845 -8.948a1.233 1.233 0 0 0 -1.718 0l-8.845 8.949a.984 .984 0 0 0 0 1.407l8.845 8.949a1.234 1.234 0 0 0 1.718 -.001l.08 -.081"/><path d="M2 12c.004 .086 .103 .178 .296 .246l8.845 2.632c.459 .163 1.259 .163 1.718 0l2.634 -.784m5.41 -1.61l.801 -.238c.195 -.07 .294 -.156 .296 -.243"/><path d="M12 2.12v19.76"/><path d="M16 19h6"/></g>
-    <g data-ira-motion="octahedron-plus"><g transform="translate(1.5 1.5) scale(.875)"><path d="M19 16v6"/></g></g>
+    <g data-ira-stroke-reveal="octahedron-plus"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M21.498 12.911L21.704 12.703A0.984 0.984 0 0 0 21.704 11.296L12.859 2.347999999999999A1.233 1.233 0 0 0 11.141 2.347999999999999L2.2959999999999994 11.296999999999999A0.984 0.984 0 0 0 2.2959999999999994 12.703999999999999L11.141 21.653A1.234 1.234 0 0 0 12.859 21.651999999999997L12.939 21.570999999999998"/><path data-ira-line="1" pathLength="1" d="M2 12C2.004 12.086 2.103 12.178 2.296 12.246L11.141 14.878C11.6 15.041 12.4 15.041 12.859 14.878L15.493 14.094"/><path data-ira-line="2" pathLength="1" d="M20.903 12.484L21.703999999999997 12.246C21.898999999999997 12.176 21.997999999999998 12.09 21.999999999999996 12.003"/><path data-ira-line="3" pathLength="1" d="M12 2.12L12 21.880000000000003"/><path data-ira-line="4" pathLength="1" d="M16 19L22 19"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="5" pathLength="1" d="M19 16L19 22"/></g></g>
 </svg>

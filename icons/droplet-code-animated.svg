@@ -22,12 +22,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="droplet-code"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.8s infinite; }
+            @keyframes ira-stroke-droplet-code-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 15.6667%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="droplet-code"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-droplet-code-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-droplet-code-1 { 0%, 15.6667% { stroke-dashoffset: 1; opacity: 0; } 16.0667% { opacity: 1; } 31.3333%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="droplet-code"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-droplet-code-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-droplet-code-2 { 0%, 31.3333% { stroke-dashoffset: 1; opacity: 0; } 31.7333% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="droplet-code"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-droplet-code-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M18.907 13.147a6.586 6.586 0 0 0 -.843 -2.27l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546a7.123 7.123 0 0 0 3.99 1.561"/><path d="M20 21l2 -2l-2 -2"/></g>
-    <g data-ira-motion="droplet-code"><g transform="translate(1.5 1.5) scale(.875)"><path d="M17 17l-2 2l2 2"/></g></g>
+    <g data-ira-stroke-reveal="droplet-code"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M18.907 13.147A6.586 6.586 0 0 0 18.064 10.877L13.174 3.617000000000001C12.754 2.992000000000001 11.887 2.814000000000001 11.238 3.2200000000000006A1.376 1.376 0 0 0 10.828 3.617000000000001L5.935 10.877C4.239999999999999 13.715 4.8999999999999995 17.318 7.502 19.423000000000002A7.123 7.123 0 0 0 11.492 20.984"/><path data-ira-line="1" pathLength="1" d="M20 21L22 19L20 17"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="2" pathLength="1" d="M17 17L15 19L17 21"/></g></g>
 </svg>

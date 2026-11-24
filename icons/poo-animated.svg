@@ -22,12 +22,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="poo"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.4s infinite; }
+            @keyframes ira-stroke-poo-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poo"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-poo-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poo-1 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poo"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-poo-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poo-2 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poo"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-poo-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-poo-3 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="poo"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-poo-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M10 12h.01"/><path d="M14 12h.01"/><path d="M10 16a3.5 3.5 0 0 0 4 0"/></g>
-    <g data-ira-motion="poo"><g transform="translate(1.5 1.5) scale(.875)"><path d="M11 4c2 0 3.5 1.5 3.5 4l.164 0a2.5 2.5 0 0 1 2.196 3.32a3 3 0 0 1 1.615 3.063a3 3 0 0 1 -1.299 5.607l-.176 0h-10a3 3 0 0 1 -1.474 -5.613a3 3 0 0 1 1.615 -3.062a2.5 2.5 0 0 1 2.195 -3.32l.164 0c1.5 0 2.5 -2 1.5 -4z"/></g></g>
+    <g data-ira-stroke-reveal="poo"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M10 12L10.01 12"/><path data-ira-line="1" pathLength="1" d="M14 12L14.01 12"/><path data-ira-line="2" pathLength="1" d="M10 16A3.5 3.5 0 0 0 14 16"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="3" pathLength="1" d="M11 4C13 4 14.5 5.5 14.5 8L14.664 8A2.5 2.5 0 0 1 16.86 11.32A3 3 0 0 1 18.474999999999998 14.383000000000001A3 3 0 0 1 17.176 19.990000000000002L17 19.990000000000002L7 19.990000000000002A3 3 0 0 1 5.526 14.377000000000002A3 3 0 0 1 7.141 11.315000000000003A2.5 2.5 0 0 1 9.336 7.995000000000003L9.5 7.995000000000003C11 7.995000000000003 12 5.995000000000003 11 3.9950000000000028z"/></g></g>
 </svg>

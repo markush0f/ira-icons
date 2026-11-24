@@ -22,12 +22,26 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
+    <!-- Motion: trace each stroke from its own origin, accumulate the drawing, then hold before restarting. -->
     <style>
         @media (prefers-reduced-motion: no-preference) {
-            @keyframes ira-exp-pulse { 0%, 100% { opacity: 1; } 22% { opacity: .45; } 40% { opacity: 1; } }
-            [data-ira-motion="cloud-cog"] { transform-box: fill-box; transform-origin: center; animation: ira-exp-pulse 2.65s ease-in-out -0.2s infinite; }
+            @keyframes ira-stroke-cloud-cog-0 { 0% { stroke-dashoffset: 1; opacity: 0; } 0.4% { opacity: 1; } 5.875%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="0"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-0 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-1 { 0%, 5.875% { stroke-dashoffset: 1; opacity: 0; } 6.275% { opacity: 1; } 11.75%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="1"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-1 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-2 { 0%, 11.75% { stroke-dashoffset: 1; opacity: 0; } 12.15% { opacity: 1; } 17.625%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="2"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-2 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-3 { 0%, 17.625% { stroke-dashoffset: 1; opacity: 0; } 18.025% { opacity: 1; } 23.5%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="3"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-3 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-4 { 0%, 23.5% { stroke-dashoffset: 1; opacity: 0; } 23.9% { opacity: 1; } 29.375%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="4"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-4 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-5 { 0%, 29.375% { stroke-dashoffset: 1; opacity: 0; } 29.775% { opacity: 1; } 35.25%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="5"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-5 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-6 { 0%, 35.25% { stroke-dashoffset: 1; opacity: 0; } 35.65% { opacity: 1; } 41.125%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="6"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-6 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
+            @keyframes ira-stroke-cloud-cog-7 { 0%, 41.125% { stroke-dashoffset: 1; opacity: 0; } 41.525% { opacity: 1; } 47%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+            [data-ira-stroke-reveal="cloud-cog"] [data-ira-line="7"] { stroke-dasharray: 1 1; animation: ira-stroke-cloud-cog-7 2.65s cubic-bezier(.25,.65,.35,1) infinite; }
         }
     </style>
-    <g transform="translate(1.5 1.5) scale(.875)"><path d="M12 18.004h-5.343c-2.572 -.004 -4.657 -2.011 -4.657 -4.487c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c.956 0 1.822 .39 2.449 1.02"/><path d="M19.001 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M19.001 15.5v1.5"/><path d="M19.001 21v1.5"/><path d="M22.032 17.25l-1.299 .75"/><path d="M17.27 20l-1.3 .75"/><path d="M15.97 17.25l1.3 .75"/></g>
-    <g data-ira-motion="cloud-cog"><g transform="translate(1.5 1.5) scale(.875)"><path d="M20.733 20l1.3 .75"/></g></g>
+    <g data-ira-stroke-reveal="cloud-cog"><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="0" pathLength="1" d="M12 18.004L6.657 18.004C4.085 18 2 15.993000000000002 2 13.517000000000001C2 11.042000000000002 4.085 9.035 6.657 9.035C7.05 7.273 8.451 5.835 10.332 5.2620000000000005C12.212 4.69 14.288 5.069000000000001 15.776 6.2620000000000005C17.264 7.452 17.938 9.269 17.546 11.031L18.535999999999998 11.031C19.491999999999997 11.031 20.357999999999997 11.421000000000001 20.985 12.051"/><path data-ira-line="1" pathLength="1" d="M19.001 17A2 2 0 1 1 19.001 21A2 2 0 1 1 19.001 17z"/><path data-ira-line="2" pathLength="1" d="M19.001 15.5L19.001 17"/><path data-ira-line="3" pathLength="1" d="M19.001 21L19.001 22.5"/><path data-ira-line="4" pathLength="1" d="M22.032 17.25L20.733 18"/><path data-ira-line="5" pathLength="1" d="M17.27 20L15.969999999999999 20.75"/><path data-ira-line="6" pathLength="1" d="M15.97 17.25L17.27 18"/></g><g transform="translate(1.5 1.5) scale(.875)"><path data-ira-line="7" pathLength="1" d="M20.733 20L22.033 20.75"/></g></g>
 </svg>
