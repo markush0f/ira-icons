@@ -36,6 +36,12 @@ test('Astro, Vue and Svelte copy imports and native template syntax without inli
   }
 });
 
+test('framework snippets include the selected playback speed only for animated variants', () => {
+  assert.match(formatIcon(preview, 'arrow-back-animated', 'React', 1.5), /speed=\{1\.5\}/);
+  assert.match(formatIcon(preview, 'arrow-back-animated', 'Vue', 0.5), /:speed="0\.5"/);
+  assert.doesNotMatch(formatIcon(preview, 'arrow-back', 'React', 2), /speed=/);
+});
+
 test('SVG still copies standalone markup with the selected color and animation', () => {
   const svg = element('svg', { color: '#ad8af3', viewBox: '0 0 24 24', 'aria-hidden': 'true' }, [
     element('style', {}, [], '@keyframes draw { to { stroke-dashoffset: 0; } }'),

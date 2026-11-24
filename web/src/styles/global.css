@@ -172,7 +172,6 @@ main { width: 100%; max-width: 1800px; margin-inline: auto; padding: 2.5rem clam
 
 /* Reusable color picker: native spectrum, editable HEX value, and quick presets. */
 .color-picker { display: grid; gap: .7rem; }
-.color-picker-label { color: var(--muted); font-size: .78rem; }
 .color-picker-fields { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .55rem; }
 .color-swatch { position: relative; display: block; overflow: hidden; height: 2.5rem; border: 1px solid var(--line); border-radius: .45rem; background: var(--picker-color, var(--accent)); }
 .color-swatch input { position: absolute; inset: -50%; width: 200%; height: 200%; border: 0; opacity: 0; cursor: pointer; }

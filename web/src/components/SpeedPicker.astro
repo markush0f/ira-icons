@@ -1,0 +1,18 @@
+---
+const { animated } = Astro.props;
+---
+<div class="speed-picker" data-speed-picker hidden={!animated}>
+  <label class="detail-eyebrow" for="detail-speed">Cycle duration</label>
+  <div class="duration-field">
+    <input type="range" id="detail-speed" data-icon-speed step="0.001" disabled />
+    <output for="detail-speed" data-loop-duration aria-hidden="true">—</output>
+  </div>
+</div>
+
+<style>
+  .speed-picker:not([hidden]) { display: grid; gap: .7rem; align-content: start; }
+  .duration-field { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .5rem; height: 2.5rem; padding-inline: .6rem; border: 1px solid var(--line); border-radius: .45rem; }
+  output { min-width: 6.8ch; color: var(--text); font: .75rem var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  input { width: 100%; min-width: 0; height: 100%; margin: 0; accent-color: var(--accent); cursor: ew-resize; }
+  input:disabled { cursor: default; }
+</style>

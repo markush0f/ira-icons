@@ -1,3 +1,4 @@
+import { isAnimatedIcon, longestAnimationSeconds, scaleAnimationCss, speedProperty } from '../../../scripts/npm-package/shared/animation-speed.ts';
 import { formatIcon, type CodeFormat } from './icon-copy.ts';
 import { mountIconReport } from './icon-report.ts';
 import { requireElement as $ } from './dom.ts';
@@ -7,6 +8,17 @@ const loadButton = $<HTMLButtonElement>('[data-load-more]'), loadedCount = $('[d
 const panel = $('#detail-panel'), column = panel.closest<HTMLElement>('.detail-column')!, workspace = column.parentElement!;
 const dialog = $<HTMLDialogElement>('#detail-dialog'), compact = matchMedia('(max-width: 48rem)');
 const preview = $('#detail-preview'), title = $('#detail-title'), picker = $('[data-color-picker]');
+const speedPicker = $('[data-speed-picker]'), speedInput = $<HTMLInputElement>('[data-icon-speed]', speedPicker);
+const speeds = new Map<string, number>();
+const seconds = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
+const loopDuration = $('[data-loop-duration]', speedPicker);
+let baseLoopDuration = 0;
+function showLoopDuration() {
+  const duration = speedInput.disabled ? 0 : speedInput.valueAsNumber;
+  loopDuration.textContent = duration ? `${seconds.format(duration)} s` : '—';
+  if (duration) speedInput.setAttribute('aria-valuetext', `${seconds.format(duration)} seconds`);
+  else speedInput.removeAttribute('aria-valuetext');
+}
 const copy = $('[data-icon-copy]'), status = $('[data-copy-status]');
 const options = [...panel.querySelectorAll<HTMLButtonElement>('[data-suffix]')];
 const report = mountIconReport(panel);
@@ -52,24 +64,45 @@ async function select(card: HTMLLIElement, name = variants.get(card.dataset.fami
   selected.classList.add('is-selected'); expanded();
   for (const btn of options) btn.setAttribute('aria-pressed', String(card.dataset.family!+btn.dataset.suffix! === name));
   title.textContent = name; report(name); colorPicker(colors.get(name) ?? '#ad8af3');
+  speedPicker.hidden = !isAnimatedIcon(name);
+  speedInput.disabled = true;
+  baseLoopDuration = 0;
+  showLoopDuration();
   detailCategories.replaceChildren(...categories.filter(({id}) => memberships.get(card.dataset.family!)!.has(id)).map(({label}) => {
     const li = document.createElement('li'); li.textContent = label; return li;
   }));
   detailCategories.hidden = !detailCategories.childElementCount;
   preview.replaceChildren(); preview.setAttribute('aria-busy','true');
   try {
-    let svg: Element;
+    let svg: SVGSVGElement;
     if (name === initialName) svg = initialSvg.cloneNode(true) as SVGSVGElement;
     else {
       const res = await fetch(`/icons/${name}.svg`, {signal: controller.signal});
       if (!res.ok) throw Error('Unavailable SVG');
-      svg = new DOMParser().parseFromString(await res.text(), 'image/svg+xml').documentElement;
-      if (svg.localName !== 'svg') throw Error('Invalid SVG');
-      svg = document.importNode(svg,true);
+      const root = new DOMParser().parseFromString(await res.text(), 'image/svg+xml').documentElement;
+      if (root.localName !== 'svg') throw Error('Invalid SVG');
+      svg = document.importNode(root, true) as unknown as SVGSVGElement;
     }
     if (controller.signal.aborted) return;
     svg.setAttribute('width','144'); svg.setAttribute('height','144');
     svg.setAttribute('aria-hidden','true'); svg.setAttribute('color',colors.get(name) ?? '#ad8af3');
+    if (isAnimatedIcon(name)) {
+      let duration = 0;
+      for (const style of svg.querySelectorAll('style')) {
+        const css = style.textContent ?? '';
+        duration = Math.max(duration, longestAnimationSeconds(css));
+        style.textContent = scaleAnimationCss(css);
+      }
+      baseLoopDuration = duration;
+      if (duration > 0) {
+        speedInput.min = (Math.ceil(duration * 500) / 1000).toFixed(3);
+        speedInput.max = (duration * 2).toFixed(3);
+        speedInput.value = (duration / (speeds.get(name) ?? 1)).toFixed(3);
+        speedInput.disabled = false;
+      }
+      showLoopDuration();
+      svg.style.setProperty(speedProperty, String(speeds.get(name) ?? 1));
+    }
     preview.replaceChildren(svg);
   } catch {
     if (!controller.signal.aborted) showStatus('Could not load icon. Select it to retry.');
@@ -172,12 +205,19 @@ panel.addEventListener('icon-color-change', e => {
   revision++; showStatus(); colors.set(active,color);
   preview.firstElementChild?.setAttribute('color',color);
 });
+speedInput.addEventListener('input', () => {
+  if (speedInput.disabled || !baseLoopDuration) return;
+  const speed = Number((baseLoopDuration / speedInput.valueAsNumber).toFixed(6));
+  revision++; showStatus(); speeds.set(active, speed);
+  showLoopDuration();
+  preview.querySelector('svg')?.style.setProperty(speedProperty, String(speed));
+});
 for (const btn of copy.querySelectorAll<HTMLButtonElement>('[data-copy-format]')) btn.onclick = async () => {
   const svg = preview.querySelector('svg');
   if (!svg) return;
   const version = ++revision, format = btn.dataset.copyFormat as CodeFormat;
   try {
-    await navigator.clipboard.writeText(formatIcon(svg, active, format));
+    await navigator.clipboard.writeText(formatIcon(svg, active, format, speeds.get(active)));
     if (version === revision) showStatus(`Copied as ${format}`, 4_000);
   } catch {
     if (version === revision) showStatus('Couldn’t copy. Check clipboard permissions.', 4_000);

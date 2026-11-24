@@ -1,6 +1,7 @@
 ---
 import Icon from "../icons/Icon.astro";
 import ColorPicker from "./ColorPicker.astro";
+import SpeedPicker from "./SpeedPicker.astro";
 import IconCopy from "./IconCopy.astro";
 import IconReport from "./IconReport.astro";
 import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
@@ -34,9 +35,19 @@ const { name } = Astro.props;
   </h2>
   <ul class="detail-categories" aria-label="Icon categories" data-detail-categories hidden></ul>
   <IconCopy />
-  <ColorPicker />
+  <div class="detail-controls">
+    <ColorPicker />
+    <SpeedPicker animated={name.endsWith('-animated')} />
+  </div>
   {!CREATE_COMING_SOON && <IconReport />}
 </aside>
+<style>
+  .detail-controls { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-top: 1rem; }
+  .detail-controls:has([data-speed-picker]:not([hidden])) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 22rem) {
+    .detail-controls:has([data-speed-picker]:not([hidden])) { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
 <style is:global>
   .detail-categories { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: none; }
   .detail-categories li { border: 1px solid var(--line); border-radius: 1rem; padding: .2rem .55rem; font-size: .75rem; }
