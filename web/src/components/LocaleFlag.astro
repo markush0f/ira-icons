@@ -1,0 +1,32 @@
+---
+interface Props {
+  locale: "en" | "es";
+}
+
+const { locale } = Astro.props;
+---
+
+{locale === "es" ? (
+  <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
+    <defs>
+      <clipPath id="locale-flag-es"><rect width="18" height="12" rx="1.5" /></clipPath>
+    </defs>
+    <g clip-path="url(#locale-flag-es)">
+      <rect width="18" height="12" fill="#aa151b" />
+      <rect y="3" width="18" height="6" fill="#f1bf00" />
+    </g>
+  </svg>
+) : (
+  <svg viewBox="0 0 60 30" width="18" height="12" aria-hidden="true">
+    <defs>
+      <clipPath id="locale-flag-en"><rect width="60" height="30" rx="5" /></clipPath>
+    </defs>
+    <g clip-path="url(#locale-flag-en)">
+      <rect width="60" height="30" fill="#012169" />
+      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#c8102e" stroke-width="4" />
+      <path d="M30 0 V30 M0 15 H60" stroke="#fff" stroke-width="10" />
+      <path d="M30 0 V30 M0 15 H60" stroke="#c8102e" stroke-width="6" />
+    </g>
+  </svg>
+)}

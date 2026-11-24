@@ -1,24 +1,26 @@
 ---
 /** A reusable color picker with a native spectrum control, HEX input, and palette presets. */
+import { localeFromPath, t } from "../i18n/index.ts";
 interface Props { initialColor?: string }
 const { initialColor = "#ad8af3" } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2"];
 ---
 
 <div class="color-picker" data-color-picker data-color={initialColor} style={`--picker-color: ${initialColor}`}>
-  <label class="detail-eyebrow" for="detail-color">Icon color</label>
+  <label class="detail-eyebrow" for="detail-color">{t(locale, "color.label")}</label>
   <div class="color-picker-fields">
-    <label class="color-swatch" for="detail-color-spectrum" aria-label="Choose a color">
+    <label class="color-swatch" for="detail-color-spectrum" aria-label={t(locale, "color.choose")}>
       <input id="detail-color-spectrum" type="color" value={initialColor} data-color-spectrum />
     </label>
     <label class="color-hex-field" for="detail-color">
       <span aria-hidden="true">#</span>
-      <input id="detail-color" type="text" value={initialColor.slice(1)} maxlength="6" spellcheck="false" autocomplete="off" data-color-hex aria-label="Hex color value" />
+      <input id="detail-color" type="text" value={initialColor.slice(1)} maxlength="6" spellcheck="false" autocomplete="off" data-color-hex aria-label={t(locale, "color.hex")} />
     </label>
   </div>
-  <div class="color-presets" aria-label="Color presets">
+  <div class="color-presets" aria-label={t(locale, "color.presets")}>
     {presets.map((color) => (
-      <button type="button" class="color-preset" data-color-preset={color} style={`--preset-color: ${color}`} aria-label={`Use color ${color}`} title={color}></button>
+      <button type="button" class="color-preset" data-color-preset={color} style={`--preset-color: ${color}`} aria-label={t(locale, "color.use", { color })} title={color}></button>
     ))}
   </div>
 </div>
@@ -26,9 +28,13 @@ const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2
 <script>
   // Keep the spectrum input, HEX field, and presets in sync, then notify the selected icon.
   import { requireElement } from '../scripts/dom.ts';
-  const picker = document.querySelector<HTMLElement>("[data-color-picker]");
+  import { onPageLoad } from '../scripts/page-load.ts';
+  const bound = new WeakSet<HTMLElement>();
 
-  if (picker) {
+  function bindPicker() {
+  const picker = document.querySelector<HTMLElement>("[data-color-picker]");
+  if (!picker || bound.has(picker)) return;
+  bound.add(picker);
     const spectrum = requireElement<HTMLInputElement>("[data-color-spectrum]", picker);
     const hex = requireElement<HTMLInputElement>("[data-color-hex]", picker);
 
@@ -56,4 +62,6 @@ const presets = ["#ad8af3", "#8b5cf6", "#58c4dc", "#f97316", "#ef4444", "#f2f2f2
       button.addEventListener("click", () => applyColor(button.dataset.colorPreset!));
     });
   }
+
+  onPageLoad(bindPicker);
 </script>

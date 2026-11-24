@@ -5,6 +5,7 @@ import AstroLogo from "../assets/frameworks/astro.svg";
 import NextLogo from "../assets/frameworks/nextjs.svg";
 import VueLogo from "../assets/frameworks/vue.svg";
 import SvelteLogo from "../assets/frameworks/svelte.svg";
+import { localeFromPath, localizePath, t } from "../i18n/index.ts";
 
 interface Props {
   packageName: string;
@@ -12,19 +13,21 @@ interface Props {
 
 const { packageName } = Astro.props;
 const specimenName = "coffee-animated";
+const locale = localeFromPath(Astro.url.pathname);
+const catalogHref = localizePath("/", locale);
 ---
 
 <header class="intro">
-  <a class="back-link" href="/">
+  <a class="back-link" href={catalogHref}>
     <Icon name="arrow-left-minimalist" size={15} />
-    Back to catalog
+    {t(locale, "nav.back")}
   </a>
 
   <div class="heading">
     <div>
-      <h1>Installation</h1>
+      <h1>{t(locale, "install.title")}</h1>
       <code class="package">{packageName}</code>
-      <p>Import a component in your framework, or use the SVG directly in HTML.</p>
+      <p>{t(locale, "install.lead")}</p>
     </div>
 
     <figure class="specimen" aria-hidden="true">
@@ -35,8 +38,8 @@ const specimenName = "coffee-animated";
     </figure>
   </div>
 
-  <nav class="example-links" aria-label="Framework examples" data-install-example-links>
-    <span aria-hidden="true">Examples</span>
+  <nav class="example-links" aria-label={t(locale, "install.examples.label")} data-install-example-links>
+    <span aria-hidden="true">{t(locale, "install.examples")}</span>
     <a href="#react"><img src={ReactLogo.src} width="17" height="16" alt="" /> React</a>
     <a href="#astro"><img class="astro-framework-logo" src={AstroLogo.src} width="14" height="17" alt="" /> Astro</a>
     <a href="#next"><img class="next-framework-logo" src={NextLogo.src} width="17" height="17" alt="" /> Next.js</a>

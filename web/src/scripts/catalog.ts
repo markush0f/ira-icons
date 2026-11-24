@@ -2,21 +2,40 @@ import { isAnimatedIcon, longestAnimationSeconds, scaleAnimationCss, speedProper
 import { formatIcon, type CodeFormat } from './icon-copy.ts';
 import { mountIconReport } from './icon-report.ts';
 import { requireElement as $ } from './dom.ts';
+import { t } from './i18n.ts';
+import { onPageLoad } from './page-load.ts';
 
+
+let catalogNavigation: AbortController | undefined;
+
+export function mountCatalog() {
+  const root = document.getElementById("icon-grid");
+  if (!root) {
+    catalogNavigation?.abort();
+    catalogNavigation = undefined;
+    return;
+  }
+  if (root.dataset.mounted === "true") return;
+  root.dataset.mounted = "true";
+  catalogNavigation?.abort();
+  catalogNavigation = new AbortController();
+  const { signal } = catalogNavigation;
 const grid = $('#icon-grid'), loader = $('#catalog-loader'), search = $<HTMLInputElement>('#icon-search');
 const loadButton = $<HTMLButtonElement>('[data-load-more]'), loadedCount = $('[data-loaded-count]');
+const locale = document.documentElement.lang || 'en';
+const counts = new Intl.NumberFormat(locale);
 const panel = $('#detail-panel'), column = panel.closest<HTMLElement>('.detail-column')!, workspace = column.parentElement!;
 const dialog = $<HTMLDialogElement>('#detail-dialog'), compact = matchMedia('(max-width: 48rem)');
 const preview = $('#detail-preview'), title = $('#detail-title'), picker = $('[data-color-picker]');
 const speedPicker = $('[data-speed-picker]'), speedInput = $<HTMLInputElement>('[data-icon-speed]', speedPicker);
 const speeds = new Map<string, number>();
-const seconds = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
+const seconds = new Intl.NumberFormat(locale, { maximumFractionDigits: 3 });
 const loopDuration = $('[data-loop-duration]', speedPicker);
 let baseLoopDuration = 0;
 function showLoopDuration() {
   const duration = speedInput.disabled ? 0 : speedInput.valueAsNumber;
   loopDuration.textContent = duration ? `${seconds.format(duration)} s` : '—';
-  if (duration) speedInput.setAttribute('aria-valuetext', `${seconds.format(duration)} seconds`);
+  if (duration) speedInput.setAttribute('aria-valuetext', t('speed.seconds', { value: seconds.format(duration) }));
   else speedInput.removeAttribute('aria-valuetext');
 }
 const copy = $('[data-icon-copy]'), status = $('[data-copy-status]');
@@ -105,7 +124,7 @@ async function select(card: HTMLLIElement, name = variants.get(card.dataset.fami
     }
     preview.replaceChildren(svg);
   } catch {
-    if (!controller.signal.aborted) showStatus('Could not load icon. Select it to retry.');
+    if (!controller.signal.aborted) showStatus(t('catalog.loadError'));
   } finally { if (!controller.signal.aborted) preview.removeAttribute('aria-busy'); }
 }
 // Image load/error do not bubble, so catch both for all current and future cards.
@@ -130,7 +149,7 @@ function updateLoader() {
   const hasMore = shown < matches.length;
   loader.hidden = matches.length <= size;
   loadButton.hidden = !hasMore;
-  loadedCount.textContent = `Showing ${shown} of ${matches.length} icons`;
+  loadedCount.textContent = t('catalog.showing', { shown: counts.format(shown), total: counts.format(matches.length) });
   moreObserver?.unobserve(loader);
   if (hasMore) moreObserver?.observe(loader);
 }
@@ -147,6 +166,7 @@ const moreObserver = typeof IntersectionObserver === 'function'
       if (entries.some(entry => entry.isIntersecting) && document.activeElement !== loadButton) loadMore();
     }, {rootMargin: '0px 0px 360px 0px'})
   : null;
+signal.addEventListener('abort', () => moreObserver?.disconnect());
 loadButton.addEventListener('click', () => loadMore(true));
 loadButton.addEventListener('blur', updateLoader);
 
@@ -156,7 +176,7 @@ function render(reuse = false) {
   shown = slice.length;
   column.hidden = !shown; $('#empty-state').hidden = !!shown;
   if (shown) select(grid.firstElementChild as HTMLLIElement); else {request?.abort(); selected = null;}
-  const resultText = `${matches.length.toLocaleString()} ${matches.length === 1 ? 'icon' : 'icons'}`;
+  const resultText = t(matches.length === 1 ? 'catalog.count.one' : 'catalog.count.other', { count: counts.format(matches.length) });
   $('#icon-count').textContent = resultText;
   updateLoader();
 }
@@ -196,7 +216,7 @@ grid.addEventListener('click', e => {
 if (typeof HTMLDialogElement !== 'undefined' && 'showModal' in HTMLDialogElement.prototype) {
   workspace.classList.add('has-detail-dialog');
   dialog.addEventListener('close',()=>{if (!dialog.open) workspace.append(column); expanded();});
-  compact.addEventListener('change',()=>{if (!compact.matches && dialog.open) dialog.close(); expanded();});
+  compact.addEventListener('change',()=>{if (!compact.matches && dialog.open) dialog.close(); expanded();}, { signal });
 }
 for (const btn of options) btn.onclick = () => {if(selected) select(selected,selected.dataset.family!+btn.dataset.suffix!);};
 panel.addEventListener('icon-color-change', e => {
@@ -218,8 +238,11 @@ for (const btn of copy.querySelectorAll<HTMLButtonElement>('[data-copy-format]')
   const version = ++revision, format = btn.dataset.copyFormat as CodeFormat;
   try {
     await navigator.clipboard.writeText(formatIcon(svg, active, format, speeds.get(active)));
-    if (version === revision) showStatus(`Copied as ${format}`, 4_000);
+    if (version === revision) showStatus(t('copy.copiedAs', { format }), 4_000);
   } catch {
-    if (version === revision) showStatus('Couldn’t copy. Check clipboard permissions.', 4_000);
+    if (version === revision) showStatus(t('copy.clipboardDenied'), 4_000);
   }
 };
+}
+
+onPageLoad(mountCatalog);

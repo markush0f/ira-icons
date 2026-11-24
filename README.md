@@ -25,7 +25,7 @@ The npm packages and standalone HTML still ship browser-compatible JavaScript. E
 
 ## Animated variants
 
-The catalog and [standalone preview](index.html) show one card per icon. Select an icon in the catalog to reveal **Animado**, **Minimalista**, and **Normal** next to the copy formats (below them on mobile). Animated is selected first. Use names such as `check-animated`, `map-pin-animated`, or `heart-animated` like any other icon:
+The catalog and [standalone preview](index.html) show one card per icon. Select an icon in the catalog to reveal **Animated**, **Original**, and **Minimalist** next to the copy formats (below them on mobile; **Animado**, **Original**, and **Minimalista** in Spanish). Animated is selected first. Use names such as `check-animated`, `map-pin-animated`, or `heart-animated` like any other icon:
 
 ```jsx
 <Icon name="heart-animated" size={32} color="#c4416c" />
@@ -44,7 +44,7 @@ bun install
 bun run dev
 ```
 
-The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.ts` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Choose React, Next.js, Astro, Vue, Svelte, or SVG under **Copy as** to copy the selected icon’s code directly. The code is self-contained and preserves the selected variant and color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
+The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. English is served at the unprefixed routes, and Spanish at `/es`. The header language switch keeps the current page. Interface copy lives in [`web/src/i18n/`](web/src/i18n/); icon filenames stay in English. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.ts` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Choose React, Next.js, Astro, Vue, Svelte, or SVG under **Copy as** to copy the selected icon’s code directly. The code is self-contained and preserves the selected variant and color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
 The landing loads the original SVGs through its local Astro component and Vite catalog in [`web/src/icons/`](web/src/icons/). The shared helper in [`scripts/icon-catalog.ts`](scripts/icon-catalog.ts) validates icon names and provides catalog lookup. The landing does not depend on building the npm distribution.
 

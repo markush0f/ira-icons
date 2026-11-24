@@ -1,15 +1,21 @@
 ---
 import Icon from "../icons/Icon.astro";
+import LocaleFlag from "./LocaleFlag.astro";
 import GitHubLogo from "../assets/frameworks/github.svg";
 import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
+import { localeFromPath, localizePath, locales, stripLocale, t, type Locale } from "../i18n/index.ts";
 
-const onCatalog = Astro.url.pathname === "/";
-const onInstallation = /^\/installation\/?$/.test(Astro.url.pathname);
-const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
+const locale = localeFromPath(Astro.url.pathname);
+const path = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
+const onCatalog = path === "/";
+const onInstallation = path === "/installation";
+const onCreate = path === "/create";
+const href = (target: string) => localizePath(target, locale);
+const switchTo = (code: Locale) => localizePath(`${stripLocale(Astro.url.pathname)}${Astro.url.search}`, code);
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="Ira Icons home">
+  <a class="brand" href={href("/")} aria-label={t(locale, "nav.home")}>
     <img src="/ira-logo.png" alt="" width="65" height="65" />
     <span>Ira Icons</span>
   </a>
@@ -17,39 +23,52 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
   <div class="header-actions">
     <a
       class="catalog-nav-link"
-      href="/"
-      aria-label="Icon catalog"
+      href={href("/")}
+      aria-label={t(locale, "nav.catalog.label")}
       data-astro-prefetch={onCatalog ? undefined : "hover"}
       aria-current={onCatalog ? "page" : undefined}
     >
       <Icon name="grid-minimalist" size={17} />
-      <span class="nav-label">Catalog</span>
+      <span class="nav-label">{t(locale, "nav.catalog")}</span>
     </a>
     <a
       class="create-link"
-      href="/create"
-      aria-label={CREATE_COMING_SOON ? "Create an icon (coming soon)" : "Create an icon"}
+      href={href("/create")}
+      aria-label={t(locale, CREATE_COMING_SOON ? "nav.create.soon.label" : "nav.create.label")}
       data-astro-prefetch={onCreate ? undefined : "hover"}
       aria-current={onCreate ? "page" : undefined}
     >
       <Icon name="star-minimalist" size={17} />
-      <span class="nav-label">Create</span>
-      {CREATE_COMING_SOON && <span class="nav-soon" aria-hidden="true">Soon</span>}
+      <span class="nav-label">{t(locale, "nav.create")}</span>
+      {CREATE_COMING_SOON && <span class="nav-soon" aria-hidden="true">{t(locale, "nav.soon")}</span>}
     </a>
     <a
       class="installation-link"
-      href="/installation"
-      aria-label="Installation guide"
+      href={href("/installation")}
+      aria-label={t(locale, "nav.install.label")}
       data-astro-prefetch={onInstallation ? undefined : "hover"}
       aria-current={onInstallation ? "page" : undefined}
     >
       <Icon name="download" size={17} />
-      <span class="nav-label">Install</span>
+      <span class="nav-label">{t(locale, "nav.install")}</span>
     </a>
+    <nav class="locale-switch" aria-label={t(locale, "locale.switch")}>
+      {locales.map((code) => (
+        <a
+          href={switchTo(code)}
+          lang={code}
+          hreflang={code}
+          aria-label={t(locale, code === "en" ? "locale.en" : "locale.es")}
+          title={t(locale, code === "en" ? "locale.en" : "locale.es")}
+          aria-current={code === locale ? "true" : undefined}
+          data-astro-prefetch={code === locale ? undefined : "hover"}
+        ><LocaleFlag locale={code} /></a>
+      ))}
+    </nav>
     <a
       class="github-link"
       href="https://github.com/markush0f/ira-icons"
-      aria-label="Ira Icons on GitHub"
+      aria-label={t(locale, "nav.github")}
       target="_blank"
     >
       <img src={GitHubLogo.src} alt="" width="19" height="19" />
@@ -58,7 +77,7 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
       type="button"
       class="theme-button"
       id="theme-toggle"
-      aria-label="Toggle color theme"
+      aria-label={t(locale, "nav.theme")}
       aria-pressed="false"
     >
       <svg
@@ -78,3 +97,34 @@ const onCreate = /^\/create\/?$/.test(Astro.url.pathname);
     </button>
   </div>
 </header>
+
+<style>
+  .locale-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .locale-switch a {
+    display: grid;
+    place-items: center;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    border-radius: 0.35rem;
+    opacity: 0.55;
+  }
+
+  .locale-switch a[aria-current="true"] {
+    opacity: 1;
+    box-shadow: inset 0 0 0 1px var(--accent);
+  }
+
+  .locale-switch a:hover {
+    opacity: 1;
+    background: var(--hover);
+  }
+
+  @media (max-width: 36rem) {
+    .locale-switch a { min-width: 2.25rem; min-height: 2.75rem; }
+  }
+</style>

@@ -1,8 +1,10 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
 import themeSource from "../scripts/theme.ts?raw";
 import { transformWithEsbuild } from "vite";
+import { dictionaries, localeFromPath, localizePath, locales, stripLocale, t } from "../i18n/index.ts";
 
 // Keep the theme script synchronous in <head>, but strip TypeScript before inlining it.
 const { code: themeScript } = await transformWithEsbuild(themeSource, "theme.ts", {
@@ -14,24 +16,38 @@ interface Props {
   description?: string;
 }
 
+const locale = localeFromPath(Astro.url.pathname);
+const barePath = stripLocale(Astro.url.pathname);
 const {
   title = "Ira Icons",
-  description = "A minimal catalog of Ira outline SVG icons.",
+  description = t(locale, "meta.catalog.description"),
 } = Astro.props;
+const messages = JSON.stringify(dictionaries[locale]).replaceAll("<", "\\u003c");
+const alternates = locales.map((code) => ({
+  code,
+  href: new URL(localizePath(barePath, code), Astro.url.origin).href,
+}));
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/ira-logo.png" />
+    <link rel="canonical" href={alternates.find((item) => item.code === locale)?.href} />
+    {alternates.map(({ code, href }) => <link rel="alternate" hreflang={code} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
     <title>{title}</title>
+    <ClientRouter />
     <script is:inline set:html={themeScript}></script>
+    <script is:inline id="ira-i18n" type="application/json" set:html={messages}></script>
   </head>
   <body>
     <SiteHeader />
-    <slot />
+    <div class="page-stage" transition:animate="fade">
+      <slot />
+    </div>
   </body>
 </html>

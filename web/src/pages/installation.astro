@@ -14,7 +14,9 @@ import NpmLogo from "../assets/package-managers/npm.svg";
 import PnpmLogo from "../assets/package-managers/pnpm.svg";
 import PnpmDarkLogo from "../assets/package-managers/pnpm_dark.svg";
 import YarnLogo from "../assets/package-managers/yarn.svg";
+import { localeFromPath, localizePath, pageTitle, t } from "../i18n/index.ts";
 
+const locale = localeFromPath(Astro.url.pathname);
 const packageName = "@ira/iraicons";
 const reactPackage = `${packageName}-react`;
 const managers = [
@@ -29,11 +31,12 @@ const managers = [
   { name: "Yarn", logo: YarnLogo, command: "yarn add" },
 ];
 
+const searchLabel = t(locale, "install.example.search");
 const reactExample = `import { SearchMinimalist } from '${reactPackage}';
 
 export default function SearchButton() {
   return (
-    <button type="button" aria-label="Search">
+    <button type="button" aria-label="${searchLabel}">
       <SearchMinimalist size={24} />
     </button>
   );
@@ -43,14 +46,14 @@ const astroExample = `---
 import SearchMinimalist from '${packageName}-astro/search-minimalist';
 ---
 
-<button type="button" aria-label="Search">
+<button type="button" aria-label="${searchLabel}">
   <SearchMinimalist size={24} />
 </button>`;
 
 const nextExample = `import SearchMinimalist from '${reactPackage}/search-minimalist';
 
 export default function Page() {
-  return <SearchMinimalist size={24} label="Search" />;
+  return <SearchMinimalist size={24} label="${searchLabel}" />;
 }`;
 
 const vueExample = `<script setup>
@@ -58,30 +61,30 @@ import { SearchMinimalist } from '${packageName}-vue';
 </script>
 
 <template>
-  <SearchMinimalist :size="24" label="Search" />
+  <SearchMinimalist :size="24" label="${searchLabel}" />
 </template>`;
 
 const svelteExample = `<script>
   import { SearchMinimalist } from '${packageName}-svelte';
 </script>
 
-<SearchMinimalist size={24} label="Search" />`;
+<SearchMinimalist size={24} label="${searchLabel}" />`;
 
-const htmlExample = `<button type="button" aria-label="Search">
+const htmlExample = `<button type="button" aria-label="${searchLabel}">
   <img src="/icons/search-minimalist.svg"
        width="24" height="24" alt="">
 </button>`;
 
 const variants = [
-  { name: "search", label: "Original" },
-  { name: "search-minimalist", label: "Minimalist" },
-  { name: "search-animated", label: "Animated" },
+  { name: "search", label: t(locale, "variant.original") },
+  { name: "search-minimalist", label: t(locale, "variant.minimalist") },
+  { name: "search-animated", label: t(locale, "variant.animated") },
 ];
 ---
 
 <SiteLayout
-  title="Installation guide · Ira Icons"
-  description="Install Ira Icons and add your first icon in React, Next.js, Astro, Vue, Svelte, or plain HTML."
+  title={pageTitle(t(locale, "meta.install.title"))}
+  description={t(locale, "meta.install.description")}
 >
   <main class="installation">
     <InstallationIntro packageName={packageName}>
@@ -89,9 +92,7 @@ const variants = [
         <InstallationExample id="react" title="React">
           <img slot="icon" src={ReactLogo.src} width="22" height="20" alt="" />
           <p slot="description">
-            Use a named import from <code>{reactPackage}</code>. The
-            components work with React 18 and 19 without an SVG loader or SVGR
-            configuration.
+            {t(locale, "install.react.lead")} <code>{reactPackage}</code>{t(locale, "install.react.end")}
           </p>
           <CodeSnippet
             title="SearchButton.jsx"
@@ -110,8 +111,7 @@ const variants = [
             alt=""
           />
           <p slot="description">
-            Import the icon in the frontmatter of an <code>.astro</code> file.
-            It renders as inline SVG without a <code>client:*</code> directive.
+            {t(locale, "install.astro.lead")} <code>.astro</code>{t(locale, "install.astro.mid")}<code>client:*</code>{t(locale, "install.astro.end")}
           </p>
           <CodeSnippet
             title="SearchButton.astro"
@@ -130,8 +130,7 @@ const variants = [
             alt=""
           />
           <p slot="description">
-            Use the React entry point in an App Router page. The icon renders on
-            the server without <code>'use client'</code> or an SVG loader.
+            {t(locale, "install.next.lead")}<code>'use client'</code>{t(locale, "install.next.end")}
           </p>
           <CodeSnippet title="app/page.jsx" code={nextExample} lang="jsx" />
         </InstallationExample>
@@ -139,9 +138,7 @@ const variants = [
         <InstallationExample id="vue" title="Vue 3">
           <img slot="icon" src={VueLogo.src} width="22" height="19" alt="" />
           <p slot="description">
-            Import the component in <code>&lt;script setup&gt;</code>. The Vue
-            entry point has precompiled components and supports server
-            rendering.
+            {t(locale, "install.vue.lead")}<code>&lt;script setup&gt;</code>{t(locale, "install.vue.end")}
           </p>
           <CodeSnippet title="SearchIcon.vue" code={vueExample} lang="vue" />
         </InstallationExample>
@@ -149,8 +146,7 @@ const variants = [
         <InstallationExample id="svelte" title="Svelte 5">
           <img slot="icon" src={SvelteLogo.src} width="17" height="21" alt="" />
           <p slot="description">
-            Import the component in a <code>.svelte</code> file. The package
-            ships native Svelte components for the standard Svelte compiler.
+            {t(locale, "install.svelte.lead")}<code>.svelte</code>{t(locale, "install.svelte.end")}
           </p>
           <CodeSnippet
             title="SearchIcon.svelte"
@@ -162,11 +158,7 @@ const variants = [
         <InstallationExample id="svg" title="HTML / SVG">
           <Icon slot="icon" name="svg" size={23} />
           <p slot="description">
-            Copy{" "}
-            <code>node_modules/{packageName}/icons/search-minimalist.svg</code>{" "}
-            into your public <code>icons/</code> folder. Without npm, choose{" "}
-            <strong>Copy as → SVG</strong> in the catalog and save it as the
-            same file.
+            {t(locale, "install.svg.lead")}<code>node_modules/{packageName}/icons/search-minimalist.svg</code>{t(locale, "install.svg.mid")}<code>icons/</code>{t(locale, "install.svg.afterFolder")}<strong>{t(locale, "install.svg.action")}</strong>{t(locale, "install.svg.end")}
           </p>
           <CodeSnippet title="index.html" code={htmlExample} lang="html" />
         </InstallationExample>
@@ -175,12 +167,12 @@ const variants = [
 
     <section class="guide-section" aria-labelledby="install-title">
       <header>
-        <h2 id="install-title">Install the package</h2>
-        <p>Run this command from the root of your project.</p>
+        <h2 id="install-title">{t(locale, "install.packages.title")}</h2>
+        <p>{t(locale, "install.packages.lead")}</p>
       </header>
 
       <fieldset data-package-options hidden>
-        <legend class="visually-hidden">Package manager</legend>
+        <legend class="visually-hidden">{t(locale, "install.manager")}</legend>
         <div class="options">
           {managers.map(({ name, logo, darkLogo, command }, index) => (
             <label>
@@ -218,17 +210,14 @@ const variants = [
         <CodeSnippet title="Terminal" code={`${managers[0].command} ${reactPackage}`} live />
       </div>
       <p class="note">
-        Each framework has its own package. To install them all together, use
-        <code>{packageName}</code> and import from its framework subpaths, such as
-        <code>{packageName}/astro</code>. Until the new packages are published,
-        run <code>bun run package:pack</code> and install the matching <code>.tgz</code>.
+        {t(locale, "install.packages.beforeName")}<code>{packageName}</code>{t(locale, "install.packages.beforePath")}<code>{packageName}/astro</code>{t(locale, "install.packages.beforeCommand")}<code>bun run package:pack</code>{t(locale, "install.packages.beforeTgz")}<code>.tgz</code>{t(locale, "install.packages.end")}
       </p>
     </section>
 
     <section class="guide-section" aria-labelledby="customize-title">
       <header>
-        <h2 id="customize-title">Choose a style</h2>
-        <p>The filename tells you which variant you’re using.</p>
+        <h2 id="customize-title">{t(locale, "install.style.title")}</h2>
+        <p>{t(locale, "install.style.lead")}</p>
       </header>
 
       <ul class="variants">
@@ -244,33 +233,26 @@ const variants = [
       </ul>
 
       <p class="note">
-        The npm release <code>0.2.0</code> includes original and minimalist
-        icons. Animated variants are available in the <code>0.3.0</code> package
-        or can be copied from the catalog.
+        {t(locale, "install.versions.lead")}<code>0.2.0</code>{t(locale, "install.versions.mid")}<code>0.3.0</code>{t(locale, "install.versions.end")}
       </p>
 
       <dl class="tips">
         <div>
-          <dt>Size and color</dt>
+          <dt>{t(locale, "install.tip.size")}</dt>
           <dd>
-            Icon components are 24 px by default and inherit the text color.
-            Override them with <code>size</code> and <code>color</code>. In
-            HTML, inline the SVG if you want it to inherit text color.
+            {t(locale, "install.size.lead")}<code>size</code>{t(locale, "install.size.and")}<code>color</code>{t(locale, "install.size.end")}
           </dd>
         </div>
         <div>
-          <dt>Accessible labels</dt>
+          <dt>{t(locale, "install.tip.a11y")}</dt>
           <dd>
-            If the icon is inside a labeled button, keep it decorative as shown
-            above. If it stands alone and conveys meaning, use{" "}
-            <code>label</code> on an icon component, or <code>alt</code> on an
-            image.
+            {t(locale, "install.a11y.lead")}<code>label</code>{t(locale, "install.a11y.mid")}<code>alt</code>{t(locale, "install.a11y.end")}
           </dd>
         </div>
       </dl>
 
-      <a class="catalog-link" href="/">
-        Browse the catalog
+      <a class="catalog-link" href={localizePath("/", locale)}>
+        {t(locale, "install.browse")}
         <Icon name="arrow-right-minimalist" size={16} />
       </a>
     </section>

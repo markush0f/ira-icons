@@ -1,5 +1,22 @@
 import { requireElement } from './dom.ts';
+import { t } from './i18n.ts';
+import { onPageLoad } from './page-load.ts';
 
+
+let installationNavigation: AbortController | undefined;
+
+export function mountInstallation() {
+  const root = document.querySelector("[data-install-command], [data-install-examples]");
+  if (!root) {
+    installationNavigation?.abort();
+    installationNavigation = undefined;
+    return;
+  }
+  if (root instanceof HTMLElement && root.dataset.mounted === "true") return;
+  if (root instanceof HTMLElement) root.dataset.mounted = "true";
+  installationNavigation?.abort();
+  installationNavigation = new AbortController();
+  const { signal } = installationNavigation;
 const packageOptions = document.querySelector<HTMLElement>("[data-package-options]");
 const installBox = document.querySelector<HTMLElement>("[data-install-command]");
 const installSnippet = installBox?.querySelector("[data-snippet]");
@@ -7,7 +24,7 @@ let installTarget = "react";
 let syncCommand = () => {};
 
 function resetCopyFeedback(snippet: Element) {
-  requireElement("[data-copy-label]", snippet).textContent = "Copy";
+  requireElement("[data-copy-label]", snippet).textContent = t("snippet.copy");
   requireElement("[data-copy-feedback]", snippet).textContent = "";
 }
 
@@ -28,7 +45,7 @@ if (packageOptions && installSnippet && installBox) {
   syncCommand();
   packageOptions.hidden = false;
   packageOptions.addEventListener("change", syncCommand);
-  window.addEventListener("pageshow", syncCommand);
+  window.addEventListener("pageshow", syncCommand, { signal });
 }
 
 const exampleLinks = document.querySelector<HTMLElement>("[data-install-example-links]");
@@ -90,11 +107,12 @@ if (navigator.clipboard?.writeText) {
       }
 
       if (request !== copyRequest || text !== code.textContent) return;
-      label.textContent = copied ? "Copied" : "Copy failed";
-      feedback.textContent = copied
-        ? "Copied to clipboard."
-        : "Couldn't copy. Select the code and copy it manually.";
+      label.textContent = copied ? t("snippet.copied") : t("snippet.failed");
+      feedback.textContent = copied ? t("snippet.copiedFeedback") : t("snippet.failedFeedback");
       resetTimer = setTimeout(() => resetCopyFeedback(snippet), 2500);
     });
   }
 }
+}
+
+onPageLoad(mountInstallation);

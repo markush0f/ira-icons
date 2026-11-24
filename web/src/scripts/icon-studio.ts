@@ -1,8 +1,16 @@
 import { requireElement } from './dom.ts';
+import { t, translateApiError } from './i18n.ts';
+import { onPageLoad } from './page-load.ts';
 import type { GenerationResponse, GenerationStage, IconBrief, IconStyle, IconVariants } from '../lib/icon-generation.ts';
 
-const studio = document.querySelector<HTMLElement>("[data-icon-studio]");
-if (studio) mountStudio(studio);
+function mountIfPresent() {
+  const studio = document.querySelector<HTMLElement>("[data-icon-studio]");
+  if (!studio || studio.dataset.mounted === "true") return;
+  studio.dataset.mounted = "true";
+  mountStudio(studio);
+}
+
+onPageLoad(mountIfPresent);
 
 function mountStudio(studio: HTMLElement) {
   const $ = <T extends Element = HTMLElement>(selector: string) => requireElement<T>(selector, studio);
@@ -60,15 +68,11 @@ function mountStudio(studio: HTMLElement) {
     for (const option of styles) option.disabled = generating;
     for (const preview of previews) preview.hidden = generating || Boolean(resultUrls) || preview.dataset.stylePreview !== style;
     resultPreview.hidden = download.hidden = !resultUrls;
-    previewTitle.textContent = resultUrls ? "Generated preview" : "Reference preview";
+    previewTitle.textContent = resultUrls ? t("create.generated") : t("create.reference");
     if (reviewing) {
-      previewHint.textContent = generating
-        ? "Original ready. Creating the minimalist and animated versions from it…"
-        : "The original is ready. Retry to create its minimalist and animated versions.";
+      previewHint.textContent = generating ? t("create.reviewing") : t("create.retryHint");
     } else {
-      previewHint.textContent = resultUrls
-        ? "Switch styles to inspect the result and download the SVG you want."
-        : "This is a catalog example until you generate your own icon.";
+      previewHint.textContent = resultUrls ? t("create.resultHint") : t("create.referenceHint");
     }
     if (resultUrls) {
       const url = resultUrls[style] ?? resultUrls.original;
@@ -112,7 +116,7 @@ function mountStudio(studio: HTMLElement) {
     }
     render();
     generationStatus.classList.add("visually-hidden");
-    generationStatus.textContent = deriving ? "Creating variants with Gemini…" : "Generating the original with Gemini…";
+    generationStatus.textContent = deriving ? t("create.status.variants") : t("create.status.original");
 
     async function request(step: GenerationStage, original?: unknown[]) {
       const response = await fetch("/api/generate-icon", {
@@ -123,7 +127,7 @@ function mountStudio(studio: HTMLElement) {
       });
       const result: GenerationResponse = await response.json();
       if (!response.ok) {
-        generationStatus.textContent = result.error || "Icon generation failed.";
+        generationStatus.textContent = translateApiError(result.error);
         return null;
       }
       return result;
@@ -140,7 +144,7 @@ function mountStudio(studio: HTMLElement) {
         styles.find(({ value }) => value === "original")!.checked = true;
         originalDraft = { brief, original: result.original };
         resultUrls = { original: svgUrl(result.svg) };
-        generationStatus.textContent = "Original ready. Creating its variants…";
+        generationStatus.textContent = t("create.status.ready");
         render();
       }
       if (!originalDraft || !resultUrls) return;
@@ -150,9 +154,9 @@ function mountStudio(studio: HTMLElement) {
       if (typeof minimalist !== "string" || typeof animated !== "string") throw new Error("Incomplete variants");
       resultUrls.minimalist = svgUrl(minimalist);
       resultUrls.animated = svgUrl(animated);
-      generationStatus.textContent = "All three styles are ready.";
+      generationStatus.textContent = t("create.status.done");
     } catch {
-      generationStatus.textContent = "Couldn’t generate the icon. Try again later.";
+      generationStatus.textContent = t("create.status.failed");
     } finally {
       generating = false;
       render();
@@ -169,11 +173,11 @@ function mountStudio(studio: HTMLElement) {
 
       try {
         await navigator.clipboard.writeText(
-          `Create a 24 × 24 SVG icon with rounded strokes and currentColor.\nStyle: ${style}.\nDescription: ${description}`,
+          t("create.briefClipboard", { style, description }),
         );
-        if (description === prompt.value.trim() && style === selectedStyle()) status.textContent = "Brief copied.";
+        if (description === prompt.value.trim() && style === selectedStyle()) status.textContent = t("create.briefCopied");
       } catch {
-        if (description === prompt.value.trim() && style === selectedStyle()) status.textContent = "Couldn’t copy the brief.";
+        if (description === prompt.value.trim() && style === selectedStyle()) status.textContent = t("create.briefCopyFailed");
       }
     });
   }

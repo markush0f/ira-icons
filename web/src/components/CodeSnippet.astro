@@ -1,6 +1,7 @@
 ---
 import Icon from "../icons/Icon.astro";
 import { Code } from "astro:components";
+import { localeFromPath, t } from "../i18n/index.ts";
 
 interface Props {
   title: string;
@@ -10,15 +11,16 @@ interface Props {
 }
 
 const { title, code, live = false, lang } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 const themes = { dark: "dark-plus", light: "light-plus" } as const;
 ---
 
 <div class="snippet" data-snippet>
   <div class="snippet-header">
     <span>{title}</span>
-    <button type="button" data-copy-snippet aria-label={`Copy ${title}`} hidden>
+    <button type="button" data-copy-snippet aria-label={t(locale, "copy.named", { name: title })} hidden>
       <Icon name="copy-minimalist" size={14} />
-      <span data-copy-label>Copy</span>
+      <span data-copy-label>{t(locale, "snippet.copy")}</span>
     </button>
     <span class="visually-hidden" role="status" data-copy-feedback></span>
   </div>

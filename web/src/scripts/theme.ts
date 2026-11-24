@@ -2,6 +2,8 @@ type Theme = 'light' | 'dark';
 
 (() => {
   const root = document.documentElement;
+  if (root.dataset.themeBound === "true") return;
+  root.dataset.themeBound = "true";
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
   const storageKey = "ira-icons-theme";
 
@@ -25,6 +27,7 @@ type Theme = 'light' | 'dark';
 
   syncTheme();
   document.addEventListener("DOMContentLoaded", syncTheme, { once: true });
+  document.addEventListener("astro:page-load", syncTheme);
   systemTheme.addEventListener("change", syncTheme);
   window.addEventListener("pageshow", (event) => {
     if (!event.persisted) return;

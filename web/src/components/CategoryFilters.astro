@@ -1,17 +1,19 @@
 ---
 import Icon from "../icons/Icon.astro";
 import { categoryIcons } from "../lib/category-icons.ts";
+import { localeFromPath, t } from "../i18n/index.ts";
 
 interface Props {
   categories: { id: string; label: string }[];
 }
 const { categories } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 ---
 <section class="category-filters" id="catalog-categories" aria-labelledby="category-title" hidden>
   <header class="category-header">
-    <h2 id="category-title" tabindex="-1">Categories <span data-category-count hidden></span></h2>
+    <h2 id="category-title" tabindex="-1">{t(locale, "categories.title")} <span data-category-count hidden></span></h2>
     <div class="category-actions">
-      <button type="button" data-clear-categories hidden>Clear</button>
+      <button type="button" data-clear-categories hidden>{t(locale, "categories.clear")}</button>
     </div>
   </header>
   <div class="category-list" id="category-list" role="group" aria-labelledby="category-title">

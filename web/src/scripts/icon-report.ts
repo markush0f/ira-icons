@@ -1,4 +1,5 @@
 import { requireElement } from './dom.ts';
+import { t } from './i18n.ts';
 
 type ReportState = 'pending' | 'saved' | 'failed';
 
@@ -14,9 +15,9 @@ export function mountIconReport(panel: Pick<ParentNode, 'querySelector'>): (name
   const states = new Map<string, ReportState>();
   const drafts = new Map<string, string>();
   const messages = {
-    pending: "Sending report…",
-    saved: "Report saved.",
-    failed: "Couldn’t save the report. Try again.",
+    pending: t("report.pending"),
+    saved: t("report.saved"),
+    failed: t("report.failed"),
   };
   let selectedName = '';
 

@@ -1,28 +1,31 @@
 ---
 import Icon from "../icons/Icon.astro";
 import { MAX_REPORT_COMMENT_LENGTH } from "../lib/icon-report.ts";
+import { localeFromPath, t } from "../i18n/index.ts";
+
+const locale = localeFromPath(Astro.url.pathname);
 ---
 
 <form class="report" data-icon-report hidden>
   <p class="report-hint" id="icon-report-hint">
-    Noticed a style or animation issue? Report this variant.
+    {t(locale, "report.hint")}
   </p>
   <details class="report-comment" data-report-comment-panel>
-    <summary>Add a comment (optional)</summary>
-    <label class="visually-hidden" for="icon-report-comment">Comment (optional)</label>
+    <summary>{t(locale, "report.addComment")}</summary>
+    <label class="visually-hidden" for="icon-report-comment">{t(locale, "report.comment")}</label>
     <textarea
       id="icon-report-comment"
       data-report-comment
       maxlength={MAX_REPORT_COMMENT_LENGTH}
       rows="3"
-      placeholder="What should look or move differently?"
+      placeholder={t(locale, "report.placeholder")}
       aria-describedby="icon-report-comment-hint"
     ></textarea>
-    <p id="icon-report-comment-hint" class="report-hint">Up to {MAX_REPORT_COMMENT_LENGTH} characters. Please leave out personal information.</p>
+    <p id="icon-report-comment-hint" class="report-hint">{t(locale, "report.limit", { max: MAX_REPORT_COMMENT_LENGTH })}</p>
   </details>
   <button type="submit" data-report-button aria-describedby="icon-report-hint">
     <Icon name="flag-minimalist" size={16} />
-    Report icon
+    {t(locale, "report.submit")}
   </button>
   <span role="status" data-report-status></span>
 </form>

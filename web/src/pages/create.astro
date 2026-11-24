@@ -2,47 +2,47 @@
 import Icon from "../icons/Icon.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
+import { localeFromPath, localizePath, pageTitle, t } from "../i18n/index.ts";
 
+const locale = localeFromPath(Astro.url.pathname);
 const styles = [
-  { id: "original", label: "Original", sample: "lightbulb" },
-  { id: "minimalist", label: "Minimalist", sample: "lightbulb-minimalist" },
-  { id: "animated", label: "Animated", sample: "lightbulb-animated" },
+  { id: "original", label: t(locale, "variant.original"), sample: "lightbulb" },
+  { id: "minimalist", label: t(locale, "variant.minimalist"), sample: "lightbulb-minimalist" },
+  { id: "animated", label: t(locale, "variant.animated"), sample: "lightbulb-animated" },
 ];
 ---
 
 <SiteLayout
-  title="Create an icon · Ira Icons"
-  description="Draft a prompt for an AI-assisted SVG icon and explore the Ira Icons styles."
+  title={pageTitle(t(locale, "meta.create.title"))}
+  description={t(locale, "meta.create.description")}
 >
   <main class="studio" data-icon-studio={CREATE_COMING_SOON ? undefined : ""}>
-    <a class="back-link" href="/">
+    <a class="back-link" href={localizePath("/", locale)}>
       <Icon name="arrow-left-minimalist" size={15} />
-      Back to catalog
+      {t(locale, "nav.back")}
     </a>
 
     <header class="studio-heading">
-      <h1>Create an icon</h1>
-      <p>{CREATE_COMING_SOON
-        ? "A first look at the AI icon studio."
-        : "Describe an icon and generate three styles: original, minimalist, and animated."}</p>
+      <h1>{t(locale, "create.title")}</h1>
+      <p>{CREATE_COMING_SOON ? t(locale, "create.previewLead") : t(locale, "create.lead")}</p>
     </header>
 
     {CREATE_COMING_SOON && (
       <aside class="coming-soon-banner" aria-labelledby="coming-soon-title">
         <Icon name="clock-minimalist" size={21} />
         <div>
-          <h2 id="coming-soon-title">Coming soon</h2>
-          <p>You can look around, but the icon studio isn’t open for editing yet.</p>
+          <h2 id="coming-soon-title">{t(locale, "create.soon")}</h2>
+          <p>{t(locale, "create.soon.body")}</p>
         </div>
       </aside>
     )}
 
     <div class="studio-grid" inert={CREATE_COMING_SOON}>
       <section class="editor" aria-labelledby="brief-title">
-        <h2 id="brief-title">Icon brief</h2>
+        <h2 id="brief-title">{t(locale, "create.brief")}</h2>
 
         <div class="prompt-heading">
-          <label for="icon-prompt">Description</label>
+          <label for="icon-prompt">{t(locale, "create.description")}</label>
           <span data-prompt-count aria-hidden="true">0 / 400</span>
         </div>
         <textarea
@@ -50,13 +50,13 @@ const styles = [
           rows="5"
           maxlength="400"
           disabled={CREATE_COMING_SOON}
-          placeholder="A small desk lamp with a pull cord. Show a soft glow when it turns on."
+          placeholder={t(locale, "create.placeholder")}
           aria-describedby="prompt-hint"
         ></textarea>
-        <p id="prompt-hint" class="hint">Your draft stays in this browser until you press Generate. Then your description is sent to Gemini.</p>
+        <p id="prompt-hint" class="hint">{t(locale, "create.hint")}</p>
 
         <fieldset disabled={CREATE_COMING_SOON}>
-          <legend>Style</legend>
+          <legend>{t(locale, "create.style")}</legend>
           <div class="style-options">
             {styles.map(({ id, label }, index) => (
               <label>
@@ -70,23 +70,23 @@ const styles = [
         <div class="studio-actions">
           <button type="button" class="action" data-generate-icon disabled aria-describedby="provider-note">
             <Icon name="star-minimalist" size={17} />
-            Generate with AI
+            {t(locale, "create.generate")}
           </button>
           <button type="button" class="action" data-generate-variants hidden>
-            Retry variants
+            {t(locale, "create.retry")}
           </button>
           <button type="button" class="action" data-copy-brief hidden={!CREATE_COMING_SOON} disabled>
             <Icon name="copy-minimalist" size={16} />
-            Copy brief
+            {t(locale, "create.copyBrief")}
           </button>
         </div>
-        <p class="hint" id="provider-note">Powered by Gemini. Generated icons are not added to the catalog.</p>
+        <p class="hint" id="provider-note">{t(locale, "create.provider")}</p>
         <p class="hint" data-brief-status role="status"></p>
       </section>
 
       <section class="preview" aria-labelledby="preview-title">
-        <h2 id="preview-title" data-preview-title>Reference preview</h2>
-        <p class="hint" data-preview-hint>This is a catalog example until you generate your own icon.</p>
+        <h2 id="preview-title" data-preview-title>{t(locale, "create.reference")}</h2>
+        <p class="hint" data-preview-hint>{t(locale, "create.referenceHint")}</p>
         <div class="preview-grid" data-preview-grid>
           {styles.map(({ id, sample }, index) => (
             <figure data-style-preview={id} hidden={index !== 0}>
@@ -95,10 +95,10 @@ const styles = [
             </figure>
           ))}
           <figure data-generated-preview hidden>
-            <img width="96" height="96" alt="Generated icon" />
+            <img width="96" height="96" alt={t(locale, "create.alt")} />
             <div data-review-sizes hidden>
-              <img width="16" height="16" alt="Original at 16 pixels" />
-              <img width="24" height="24" alt="Original at 24 pixels" />
+              <img width="16" height="16" alt={t(locale, "create.alt16")} />
+              <img width="24" height="24" alt={t(locale, "create.alt24")} />
             </div>
             <figcaption data-generated-caption></figcaption>
           </figure>
@@ -106,12 +106,12 @@ const styles = [
             <div class="loader-mark">
               <Icon name="star-minimalist" size={21} />
             </div>
-            <span>Generating icon…</span>
+            <span>{t(locale, "create.generating")}</span>
           </div>
           <span aria-hidden="true" class="preview-scale">24 × 24</span>
         </div>
         <p class="hint generation-status" data-generation-status role="status"></p>
-        <a class="action download-result" data-download-icon hidden download>Download SVG</a>
+        <a class="action download-result" data-download-icon hidden download>{t(locale, "create.download")}</a>
       </section>
     </div>
   </main>

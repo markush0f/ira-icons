@@ -6,6 +6,14 @@ import AstroLogo from "../assets/frameworks/astro.svg";
 import VueLogo from "../assets/frameworks/vue.svg";
 import SvelteLogo from "../assets/frameworks/svelte.svg";
 import { type CodeFormat } from "../scripts/icon-copy.ts";
+import { localeFromPath, t } from "../i18n/index.ts";
+
+const locale = localeFromPath(Astro.url.pathname);
+const variants = [
+  [t(locale, "variant.animated"), "-animated"],
+  [t(locale, "variant.original"), ""],
+  [t(locale, "variant.minimalist"), "-minimalist"],
+] as const;
 
 const formats = [
   { name: "React", logo: ReactLogo },
@@ -23,7 +31,7 @@ const formats = [
     <div>
       <div class="copy-heading">
         <p class="detail-eyebrow" id="copy-label">
-          Copy as
+          {t(locale, "copy.as")}
         </p>
         <span
           class="detail-eyebrow copy-status"
@@ -37,8 +45,8 @@ const formats = [
             class="framework-button"
             type="button"
             data-copy-format={format.name}
-            aria-label={`Copy ${format.name}`}
-            title={`Copy ${format.name}`}
+            aria-label={t(locale, "copy.named", { name: format.name })}
+            title={t(locale, "copy.named", { name: format.name })}
           >
             {format.logo ? (
               <img
@@ -57,14 +65,10 @@ const formats = [
     </div>
     <div data-variant-picker>
       <p class="detail-eyebrow" id="variant-label">
-        Variant
+        {t(locale, "copy.variant")}
       </p>
       <div class="variant-options" role="group" aria-labelledby="variant-label">
-        {[
-          ["Animated", "-animated"],
-          ["Original", ""],
-          ["Minimalist", "-minimalist"],
-        ].map(([label, suffix]) => (
+        {variants.map(([label, suffix]) => (
           <button
             class="framework-button variant-button"
             type="button"

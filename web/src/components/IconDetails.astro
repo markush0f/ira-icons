@@ -5,12 +5,14 @@ import SpeedPicker from "./SpeedPicker.astro";
 import IconCopy from "./IconCopy.astro";
 import IconReport from "./IconReport.astro";
 import { CREATE_COMING_SOON } from "../lib/feature-flags.ts";
+import { localeFromPath, t } from "../i18n/index.ts";
 
 interface Props {
   name: string;
 }
 
 const { name } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 ---
 
 <aside
@@ -20,9 +22,9 @@ const { name } = Astro.props;
   aria-labelledby="detail-title"
 >
   <div class="detail-header">
-    <p class="detail-eyebrow">Icon details</p>
+    <p class="detail-eyebrow">{t(locale, "details.eyebrow")}</p>
     <form method="dialog" class="detail-dialog-close">
-      <button type="submit" aria-label="Close details" autofocus>
+      <button type="submit" aria-label={t(locale, "details.close")} autofocus>
         <Icon name="close-minimalist" size={18} />
       </button>
     </form>
@@ -33,7 +35,7 @@ const { name } = Astro.props;
   <h2 class="detail-title" id="detail-title">
     {name}
   </h2>
-  <ul class="detail-categories" aria-label="Icon categories" data-detail-categories hidden></ul>
+  <ul class="detail-categories" aria-label={t(locale, "details.categories")} data-detail-categories hidden></ul>
   <IconCopy />
   <div class="detail-controls">
     <ColorPicker />

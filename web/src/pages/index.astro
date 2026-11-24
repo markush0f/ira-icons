@@ -6,20 +6,21 @@ import Icon from "../icons/Icon.astro";
 import IconCatalog from "../components/IconCatalog.astro";
 import IconDetails from "../components/IconDetails.astro";
 import CategoryFilters from "../components/CategoryFilters.astro";
-import { categoriesFor, categoryLabels } from '../../../scripts/icon-expansion/categories.ts';
+import { categoriesFor } from '../../../scripts/icon-expansion/categories.ts';
+import { categoryLabel, localeFromPath, t } from '../i18n/index.ts';
 
+const locale = localeFromPath(Astro.url.pathname);
 const catalogNames = iconNames.filter(
   (name) => !/-(animated|minimalist)$/.test(name),
 );
 const firstIcon = catalogNames[0];
 const usedCategories = new Set(catalogNames.flatMap(categoriesFor));
-const categories = Object.entries(categoryLabels)
-  .filter(([id]) => usedCategories.has(id))
-  .map(([id, label]) => ({ id, label }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+const categories = [...usedCategories]
+  .map((id) => ({ id, label: categoryLabel(locale, id) }))
+  .sort((a, b) => a.label.localeCompare(b.label, locale));
 ---
 
-<SiteLayout>
+<SiteLayout description={t(locale, "meta.catalog.description")}>
   <main>
     <div class="workspace" id="workspace">
       <IconCatalog names={catalogNames} selectedName={firstIcon}>
@@ -29,9 +30,7 @@ const categories = Object.entries(categoryLabels)
         <IconDetails name={`${firstIcon}-animated`} />
         <p class="detail-note">
           <span class="detail-note-icon" aria-hidden="true"><Icon name="alert-triangle-minimalist" size={16} /></span>
-          <span>Ira Icons is still in development, and we’re continuing to improve icon animations.
-          Many icons were designed with AI assistance. We test the SVGs for
-          rendering, animation, and reduced-motion support.</span>
+          <span>{t(locale, "catalog.note")}</span>
         </p>
       </div>
     </div>
@@ -39,8 +38,7 @@ const categories = Object.entries(categoryLabels)
   </main>
   <footer class="catalog-footer">
     <p>
-      Ira Icons is in active development. New icons and animations are added
-      over time.
+      {t(locale, "catalog.footer")}
     </p>
   </footer>
   <script src="../scripts/catalog.ts"></script>

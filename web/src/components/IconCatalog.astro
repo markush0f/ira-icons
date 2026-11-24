@@ -2,6 +2,7 @@
 import Icon from "../icons/Icon.astro";
 import IconCard from "./IconCard.astro";
 import { categoriesFor } from '../../../scripts/icon-expansion/categories.ts';
+import { localeFromPath, t } from "../i18n/index.ts";
 
 interface Props {
   names: readonly string[];
@@ -11,6 +12,9 @@ interface Props {
 const { names, selectedName } = Astro.props;
 const pageSize = 48;
 const memberships = names.map(name => categoriesFor(name).join(','));
+const locale = localeFromPath(Astro.url.pathname);
+const count = names.length.toLocaleString(locale);
+const countLabel = t(locale, names.length === 1 ? "catalog.count.one" : "catalog.count.other", { count });
 
 ---
 
@@ -19,21 +23,21 @@ const memberships = names.map(name => categoriesFor(name).join(','));
   <div class="catalog-header">
     <div class="catalog-heading">
       <h1 class="visually-hidden" id="catalog-title">
-        Icon catalog
+        {t(locale, "catalog.title")}
       </h1>
       <p id="icon-count" role="status">
-        {names.length} icons
+        {countLabel}
       </p>
     </div>
     <div class="search-field" id="search-field" hidden>
       <Icon name="search" size={17} />
       <label class="visually-hidden" for="icon-search">
-        Search icons
+        {t(locale, "catalog.search")}
       </label>
       <input
         type="search"
         id="icon-search"
-        placeholder="Search icons"
+        placeholder={t(locale, "catalog.search")}
         autocomplete="off"
         aria-controls="icon-grid"
       />
@@ -46,11 +50,11 @@ const memberships = names.map(name => categoriesFor(name).join(','));
     ))}
   </ul>
   <p class="empty-state" id="empty-state" hidden>
-    No icons found.
+    {t(locale, "catalog.empty")}
   </p>
   <div class="catalog-loader" id="catalog-loader" hidden>
     <p role="status" data-loaded-count></p>
-    <button type="button" data-load-more aria-controls="icon-grid">Load more <Icon name="chevron-down" size={16} /></button>
+    <button type="button" data-load-more aria-controls="icon-grid">{t(locale, "catalog.more")} <Icon name="chevron-down" size={16} /></button>
   </div>
 </section>
 <style>

@@ -1,8 +1,10 @@
 ---
+import { localeFromPath, t } from "../i18n/index.ts";
 const { animated } = Astro.props;
+const locale = localeFromPath(Astro.url.pathname);
 ---
 <div class="speed-picker" data-speed-picker hidden={!animated}>
-  <label class="detail-eyebrow" for="detail-speed">Cycle duration</label>
+  <label class="detail-eyebrow" for="detail-speed">{t(locale, "speed.label")}</label>
   <div class="duration-field">
     <input type="range" id="detail-speed" data-icon-speed step="0.001" disabled />
     <output for="detail-speed" data-loop-duration aria-hidden="true">—</output>
