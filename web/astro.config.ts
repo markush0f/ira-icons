@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, envField } from "astro/config";
 import node from "@astrojs/node";
+import vercel from "@astrojs/vercel";
 import { svgCatalog, publishCatalogAssets } from './catalog-assets.ts';
 
 export default defineConfig({
@@ -12,8 +13,9 @@ export default defineConfig({
     cacheDir: fileURLToPath(new URL("../node_modules/.vite-web/", import.meta.url)),
     envDir: fileURLToPath(new URL("../", import.meta.url)),
   },
-  // Keep the catalog and installation guide prerendered. Only the report route runs on demand.
-  adapter: node({ mode: "standalone" }),
+  // Keep pages prerendered; generation and report API routes run on demand.
+  // Vercel needs serverless output, while local/standalone builds use Node.
+  adapter: process.env.VERCEL === "1" ? vercel() : node({ mode: "standalone" }),
   prefetch: { prefetchAll: false },
   i18n: {
     defaultLocale: "en",

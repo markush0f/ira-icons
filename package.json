@@ -4,11 +4,12 @@
   "packageManager": "bun@1.4.4",
   "type": "module",
   "engines": {
-    "node": ">=22.23.4"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "cd web && node --env-file-if-exists=../.env ../node_modules/astro/bin/astro.mjs dev",
     "build": "cd web && astro build",
+    "build:vercel": "node scripts/vercel/build.ts",
     "build:standalone": "node scripts/standalone/build.ts",
     "test:standalone": "node scripts/standalone/build.ts --check",
     "typecheck": "cd web && astro sync && cd .. && tsc --noEmit && tsc -p scripts/npm-package/test-react/tsconfig.json && cd web && astro check",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^11.1.14",
+    "@astrojs/vercel": "^11.0.22",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "astro": "^7.4.12",
     "sharp": "^0.35.5",

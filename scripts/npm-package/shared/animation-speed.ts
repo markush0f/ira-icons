@@ -17,6 +17,8 @@ export function motionVars(speed?: number, constant?: boolean) {
   };
 }
 
+export function speedStyle(animated: true, speed?: number, style?: string, constant?: boolean): string;
+export function speedStyle(animated: boolean, speed?: number, style?: string, constant?: boolean): string | undefined;
 export function speedStyle(animated: boolean, speed?: number, style?: string, constant?: boolean) {
   if (!animated) return style;
   const motion = motionVars(speed, constant);

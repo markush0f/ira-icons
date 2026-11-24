@@ -10,14 +10,15 @@ Many Ira Icons were designed with AI assistance. We test the SVGs for rendering,
 
 ## Development checks
 
-All maintained scripts and application modules use TypeScript with strict checking. Astro components keep their `.astro` extension; React sources use `.tsx`. Node.js runs CLI and test `.ts` files directly using native type stripping (Node 22.23.4+).
+All maintained scripts and application modules use TypeScript with strict checking. Astro components keep their `.astro` extension; React sources use `.tsx`. Node.js runs CLI and test `.ts` files directly using native type stripping (Node 24.x).
 
 ```sh
 bun run typecheck       # TypeScript and Astro diagnostics
 bun run test            # React integration and web/server tests
 bun run test:icon-tools # Icon compiler and CLI tests
 bun run test:adapters   # Build and verify all framework packages
-bun run build           # Production Astro build
+bun run build           # Production standalone Node build
+bun run build:vercel    # Vercel static assets and serverless functions
 bun run build:standalone # Refresh the generated script in index.html
 ```
 
@@ -31,13 +32,11 @@ The catalog and [standalone preview](index.html) show one card per icon. Select 
 <Icon name="heart-animated" size={32} color="#c4416c" />
 ```
 
-Simple line icons such as `check` and `activity` draw their strokes progressively. Other icons keep their own motion: the bell swings, the heart beats, and the clock ticks. All animations run without JavaScript and respect reduced-motion preferences.
-
-Try `coffee-animated` for rising steam, `hourglass-animated` for falling sand, `scan-animated` for a moving scanner beam, or `waveform-animated` for a trace that draws itself.
+All animated icons draw their strokes progressively, including animals, bells, hearts, and gears. Completed strokes accumulate, hold, then fade before restarting. Arrows trace the route before finishing the arrowhead; circles, tables, and rectangular frames retain their dedicated drawing sequences. All animations run without JavaScript and respect reduced-motion preferences.
 
 ## Astro landing page
 
-Use **Bun** to install dependencies and run the workspace scripts. The Astro CLI runs on Node.js **22.23.4 or later**.
+Use **Bun** to install dependencies and run the workspace scripts. The Astro CLI runs on Node.js **24.x**.
 
 ```sh
 bun install
@@ -47,6 +46,14 @@ bun run dev
 The landing page lives in [`web/`](web/) and uses Astro, JetBrains Mono, and plain CSS. English is served at the unprefixed routes, and Spanish at `/es`. The header language switch keeps the current page. Interface copy lives in [`web/src/i18n/`](web/src/i18n/); icon filenames stay in English. `pages/index.astro` composes `SiteLayout`, `IconCatalog`, and `IconDetails`; the header, icon cards, copy buttons, and color picker live in separate components. Shared styles remain in `styles/global.css`, and `scripts/catalog.ts` coordinates the catalog interactions. The first icon is selected by default and its detail panel stays visible beside the catalog. Select another icon to update the panel. Choose React, Next.js, Astro, Vue, Svelte, or SVG under **Copy as** to copy the selected icon’s code directly. The code is self-contained and preserves the selected variant and color. A small client script handles selection, search, theme switching, and color changes. Open the URL Astro prints in the terminal (usually <http://localhost:4321>). Run `bun run build` to build it.
 
 The landing loads the original SVGs through its local Astro component and Vite catalog in [`web/src/icons/`](web/src/icons/). The shared helper in [`scripts/icon-catalog.ts`](scripts/icon-catalog.ts) validates icon names and provides catalog lookup. The landing does not depend on building the npm distribution.
+
+### Vercel deployment
+
+Connect the repository to Vercel with the **repository root** as Root Directory and `main` as the production branch. The committed `vercel.json` selects Astro, installs with the frozen Bun lockfile, and runs `bun run build:vercel`. No dashboard command/output overrides are needed.
+
+This command selects `@astrojs/vercel`, builds the application in `web/`, and publishes the complete Build Output API bundle to `.vercel/output/` at the repository root. Static pages and all icon assets are served alongside the API functions. Local development and `bun run build` retain the standalone Node adapter.
+
+Keep `CREATE_COMING_SOON=true` (the default) for the public preview. Vercel's function filesystem is not persistent SQLite storage; do not enable icon reports there without first providing a suitable persistent backend.
 
 ### Icon studio
 

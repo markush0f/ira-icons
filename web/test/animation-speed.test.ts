@@ -18,6 +18,7 @@ test('constant keeps each animated icon looping unless it is turned off', () => 
   assert.match(speedStyle(true, 1), /--ira-icon-iteration:infinite/);
   assert.match(speedStyle(true, 1, 'opacity:1', false), /--ira-icon-iteration:1/);
   assert.equal(speedStyle(false, 1, 'opacity:1', false), 'opacity:1');
+  assert.equal(speedStyle(false), undefined);
   assert.match(scaleAnimationCss('.a { animation: spin 2s linear infinite; }'),
     /animation: spin calc\(2s \/ var\(--ira-icon-speed, 1\)\) linear var\(--ira-icon-iteration, infinite\)/);
 });
