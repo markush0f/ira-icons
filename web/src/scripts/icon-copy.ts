@@ -38,17 +38,17 @@ export function formatIcon(preview: SVGSVGElement, name: string, format: CodeFor
   const speedProp = name.endsWith('-animated') && speed !== 1
     ? (format === 'Vue' ? ` :speed="${speed}"` : ` speed={${speed}}`) : '';
   const usage = `<${component} ${format === 'Vue' ? ':size="24"' : 'size={24}'}${colorProp}${speedProp} />`;
-  const reactImport = `import { ${component} } from '@ira/iraicons/react';`;
+  const reactImport = `import { ${component} } from '@ira-icons/iraicons/react';`;
 
   switch (format) {
     case 'React':
     case 'Next.js':
       return `${reactImport}\n\n${usage}\n`;
     case 'Astro':
-      return `---\nimport ${component} from '@ira/iraicons/astro/${name}';\n---\n\n${usage}\n`;
+      return `---\nimport ${component} from '@ira-icons/iraicons/astro/${name}';\n---\n\n${usage}\n`;
     case 'Vue':
-      return `<script setup>\nimport { ${component} } from '@ira/iraicons/vue';\n</script>\n\n<template>\n  ${usage}\n</template>\n`;
+      return `<script setup>\nimport { ${component} } from '@ira-icons/iraicons/vue';\n</script>\n\n<template>\n  ${usage}\n</template>\n`;
     case 'Svelte':
-      return `<script>\n  import { ${component} } from '@ira/iraicons/svelte';\n</script>\n\n${usage}\n`;
+      return `<script>\n  import { ${component} } from '@ira-icons/iraicons/svelte';\n</script>\n\n${usage}\n`;
   }
 }

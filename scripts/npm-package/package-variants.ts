@@ -2,6 +2,7 @@ import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 interface PackageManifest {
+  name: string;
   files: string[];
   exports: Record<string, string | Record<string, string>>;
   peerDependencies: Record<string, string>;
@@ -18,13 +19,14 @@ const frameworkFiles = {
 
 export async function writePackageVariants(source: string, destination: string, manifest: PackageManifest) {
   const { exports, peerDependencies, peerDependenciesMeta, ...base } = manifest;
-  const name = '@ira/iraicons';
+  const name = manifest.name;
   const complete = join(destination, 'all');
   await rm(complete, { recursive: true, force: true });
   await mkdir(complete, { recursive: true });
   await Promise.all(manifest.files.map((dir) => cp(join(source, dir), join(complete, dir), { recursive: true })));
   await writeFile(join(complete, 'package.json'), JSON.stringify({ ...manifest, name }, null, 2) + '\n');
   await cp(join(source, 'README.md'), join(complete, 'README.md'));
+  await cp(join(source, 'LICENSE'), join(complete, 'LICENSE'));
   await cp(join(source, 'LICENSE.tabler'), join(complete, 'LICENSE.tabler'));
 
   for (const [framework, files] of Object.entries(frameworkFiles)) {
@@ -36,6 +38,7 @@ export async function writePackageVariants(source: string, destination: string, 
     await rm(output, { recursive: true, force: true });
     await mkdir(output, { recursive: true });
     await Promise.all(files.map((dir) => cp(join(source, dir), join(output, dir), { recursive: true })));
+    await cp(join(source, 'LICENSE'), join(output, 'LICENSE'));
     await cp(join(source, 'LICENSE.tabler'), join(output, 'LICENSE.tabler'));
     await writeFile(join(output, 'package.json'), JSON.stringify({
       ...base,

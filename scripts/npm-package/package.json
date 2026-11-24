@@ -1,9 +1,10 @@
 {
-  "name": "@markusss0s/ira-library",
+  "name": "@ira-icons/iraicons",
   "version": "0.3.0",
   "description": "Outline and animated SVG icons for React, Next.js, Astro, Vue, and Svelte.",
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/markush0f/ira-icons.git"

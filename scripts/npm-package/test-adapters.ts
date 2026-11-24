@@ -21,9 +21,13 @@ for (const [framework, files] of Object.entries({ react: ['react'], astro: ['ast
     const directory = new URL(`${framework}/`, variants);
     const manifest = JSON.parse(readFileSync(new URL('package.json', directory), 'utf8'));
     assert.deepEqual(Object.keys(manifest.peerDependencies), [framework]);
-    assert.deepEqual(readdirSync(directory).sort(), [...files, 'LICENSE.tabler', 'README.md', 'package.json'].sort());
+    assert.equal(manifest.license, 'MIT');
+    assert.equal(manifest.publishConfig.access, 'public');
+    assert.match(readFileSync(new URL('LICENSE', directory), 'utf8'), /MIT License/);
+    assert.match(readFileSync(new URL('LICENSE.tabler', directory), 'utf8'), /Paweł Kuna/);
+    assert.deepEqual(readdirSync(directory).sort(), [...files, 'LICENSE', 'LICENSE.tabler', 'README.md', 'package.json'].sort());
     assert.ok(resolveFrom(directory, `${manifest.name}/search-minimalist`));
-    assert.ok(resolveFrom(complete, `@ira/iraicons/${framework}/search-minimalist`));
+    assert.ok(resolveFrom(complete, `@ira-icons/iraicons/${framework}/search-minimalist`));
     assert.ok(resolveFrom(new URL('../../dist/npm/', import.meta.url), `@markusss0s/ira-library/${framework}/search-minimalist`));
   });
 }
@@ -52,7 +56,7 @@ for (const [adapter, renderIcon] of Object.entries(adapters)) {
       t.after(() => hooks.deregister());
     }
     const directory = new URL(`${adapter}/`, variants);
-    const name = `@ira/iraicons-${adapter}`;
+    const name = `@ira-icons/iraicons-${adapter}`;
     const icons = await importExport(directory, name);
     const individual = (await importExport(directory, `${name}/search-minimalist`)).default;
     assert.equal(individual, icons.SearchMinimalist);
@@ -68,10 +72,10 @@ for (const [adapter, renderIcon] of Object.entries(adapters)) {
     const animated = await renderIcon(icons.Icon, { name: 'coffee-animated', speed: 1.5 });
     assert.match(animated, /viewBox="0 0 24 24"/);
     assert.match(animated, /aria-hidden="true"/);
-    assert.match(animated, /@keyframes ira-coffee-steam/);
+    assert.match(animated, /@keyframes ira-stroke-coffee-0/);
     assert.match(animated, /prefers-reduced-motion: no-preference/);
     assert.match(animated, /--ira-icon-speed:\s*1\.5/);
-    assert.match(animated, /calc\(-\.8s \/ var\(--ira-icon-speed, 1\)\)/);
+    assert.match(animated, /calc\(2\.65s \/ var\(--ira-icon-speed, 1\)\)/);
     assert.doesNotMatch(animated, / speed=/);
     assert.match(await renderIcon(icons.CoffeeAnimated, { speed: 2 }), /--ira-icon-speed:\s*2/);
     assert.doesNotMatch(await renderIcon(icons.Coffee, { speed: 2 }), /--ira-icon-speed| speed=/);

@@ -123,8 +123,12 @@ const labelled = Boolean(ariaLabel || props['aria-labelledby']);
   ]),
   writeFile(join(output, 'react/Icon.d.ts'), reactTypes),
   copyFile(new URL('../icon-expansion/folio/TABLER-LICENSE.txt', import.meta.url), join(output, 'LICENSE.tabler')),
-  copyFile(new URL('./package.json', import.meta.url), join(output, 'package.json')),
-  writeFile(join(output, 'README.md'), (await readFile(new URL('./README.md', import.meta.url), 'utf8')).replaceAll('@ira/iraicons', '@markusss0s/ira-library')),
+  copyFile(new URL('../../LICENSE', import.meta.url), join(output, 'LICENSE')),
+  writeFile(join(output, 'package.json'), JSON.stringify({
+    ...JSON.parse(await readFile(new URL('./package.json', import.meta.url), 'utf8')),
+    name: '@markusss0s/ira-library',
+  }, null, 2) + '\n'),
+  copyFile(new URL('./README.md', import.meta.url), join(output, 'README.md')),
   ...icons.map(async (file) => {
     const source = join(iconDirectory, file), destination = join(output, 'icons', file);
     if (file.endsWith('-animated.svg')) await writeFile(destination, scaleAnimationSvg(await readFile(source, 'utf8')));

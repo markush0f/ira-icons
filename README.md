@@ -86,7 +86,7 @@ Import the component from the npm package and select an icon with `name`:
 
 ```astro
 ---
-import Icon from '@ira/iraicons-astro';
+import Icon from '@ira-icons/iraicons-astro';
 ---
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />
@@ -99,28 +99,46 @@ The default size is 24 px. Set `size` and `color` to customize its dimensions an
 The npm package supports React 18 and 19, with no SVGR configuration needed in the consuming app:
 
 ```tsx
-import Icon from '@ira/iraicons-react';
+import Icon from '@ira-icons/iraicons-react';
 
 <Icon name="search" size={32} color="#6339b8" label="Search" />;
 ```
 
-Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. Use an individual import, such as `@ira/iraicons-react/search`, if you don't need the full catalog.
+Standard SVG props and refs are supported. Icons inherit text color and are decorative unless given a `label`, `aria-label`, or `aria-labelledby`. Use an individual import, such as `@ira-icons/iraicons-react/search`, if you don't need the full catalog.
 
 Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibility, production bundling, and TypeScript props.
 
 ## Build the installable package
 
-From the repository root, run `bun install` and `bun run package:pack`. This creates five `.tgz` files in `dist/` without publishing anything. Until the packages are published, install the matching tarball in your app, for example `npm install /absolute/path/to/ira-iraicons-astro-0.3.0.tgz`.
+From the repository root, run `bun install` and `bun run package:pack`. This creates five `.tgz` files in `dist/` without publishing anything. Until the packages are published, install the matching tarball in your app, for example `npm install /absolute/path/to/ira-icons-iraicons-astro-0.3.0.tgz`.
 
 | Target | Package |
 | --- | --- |
-| React / Next.js | `@ira/iraicons-react` |
-| Astro | `@ira/iraicons-astro` |
-| Vue | `@ira/iraicons-vue` |
-| Svelte | `@ira/iraicons-svelte` |
-| All frameworks and raw SVGs | `@ira/iraicons` |
+| React / Next.js | `@ira-icons/iraicons-react` |
+| Astro | `@ira-icons/iraicons-astro` |
+| Vue | `@ira-icons/iraicons-vue` |
+| Svelte | `@ira-icons/iraicons-svelte` |
+| All frameworks and raw SVGs | `@ira-icons/iraicons` |
 
-The [complete package](scripts/npm-package/README.md) exposes imports like `@ira/iraicons/astro` and `@ira/iraicons/icons/search.svg`. Install `@ira/iraicons`, not the import subpath. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
+The [complete package](scripts/npm-package/README.md) exposes imports like `@ira-icons/iraicons/astro` and `@ira-icons/iraicons/icons/search.svg`. Install `@ira-icons/iraicons`, not the import subpath. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
+
+### Publish to npm
+
+An npm maintainer in the `ira-icons` organization can publish the tested tarballs:
+
+```sh
+npm login
+bun run test:adapters
+bun run package:pack
+npm publish ./dist/ira-icons-iraicons-0.3.0.tgz --access public
+# Publish the matching -react, -astro, -vue, and -svelte tarballs too.
+```
+
+The manifests explicitly set public access. Increase the version in `scripts/npm-package/package.json` before publishing subsequent releases; npm versions cannot be overwritten. Never commit npm credentials.
+
+## License
+
+[MIT](LICENSE), with the original MIT notices retained for icons adapted from Tabler Icons. Every published package includes both `LICENSE` and `LICENSE.tabler`.
 
 ## Standalone preview
 
