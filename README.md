@@ -120,7 +120,7 @@ From the repository root, run `bun install` and `bun run package:pack`. This cre
 | Svelte | `@ira-icons/iraicons-svelte` |
 | All frameworks and raw SVGs | `@ira-icons/iraicons` |
 
-The [complete package](scripts/npm-package/README.md) exposes imports like `@ira-icons/iraicons/astro` and `@ira-icons/iraicons/icons/search.svg`. Install `@ira-icons/iraicons`, not the import subpath. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
+The [complete package](scripts/npm-package/README.md) exposes imports like `@ira-icons/iraicons/astro` and `@ira-icons/iraicons/icons/search.svg`. Install `@ira-icons/iraicons`, not the import subpath. The complete package forwards framework entrypoints to its standalone dependencies and includes raw SVGs; individual icon imports belong to the standalone packages (for example, `@ira-icons/iraicons-react/search`). This keeps every published archive below the registry's file limits. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
 
 ### Publish to npm
 

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, rmSync, symlinkSync } from 'node:fs';
 import { createRequire, registerHooks } from 'node:module';
-import { test } from 'node:test';
+import { after, test } from 'node:test';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createElement, type ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -17,6 +17,16 @@ const complete = new URL('all/', variants);
 const resolveFrom = (directory: URL, specifier: string) => createRequire(new URL('package.json', directory)).resolve(specifier);
 const importExport = (directory: URL, specifier: string) => import(pathToFileURL(resolveFrom(directory, specifier)).href);
 
+// Emulate npm's installation of the complete package's framework dependencies.
+const links = new URL('node_modules/', complete);
+mkdirSync(new URL('@ira-icons/', links), { recursive: true });
+for (const framework of ['react', 'astro', 'vue', 'svelte']) {
+  const link = new URL(`@ira-icons/iraicons-${framework}`, links);
+  rmSync(link, { recursive: true, force: true });
+  symlinkSync(fileURLToPath(new URL(`${framework}/`, variants)), link, 'dir');
+}
+after(() => rmSync(links, { recursive: true, force: true }));
+
 for (const [framework, files] of Object.entries({ react: ['react'], astro: ['astro', 'icons'], vue: ['vue', 'shared'], svelte: ['svelte', 'shared'] })) {
   test(`${framework} package ships only its own framework and required assets`, () => {
     const directory = new URL(`${framework}/`, variants);
@@ -28,19 +38,28 @@ for (const [framework, files] of Object.entries({ react: ['react'], astro: ['ast
     assert.match(readFileSync(new URL('LICENSE.tabler', directory), 'utf8'), /Paweł Kuna/);
     assert.deepEqual(readdirSync(directory).sort(), [...files, 'LICENSE', 'LICENSE.tabler', 'README.md', 'package.json'].sort());
     assert.ok(resolveFrom(directory, `${manifest.name}/search-minimalist`));
-    assert.ok(resolveFrom(complete, `@ira-icons/iraicons/${framework}/search-minimalist`));
+    assert.ok(resolveFrom(complete, `@ira-icons/iraicons/${framework}`));
     assert.ok(resolveFrom(new URL('../../dist/npm/', import.meta.url), `@markusss0s/ira-library/${framework}/search-minimalist`));
   });
 }
 
-test('complete package stays below the npm file budget and shares individual declarations', () => {
-  const files = readdirSync(complete, { recursive: true, withFileTypes: true }).filter(entry => entry.isFile());
-  assert.ok(files.length < 75000, `Package has ${files.length} files`);
+test('complete package uses thin entrypoints and standalone packages share declarations', async () => {
+  const files = readdirSync(complete, { recursive: true, withFileTypes: true })
+    .filter(entry => entry.isFile() && !entry.parentPath.replaceAll('\\', '/').includes('/node_modules'));
+  assert.ok(files.length < 15000, `Package has ${files.length} files`);
+  const completeManifest = JSON.parse(readFileSync(new URL('package.json', complete), 'utf8'));
   for (const framework of ['react', 'vue', 'svelte']) {
-    assert.ok(resolveFrom(complete, `@ira-icons/iraicons/${framework}/search-minimalist`));
-    const manifest = JSON.parse(readFileSync(new URL('package.json', complete), 'utf8'));
-    assert.equal(manifest.exports[`./${framework}/*`].types, `./${framework}/IndividualIcon.d.ts`);
-    assert.ok(!readdirSync(new URL(`${framework}/icons/`, complete)).some(file => file.endsWith('.d.ts')));
+    const directory = new URL(`${framework}/`, variants);
+    const packageName = `@ira-icons/iraicons-${framework}`;
+    const manifest = JSON.parse(readFileSync(new URL('package.json', directory), 'utf8'));
+    assert.equal(manifest.exports['./*'].types, `./${framework}/IndividualIcon.d.ts`);
+    assert.equal(completeManifest.dependencies[packageName], completeManifest.version);
+    assert.ok(!readdirSync(new URL(`${framework}/icons/`, directory)).some(file => file.endsWith('.d.ts')));
+    if (framework !== 'svelte') {
+      const proxy = await importExport(complete, `@ira-icons/iraicons/${framework}`);
+      const implementation = await importExport(directory, packageName);
+      assert.equal(proxy.SearchMinimalist, implementation.SearchMinimalist);
+    }
   }
 });
 
@@ -49,16 +68,16 @@ test('named and individual imports retain their TypeScript props after sharing d
     const specifier = prefix.endsWith('-react') ? prefix : `${prefix}/react`;
     const filename = fileURLToPath(new URL('__consumer_typecheck__.ts', directory));
     const source = `import { SearchMinimalist } from '${specifier}';
-import Search from '${specifier}/search-minimalist';
+import Search from '@ira-icons/iraicons-react/search-minimalist';
 import type { ComponentProps } from 'react';
 const component: typeof SearchMinimalist = Search;
 const props: ComponentProps<typeof Search> = { size: 24, label: 'Search', speed: 1.5 };
 // @ts-expect-error size does not accept booleans
 const invalid: ComponentProps<typeof Search> = { size: true };
 ${prefix.endsWith('-react') ? '' : `import { SearchMinimalist as VueNamed } from '${prefix}/vue';
-import VueIndividual from '${prefix}/vue/search-minimalist';
+import VueIndividual from '@ira-icons/iraicons-vue/search-minimalist';
 import { SearchMinimalist as SvelteNamed } from '${prefix}/svelte';
-import SvelteIndividual from '${prefix}/svelte/search-minimalist';
+import SvelteIndividual from '@ira-icons/iraicons-svelte/search-minimalist';
 const vue: typeof VueNamed = VueIndividual;
 const svelte: typeof SvelteNamed = SvelteIndividual;
 `}`;

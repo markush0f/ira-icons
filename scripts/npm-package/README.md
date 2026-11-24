@@ -14,7 +14,7 @@ import { SearchMinimalist } from '@ira-icons/iraicons/react';
 <SearchMinimalist size={24} label="Search" />
 ```
 
-To load just one icon directly, use `import SearchMinimalist from '@ira-icons/iraicons/react/search-minimalist'`. For dynamic names, the default `Icon` export still supports `<Icon name="search-minimalist" />`.
+For individual imports, install `@ira-icons/iraicons-react` and use `import SearchMinimalist from '@ira-icons/iraicons-react/search-minimalist'`. For dynamic names, the complete package's default `Icon` export from `@ira-icons/iraicons/react` supports `<Icon name="search-minimalist" />`.
 
 No Vite or SVGR configuration is required. The package includes React TypeScript declarations.
 
@@ -23,7 +23,7 @@ No Vite or SVGR configuration is required. The package includes React TypeScript
 Use the React export directly in a server component such as `app/page.jsx`. No `'use client'` directive or SVG loader is needed.
 
 ```jsx
-import SearchMinimalist from '@ira-icons/iraicons/react/search-minimalist';
+import { SearchMinimalist } from '@ira-icons/iraicons/react';
 
 export default function Page() {
   return <SearchMinimalist size={24} label="Search" />;
@@ -34,13 +34,13 @@ export default function Page() {
 
 ```astro
 ---
-import SearchMinimalist from '@ira-icons/iraicons/astro/search-minimalist';
+import Icon from '@ira-icons/iraicons/astro';
 ---
 
-<SearchMinimalist size={24} label="Search" />
+<Icon name="search-minimalist" size={24} label="Search" />
 ```
 
-The default export from `@ira-icons/iraicons/astro` still supports dynamic names with `<Icon name="search-minimalist" />`.
+For an individual Astro component, install `@ira-icons/iraicons-astro` and import it from `@ira-icons/iraicons-astro/search-minimalist`.
 
 ## Vue 3
 
@@ -64,7 +64,7 @@ import { SearchMinimalist } from '@ira-icons/iraicons/vue';
 <SearchMinimalist size={24} label="Search" />
 ```
 
-Both adapters have an individual import such as `/vue/search-minimalist` or `/svelte/search-minimalist`. Use the default `Icon` export from `/vue` or `/svelte` with `name="search-minimalist"` for dynamic names. Svelte uses your app's Svelte compiler; Vue components are precompiled.
+For individual imports, install the matching standalone package, such as `@ira-icons/iraicons-vue/search-minimalist` or `@ira-icons/iraicons-svelte/search-minimalist`. Use the complete package's default `Icon` export from `/vue` or `/svelte` with `name="search-minimalist"` for dynamic names. Svelte uses your app's Svelte compiler; Vue components are precompiled.
 
 Omit `label` when the icon is decorative. `size` defaults to 24 and `color` defaults to `currentColor`.
 

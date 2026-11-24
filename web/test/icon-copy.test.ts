@@ -17,16 +17,16 @@ const preview = element('svg', { color: '#ad8af3' }, [element('path', { d: 'M12 
 test('React and Next.js copy the installed component for the selected variant', () => {
   for (const format of ['React', 'Next.js'] as const) {
     for (const [name, component] of [['arrow-back', 'ArrowBack'], ['arrow-back-animated', 'ArrowBackAnimated'], ['arrow-back-minimalist', 'ArrowBackMinimalist']]) {
-      assert.equal(formatIcon(preview, name, format), `import { ${component} } from '@ira-icons/iraicons/react';\n\n<${component} size={24} color="#ad8af3" />\n`);
+      assert.equal(formatIcon(preview, name, format), `import { ${component} } from '@ira-icons/iraicons-react';\n\n<${component} size={24} color="#ad8af3" />\n`);
     }
   }
 });
 
 test('Astro, Vue and Svelte copy imports and native template syntax without inline SVG', () => {
   const imports: [CodeFormat, string, string][] = [
-    ['Astro', "import ArrowBackAnimated from '@ira-icons/iraicons/astro/arrow-back-animated';", 'size={24}'],
-    ['Vue', "import { ArrowBackAnimated } from '@ira-icons/iraicons/vue';", ':size="24"'],
-    ['Svelte', "import { ArrowBackAnimated } from '@ira-icons/iraicons/svelte';", 'size={24}'],
+    ['Astro', "import ArrowBackAnimated from '@ira-icons/iraicons-astro/arrow-back-animated';", 'size={24}'],
+    ['Vue', "import { ArrowBackAnimated } from '@ira-icons/iraicons-vue';", ':size="24"'],
+    ['Svelte', "import { ArrowBackAnimated } from '@ira-icons/iraicons-svelte';", 'size={24}'],
   ];
   for (const [format, statement, size] of imports) {
     const snippet = formatIcon(element('svg', { color: 'currentColor' }), 'arrow-back-animated', format);

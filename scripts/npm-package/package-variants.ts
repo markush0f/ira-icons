@@ -23,8 +23,26 @@ export async function writePackageVariants(source: string, destination: string, 
   const complete = join(destination, 'all');
   await rm(complete, { recursive: true, force: true });
   await mkdir(complete, { recursive: true });
-  await Promise.all(manifest.files.map((dir) => cp(join(source, dir), join(complete, dir), { recursive: true })));
-  await writeFile(join(complete, 'package.json'), JSON.stringify({ ...manifest, name }, null, 2) + '\n');
+  // Publish the complete package as thin framework entrypoints plus raw SVGs.
+  // Each framework's implementation lives in its own npm package, avoiding the
+  // registry's file-count rejection without dropping any icons.
+  await cp(join(source, 'icons'), join(complete, 'icons'), { recursive: true });
+  const completeExports: PackageManifest['exports'] = { './icons/*.svg': exports['./icons/*.svg'] };
+  const dependencies = Object.fromEntries(Object.keys(frameworkFiles).map(framework => [`${name}-${framework}`, manifest.version]));
+  for (const framework of Object.keys(frameworkFiles)) {
+    await mkdir(join(complete, framework), { recursive: true });
+    const packageName = `${name}-${framework}`;
+    if (framework === 'astro') {
+      await writeFile(join(complete, 'astro/Icon.astro'), `---\nimport Icon from '${packageName}';\n---\n<Icon {...Astro.props} />\n`);
+      completeExports['./astro'] = './astro/Icon.astro';
+    } else {
+      const proxy = `export { default } from '${packageName}';\nexport * from '${packageName}';\n`;
+      await writeFile(join(complete, framework, 'index.js'), proxy);
+      await writeFile(join(complete, framework, 'index.d.ts'), proxy);
+      completeExports[`./${framework}`] = { types: `./${framework}/index.d.ts`, ...(framework === 'svelte' ? { svelte: './svelte/index.js' } : {}), default: `./${framework}/index.js` };
+    }
+  }
+  await writeFile(join(complete, 'package.json'), JSON.stringify({ ...manifest, name, exports: completeExports, files: ['react', 'astro', 'vue', 'svelte', 'icons'], dependencies }, null, 2) + '\n');
   await cp(join(source, 'README.md'), join(complete, 'README.md'));
   await cp(join(source, 'LICENSE'), join(complete, 'LICENSE'));
   await cp(join(source, 'LICENSE.tabler'), join(complete, 'LICENSE.tabler'));
