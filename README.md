@@ -17,6 +17,7 @@ bun run typecheck       # TypeScript and Astro diagnostics
 bun run test            # React integration and web/server tests
 bun run test:icon-tools # Icon compiler and CLI tests
 bun run test:adapters   # Build and verify all framework packages
+bun run test:consumers  # Install tarballs in temporary apps; build and render each framework
 bun run build           # Production standalone Node build
 bun run build:vercel    # Vercel static assets and serverless functions
 bun run build:standalone # Refresh the generated script in index.html
@@ -121,6 +122,16 @@ From the repository root, run `bun install` and `bun run package:pack`. This cre
 | All frameworks and raw SVGs | `@ira-icons/iraicons` |
 
 The [complete package](scripts/npm-package/README.md) exposes imports like `@ira-icons/iraicons/astro` and `@ira-icons/iraicons/icons/search.svg`. Install `@ira-icons/iraicons`, not the import subpath. The complete package forwards framework entrypoints to its standalone dependencies and includes raw SVGs; individual icon imports belong to the standalone packages (for example, `@ira-icons/iraicons-react/search`). This keeps every published archive below the registry's file limits. All packages are generated from the same catalog; the legacy `@markusss0s/ira-library` build remains available in `dist/npm/`. Run `bun run test:adapters` to verify the generated packages.
+
+### Consumer integration tests
+
+`bun run test:consumers` builds and packs all five npm packages, installs the actual `.tgz` archives in a temporary workspace outside this repository, and tests React 19 + Vite, Next.js 16 App Router (Webpack), Astro 7, Vue 3 + Vite, and Svelte 5 + Vite. The fixtures use ordinary package imports without source aliases, symlinks, SVGR, or custom SVG loaders. Vue and Svelte use their normal Vite compiler plugins.
+
+Each app imports both the standalone and complete packages. Tests build production output and check rendered SVG markup, dimensions, color, accessible labels, decorative icons, dynamic icon names, and animation CSS/speed. React, Vue, and Svelte also compile the browser bundle and execute the production SSR bundle; Astro and Next.js render their pages during static production builds. These are build/SSR smoke tests, not browser interaction or visual animation tests. They do not establish compatibility with every framework or every supported version (including React 18).
+
+The command needs npm registry access to install the pinned consumer dependencies. Temporary projects are removed afterward; use `IRA_KEEP_CONSUMERS=1 bun run test:consumers` to retain them for inspection. Fixtures and the runner live in [`scripts/npm-package/test-consumers/`](scripts/npm-package/test-consumers/) and [`scripts/npm-package/test-consumers.ts`](scripts/npm-package/test-consumers.ts).
+
+Framework components target React/Next.js, Astro, Vue, and Svelte only. Other frameworks can consume the raw SVG files, but do not have a dedicated component adapter or consumer test here.
 
 ### Publish to npm
 
