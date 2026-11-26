@@ -110,7 +110,7 @@ Run `bun run test` to check the Vite/SVGR integration, original SVGs, accessibil
 
 ## Build the installable package
 
-From the repository root, run `bun install` and `bun run package:pack`. This creates five `.tgz` files in `dist/` without publishing anything. Until the packages are published, install the matching tarball in your app, for example `npm install /absolute/path/to/ira-icons-iraicons-astro-0.3.0.tgz`.
+From the repository root, run `bun install` and `bun run package:pack`. This creates five `.tgz` files in `dist/` without publishing anything. To test a local build, install the matching tarball in your app, for example `npm install /absolute/path/to/ira-icons-iraicons-astro-0.3.0.tgz`.
 
 | Target | Package |
 | --- | --- |
@@ -130,8 +130,12 @@ An npm maintainer in the `ira-icons` organization can publish the tested tarball
 npm login
 bun run test:adapters
 bun run package:pack
-npm publish ./dist/ira-icons-iraicons-0.3.0.tgz --access public
-# Publish the matching -react, -astro, -vue, and -svelte tarballs too.
+for framework in react astro vue svelte; do
+  npm stage publish "./dist/ira-icons-iraicons-$framework-0.3.0.tgz" --access public
+done
+npm stage publish ./dist/ira-icons-iraicons-0.3.0.tgz --access public
+npm stage list
+# Review the archives, wait for validation, then approve the batch in npm.
 ```
 
 The manifests explicitly set public access. Increase the version in `scripts/npm-package/package.json` before publishing subsequent releases; npm versions cannot be overwritten. Never commit npm credentials.
